@@ -38,6 +38,10 @@ include ../../gulp/res/icons/html_code.html
 - const pageLanguage = isBoard ? board.settings.language : (locale || globalLanguage);
 script(src=`/js/lang/${pageLanguage}.js?v=${commit}`)
 
+//- Tom Select
+link(rel="stylesheet" href="/css/tom-select.default.css")
+script(src="/js/tom-select.complete.js")
+
 //- main script
 script(src=`/js/all.js?v=${commit}&ct=${captchaOptions.type}`)
 

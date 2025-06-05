@@ -398,7 +398,8 @@ async function css() {
 	return gulp.src([
 		`${paths.styles.src}/locals.css`,
 		`${paths.styles.src}/style.css`,
-		`${paths.styles.src}/tegaki.css`, //make sure any custom.css also goes after this
+		`${paths.styles.src}/tegaki.css`,
+		`${paths.styles.src}/tomselect.css`, //make sure any custom.css also goes after this
 		`${paths.styles.src}/*.css`,
 		`!${paths.styles.src}/nscaptcha.css`,
 	])
@@ -536,6 +537,12 @@ const extraLocals = ${JSON.stringify({ meta: config.get.meta, reverseImageLinksU
 				fs.writeFileSync(`gulp/res/js/${templateName}.js`, compiledClient);
 			});
 
+		//symlink TomSelect
+		await fs.symlink(__dirname+'/node_modules/tom-select/dist/js/tom-select.complete.js', __dirname+'/static/js/tom-select.complete.js', 'file')
+			.catch(e => { console.warn(e); });
+		//symlink TomSelect CSS.
+		await fs.symlink(__dirname+'/node_modules/tom-select/dist/css/tom-select.default.css', __dirname+'/static/css/tom-select.default.css', 'file')
+			.catch(e => { console.warn(e); });
 		//symlink web3
 		await fs.symlink(__dirname+'/node_modules/web3/dist/web3.min.js', __dirname+'/gulp/res/js/web3.js', 'file')
 			.catch(e => { console.warn(e); });
