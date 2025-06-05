@@ -1,0 +1,61 @@
+.ts-control {
+	padding: 4px !important;
+	display: inline-flex !important;
+}
+
+.ts-control > * {
+	display: inline-flex !important;
+}
+
+
+.ts-wrapper {
+	width: 100%  !important;
+	min-height: 0px !important;
+}
+
+#customflag-ts-dropdown {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+
+	input {opacity: 0; outline: 0; border: 0;}
+	input:focus {opacity: 1; outline: 0; border: 0;}
+}
+
+.ts-image-option {
+	height:26px;
+}
+
+.ts-dropdown .active {
+	background-color: transparent !important;
+}
+
+.ts-wrapper.single .ts-control, .ts-dropdown.single {
+	box-shadow: none !important;
+	border-color: var(--box-border-color) !important;
+}
+
+.ts-dropdown, .ts-control, .ts-control input {
+	color: var(--font-color) !important;
+	background:var(--input-background) !important;
+}
+
+.ts-dropdown {
+	max-width:220px !important;
+}
+
+
+.ts-dropdown .option {
+	padding: 0px !important;
+}
+
+#selected-flag {display: none;}
+
+.ts-option-text {
+	display: inline-flex;
+	text-align: center;
+	max-height: 18px;
+	justify-content: center;
+	width: 100%;
+	margin-left: 3%;
+	padding: 4px;
+}

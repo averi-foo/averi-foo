@@ -1,5 +1,5 @@
 {
-  "name": "anthrochan",
+  "name": "averifoo",
   "version": "1.7.5",
   "migrateVersion": "1.7.5",
   "description": "",
@@ -50,6 +50,7 @@
     "semver": "^7.6.3",
     "socket.io": "^4.8.1",
     "socks-proxy-agent": "^6.2.1",
+    "tom-select": "^2.4.3",
     "uid-safe": "^2.1.5",
     "unix-crypt-td-js": "^1.1.4",
     "web3": "^4.16.0",
@@ -75,6 +76,6 @@
     "start": "pm2 start ecosystem.config.js --env production",
     "start-dev": "pm2 start ecosystem.config.js --env development"
   },
-  "author": "anthrofoo <anthrofoo@mailfence.com>",
+  "author": "averifoo <administration@averi.foo>",
   "license": "AGPL-3.0-only"
 }
