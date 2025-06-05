@@ -99,9 +99,9 @@ class modMacroHandler {
 			case 'rule6':
 				this.globalban.checked = true;
 				this.widerange.checked = true;
-				this.noappeal.checked = true;
+				this.noappeal.checked = false;
 				this.preservepost.checked = true;
-				this.banreason.value = 'Rule 6 (Tor, Proxy, VPN)';
+				this.banreason.value = 'Rule 6 (Tor, Proxy, VPN).';
 				this.banduration.value = '1y';
 				break;
 			case 'banevasion':
