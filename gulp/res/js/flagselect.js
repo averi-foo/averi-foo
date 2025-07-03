@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	new TomSelect("#customflag",{
+	const inputValue = localStorage.getItem("customflag-" + window.location.pathname.split("/")[1])
+	const newTomSelect = new TomSelect("#customflag",{
 		render: {
 			option: function(data) {
 				if (data.src != undefined) {
@@ -43,4 +44,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			this.settings.hidePlaceholder = true;
 		}
 	})
+	newTomSelect.setValue(inputValue)
 });
