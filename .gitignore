@@ -1,6 +1,7 @@
 node_modules/
 backup.sh
 
+package-lock.json
 git-get-main.sh
 upload.sh
 *~
