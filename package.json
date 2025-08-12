@@ -52,6 +52,7 @@
     "socks-proxy-agent": "^6.2.1",
     "tom-select": "^2.4.3",
     "uid-safe": "^2.1.5",
+    "unidecode": "^1.1.0",
     "unix-crypt-td-js": "^1.1.4",
     "web3": "^4.16.0",
     "web3-eth-accounts": "^4.3.1",
