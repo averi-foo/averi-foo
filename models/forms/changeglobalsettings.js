@@ -163,6 +163,7 @@ module.exports = async (req, res) => {
 			hideRecursive: booleanSetting(req.body.frontend_script_default_hide_recursive, oldSettings.frontendScriptDefault.hideRecursive),
 			crispImages: booleanSetting(req.body.frontend_script_default_crisp_images, oldSettings.frontendScriptDefault.crispImages),
 			hideThumbnails: booleanSetting(req.body.frontend_script_default_hide_thumbnails, oldSettings.frontendScriptDefault.hideThumbnails),
+			fadePostContainer: booleanSetting(req.body.frontend_script_default_fade_post_container, oldSettings.frontendScriptDefault.fadePostContainer),
 			nonColorIds: booleanSetting(req.body.frontend_script_default_non_color_ids, oldSettings.frontendScriptDefault.nonColorIds),
 			alwaysShowSpoilers: booleanSetting(req.body.frontend_script_default_always_show_spoilers, oldSettings.frontendScriptDefault.alwaysShowSpoilers),
 			hidePostStubs: booleanSetting(req.body.frontend_script_default_hide_post_stubs, oldSettings.frontendScriptDefault.hidePostStubs),
