@@ -172,6 +172,7 @@ module.exports = async (req, res) => {
 			defaultVolume: numberSetting(req.body.frontend_script_default_volume, oldSettings.frontendScriptDefault.defaultVolume),
 			loop: booleanSetting(req.body.frontend_script_default_loop, oldSettings.frontendScriptDefault.loop),
 			imageLoadingBars: booleanSetting(req.body.frontend_script_default_image_loading_bars, oldSettings.frontendScriptDefault.imageLoadingBars),
+			imageHover: booleanSetting(req.body.frontend_script_default_image_hover, oldSettings.frontendScriptDefault.imageHover),
 			live: booleanSetting(req.body.frontend_script_default_live, oldSettings.frontendScriptDefault.live),
 			scrollToPosts: booleanSetting(req.body.frontend_script_default_scroll_to_posts, oldSettings.frontendScriptDefault.scrollToPosts),
 			localTime: booleanSetting(req.body.frontend_script_default_local_time, oldSettings.frontendScriptDefault.localTime),

@@ -360,6 +360,7 @@ module.exports = {
 		defaultVolume: 100, //default video/audio volume
 		loop: true, //looping video/audio
 		imageLoadingBars: true, //show loading bar for images, changes behaviour of right click save/open
+		imageHover: false, //show image hover
 		live: true, //update threads automatically
 		scrollToPosts: false, //scroll to new posts
 		localTime: true, //show local time for posts
