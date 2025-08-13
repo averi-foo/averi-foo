@@ -16,9 +16,13 @@ block content
 				td.post-message
 					b General
 					ul.mv-0
+						li: a(href='#welcome') Welcome to Averi.foo!
 						li: a(href='#whats-an-imageboard') What is an imageboard?
 						li: a(href='/rules.html') What are the rules?
 						li: a(href='#contact') How can I contact the administration?
+					b Customization
+					ul.mv-0
+						li: a(href='#settings') What are the settings?
 					b Making posts
 					ul.mv-0
 						li: a(href='#name-formatting') How do names, tripcodes and capcodes work?
@@ -26,10 +30,18 @@ block content
 						li: a(href='#post-info') What is the file size limit?
 					b Boards, users & permissions
 					ul.mv-0
-						li: a(href='#make-a-board') How do I make my own board?
-						li: a(href='#antispam') What do the board settings for antispam do?
 						li: a(href='#archive-reverse-url-format') What is the archive/reverse image search link url format?
 						li: a(href='#twofactor-enforcement') How does 2FA enforcement work?
+	.table-container.flex-center.mv-5
+		.anchor#welcome
+		table
+			tr
+				th: a(href='#welcome') Welcome to Averi.foo!
+			tr
+				td
+					p
+						| This is our FAQ page, here you'll find some useful information on how to use our website!
+
 	.table-container.flex-center.mv-5
 		.anchor#whats-an-imageboard
 		table
@@ -42,6 +54,25 @@ block content
 					p
 						| The primary difference between imageboards and traditional forums is that anybody can make a post without registering 
 						| an account or providing any personal information. This lowers the barrier to entry, protects user identities and focuses on what is said, rather than who says it. 
+
+	.table-container.flex-center.mv-5
+		.anchor#contact
+		table
+			tr
+				th: a(href='#contact') How can I contact the administration?
+			tr
+				td
+					p You can find the email on our github repository.
+
+		.table-container.flex-center.mv-5
+		.anchor#contact
+		table
+			tr
+				th: a(href='#settings') What are the settings?
+			tr
+				td
+					p In the top right corner of your screen is a settings button, pressing it will make a popup appear with a multitude of options. This is how you can customize your experience on the site, from setting the theme to enabling Image Hover, the choice is entirely up to you.
+
 	.table-container.flex-center.mv-5
 		.anchor#name-formatting
 		table
@@ -49,7 +80,7 @@ block content
 				th: a(href='#name-formatting') Name formatting
 			tr
 				td.post-message
-					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank. Instead of a blank name,  "Anonymous" is used, however this depends on board-specific configuration. The optional components are explained below.
+					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank. Instead of a blank name,  "Furchud" is used, however this depends on board-specific configuration. The optional components are explained below.
 
 					b Format
 					p 
@@ -249,18 +280,6 @@ block content
 						| An input of "3mo" would mean 3 months and "1y2mo3w4d5h6m7s" would mean 1 year, 2 months, 3 weeks, 4 days, 5 hours, 6 minutes and 7 seconds. Units of time should be in descending order, so "2w1mo" is invalid.
 						| However you may use "6w" for example to input 6 weeks, and are not required to use "1mo2w".
 	.table-container.flex-center.mv-5
-		.anchor#make-a-board
-		table
-			tr
-				th: a(href='#make-a-board') How do I make my own board?
-			tr
-				td
-					p
-						a(href='/register.html') Register
-						|  an account, then 
-						a(href='/create.html') create a board
-						|. Please avoid making excessive amounts of boards, duplicate or boards similar to an existing one unless you expect that many users will migrate to the new board for whatever reason e.g. tyrannical moderation.
-	.table-container.flex-center.mv-5
 		.anchor#antispam
 		table
 			tr
@@ -316,11 +335,3 @@ block content
 					p Force Account 2FA: Forces all accounts to have 2FA, or else the user is redirected to the 2FA setup page.
 					p Force Action 2FA: If an account has 2FA enabled, the 2FA code must be input for: changing global settings, changing board settings, resigning from a staff position, deleting accounts, deleting your own account, or deleting a board.
 					p The granularity of what actions require 2FA will be expanded and customisable in a future release.
-	.table-container.flex-center.mv-5
-		.anchor#contact
-		table
-			tr
-				th: a(href='#contact') How can I contact the administration?
-			tr
-				td
-					p There is currently no public email for contacting our administration.
