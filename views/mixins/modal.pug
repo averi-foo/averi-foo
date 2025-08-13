@@ -4,6 +4,10 @@ mixin modal(data)
 	.modal(id=(data.settings ? 'settingsmodal' : '') style=data.hidden?'display:none':'')
 		.row
 			p.bold #{data.title}
+			if data.settings
+				p
+					| If you're confused and need help, check out the!{' '}
+					a(href='/faq.html#settings-info') FAQ.
 			a.close.postform-style#modalclose ×
 		if data.bans
 			h1.board-title #{__('Banned!')}
@@ -35,9 +39,6 @@ mixin modal(data)
 		else if data.settings
 			.row
 				.form-wrapper.flexleft.mt-10
-					small
-						| If you're confused and need help, check out the!{' '}
-						a(href='/faq.html#settings-info') FAQ.
 					.row.wrap.sb
 						.col.mr-5
 							.row
