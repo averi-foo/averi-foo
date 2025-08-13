@@ -42,6 +42,7 @@ const localStorageDefaults = {
 	'volume': settings.defaultVolume,
 	'loop': settings.loop,
 	'imageloadingbars': settings.imageLoadingBars,
+	'imagehover': settings.imageHover,
 	'live': settings.live,
 	'scroll': settings.scrollToPosts,
 	'localtime': settings.localTime,

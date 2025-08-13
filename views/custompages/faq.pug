@@ -16,9 +16,14 @@ block content
 				td.post-message
 					b General
 					ul.mv-0
+						li: a(href='#welcome') Welcome to Averi.foo!
 						li: a(href='#whats-an-imageboard') What is an imageboard?
 						li: a(href='/rules.html') What are the rules?
 						li: a(href='#contact') How can I contact the administration?
+					b Customization
+					ul.mv-0
+						li: a(href='#settings-info') What are the settings?
+						li: a(href='#themes-info') How do I change the theme?
 					b Making posts
 					ul.mv-0
 						li: a(href='#name-formatting') How do names, tripcodes and capcodes work?
@@ -26,10 +31,20 @@ block content
 						li: a(href='#post-info') What is the file size limit?
 					b Boards, users & permissions
 					ul.mv-0
-						li: a(href='#make-a-board') How do I make my own board?
-						li: a(href='#antispam') What do the board settings for antispam do?
 						li: a(href='#archive-reverse-url-format') What is the archive/reverse image search link url format?
 						li: a(href='#twofactor-enforcement') How does 2FA enforcement work?
+	.table-container.flex-center.mv-5
+		.anchor#welcome
+		table
+			tr
+				th: a(href='#welcome') Welcome to Averi.foo!
+			tr
+				td
+					p
+						| A better website for better people.
+					p
+						| This is our FAQ page, here you'll find some useful information on how to use our website.
+
 	.table-container.flex-center.mv-5
 		.anchor#whats-an-imageboard
 		table
@@ -42,6 +57,126 @@ block content
 					p
 						| The primary difference between imageboards and traditional forums is that anybody can make a post without registering 
 						| an account or providing any personal information. This lowers the barrier to entry, protects user identities and focuses on what is said, rather than who says it. 
+
+	.table-container.flex-center.mv-5
+		.anchor#contact
+		table
+			tr
+				th: a(href='#contact') How can I contact the administration?
+			tr
+				td
+					p You can find the email on our github repository.
+
+	.table-container.flex-center.mv-5
+		.anchor#settings-info
+		table
+			tr
+				th: a(href='#settings-info') What are the settings?
+			tr
+				td
+					p In the top right corner of your screen is a settings button, pressing it will make a popup appear with a multitude of options. This is how you can customize your experience on the site, from setting the theme to enabling accessibility features.
+					center
+						img(width="100px" src="/file/settings.png",alt="Settings")
+						p The available settings and what they do are listed below.
+		table
+			tr
+				td Live Posts
+				td
+					span Enabling this makes posts update live. This is enabled by default. When not enabled, you'll have to refresh your page to manually update posts.
+			tr
+				td Notifications
+				td
+					span Enabling this will push desktop notifications when posts are made in a thread, allowing you to never miss a new post. This is disabled by default. Requires permission from your browser to send desktop notifications.
+			tr
+				td Only notify (You)s
+				td
+					span When Notifications are enabled, it will only notify replies to your posts and not others. This is enabled by default.
+			tr
+				td Scroll to new posts
+				td
+					span When new posts are made in a thread, you will automatically scroll to them. This is disabled by default.
+			tr
+				td Local time
+				td Currently unsure.
+			tr
+				td 24 hour time
+				td Currently unsure. Sets time to 24 hour format instead of 12 hour format, or something.
+			tr
+				td Show relative time
+				td Currently unsure. Shows time in the format of 1 month ago instead of just showing the date, or something.
+			tr
+				td Non-color IDs
+				td
+					span Enabling this will remove the coloured background that poster IDs have. This is disabled by default.
+			tr
+				td Fade Post Container
+				td
+					span When hovering off of the new post container (the box with the subject, name and message field and post button) the container will start to fade in opacity, but will fade back if you put your mouse back on the box. Useful for reading posts while the box is active. This is disabled by default.
+			tr
+				td Hide post stubs
+				td
+					span When posts are filtered, they'll show up as stubs with the option for you to un-hide them. If you don't like this and stubs are clogging up the page, you can enable this option to hide them. This is disabled by default.
+			tr
+				td Hide deleted post content
+				td
+					span When posts are deleted, they are still visible to everyone unless they refresh their page. Enabling this setting makes deleted posts just disappear with no remains. This is disabled by default.
+			tr
+				td Disable board custom CSS
+				td
+					span Disables the board's custom CSS. This is disabled by default.
+			tr
+				td Hide thumbnails
+				td
+					span Image thumbnails become invisible. This is disabled by default.
+			tr
+				td Recursive post hide
+				td
+					span When hiding a post, it will hide the replies to that post, I'm assuming. This is enabled by default.
+			tr
+				td Loop Audio/Video
+				td
+					span Audio and Video will loop when they reach their end timestamp. This is enabled by default.
+			tr
+				td Unlimit Media Height
+				td Currently unsure. Disables restrictions on how high images can be, or something.
+			tr
+				td Crisp image rendering
+				td Currently unsure. Makes image rendering better, or something.
+			tr
+				td Image loading bars
+				td
+					span When clicking on an image to view it in full scale, a loading bar will appear. This is enabled by default. Disabling this setting will make the loading bar not appear.
+			tr
+				td Image hover
+				td
+					span When hovering over an image with your mouse, it will appear on the right as a full-scale image.
+			tr
+				td Always reveal text spoilers
+				td
+					span.spoiler Spoliered text
+					span becomes visible always. This is disabled by default.
+			tr
+				td Show (You)s
+				td
+					span Shows (You) besides your name on the posts you've made. This is enabled by default.
+			tr
+				td Smooth scrolling
+				td
+					span Makes it so when you scroll the page, it's smooth and not jagged. This is enabled by default.
+			tr
+				td Thread watcher
+				td
+					span Enables the thread watcher widget, allowing you to watch threads by clicking the post arrow and selecting "Watch". This is enabled by default.
+
+	.table-container.flex-center.mv-5
+		.anchor#themes-info
+		table
+			tr
+				th: a(href='#themes-info') How do I change the theme?
+			tr
+				td
+					p You can change the theme in the settings. Under the post password field and above the Code theme field is the Theme field. By default it is on, well... "default", but you can change it to a multitude of different themes. Navy is my best pick if you like darkmode and win95 if you're looking for something retro. You can ofcourse make your own theme using the Custom CSS option.
+
 	.table-container.flex-center.mv-5
 		.anchor#name-formatting
 		table
@@ -49,7 +184,7 @@ block content
 				th: a(href='#name-formatting') Name formatting
 			tr
 				td.post-message
-					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank. Instead of a blank name,  "Anonymous" is used, however this depends on board-specific configuration. The optional components are explained below.
+					p When posting, you can format the name field to include a name, tripcode , capcode, any combination of the three including leaving the field completely blank. Instead of a blank name,  "Furchud" is used, however this depends on board-specific configuration. The optional components are explained below.
 
 					b Format
 					p 
@@ -249,18 +384,6 @@ block content
 						| An input of "3mo" would mean 3 months and "1y2mo3w4d5h6m7s" would mean 1 year, 2 months, 3 weeks, 4 days, 5 hours, 6 minutes and 7 seconds. Units of time should be in descending order, so "2w1mo" is invalid.
 						| However you may use "6w" for example to input 6 weeks, and are not required to use "1mo2w".
 	.table-container.flex-center.mv-5
-		.anchor#make-a-board
-		table
-			tr
-				th: a(href='#make-a-board') How do I make my own board?
-			tr
-				td
-					p
-						a(href='/register.html') Register
-						|  an account, then 
-						a(href='/create.html') create a board
-						|. Please avoid making excessive amounts of boards, duplicate or boards similar to an existing one unless you expect that many users will migrate to the new board for whatever reason e.g. tyrannical moderation.
-	.table-container.flex-center.mv-5
 		.anchor#antispam
 		table
 			tr
@@ -316,11 +439,3 @@ block content
 					p Force Account 2FA: Forces all accounts to have 2FA, or else the user is redirected to the 2FA setup page.
 					p Force Action 2FA: If an account has 2FA enabled, the 2FA code must be input for: changing global settings, changing board settings, resigning from a staff position, deleting accounts, deleting your own account, or deleting a board.
 					p The granularity of what actions require 2FA will be expanded and customisable in a future release.
-	.table-container.flex-center.mv-5
-		.anchor#contact
-		table
-			tr
-				th: a(href='#contact') How can I contact the administration?
-			tr
-				td
-					p There is currently no public email for contacting our administration.

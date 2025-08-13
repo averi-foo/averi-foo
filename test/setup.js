@@ -211,6 +211,7 @@ module.exports = () => describe('login and create test board', () => {
 			frontend_script_default_volume: '100',
 			frontend_script_default_loop: 'true',
 			frontend_script_default_image_loading_bars: 'true',
+			frontend_script_default_image_hover: 'false',
 			frontend_script_default_live: 'true',
 			frontend_script_default_local_time: 'true',
 			frontend_script_default_relative_time: 'true',

@@ -33,6 +33,9 @@ mixin modal(data)
 			.row
 				a.button.mv-0(href=data.redirect) #{__('OK')}
 		else if data.settings
+			p
+				| If you're confused and need help, check out the!{' '}
+				a(href='/faq.html#settings-info') FAQ.
 			.row
 				.form-wrapper.flexleft.mt-10
 					.row.wrap.sb
@@ -111,6 +114,10 @@ mixin modal(data)
 								label.postform-style.ph-5
 									input#imageloadingbars-setting(type='checkbox')
 								.rlabel #{__('Image loading bars')}
+							.row
+								label.postform-style.ph-5
+									input#imagehover-setting(type='checkbox')
+								.rlabel #{__('Image hover')}
 							.row
 								label.postform-style.ph-5
 									input#alwaysshowspoilers-setting(type='checkbox')
