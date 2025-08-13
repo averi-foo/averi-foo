@@ -11,7 +11,7 @@ Averi.foo is a custom fork of jschan, an imageboard software by Thomas Lynch.
 This site has a heavy focus on anthropomorphic animals and sanitization.
 
 Repo Mirror(s):
- - https://github.com/s5cubed/averi-foo
+ - https://github.com/averi-foo/averi-foo
 
 Contact the author:
  - Email: administration@averi.foo
