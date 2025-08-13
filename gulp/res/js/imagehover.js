@@ -1,5 +1,17 @@
+/* globals setLocalStorage */
+
 document.addEventListener('DOMContentLoaded', () => {
-	const imageHoverEnabled = localStorage.getItem('imagehover') == 'true';
+	let imageHoverEnabled = localStorage.getItem('imagehover') == 'true';
+	const imageHoverSetting = document.getElementById('imagehover-setting');
+	const toggleImageHover = () => {
+		imageHoverEnabled = imageHoverSetting.checked;
+		console.log('toggling image hover', imageHoverEnabled);
+		setLocalStorage('imagehover', imageHoverEnabled);
+	};
+
+	imageHoverSetting.checked = imageHoverEnabled;
+	imageHoverSetting.addEventListener('change', toggleImageHover, false);
+
 	if (document.querySelector(".file-thumb") != null && imageHoverEnabled) {
 		if (document.querySelector(".hover-img") === null) {
 			const hoverimg = document.createElement("img");
