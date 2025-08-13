@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	imageHoverSetting.checked = imageHoverEnabled;
 	imageHoverSetting.addEventListener('change', toggleImageHover, false);
 
-	if (document.querySelector(".file-thumb") != null && imageHoverEnabled) {
+	if (document.querySelector(".file-thumb") != null) {
 		if (document.querySelector(".hover-img") === null) {
 			const hoverimg = document.createElement("img");
 			const hoverimgstyle = document.createElement("style");
@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		}
 
 		document.body.addEventListener('mouseover', function(event) {
-			if (event.target && event.target.classList.contains('file-thumb')) {
+			if (imageHoverEnabled && event.target && event.target.classList.contains('file-thumb')) {
 				if (event.target.src != undefined) {
 					document.querySelector(".hover-img").src = event.target.parentElement.href
 				}
@@ -45,7 +45,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 
 		document.querySelector(".hover-img").onload = function() {
-			document.querySelector(".hover-img").style.visibility = "visible"
+			if (imageHoverEnabled) {
+				document.querySelector(".hover-img").style.visibility = "visible"
+			}
 		}
 	}
 });
