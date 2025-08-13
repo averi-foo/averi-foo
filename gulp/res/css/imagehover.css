@@ -1,0 +1,12 @@
+.hover-img {
+	width: auto;
+	height:80%;
+	max-width: 50%;
+	max-height:80%;
+	object-fit:contain;
+	right: 0;
+	margin-right: 1%;
+	margin-top: 14vh;
+	position: fixed;
+	top: 0;
+}
