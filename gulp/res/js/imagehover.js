@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-	let imageHoverEnabled = localStorage.getItem('imagehover') == 'true';
+	const imageHoverEnabled = localStorage.getItem('imagehover') == 'true';
 	if (document.querySelector(".file-thumb") != null && imageHoverEnabled) {
 		if (document.querySelector(".hover-img") === null) {
 			const hoverimg = document.createElement("img");
