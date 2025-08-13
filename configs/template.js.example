@@ -351,6 +351,7 @@ module.exports = {
 		hideRecursive: true, //hide replies to hidden OPs
 		crispImages: false, //use crisp/pixelated image rendering
 		hideThumbnails: false, //hide thumbnails
+		fadePostContainer: true, //Post container automatically fades when mouse not hovering on it
 		nonColorIds: false, //dont color ids
 		alwaysShowSpoilers: false , //always reveal spoiler text
 		hidePostStubs: false, //hide hidden posts completely, dont even show it minimized
