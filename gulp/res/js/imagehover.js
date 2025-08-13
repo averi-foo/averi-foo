@@ -1,6 +1,6 @@
 /* globals setLocalStorage */
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
 	let imageHoverEnabled = localStorage.getItem('imagehover') == 'true';
 	const imageHoverSetting = document.getElementById('imagehover-setting');
 	const toggleImageHover = () => {
