@@ -127,19 +127,20 @@ module.exports = async (req, res, next) => {
 
 	if (deleting) {
 
-		//OP delete protection. for old OPs or with a lot of replies
+		//Previously, OP delete protection. for old OPs or with a lot of replies
+		//Now is post deletion protection for every post.
 		if (!isStaffOrGlobal) { //TODO: make this use a permission bit
 			const { deleteProtectionAge, deleteProtectionCount } = res.locals.board.settings;
 			if (deleteProtectionAge > 0 || deleteProtectionCount > 0) {
 				const protectedThread = res.locals.posts.some(p => {
-					return p.thread === null //is a thread
-						&& ((deleteProtectionCount > 0 && p.replyposts > deleteProtectionCount) //and it has more replies than the protection count
+					//Removed p.thread === null && so that posts can be protected also.
+					return ((deleteProtectionCount > 0 && p.replyposts > deleteProtectionCount) //and it has more replies than the protection count
 							|| (deleteProtectionAge > 0 && new Date() > new Date(p.date.getTime() + deleteProtectionAge))); //or was created too long ago
 				});
 				if (protectedThread === true) {
 					return dynamicResponse(req, res, 403, 'message', {
 						'title': __('Forbidden'),
-						'error': __('You cannot delete old threads or threads with too many replies'),
+						'error': __('You cannot delete threads or posts that are too old or have too many replies'),
 						redirect,
 					});
 				}
