@@ -134,7 +134,7 @@ module.exports = async (req, res, next) => {
 			if (deleteProtectionAge > 0 || deleteProtectionCount > 0) {
 				const protectedThread = res.locals.posts.some(p => {
 					//Removed p.thread === null && so that posts can be protected also.
-					return ((deleteProtectionCount > 0 && p.replyposts > deleteProtectionCount) //and it has more replies than the protection count
+					return ((deleteProtectionCount > 0 && p.replies > deleteProtectionCount) //and it has more replies than the protection count
 							|| (deleteProtectionAge > 0 && new Date() > new Date(p.date.getTime() + deleteProtectionAge))); //or was created too long ago
 				});
 				if (protectedThread === true) {
