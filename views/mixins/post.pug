@@ -101,7 +101,8 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					if !post.thread
 						option(value='watch') #{__('Watch')}
 						option(value='playlist') #{__('Playlist')}
-						option(value='archive') Archive
+						option(value='archivetoday') Archive | archive.today
+						option(value='archiveorg') Archive | archive.org
 		.post-data
 			if post.files.length > 0
 				.post-files(class=(post.files.length > 1 ? 'fn' : ''))

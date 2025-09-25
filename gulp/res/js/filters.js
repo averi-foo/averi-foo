@@ -292,8 +292,12 @@ const postMenuChange = function() {
 			return moderatePost(postContainer);
 		case 'edit':
 			return window.location = `/${postDataset.board}/manage/editpost/${postDataset.postId}.html`;
-		case 'archive':
-			return window.location = `https://archive.today/submit/?url=https://${window.location.hostname}/${postDataset.board}/thread/${postDataset.postId}.html`;
+		case 'archivetoday':
+			window.open(`https://archive.today/submit/?url=https://${window.location.hostname}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
+			return;
+		case 'archiveorg':
+			window.open(`https://web.archive.org/save/https://${window.location.hostname}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
+			return;
 		case 'watch': {
 			const postMessage = postContainer.querySelector('.post-message');
 			const watcherSubject = (postDataset.subject || (postMessage && postMessage.textContent) || `#${postDataset.postId}`).substring(0, 25);
