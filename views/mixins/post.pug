@@ -40,7 +40,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 							a.bold(href=`?ip=${encodeURIComponent(ip)}`) [#{ip}]
 					|
 					|
-					if (manage || globalmanage) //- Checking for now. && viewRawIp
+					if (manage || globalmanage)
 						- const ip = viewRawIp === true ? post.ip.raw : post.ip.cloak;
 						a.bold(href=`https://www.abuseipdb.com/check/${encodeURIComponent(ip)}`) [IPInfo]
 					|
