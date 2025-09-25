@@ -3,12 +3,13 @@
 * {
 	--icon-color:invert(17%)sepia(89%)saturate(7057%)hue-rotate(2deg)brightness(93%)contrast(120%);
 	--alt-label-color: #623d2a;
-	--alt-font-color: #fff;
+	--alt-font-color: #fff5e6;
 	--navbar-color: #fff0d3;
 	--post-color: #f3dfbe;
 	--post-outline-color: #623d2a;
 	--label-color: #f3dfbe;
-	--box-border-color: #000;
+	--box-border-color: #623d2a;
+	--box-background-color: #fff5e6;
 	--darken: #e0ccaf;
 	--highlighted-post-color: #fff1dc;
 	--highlighted-post-outline-color: #623d2a;
@@ -22,9 +23,9 @@
 	--post-link-color: #05563e;
 	--link-hover: #0aae7d;
 	--accent-color: #ad203f;
-	--input-borders: #a9a9a9;
-	--input-color: #000;
-	--input-background: white;
+	--input-borders: #623d2a;
+	--input-color: #2a1a12;
+	--input-background: #fff5e6;
 	--dice-color: darkorange;
 	--title-color: #ad203f;
 	--greentext-color: #789922;
@@ -78,5 +79,15 @@ input, textarea, .label, .close {
 }
 
 tr, tr:nth-child(2n+1) {
-	background: #fff !important;
+	background: #fff5e6 !important;
+}
+
+.form-post {
+	border-width: 1px !important;
+	border-color: #623d2a !important;
+	padding: 5px;
+}
+
+table, textarea, input, select, .postform-style, .form-post {
+	border-radius: 5px;
 }
