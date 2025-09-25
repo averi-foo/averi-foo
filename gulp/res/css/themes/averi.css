@@ -1,0 +1,78 @@
+/*averi*/
+
+* {
+	--icon-color:invert(17%)sepia(89%)saturate(7057%)hue-rotate(2deg)brightness(93%)contrast(120%);
+	--alt-label-color: #623d2a;
+	--alt-font-color: #fff;
+	--navbar-color: #fff0d3;
+	--post-color: #f3dfbe;
+	--post-outline-color: #623d2a;
+	--label-color: #f3dfbe;
+	--box-border-color: #000;
+	--darken: #e0ccaf;
+	--highlighted-post-color: #fff1dc;
+	--highlighted-post-outline-color: #623d2a;
+	--board-title: #ad203f;
+	--hr: #e0ccaf;
+	--font-color: #43291d;
+	--name-color: #05563e;
+	--capcode-color: #f00;
+	--subject-color: #ad203f;
+	--link-color: #05563e;
+	--post-link-color: #05563e;
+	--link-hover: #0aae7d;
+	--accent-color: #ad203f;
+	--input-borders: #a9a9a9;
+	--input-color: #000;
+	--input-background: white;
+	--dice-color: darkorange;
+	--title-color: #ad203f;
+	--greentext-color: #789922;
+	--pinktext-color:#E0727F;
+}
+
+.nav-item:hover {
+	scale: 1.1;
+	transition: scale 0.2s;
+}
+
+body {
+	background: url('/css/themes/assets/averi-wave.png') fixed no-repeat bottom right #fff0d3;
+	background-size: 15%;
+}
+
+@media only screen and (max-width: 600px) {
+	body {
+		background: #fff0d3;
+	}
+}
+
+.post-container, #float .post-container, .stickynav, .pages, #action-menu, .catalog-tile, #livetext, #threadstats, .collapse, .bottom-reply {
+	border-width: 1px 1px 1px 1px !important;
+	border-radius: 5px;
+}
+
+.label, .rlabel {
+	border-width: 0;
+	padding:2px;
+}
+
+input, textarea, .label, .close {
+	border-radius: 2px;
+}
+
+.user-id {
+	border-radius: 4px;
+}
+
+.navbar {
+	background-image: linear-gradient(to top,#fff0d3,#ffddab);
+}
+
+.hljs {
+	background: #2e4f2e;
+}
+
+tr, tr:nth-child(2n+1) {
+	background: #fff !important;
+}
