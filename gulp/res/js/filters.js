@@ -294,10 +294,10 @@ const postMenuChange = function() {
 		case 'edit':
 			return window.location = `/${postDataset.board}/manage/editpost/${postDataset.postId}.html`;
 		case 'archivetoday':
-			window.open(`https://archive.today/submit/?url=https://${metaurl}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
+			window.open(`https://archive.today/submit/?url=${metaurl}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
 			return;
 		case 'archiveorg':
-			window.open(`https://web.archive.org/save/https://${metaurl}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
+			window.open(`https://web.archive.org/save/${metaurl}/${postDataset.board}/thread/${postDataset.postId}.html`, '_blank').focus();
 			return;
 		case 'watch': {
 			const postMessage = postContainer.querySelector('.post-message');
