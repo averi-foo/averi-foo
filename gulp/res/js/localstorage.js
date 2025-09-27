@@ -49,6 +49,7 @@ const localStorageDefaults = {
 	'relative': settings.relativeTime,
 	'24hour': settings.hour24Time,
 	'notifications': settings.notificationsEnabled,
+	'embedsenabled': settings.embedsEnabled,
 	'notification-yous-only': settings.notificationsYousOnly,
 	'yous-setting': settings.showYous,
 	'threadwatcher': settings.threadWatcher,

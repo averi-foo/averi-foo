@@ -1,6 +1,21 @@
-/* globals isCatalog */
+/* globals isCatalog setLocalStorage */
 if (!isCatalog) { //dont show embed buttons in catalog
 	window.addEventListener('DOMContentLoaded', () => {
+		// Set the embedsEnabled localstorage setting on checkmark change.
+		let embedsEnabled = localStorage.getItem('embedsenabled') == 'true';
+		const embedsEnabledSetting = document.getElementById('embedsenabled-setting');
+		const toggleEmbedsEnabled = () => {
+			embedsEnabled = embedsEnabledSetting.checked;
+			console.log('toggling embeds', embedsEnabled);
+			setLocalStorage('embedsenabled', embedsEnabled);
+		};
+
+		embedsEnabledSetting.checked = embedsEnabled;
+		embedsEnabledSetting.addEventListener('change', toggleEmbedsEnabled, false);
+
+		// Do not execute script if embedsEnabled is false.
+		if (!embedsEnabled) {return;}
+		// End of settings code block
 
 		const linkSelector = '.post-message a:not(.quote)'; //get links that arent quotes
 
