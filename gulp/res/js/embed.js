@@ -85,6 +85,7 @@ if (!isCatalog) { //dont show embed buttons in catalog
 			for (let i = 0; i < l.length; i++) {
 				const embedHandler = supportedEmbeds.find(handler => handler.linkRegex.test(l[i].href));
 				if (!embedHandler) { continue; }
+				if (embedHandler.toHtml(l[i].href) === null) {continue; } // Fix for when a broken YT link stops the script, etc.
 				const [embedHtml, embedSrc] = embedHandler.toHtml(l[i].href);
 				if (embedHtml) {
 					const embedSpan = document.createElement('span');
