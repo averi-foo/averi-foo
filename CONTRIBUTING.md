@@ -2,7 +2,7 @@
 
 ## LICENSE
 
-See [LICENSE](https://github.com/anthro-foo/anthrochan/blob/main/LICENSE)
+See [LICENSE](https://github.com/averi-foo/averi-foo/blob/main/LICENSE)
 
 ## Making changes
 
@@ -18,20 +18,20 @@ In email settings, make sure `Keep my email addresses private` and `Block comman
 
 ### Making a pull request
 
-Fork https://github.com/anthro-foo/anthrochan on GitHub and clone your fork locally.
+Fork https://github.com/averi-foo/averi-foo on GitHub and clone your fork locally.
 Inside the repo run
 
 ```bash
-git remote add upstream https://github.com/anthro-foo/anthrochan
+git remote add upstream https://github.com/averi-foo/averi-foo
 git branch --set-upstream-to=upstream/main main
 git pull
 ```
 
-This will set up your fork's `main` branch to stay 1:1 copy of anthrochan's `main`
+This will set up your fork's `main` branch to stay 1:1 copy of averifoo's `main`
 branch. If you want to make a change, in your fork repo create a branch `my-cool-feature`
-from your fork's main, when you are finished, create a pull request to anthrochan 
-`yourfork/my-cool-feature` -> `anthrochan/main`. Do not make the changes into fork's
-`main` branch because it should always be a 1:1 copy of `anthrochan/main`.
+from your fork's main, when you are finished, create a pull request to averi-foo
+`yourfork/my-cool-feature` -> `averi-foo/main`. Do not make the changes into fork's
+`main` branch because it should always be a 1:1 copy of `averi-foo/main`.
 
 Always test your changes.
 
