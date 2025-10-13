@@ -24,14 +24,12 @@ if (isThread) {
 
 		const watcherSubject = (postDataset.subject || (postMessage && postMessage.textContent) || `#${postDataset.postId}`).substring(0, 25);
 
-		postSubmitButton.addEventListener('click', () => {
+		const watchThisThread = () => {
 			if (autowatchEnabled) {
-				threadWatcher.add(postDataset.board, postDataset.postId, {
-					subject: watcherSubject,
-					unread: 0,
-					updatedDate: new Date()
-				});
+				threadWatcher.add(postDataset.board, postDataset.postId, { subject: watcherSubject, unread: 0, updatedDate: new Date()});
 			}
-		})
+		};
+
+		postSubmitButton.addEventListener('click', watchThisThread)
 	}
 }
