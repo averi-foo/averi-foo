@@ -30,6 +30,6 @@ if (isThread) {
 			}
 		};
 
-		postSubmitButton.addEventListener('click', watchThisThread)
-	}
+		postSubmitButton.addEventListener('click', watchThisThread, false);
+	});
 }
