@@ -18,6 +18,7 @@ if (isThread) {
 
 		// Find post button and if you do find it, make it so that it watches the current thread.
 		const postSubmitButton = document.getElementById('submitpost');
+		const postMessageForm = document.querySelector("#postform").querySelector("#message")
 		const postContainer = document.querySelector('.post-container');
 		const postMessage = postContainer.querySelector('.post-message');
 		const postDataset = postContainer.dataset;
@@ -30,6 +31,13 @@ if (isThread) {
 			}
 		};
 
+		const checkForControlEnter = () => {
+			if (e.ctrlKey && e.key === 'Enter') {
+				watchThisThread();
+			}
+		};
+
 		postSubmitButton.addEventListener('click', watchThisThread, false);
+		postMessageForm.addEventListener('keydown',checkForControlEnter, false);
 	});
 }
