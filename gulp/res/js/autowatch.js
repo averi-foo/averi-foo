@@ -3,6 +3,10 @@
 // Only works in a thread
 if (isThread) {
 	window.addEventListener('DOMContentLoaded', () => {
+		// Set autowatch if setting doesnt exist
+		if (localStorage.getItem('autowatch') === undefined) {
+			setLocalStorage('autowatch', true);
+		}
 		// Get 'autowatch' in local storage.
 		let autowatchEnabled = localStorage.getItem('autowatch') == 'true';
 		const autowatchEnabledSetting = document.getElementById('autowatch-setting');
