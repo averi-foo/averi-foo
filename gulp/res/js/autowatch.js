@@ -4,7 +4,7 @@
 if (isThread) {
 	window.addEventListener('DOMContentLoaded', () => {
 		// Set autowatch if setting doesnt exist
-		if (localStorage.getItem('autowatch') === undefined) {
+		if (localStorage.getItem('autowatch') === undefined || localStorage.getItem('autowatch') === null) {
 			setLocalStorage('autowatch', true);
 		}
 		// Get 'autowatch' in local storage.
