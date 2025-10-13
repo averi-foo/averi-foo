@@ -357,6 +357,7 @@ module.exports = {
 		hidePostStubs: false, //hide hidden posts completely, dont even show it minimized
 		smoothScrolling: true, //smooth scrolling. annoying for chrome users on long threads
 		threadWatcher: true, //make threadwatcher visible
+		autoWatch: true, //make threadwatcher automatically watch replied threads
 		defaultVolume: 100, //default video/audio volume
 		loop: true, //looping video/audio
 		imageLoadingBars: true, //show loading bar for images, changes behaviour of right click save/open

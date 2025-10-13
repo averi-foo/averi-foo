@@ -625,6 +625,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_thread_watcher', value='true' checked=settings.frontendScriptDefault.threadWatcher)
 			.row
+				.label #{__("Watch threads you've replied to")}
+				label.postform-style.ph-5
+					input(type='checkbox', name='frontend_script_default_autowatch', value='true' checked=settings.frontendScriptDefault.autoWatch)
+			.row
 				.label #{__('Default Volume')}
 				label.postform-style.ph-5
 					input(type='range' name='frontend_script_default_volume' min='0' max='100' value=settings.frontendScriptDefault.defaultVolume)
