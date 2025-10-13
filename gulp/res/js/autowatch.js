@@ -31,7 +31,7 @@ if (isThread) {
 			}
 		};
 
-		const checkForControlEnter = () => {
+		const checkForControlEnter = (e) => {
 			if (e.ctrlKey && e.key === 'Enter') {
 				watchThisThread();
 			}
