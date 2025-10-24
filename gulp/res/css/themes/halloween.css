@@ -84,27 +84,27 @@
 	 background: #080c19 !important;
  }
 
- img[src="/file/home.png"] {
+ img[src$="/file/home.png"] {
 	 content: url("/css/themes/assets/halloween_home.png");
  }
 
- img[src="/file/account.png"] {
+ img[src$="/file/account.png"] {
 	 content: url("/css/themes/assets/halloween_account.png");
  }
 
- img[src="/file/overboard.png"] {
+ img[src$="/file/overboard.png"] {
 	 content: url("/css/themes/assets/halloween_overboard.png");
  }
 
- img[src="/file/settings.png"] {
+ img[src$="/file/settings.png"] {
 	 content: url("/css/themes/assets/halloween_settings.png");
  }
 
- img[src="/file/boards.png"] {
+ img[src$="/file/boards.png"] {
 	 content: url("/css/themes/assets/halloween_boards.png");
  }
 
- img[src="/file/manage.png"] {
+ img[src$="/file/manage.png"] {
 	 content: url("/css/themes/assets/halloween_manage.png");
  }
 
