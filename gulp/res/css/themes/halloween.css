@@ -59,8 +59,21 @@
 	 border-radius: 5px;
  }
 
- .post-container {
+ .post-container, .post-container.op {
 	 background: #00000080;
+	 box-shadow: 0px 0px 10px 0px var(--highlighted-post-outline-color);
+ }
+
+ .post-container.op {
+	 width: auto;
+ }
+
+ #postform {
+	 box-shadow: 0px 0px 14px 0px rgba(255,191,0,.3);
+ }
+
+ tbody {
+	 box-shadow: 0px 0px 14px 0px rgba(144,190,255,0.3);
  }
 
  .label, .rlabel {
