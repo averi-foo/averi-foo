@@ -1,0 +1,113 @@
+ /*halloween*/
+
+ * {
+	 --icon-color:invert(17%)sepia(89%)saturate(7057%)hue-rotate(2deg)brightness(93%)contrast(120%);
+	 --alt-label-color: #1a1e34;
+	 --alt-font-color: #bfbfbf;
+	 --background-top: #080c19;
+	 --background-rest: #080c19;
+	 --navbar-color: #1a1e34;
+	 --post-color: #010002;
+	 --post-outline-color: #000;
+	 --label-color: #01000269;
+	 --box-border-color: #2c3a4e;
+	 --darken: #ffffff08;
+	 --highlighted-post-color: #250829;
+	 --highlighted-post-outline-color: #664e5c;
+	 --board-title: #ff8b25;
+	 --hr: #303030;
+	 --font-color: #bfbfbf;
+	 --name-color: #eab246;
+	 --capcode-color: #ff4141;
+	 --subject-color: #8f8dc9;
+	 --link-color: #8585a3;
+	 --post-link-color: #f65252;
+	 --link-hover: #ffbf00;
+	 --accent-color: #434343;
+	 --input-borders: #434343;
+	 --input-color: #bfbfbf;
+	 --input-background: #080c19;
+	 --dice-color: darkorange;
+	 --title-color: #d70000;
+	 --greentext-color: #0a0;
+	 --pinktext-color:#E0727F;
+ }
+
+ .nav-item:hover {
+	 scale: 1.1;
+	 transition: scale 0.2s;
+ }
+
+ .post-name:before {
+	 content: "Spooky ";
+ }
+
+ body {
+	 background: url('/css/themes/assets/halloween-bg.png') fixed no-repeat bottom right #080c19;
+	 background-size: cover;
+ }
+
+ @media only screen and (max-width: 600px) {
+	 body {
+		 background: url('/css/themes/assets/halloween-bg.png') fixed no-repeat bottom left #080c19;
+		 background-size: cover;
+	 }
+ }
+
+ .post-container, #float .post-container, .stickynav, .pages, #action-menu, .catalog-tile, #livetext, #threadstats, .collapse, .bottom-reply {
+	 border-width: 1px 1px 1px 1px !important;
+	 border-radius: 5px;
+ }
+
+ .post-container {
+	 background: #00000080;
+ }
+
+ .label, .rlabel {
+	 border-width: 0;
+	 padding:2px;
+ }
+
+ input, textarea, .label, .close {
+	 border-radius: 2px;
+ }
+
+ .user-id {
+	 border-radius: 4px;
+ }
+
+ .navbar {
+	 background: linear-gradient(to top,#1e1142,#000);
+ }
+
+ tr, tr:nth-child(2n+1) {
+	 background: #080c19 !important;
+ }
+
+ img[src="/file/home.png"] {
+	 content: url("/css/themes/assets/halloween_home.png");
+ }
+
+ img[src="/file/account.png"] {
+	 content: url("/css/themes/assets/halloween_account.png");
+ }
+
+ img[src="/file/overboard.png"] {
+	 content: url("/css/themes/assets/halloween_overboard.png");
+ }
+
+ img[src="/file/settings.png"] {
+	 content: url("/css/themes/assets/halloween_settings.png");
+ }
+
+ img[src="/file/boards.png"] {
+	 content: url("/css/themes/assets/halloween_boards.png");
+ }
+
+ img[src="/file/manage.png"] {
+	 content: url("/css/themes/assets/halloween_manage.png");
+ }
+
+ #float {
+ background: black;
+ }
