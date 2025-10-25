@@ -1,8 +1,21 @@
-## Installation
-##### These instructions are not for the uninitiated and assume you have a brain. Follow them carefully and you will have a nice working imageboard by the end.
+# Installation
+<img src="https://raw.githubusercontent.com/averi-foo/averi-foo/refs/heads/main/gulp/res/css/themes/assets/averi-wave.png" alt="drawing" style="height:400px;"/>
+
+##### Make sure to follow the instructions carefully, failing to do so could cause the installation to fail or need reparing.
+This is a guide for installing averi.foo onto your own local virtual machine for the purpose of helping develop more features for the site, or just having an environment to screw around in so you don't accidentally ruin the production service, etc. These instructions were originally written by Thomas Lynch, creator of JSChan, but I have decided to modify some of it to give some additional information on my experience installing jschan. If you need any help, feel free to ask me on /q/
+
+This guide therefore is only intended for the purpose of setting up a developer environment since nobody except Lachlan should have access to the production environment.
+
+##### Virtual Machine
+It's strongly recommended to install the server in a self contained environment using a service like [virt-manager](https://linuxvox.com/blog/install-virt-manager-ubuntu/) with QEMU. There are tons of guides out there, but in any way you can, get yourself a 25gb Ubuntu 24.04 VM and follow these instructions for development purposes.
+
+You will not have to install an XOrg/Desktop environment onto the machine as you can test the site in your browser on your host machine / main PC outside of the VM.
+
 
 ##### Requirements
-- Linux - Debian used in this example
+This guide will cover everything, so do not install anything immediately as we will cover this in steps 1 and later.
+
+- Linux - I **strongly** suggest Ubuntu Server 22 or 24.
 - Node.js - the application runtime
 - MongoDB >= 4.4 - the database
 - Redis - session store, task queue, locks, caching, websocket message arbiter
@@ -10,38 +23,47 @@
 - Certbot/letsencrypt - to get a free https certificate
 - Graphicsmagick+Imagemagick - identify and thumbnail images, generate captchas
 - Ffmpeg - identify and thumbnail audio, video and gifs
+- Net-tools - ifconfig to find where to test your server
+- Git - to get the repo
 
 **0. Read the LICENSE**
 
+
 **1. Setup server with some basics**
 
-- Separate, unpriveliged user to run the application.
+- Separate, unpriveliged user to run the application. 
 - Basic security:
   - Sshd root login disabled, key login only, listen only on desired interface.
   - Firewall (ufw works) to deny all incoming on ports besides http/s and sshd.
   - Setup unattended-upgrades for security patches.
 - Set the timezone to UTC.
-- Clone the repo somewhere. The homedir for the user you setup or /var/www should work.
 
 **2. Install dependencies.**
 
 ```bash
 sudo apt update -y
-sudo apt install curl wget libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
+sudo apt install git net-tools curl wget libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
 ```
+**3. Clone forked repo**
 
-**3. Install MongoDB**
+After they've installed, fork my repo and git clone your forked repo into either your home directory or /var/www/ using `git clone <your-forked-repo-url>`. 
+
+If you don't know which to choose, just clone it into your user directory, e.g /home/myusername
+
+**4. Install MongoDB 8.0**
 
 NOTE: As per the MongoDB Documentation, since MongoDB 5.0, the AVX instruction set is required.
 
-> MongoDB 5.0 requires use of the AVX instruction set, available on [select Intel and AMD processors](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#CPUs_with_AVX).
+> MongoDB 5.0 and up requires use of the AVX instruction set, available on [select Intel and AMD processors](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions#CPUs_with_AVX).
 
 Please ensure your hardware is supported before reporting issues. The complete platform support matrix is available [here](https://www.mongodb.com/docs/manual/administration/production-notes/#platform-support-matrix).
 
 [MongoDB Installation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/#install-mongodb-community-edition-on-debian):
 ```bash
-wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -
-echo "deb http://repo.mongodb.org/apt/debian $(lsb_release -sc)/mongodb-org/7.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+   sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+   --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
 sudo apt update
 sudo apt install -y mongodb-org
 sudo systemctl enable --now mongod
@@ -82,7 +104,7 @@ sudo systemctl restart mongod
 #mongosh "mongodb://jschan:CHANGE-ME-YOUR-SECURE-MONGODB-PASSWORD@127.0.0.1:27017/jschan"
 ```
 
-**4. Install Redis**
+**5. Install Redis**
 
 [Redis Installation](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-debian-10):
 ```bash
@@ -98,11 +120,11 @@ echo "requirepass CHANGE-ME-YOUR-SECURE-REDIS-PASSWORD" | sudo tee -a /etc/redis
 sudo systemctl restart redis-server
 ```
 
-**5. Install Node.js**
+**6. Install Node.js**
 
 For easy installation, use [node version manager](https://github.com/nvm-sh/nvm#installing-and-updating) "nvm":
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -114,57 +136,6 @@ nvm install --lts
 ```
 
 Installing Node.js yourself without nvm is possible, but unsupported by this guide.
-
-**6. (Optional) If you want a .onion address (Tor) and/or .loki address (Lokinet)**
-
-Install Tor, setup a hidden service, and output your .onion address:
-```bash
-sudo apt install tor -y
-sudo systemctl enable --now tor
-sudo sh -c "cat > /etc/tor/torrc" <<'EOF'
-HiddenServiceDir /var/lib/tor/jschan/
-HiddenServiceVersion 3
-HiddenServicePort 80 unix:/var/run/nginx-tor.sock
-EOF
-
-sudo systemctl restart tor
-until [ -f /var/lib/tor/jschan/hostname ]
-do
-     sleep 1
-done
-sudo cat /var/lib/tor/jschan/hostname
-```
-
-Install Lokinet, setup a SNApp, and find your .loki address:
-```bash
-sudo curl -so /etc/apt/trusted.gpg.d/oxen.gpg https://deb.oxen.io/pub.gpg
-echo "deb https://deb.oxen.io $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/oxen.list
-sudo apt update -y
-sudo apt install lokinet -y
-sudo systemctl enable --now lokinet
-sudo sh -c "cat > /var/lib/lokinet/lokinet.ini" <<'EOF'
-[router]
-[network]
-keyfile=/var/lib/lokinet/snappkey.private
-[paths]
-[dns]
-[bind]
-[api]
-[bootstrap]
-[logging]
-EOF
-
-sudo systemctl restart lokinet
-nslookup -type=cname localhost.loki # Your loki address is the "canonical name".
-```
-
-For Lokinet, make sure to firewall all ports except 80 on `lokitun0` interface. If you use `ufw` for example, you could do:
-```bash
-sudo ufw deny in on lokitun0 to any
-sudo ufw allow in on lokitun0 to any port 80 proto tcp
-```
-
-Note down the .loki and .onion address for the next step.
 
 **7. Setup nginx**
 
@@ -232,28 +203,47 @@ gulp
 pm2 save
 ```
 
+**9. Expose site to localhost so you can test it**
+
+By this point, everything is set up, but you'll need to access the site, to do this edit the site configuration
+```bash 
+sudo nano /etc/nginx/sites-available/jschan.conf
+```
+Add the following under the upstream code block:
+```bash
+server {
+        server_name localhost;
+        client_max_body_size 0;
+
+        include /etc/nginx/snippets/security_headers.conf;
+        include /etc/nginx/snippets/error_pages.conf;
+        include /etc/nginx/snippets/jschan_clearnet_routes.conf;
+        include /etc/nginx/snippets/jschan_common_routes.conf;
+}
+```
+Next, if you put the repo in your home directory and not /var/www, you'll need to edit /etc/nginx/nginx.conf to give nginx access to your server files. This step is important because without it, no css or images or anything will load on the server. **Only do this step if your forked git repo is in /home/myusername/**
+```bash 
+sudo nano /etc/nginx/nginx.conf
+```
+Set user www-data; to 
+```bash 
+user myusername;
+```
+Update PM2 and run `reload.sh`
+
+**10. All done!**
+
+To access the site type `ifconfig`, get your local ip and paste it in your browser, it should now load perfectly.
+
 Some commands you may need to use in future/find helpful:
 - `pm2 list` - Lists running pm2 processes.
 - `pm2 logs` - Start tailing logs.
 - `pm2 reload ecosystem.config.js` - Reload all backend processes.
 - `gulp password` - Reset the admin account password if you forgot it.
 - `gulp` - Run the default gulp task.
+- `./reload.sh` - Reloads the server in developer environment. Pass argument -p for production.
 
 More information and commands for customisation or advanced use is in the ADVANCED section.
-
-**9. (Optional) if you plan to use the webring and want to make requests with a proxy to mask your origin server IP**
-
-EITHER:
-
-- Use the socks proxy provided by a non-docker tor daemon, which is probably already setup on port 9050 if you have tor installed for a hidden service.
-- Install docker and run torproxy in a container: https://github.com/dperson/torproxy (of course, audit the docker image yourself).
-- Use your own socks proxy
-
-Either of the first two options will allow you to follow .onions in your webring follow list.
-
-To enable the proxy, tick "Use Socks Proxy" in global management settings and set the appropriate proxy address, e.g. `socks5h://127.0.0.1:9050`, then save settings.
-
-**10. All done!**
 
 ## Updating
 
@@ -306,11 +296,7 @@ pm2 logs
 
 ## Help! Something didn't work!!!1!!1
 
-If you are sure you did everything correctly and you still can't get it working, you can ask for help in the IRC (linked in [README](README.md)).
-
-Be polite, be patient, ask [smart questions](http://www.catb.org/~esr/faqs/smart-questions.html), and keep in mind nobody is obliged to help you.
-
-Paid support is available at a rate of $50USD/hr, payable in cryptocurrency (BTC/XMR) only. Email the address on my [Gitgud profile](https://gitgud.io/fatchan) to inquire.
+If you are sure you did everything correctly and you still can't get it working, you can ask me for help in /q/.
 
 ## Advanced
 
@@ -405,26 +391,6 @@ To build all css files, run `gulp css`. For some situations, such as adding or r
 
 #### Handy nginx stuff
 
-For detecting and automatically updating Tor exit node lists, see [tools/update_tor_exits.sh](tools/update_tor_exits.sh)
-
 For updating the GeoIP database for nginx, see [tools/update_geoip.sh](tools/update_geoip.sh)
-
-
-#### Docker
-
-Experimental, strictly for development only.
-
-Basically:
-
-```bash
-docker-compose up -d mongodb redis
-
-#on the first run, or to "gulp reset" later:
-docker-compose up jschan-reset
-
-docker-compose up -d jschan
-
-docker-compose up -d nginx
-```
 
 </details>
