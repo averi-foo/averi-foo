@@ -61,6 +61,8 @@ module.exports = async (req, res) => {
 	let thread = null;
 	const isStaffOrGlobal = res.locals.permissions.hasAny(Permissions.MANAGE_GLOBAL_GENERAL, Permissions.MANAGE_BOARD_GENERAL);
 	const isAdmin = res.locals.permissions.hasAny(Permissions.VIEW_RAW_IP);
+	// TODO: Make bypass thread lock it's own permission
+	const isTrusted = res.locals.permissions.hasAny(Permissions.BYPASS_FILE_APPROVAL);
 	const { blockedCountries, threadLimit, ids, userPostSpoiler,
 		pphTrigger, tphTrigger, tphTriggerAction, pphTriggerAction,
 		sageOnlyEmail, forceAnon, replyLimit, disableReplySubject,
@@ -95,14 +97,15 @@ module.exports = async (req, res) => {
 
 
 	//
-	// Check if board/thread creation locked
+	// Check if board/thread creation locked.
 	//
-	if ((lockMode === 2 || (lockMode === 1 && !req.body.thread)) //if board lock, or thread lock and its a new thread
-		&& !isAdmin) { // and not admin
+
+	//if board lock, or thread lock and its a new thread and you're not trusted.
+	if ((lockMode === 2 || (lockMode === 1 && !req.body.thread && !isTrusted)) && !isAdmin) { // and not admin
 		await deleteTempFiles(req).catch(console.error);
 		return dynamicResponse(req, res, 400, 'message', {
 			'title': __('Bad request'),
-			'message': __(lockMode === 1 ? 'Thread creation locked' : 'Board locked'),
+			'message': __(lockMode === 1 ? 'Thread creation is currently locked, probably due to spam. Check again later, or discuss in an existing thread.' : 'Board is currently locked. Check again later.'),
 			'redirect': redirect
 		});
 	}
