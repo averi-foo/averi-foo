@@ -105,7 +105,7 @@ module.exports = async (req, res) => {
 		await deleteTempFiles(req).catch(console.error);
 		return dynamicResponse(req, res, 400, 'message', {
 			'title': __('Bad request'),
-			'message': __(lockMode === 1 ? 'Thread creation is currently locked. Check again later.' : 'Board is currently locked. Check again later.'),
+			'message': __(lockMode === 1 ? 'Thread creation is currently locked, probably due to spam. Check again later, or discuss in an existing thread.' : 'Board is currently locked. Check again later.'),
 			'redirect': redirect
 		});
 	}
