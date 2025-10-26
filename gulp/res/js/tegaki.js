@@ -1,74 +1,73 @@
 /*! tegaki.js, MIT License */'use strict';var TegakiStrings = {
   // Messages
-  badDimensions: __('Invalid dimensions.'),
-  promptWidth: __('Canvas width in pixels'),
-  promptHeight: __('Canvas height in pixels'),
-  confirmDelLayers: __('Delete selected layers?'),
-  confirmMergeLayers: __('Merge selected layers?'),
-  tooManyLayers: __('Layer limit reached.'),
-  errorLoadImage: __('Could not load the image.'),
-  noActiveLayer: __('No active layer.'),
-  hiddenActiveLayer: __('The active layer is not visible.'),
-  confirmCancel: __('Are you sure? Your work will be lost.'),
-  confirmChangeCanvas: __('Are you sure? Changing the canvas will clear all layers and history and disable replay recording.'),
+  badDimensions: 'Invalid dimensions.',
+  promptWidth: 'Canvas width in pixels',
+  promptHeight: 'Canvas height in pixels',
+  confirmDelLayers: 'Delete selected layers?',
+  confirmMergeLayers: 'Merge selected layers?',
+  tooManyLayers: 'Layer limit reached.',
+  errorLoadImage: 'Could not load the image.',
+  noActiveLayer: 'No active layer.',
+  hiddenActiveLayer: 'The active layer is not visible.',
+  confirmCancel: 'Are you sure? Your work will be lost.',
+  confirmChangeCanvas: 'Are you sure? Changing the canvas will clear all layers and history and disable replay recording.',
   
   // Controls
-  color: __('Color'),
-  size: __('Size'),
-  alpha: __('Opacity'),
-  flow: __('Flow'),
-  zoom: __('Zoom'),
-  layers: __('Layers'),
-  switchPalette: __('Switch color palette'),
-  paletteSlotReplace: __('Right click to replace with the current color'),
+  color: 'Color',
+  size: 'Size',
+  alpha: 'Opacity',
+  flow: 'Flow',
+  zoom: 'Zoom',
+  layers: 'Layers',
+  switchPalette: 'Switch color palette',
+  paletteSlotReplace: 'Right click to replace with the current color',
   
   // Layers
-  layer: __('Layer'),
-  addLayer: __('Add layer'),
-  delLayers: __('Delete layers'),
-  mergeLayers: __('Merge layers'),
-  moveLayerUp: __('Move up'),
-  moveLayerDown: __('Move down'),
-  toggleVisibility: __('Toggle visibility'),
+  layer: 'Layer',
+  addLayer: 'Add layer',
+  delLayers: 'Delete layers',
+  mergeLayers: 'Merge layers',
+  moveLayerUp: 'Move up',
+  moveLayerDown: 'Move down',
+  toggleVisibility: 'Toggle visibility',
   
   // Menu bar
-  newCanvas: __('New'),
-  open: __('Open'),
-  save: __('Save'),
-  saveAs: __('Save As'),
-  export: __('Export'),
-  undo: __('Undo'),
-  redo: __('Redo'),
-  close: __('Close'),
-  finish: __('Finish'),
+  newCanvas: 'New',
+  open: 'Open',
+  save: 'Save',
+  saveAs: 'Save As',
+  export: 'Export',
+  undo: 'Undo',
+  redo: 'Redo',
+  close: 'Close',
+  finish: 'Finish',
   
   // Tool modes
-  tip: __('Tip'),
-  pressure: __('Pressure'),
-  preserveAlpha: __('Preserve Alpha'),
+  tip: 'Tip',
+  pressure: 'Pressure',
+  preserveAlpha: 'Preserve Alpha',
   
   // Tools
-  pen: __('Pen'),
-  pencil: __('Pencil'),
-  airbrush: __('Airbrush'),
-  pipette: __('Pipette'),
-  blur: __('Blur'),
-  eraser: __('Eraser'),
-  bucket: __('Bucket'),
-  tone: __('Tone'),
+  pen: 'Pen',
+  pencil: 'Pencil',
+  airbrush: 'Airbrush',
+  pipette: 'Pipette',
+  blur: 'Blur',
+  eraser: 'Eraser',
+  bucket: 'Bucket',
+  tone: 'Tone',
   
   // Replay
-  gapless: __('Gapless'),
-  play: __('Play'),
-  pause: __('Pause'),
-  rewind: __('Rewind'),
-  slower: __('Slower'),
-  faster: __('Faster'),
-  recordingEnabled: __('Recording replay'),
-  errorLoadReplay: __('Could not load the replay: '),
-  loadingReplay: __('Loading replay…'),
+  gapless: 'Gapless',
+  play: 'Play',
+  pause: 'Pause',
+  rewind: 'Rewind',
+  slower: 'Slower',
+  faster: 'Faster',
+  recordingEnabled: 'Recording replay',
+  errorLoadReplay: 'Could not load the replay: ',
+  loadingReplay: 'Loading replay…',
 };
-
 class TegakiTool {
   constructor() {
     this.id = 0;
@@ -1706,7 +1705,7 @@ var TegakiCursor = {
     
     el = $T.el('canvas');
     el.id = 'tegaki-cursor-layer';
-    [ el.width, el.height ] = TegakiCursor.getMaxCanvasSize()
+    [ el.width, el.height ] = TegakiCursor.getMaxCanvasSize();
     
     Tegaki.canvasCnt.appendChild(el);
     
@@ -1749,8 +1748,8 @@ var TegakiCursor = {
   render: function(rawX, rawY) {
     var x, y, i, destImg, destData;
     
-    x = rawX - this.offsetX - this.radius;
-    y = rawY - this.offsetY - this.radius;
+    x = 0 | (rawX - this.offsetX - this.radius);
+    y = 0 | (rawY - this.offsetY - this.radius);
     
     this.clear();
     
@@ -2745,7 +2744,7 @@ var TegakiLayers = {
   }
 };
 var Tegaki = {
-  VERSION: '0.9.2',
+  VERSION: '0.9.4',
   
   startTimeStamp: 0,
   
@@ -4018,6 +4017,10 @@ var Tegaki = {
   onPointerMove: function(e) {
     var events, x, y, tool, ts, p;
     
+    if (Tegaki.cursor) {
+      TegakiCursor.render(e.clientX, e.clientY);
+    }
+    
     if (e.mozInputSource !== undefined) {
       // Firefox thing where mouse events fire for no reason when the pointer is a pen
       if (Tegaki.activePointerIsPen && e.pointerType === 'mouse') {
@@ -4069,14 +4072,14 @@ var Tegaki = {
       x = Tegaki.getPointerPos(e, 0);
       y = Tegaki.getPointerPos(e, 1);
     }
-    
-    if (Tegaki.cursor) {
-      TegakiCursor.render(e.clientX, e.clientY);
-    }
   },
   
   onPointerDown: function(e) {
     var x, y, tool, p;
+    
+    if (Tegaki.cursor) {
+      TegakiCursor.render(e.clientX, e.clientY);
+    }
     
     if (Tegaki.isScrollbarClick(e)) {
       return;
@@ -4135,10 +4138,6 @@ var Tegaki = {
       TegakiHistory.pendingAction.addCanvasState(Tegaki.activeLayer.imageData, 0);
       
       tool.start(x, y);
-    }
-    
-    if (Tegaki.cursor) {
-      TegakiCursor.render(e.clientX, e.clientY);
     }
   },
   
@@ -4428,7 +4427,7 @@ class TegakiEventDrawNoP {
     x = r.readInt16();
     y = r.readInt16();
     
-    return new TegakiEventDraw(timeStamp, x, y);
+    return new TegakiEventDrawNoP(timeStamp, x, y);
   }
   
   dispatch() {
