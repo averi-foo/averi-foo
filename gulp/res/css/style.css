@@ -1877,7 +1877,6 @@ row.wrap.sb .col {
 		background: var(--darken);
 		margin: -6.5px -6.5px 5px -6.5px;
 		border-bottom: 1px solid var(--post-outline-color);
-		text-align: center;
 	}
 
 	.anchor:target + .post-container .post-info,
