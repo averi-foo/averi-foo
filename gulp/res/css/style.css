@@ -1553,11 +1553,11 @@ input.illegal-button {
 
 /* Easy on the eyes. */
 .overlay-text + .post-file-src .file-thumb {
-	content: url("/file/media-pending-approval.png") !important;
+	content: url("/file/janny-warning.png") !important;
 }
 
 .overlay-text + .post-file-src .catalog-thumb {
-	content: url("/file/media-pending-approval.png") !important;
+	content: url("/file/janny-warning.png") !important;
 }
 
 /* ^="f" means only where attachment is false, to prevent showing on attachment files with audio or video mime type */
