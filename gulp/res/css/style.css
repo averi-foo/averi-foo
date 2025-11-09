@@ -1552,7 +1552,7 @@ input.illegal-button {
 }
 
 /* Easy on the eyes. */
-.overlay-text + .post-file-src .file-thumb {
+.overlay-text + .post-file-src .file-thumb, .catalog-thumb {
 	content: url("/file/media-pending-approval.png") !important;
 }
 
