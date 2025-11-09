@@ -25,6 +25,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.body.addEventListener('mouseover', function(event) {
 			if (imageHoverEnabled && event.target && event.target.classList.contains('file-thumb')) {
 				if (event.target.src != undefined) {
+					if (event.target.closest(".post-file") != null) {
+						if (event.target.closest(".post-file").querySelector(".approval-button-container") != null) {
+							return
+						}
+					}
 					document.querySelector(".hover-img").src = event.target.parentElement.href
 				}
 			} else if (!event.target.classList.contains('hover-img')) {
