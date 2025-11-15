@@ -78,8 +78,9 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					| 
 			span.post-links
 				a.noselect.no-decoration(href=`${postURL}#${post.postId}`) #{__('No.')}
+				- const isInRecents = (truncate || manage || globalmanage)
 				span.post-quote-num
-					a.no-decoration(href=`${postURL}#postform`) #{post.postId}
+					a.no-decoration(href=`${postURL}#postform`, target=isInRecents ? '_blank' : undefined) #{post.postId}
 				| 
 				span.post-quote(post-id=`${post.postId}`)
 					a.no-decoration(href=`${postURL}#postform`) Quote
