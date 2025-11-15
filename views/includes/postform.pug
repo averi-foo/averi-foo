@@ -73,7 +73,7 @@ section.form-wrapper.flex-center
 			section.row
 				.label Password
 				input(type='password', name='postpassword', placeholder='Password to delete/spoiler/unlink later' maxlength='50' autocomplete='new-password')
-		if modview || board.settings.customFlags === true || board.settings.geoFlags === true
+		if modview || (board.settings.customFlags === true || board.settings.geoFlags === true)
 			section.row
 				.label #{__('Flag')}
 				select#customflag(name='customflag')
