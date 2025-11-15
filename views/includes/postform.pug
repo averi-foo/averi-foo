@@ -73,16 +73,18 @@ section.form-wrapper.flex-center
 			section.row
 				.label Password
 				input(type='password', name='postpassword', placeholder='Password to delete/spoiler/unlink later' maxlength='50' autocomplete='new-password')
-		if modview || board.settings.customFlags === true
-			- const boardFlags = Object.entries(board.flags)
-			if boardFlags.length > 0
-				section.row
-					.label #{__('Flag')}
-					select#customflag(name='customflag')
-						option(value='') #{board.settings.geoFlags === true ? __('Geographic Flag') : __('None')}
+		if modview || board.settings.customFlags === true || board.settings.geoFlags === true
+			section.row
+				.label #{__('Flag')}
+				select#customflag(name='customflag')
+					option(value='') #{__('None')}
+					if board.settings.geoFlags === true
+						option(value='geographical') #{__('Geographic Flag')}
+					- const boardFlags = Object.entries(board.flags)
+					if board.settings.customFlags === true && boardFlags.length > 0
 						each flag in boardFlags
 							option(value=flag[0] data-src=`/flag/${board._id}/${flag[1]}`) #{flag[0]}
-					img.jsonly#selected-flag
+				img.jsonly#selected-flag
 		if enableWeb3 === true && board.settings.enableWeb3 === true
 			section.row.jsonly.web3
 				.label #{__('Web3')}
