@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			allowEmptyOption: true,
 			placeholder: "Enter flag name to search...",
 			hidePlaceholder: true,
+			maxOptions: null,
 			onItemAdd: function() {this.settings.hidePlaceholder = true},
 			onDropdownOpen: function() {
 				const tsOptionText = document.querySelector('.ts-option-text');
