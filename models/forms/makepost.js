@@ -473,13 +473,14 @@ module.exports = async (req, res) => {
 		userId = fullUserIdHash.substring(fullUserIdHash.length-6);
 	}
 	let country = null;
-	if (geoFlags === true) {
+	if (geoFlags === true && req.body.customflag == "geographical") {
 		country = {
 			code: res.locals.country.code,
 			name: getCountryName(res.locals.country.code, res.locals.locale),
 		};
 	}
-	if (customFlags === true) {
+
+	if (customFlags === true && req.body.customflag != "geographical") {
 		if (req.body.customflag && res.locals.board.flags[req.body.customflag] != null) {
 			//if customflags allowed, and its a valid selection
 			country = {
