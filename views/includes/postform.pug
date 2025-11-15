@@ -79,7 +79,7 @@ section.form-wrapper.flex-center
 				select#customflag(name='customflag')
 					option(value='') #{__('None')}
 					if board.settings.geoFlags === true
-						option(value='geographical') #{__('Geographic Flag')}
+						option(value='geographical') #{__('Geo Flag')}
 					- const boardFlags = Object.entries(board.flags)
 					if board.settings.customFlags === true && boardFlags.length > 0
 						each flag in boardFlags
