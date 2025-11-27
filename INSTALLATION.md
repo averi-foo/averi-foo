@@ -180,6 +180,12 @@ npm install
 ```
 
 4. Replace `gulp/res/icons/master.png` with your desired favicon image.
+```bash
+rm -r gulp/res/icons
+gulp generate-favicon 
+gulp icons
+./reload.sh
+```
 
 5. Run the setup script. This will install `pm2` (nodejs process manager) and `gulp` (task system) and runs some gulp tasks.
 ```bash
