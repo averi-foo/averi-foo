@@ -6,7 +6,7 @@ const uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
-	, { createHash } = require('crypto');
+	, { createHash } = require('crypto')
 	, quoteHandler = require(__dirname+'/../../lib/post/quotes.js');
 
 module.exports = async (req, res) => {
