@@ -880,6 +880,9 @@ module.exports = {
 	move: async (postMongoIds, crossBoard, destinationThreadId, destinationBoard) => {
 		let bulkWrites = []
 			, newDestinationThreadId = destinationThreadId;
+
+		// ID map for quote replacement
+		const newPostIdMap = {};
 		if (crossBoard) {
 			//postIds need to be adjusted if moving to a different board
 			const lastId = await Boards.getNextId(destinationBoard, false, postMongoIds.length);
@@ -887,6 +890,14 @@ module.exports = {
 			if (!destinationThreadId) {
 				newDestinationThreadId = lastId;
 			}
+
+			// For every post in the thread, map to new ID
+			for (let i = 0; i < postMongoIds.length; i++) {
+				const id = postMongoIds[i];
+				const newPostId = newDestinationThreadId + i;
+				newPostIdMap[id] = newPostId;
+			}
+
 			bulkWrites = postMongoIds.map((postMongoId, index) => ({
 				'updateOne': {
 					'filter': {
@@ -947,7 +958,7 @@ module.exports = {
 		}
 		// console.log(JSON.stringify(bulkWrites, null, 4));
 		const movedPosts = await db.bulkWrite(bulkWrites).then(result => result.modifiedCount);
-		return { movedPosts, destinationThreadId: newDestinationThreadId };
+		return { movedPosts, destinationThreadId: newDestinationThreadId, OldToNewPostIds: newPostIdMap};
 	},
 
 	threadExistsMiddleware: async (req, res, next) => {

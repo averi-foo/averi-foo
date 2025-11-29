@@ -7,9 +7,9 @@ const uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, { createHash } = require('crypto');
+	, quoteHandler = require(__dirname+'/../../lib/post/quotes.js');
 
 module.exports = async (req, res) => {
-
 	const { __ } = res.locals;
 	const { threads, postIds, postMongoIds } = res.locals.posts
 		.sort((a, b) => {
@@ -111,12 +111,14 @@ module.exports = async (req, res) => {
 			}
 		});
 	}
-
+	// Current board we're moving from
+	const sourceBoard = res.locals.board._id;
+	// Board we are moving to.
 	const destinationBoard = res.locals.destinationBoard ? res.locals.destinationBoard._id : req.params.board;
 	const crossBoard = destinationBoard !== req.params.board;
 	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0])
-		, movedPosts = 0;
-	({ destinationThreadId, movedPosts } = await Posts.move(postMongoIds, crossBoard, destinationThreadId, destinationBoard));
+		, movedPosts = 0, OldToNewPostIds;
+	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postMongoIds, crossBoard, destinationThreadId, destinationBoard));
 
 	//emit markPost moves
 	for (let i = 0; i < moveEmits.length; i++) {
@@ -140,7 +142,9 @@ module.exports = async (req, res) => {
 				postUpdate.userId = userId;
 			}
 			if (post.nomarkup && post.nomarkup.length > 0) {
-				const nomarkup = prepareMarkdown(post.nomarkup, false);
+				let nomarkup = prepareMarkdown(post.nomarkup, false);
+				// replace old >>postId with new >>postId
+				nomarkup = await quoteHandler.replace(nomarkup, sourceBoard, OldToNewPostIds);
 				const { message, quotes, crossquotes } = await messageHandler(nomarkup, post.board, post.thread, null);
 				bulkWrites.push({
 					'updateMany': {
@@ -158,6 +162,7 @@ module.exports = async (req, res) => {
 				});
 				postUpdate.quotes = quotes;
 				postUpdate.crossquotes = crossquotes;
+				postUpdate.nomarkup = nomarkup;
 				postUpdate.message = message;
 			}
 			if (Object.keys(postUpdate).length > 0) {
