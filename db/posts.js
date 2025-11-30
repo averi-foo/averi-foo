@@ -877,9 +877,12 @@ module.exports = {
 		return db.deleteMany();
 	},
 
-	move: async (postMongoIds, crossBoard, destinationThreadId, destinationBoard) => {
+	move: async (postIds, postMongoIds, crossBoard, destinationThreadId, destinationBoard) => {
 		let bulkWrites = []
 			, newDestinationThreadId = destinationThreadId;
+
+		// ID map for quote replacement
+		const newPostIdMap = {};
 		if (crossBoard) {
 			//postIds need to be adjusted if moving to a different board
 			const lastId = await Boards.getNextId(destinationBoard, false, postMongoIds.length);
@@ -887,18 +890,25 @@ module.exports = {
 			if (!destinationThreadId) {
 				newDestinationThreadId = lastId;
 			}
-			bulkWrites = postMongoIds.map((postMongoId, index) => ({
-				'updateOne': {
-					'filter': {
-						'_id': postMongoId,
-					},
-					'update': {
-						'$set': {
-							'postId': lastId + index,
+
+			for (let i = 0; i < postMongoIds.length; i++) {
+				const postMongoId = postMongoIds[i];
+				const newPostId = lastId + i;
+				newPostIdMap[postIds[i]] = newPostId;
+
+				bulkWrites.push({
+					'updateOne': {
+						'filter': {
+							'_id': postMongoId,
+						},
+						'update': {
+							'$set': {
+								'postId': newPostId,
+							}
 						}
 					}
-				}
-			}));
+				});
+			}
 		}
 		bulkWrites.push({
 			'updateMany': {
@@ -947,7 +957,7 @@ module.exports = {
 		}
 		// console.log(JSON.stringify(bulkWrites, null, 4));
 		const movedPosts = await db.bulkWrite(bulkWrites).then(result => result.modifiedCount);
-		return { movedPosts, destinationThreadId: newDestinationThreadId };
+		return { movedPosts, destinationThreadId: newDestinationThreadId, OldToNewPostIds: newPostIdMap};
 	},
 
 	threadExistsMiddleware: async (req, res, next) => {
