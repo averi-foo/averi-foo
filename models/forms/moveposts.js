@@ -118,7 +118,7 @@ module.exports = async (req, res) => {
 	const crossBoard = destinationBoard !== req.params.board;
 	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0])
 		, movedPosts = 0, OldToNewPostIds;
-	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postMongoIds, crossBoard, destinationThreadId, destinationBoard));
+	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postIds, postMongoIds, crossBoard, destinationThreadId, destinationBoard));
 
 	//emit markPost moves
 	for (let i = 0; i < moveEmits.length; i++) {
