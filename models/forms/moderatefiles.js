@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
 				req.body.delete = true; // delete post
 				req.body.global_ban = true; // ban with duration of 1 year
 				req.body.ban_reason = `Uploaded ILLEGAL hash ${filehash} that was denied`;
-				req.body.no_appeal = true;
+				req.body.no_appeal = false;
 				message = `Denied ILLEGAL ${filehash}`;
 				log_message = message;
 				break;
