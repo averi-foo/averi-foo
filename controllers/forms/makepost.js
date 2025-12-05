@@ -45,7 +45,7 @@ module.exports = {
 			{ result: lengthBody(req.body.message, 0, globalLimits.fieldLength.message), expected: false, blocking: true, error: __('Message must be %s characters or less', globalLimits.fieldLength.message) },
 			{ result: existsBody(req.body.message) && existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minReplyMessageLength, res.locals.board.settings.maxReplyMessageLength),
 				expected: false, error: __('Reply messages must be %s-%s characters', res.locals.board.settings.minReplyMessageLength, res.locals.board.settings.maxReplyMessageLength) },
-			{ result: existsBody(req.body.message) && !existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL,
+			{ result: existsBody(req.body.message) && !existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL),
 				expected: false, error: __('Thread messages must be %s-%s characters', res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength) },
 			{ result: lengthBody(req.body.postpassword, 0, globalLimits.fieldLength.postpassword), expected: false, error: __('Password must be %s characters or less', globalLimits.fieldLength.postpassword) },
 			{ result: lengthBody(req.body.name, 0, globalLimits.fieldLength.name), expected: false, error: __('Name must be %s characters or less', globalLimits.fieldLength.name) },
