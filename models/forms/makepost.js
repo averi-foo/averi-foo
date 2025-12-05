@@ -454,17 +454,15 @@ module.exports = async (req, res) => {
 
 	if (files.length > 0) {
 		const filesHashes = req.files.file.map(f => f.sha256);
+		// Checks for already approved files and automatically approves them if they've been approved before
 		const preApprovedFiles = await Posts.checkExistingFiles(res.locals.board._id, null, filesHashes);
-		console.log("Pre Approved Files:");
-		console.log(preApprovedFiles);
-		console.log("FileHashes:");
-		console.log(filesHashes);
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			let alreadyApproved = false;
 			if (preApprovedFiles != null) {
 				alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash);
 			}
+			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
 		}
 	}
