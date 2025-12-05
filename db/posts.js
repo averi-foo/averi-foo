@@ -406,6 +406,7 @@ module.exports = {
 	checkExistingFiles: async (board, thread = null, hashes) => {
 		const query = {
 			'board': board,
+			'files.approved': true,
 			'files.hash': {
 				'$in': hashes
 			}
