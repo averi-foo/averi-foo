@@ -35,9 +35,9 @@ module.exports = {
 				&& res.locals.numFiles > 0 && !res.locals.permissions.get(Permissions.BYPASS_ANONYMIZER_RESTRICTIONS)), expected: false, error: __(`Posting files through anonymizers has been disabled ${disableAnonymizerFilePosting ? 'globally' : 'on this board'}`) },
 			{ result: res.locals.numFiles > res.locals.board.settings.maxFiles, blocking: true, expected: false, error: __(`Too many files. Max files per post ${res.locals.board.settings.maxFiles < globalLimits.postFiles.max ? 'on this board ' : ''}is %s`, res.locals.board.settings.maxFiles) },
 			{ result: ( lengthBody(req.body.subject, 1) && (!existsBody(req.body.thread)
-				&& res.locals.board.settings.forceThreadSubject) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL)), expected: false, error: __('Threads must include a subject') },
+				&& res.locals.board.settings.forceThreadSubject)), expected: false, error: __('Threads must include a subject') },
 			{ result: lengthBody(req.body.message, 1) && (!existsBody(req.body.thread)
-				&& res.locals.board.settings.forceThreadMessage) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL), expected: false, error: __('Threads must include a message') },
+				&& res.locals.board.settings.forceThreadMessage), expected: false, error: __('Threads must include a message') },
 			{ result: lengthBody(req.body.message, 1) && (existsBody(req.body.thread)
 				&& res.locals.board.settings.forceReplyMessage), expected: false, error: __('Replies must include a message') },
 			{ result: hasNoMandatoryFile && !existsBody(req.body.thread) && res.locals.board.settings.forceThreadFile , expected: false, error: __('Threads must include a file') },
@@ -45,7 +45,7 @@ module.exports = {
 			{ result: lengthBody(req.body.message, 0, globalLimits.fieldLength.message), expected: false, blocking: true, error: __('Message must be %s characters or less', globalLimits.fieldLength.message) },
 			{ result: existsBody(req.body.message) && existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minReplyMessageLength, res.locals.board.settings.maxReplyMessageLength),
 				expected: false, error: __('Reply messages must be %s-%s characters', res.locals.board.settings.minReplyMessageLength, res.locals.board.settings.maxReplyMessageLength) },
-			{ result: existsBody(req.body.message) && !existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL),
+			{ result: existsBody(req.body.message) && !existsBody(req.body.thread) && lengthBody(req.body.message, res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength),
 				expected: false, error: __('Thread messages must be %s-%s characters', res.locals.board.settings.minThreadMessageLength, res.locals.board.settings.maxThreadMessageLength) },
 			{ result: lengthBody(req.body.postpassword, 0, globalLimits.fieldLength.postpassword), expected: false, error: __('Password must be %s characters or less', globalLimits.fieldLength.postpassword) },
 			{ result: lengthBody(req.body.name, 0, globalLimits.fieldLength.name), expected: false, error: __('Name must be %s characters or less', globalLimits.fieldLength.name) },
