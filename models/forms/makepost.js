@@ -224,10 +224,9 @@ module.exports = async (req, res) => {
 	//
 	let files = [];
 	if (res.locals.numFiles > 0) {
-
+		const filesHashes = req.files.file.map(f => f.sha256);
 		// Unique file check
 		if ((req.body.thread && fileR9KMode === 1) || fileR9KMode === 2) {
-			const filesHashes = req.files.file.map(f => f.sha256);
 			const postWithExistingFiles = await Posts.checkExistingFiles(res.locals.board._id, (fileR9KMode === 2 ? null : req.body.thread), filesHashes);
 			if (postWithExistingFiles != null) {
 				await deleteTempFiles(req).catch(console.error);
@@ -454,6 +453,8 @@ module.exports = async (req, res) => {
 	const bypassFileApproval = res.locals.permissions.hasAny(Permissions.BYPASS_FILE_APPROVAL);
 
 	if (files.length > 0) {
+		const preApprovedFiles = await Posts.checkExistingFiles(res.locals.board._id, null, filesHashes);
+		console.log(preApprovedFiles);
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
 			file.approved = bypassFileApproval;
