@@ -12,8 +12,6 @@ block content
 	br
 	.wrapbar
 		+managenav('recent')
-		.pages.mv-5
-			include ../includes/pages.pug
 		if page === 1 && !postId && !queryIp
 			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`${board._id}-manage-recent-${viewRawIp === true ? 'raw' : 'hashed'}`)
 				.dot#livecolor
@@ -21,6 +19,8 @@ block content
 				input.postform-style.ml-5.di#updatepostsbutton(type='button' value=__('Update'))
 	form(action=`/forms/board/${board._id}/modactions` method='POST' enctype='application/x-www-form-urlencoded')
 		input(type='hidden' name='_csrf' value=csrf)
+		.pages.mv-5
+			include ../includes/pages.pug
 		if posts.length === 0
 			hr(size=1)
 			p #{__('No posts.')}
