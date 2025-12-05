@@ -462,7 +462,7 @@ module.exports = async (req, res) => {
 			if (preApprovedFiles != null) {
 				alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash);
 				if (alreadyApproved) {
-					console.log("Pre-approved file ", file.hash)
+					console.log("Pre-approved file:", file.filename)
 				}
 			}
 			// Auto approve on bypassFileApproval or alreadyApproved
