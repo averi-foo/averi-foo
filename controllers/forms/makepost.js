@@ -37,7 +37,7 @@ module.exports = {
 			{ result: ( lengthBody(req.body.subject, 1) && (!existsBody(req.body.thread)
 				&& res.locals.board.settings.forceThreadSubject) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL)), expected: false, error: __('Threads must include a subject') },
 			{ result: lengthBody(req.body.message, 1) && (!existsBody(req.body.thread)
-				&& res.locals.board.settings.forceThreadMessage), expected: false, error: __('Threads must include a message') },
+				&& res.locals.board.settings.forceThreadMessage) && !res.locals.permissions.get(Permissions.BYPASS_FILE_APPROVAL), expected: false, error: __('Threads must include a message') },
 			{ result: lengthBody(req.body.message, 1) && (existsBody(req.body.thread)
 				&& res.locals.board.settings.forceReplyMessage), expected: false, error: __('Replies must include a message') },
 			{ result: hasNoMandatoryFile && !existsBody(req.body.thread) && res.locals.board.settings.forceThreadFile , expected: false, error: __('Threads must include a file') },
