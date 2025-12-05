@@ -461,7 +461,7 @@ module.exports = async (req, res) => {
 		console.log(filesHashes);
 		for (let i = 0; i < files.length; i++) {
 			const file = files[i];
-			const alreadyApproved = preApprovedFiles.some(f => f.hash === file.hash);
+			const alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash);
 			file.approved = alreadyApproved || bypassFileApproval;
 		}
 	}
