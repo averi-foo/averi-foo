@@ -12,6 +12,8 @@ block content
 	br
 	.wrapbar
 		+managenav('recent')
+		.pages.mv-5
+			include ../includes/pages.pug
 		if page === 1 && !postId && !queryIp
 			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`${board._id}-manage-recent-${viewRawIp === true ? 'raw' : 'hashed'}`)
 				.dot#livecolor

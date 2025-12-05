@@ -10,6 +10,8 @@ block content
 	br
 	.wrapbar
 		+globalmanagenav('recent')
+		.pages.mv-5
+			include ../includes/pages.pug
 		if page === 1 && !ip && !account
 			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`globalmanage-recent-${viewRawIp === true ? 'raw' : 'hashed'}`)
 				.dot#livecolor
