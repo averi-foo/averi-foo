@@ -1006,7 +1006,10 @@ module.exports = {
 					"files.mimetype": {
 						$regex: /^image/,
 					},
-					"files.approved": true
+					"files.approved": true,
+					"files.spoiler": {
+						$in: [false, null]
+					}
 				}
 			},
 
@@ -1034,7 +1037,10 @@ module.exports = {
 					"files.originalFilename": {
 						$regex: /-tegaki\.png$/
 					},
-					"files.approved": true
+					"files.approved": true,
+					"files.spoiler": {
+						$in: [false, null]
+					}
 				}
 			},
 
