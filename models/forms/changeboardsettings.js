@@ -62,6 +62,7 @@ module.exports = async (req, res) => {
 		'name': trimSetting(req.body.name, oldSettings.name),
 		'description': trimSetting(req.body.description, oldSettings.description),
 		'defaultName': trimSetting(req.body.default_name, oldSettings.defaultName),
+		'randomNames': arraySetting(req.body.random_names, oldSettings.randomNames, 100),
 		'language': trimSetting(req.body.language, oldSettings.language),
 		'theme': req.body.theme || oldSettings.theme,
 		'codeTheme': req.body.code_theme || oldSettings.codeTheme,

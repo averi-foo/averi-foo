@@ -473,15 +473,15 @@ module.exports = async (req, res) => {
 	//
 	// User ID, flag, and password
 	//
-	let userId = null;
+
 	if (!salt) {
 		//thread salt for IDs
 		salt = (await randomBytesAsync(128)).toString('base64');
 	}
-	if (ids === true) {
-		const fullUserIdHash = createHash('sha256').update(salt + res.locals.ip.raw).digest('hex');
-		userId = fullUserIdHash.substring(fullUserIdHash.length-6);
-	}
+	// Always get ID for random names
+	const fullUserIdHash = createHash('sha256').update(salt + res.locals.ip.raw).digest('hex');
+	let userId = fullUserIdHash.substring(fullUserIdHash.length-6);
+
 	let country = null;
 	if (geoFlags === true && req.body.customflag == "geographical") {
 		country = {
@@ -522,6 +522,7 @@ module.exports = async (req, res) => {
 		res.locals.board.owner,
 		res.locals.board.staff,
 		res.locals.user ? res.locals.user.username : null,
+		userId,
 		__ //i18n translation local
 	);
 	//get message, quotes and crossquote array
@@ -557,7 +558,7 @@ module.exports = async (req, res) => {
 		signature,
 		address,
 		'banmessage': null,
-		userId,
+		ids ? userId : null,
 		'ip': res.locals.ip,
 		files,
 		'reports': [],
