@@ -63,6 +63,7 @@ module.exports = async (req, res) => {
 		'description': trimSetting(req.body.description, oldSettings.description),
 		'defaultName': trimSetting(req.body.default_name, oldSettings.defaultName),
 		'randomNames': arraySetting(req.body.random_names, oldSettings.randomNames, 100),
+		'randomNamesEnabled': booleanSetting(req.body.random_names_enabled),
 		'language': trimSetting(req.body.language, oldSettings.language),
 		'theme': req.body.theme || oldSettings.theme,
 		'codeTheme': req.body.code_theme || oldSettings.codeTheme,
