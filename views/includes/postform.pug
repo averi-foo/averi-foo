@@ -20,7 +20,10 @@ section.form-wrapper.flex-center
 		else
 			section.row
 				.label #{__('Name')}
-				input.mr-1(type='text', name='name', placeholder=#{board.settings.randomNamesEnabled ? "I'm feeling lucky..." : board.settings.defaultName} maxlength=globalLimits.fieldLength.name)
+				if board.settings.randomNamesEnabled
+					input.mr-1(type='text', name='name', placeholder="I'm feeling lucky...", maxlength=globalLimits.fieldLength.name)
+				else
+					input.mr-1(type='text', name='name', placeholder=board.settings.defaultName maxlength=globalLimits.fieldLength.name)
 				a.close.postform-style(href='#!') ×
 			if board.settings.sageOnlyEmail && !modview
 				section.row
