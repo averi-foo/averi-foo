@@ -558,7 +558,7 @@ module.exports = async (req, res) => {
 		signature,
 		address,
 		'banmessage': null,
-		ids ? userId : null,
+		userId: ids ? userId : null,
 		'ip': res.locals.ip,
 		files,
 		'reports': [],
