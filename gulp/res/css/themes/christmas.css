@@ -1,0 +1,161 @@
+/*christmas*/
+
+* {
+	--icon-color:invert(17%)sepia(89%)saturate(7057%)hue-rotate(2deg)brightness(93%)contrast(120%);
+	--alt-label-color: #aa0000;
+	--alt-font-color: #e1ffff;
+	--navbar-color: #ffffff;
+	--post-color: #c7e2e2;
+	--post-outline-color: #005500;
+	--label-color: #c7e2e2;
+	--box-border-color: #aa0000;
+	--box-background-color: #d6efef;
+	--darken: #a6d2d2;
+	--highlighted-post-color: #aedcdc;
+	--highlighted-post-outline-color: #aa0000;
+	--board-title: #ad203f;
+	--hr: #94bbbb;
+	--font-color: #aa0000;
+	--name-color: #aa0000;
+	--capcode-color: #f00;
+	--subject-color: #005500;
+	--link-color: #005500;
+	--post-link-color: #005500;
+	--link-hover: #00aa00;
+	--accent-color: #ad203f;
+	--input-borders: #623d2a;
+	--input-color: #2a1a12;
+	--input-background: #c7e2e2;
+	--dice-color: darkorange;
+	--title-color: #ad203f;
+	--greentext-color: #789922;
+	--pinktext-color:#E0727F;
+}
+
+.nav-item:hover {
+	scale: 1.1;
+	transition: scale 0.2s;
+}
+
+.nav-item {
+    filter: drop-shadow(2px 2px 1px rgba(255, 255, 255, 1));
+}
+
+.post-name:before {
+	 content: "Santa's Little ";
+ }
+
+body {
+	background: url("/css/themes/assets/averi-christmas.png") fixed no-repeat bottom right/25%, url("/css/themes/assets/christmas-bg.png") fixed center/auto #a4dbdb;
+}
+
+@media only screen and (max-width: 600px) {
+	body {
+		background: url("/css/themes/assets/christmas-bg.png") fixed center/auto #a4dbdb;
+	}
+
+	.post-info {
+        background: rgba(255, 0, 0, 0) !important;
+	}
+}
+
+.post-container, #float .post-container, .stickynav, .pages, #action-menu, .catalog-tile, #livetext, #threadstats, .collapse, .bottom-reply {
+	border-width: 1px 1px 1px 1px !important;
+	border-radius: 5px;
+}
+
+.post-container {
+    border-image: url("/css/themes/assets/christmas-lights.gif") 18 20 / 20px 20px 20px 20px / 10px 10px 10px 10px round;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+
+.post-container.op {
+    border-image: none;
+}
+
+
+.label, .rlabel {
+	border-width: 0;
+	padding:2px;
+}
+
+input, textarea, .label, .close {
+	border-radius: 2px;
+}
+
+.user-id {
+	border-radius: 4px;
+}
+
+.navbar {
+	background: linear-gradient(0deg,rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 0) 100%), repeating-linear-gradient(-45deg, white, white 50px, #ab0000 50px, #ab0000 100px);
+	border-image: url("/css/themes/assets/icicles.png") 100 0 100 100 / 0px 0px 40px 0px / 0px 100px 39px 100px round;
+}
+
+.hljs {
+	background: #2e4f2e !important;
+}
+
+.post-info {
+	padding: 5px;
+}
+
+tr, tr:nth-child(2n+1) {
+	background: #c7e2e2 !important;
+}
+
+.form-post {
+	border-width: 1px !important;
+	border-image: url("/css/themes/assets/christmas-lights.gif") 18 20 / 20px 20px 20px 20px / 10px 10px 10px 10px round !important;
+	padding: 10px;
+}
+
+table, textarea, input, select, .postform-style, .form-post {
+	border-radius: 5px;
+}
+
+.post-quote a {
+  visibility: hidden;
+  position: relative;
+}
+
+.post-quote a:after {
+  content: "-------";
+}
+
+.post-quote a:before {
+  visibility: visible;
+  content: "Mistlequote";
+  position: absolute;
+}
+
+img[src$="/file/homepage-icon.png"] {
+	 content: url("/css/themes/assets/christmas_icon.png");
+}
+
+img[src$="/file/home.png"] {
+	 content: url("/css/themes/assets/christmas_home.png");
+}
+
+img[src$="/file/boards.png"] {
+	 content: url("/css/themes/assets/christmas_boards.png");
+}
+
+img[src$="/file/overboard.png"] {
+	 content: url("/css/themes/assets/christmas_overboard.png");
+}
+
+img[src$="/file/account.png"] {
+	 content: url("/css/themes/assets/christmas_account.png");
+}
+
+img[src$="/file/manage.png"] {
+	 content: url("/css/themes/assets/christmas_manage.png");
+}
+
+img[src$="/file/settings.png"] {
+	 content: url("/css/themes/assets/christmas_settings.png");
+}
