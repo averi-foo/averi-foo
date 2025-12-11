@@ -1702,17 +1702,11 @@ row.wrap.sb .col {
 .tab-1 {
 	display: flex;
 }
-.settings-tab-1 {
-	display: flex;
-}
+
 
 :target .tab-1 {
 	display:none;
 }
-:target .settings-tab-1 {
-	display:none;
-}
-
 
 .sm {
 	scroll-margin-top: 100px;
@@ -1729,6 +1723,11 @@ row.wrap.sb .col {
 #tab-9:target .tab-9,
 #tab-10:target .tab-10,
 #tab-11:target .tab-11 {
+	display: flex;
+}
+/* Settings tabs */
+
+#settings-tab-1 {
 	display: flex;
 }
 
