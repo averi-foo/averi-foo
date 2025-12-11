@@ -1702,7 +1702,14 @@ row.wrap.sb .col {
 .tab-1 {
 	display: flex;
 }
+.settings-tab-1 {
+	display: flex;
+}
+
 :target .tab-1 {
+	display:none;
+}
+:target .settings-tab-1 {
 	display:none;
 }
 
@@ -1725,20 +1732,13 @@ row.wrap.sb .col {
 	display: flex;
 }
 
-.settings-tab-1 {
+#settings-tab-1:target,
+#settings-tab-2:target,
+#settings-tab-3:target,
+#settings-tab-4:target,
+#settings-tab-5:target,
+#settings-tab-6:target {
 	display: flex;
-}
-:target .settings-tab-1 {
-	display:none;
-}
-
-#settings-tab-1:target .settings-tab-1,
-#settings-tab-2:target .settings-tab-2,
-#settings-tab-3:target .settings-tab-3,
-#settings-tab-4:target .settings-tab-4,
-#settings-tab-5:target .settings-tab-5,
-#settings-tab-6:target .settings-tab-6 {
-display: flex;
 }
 
 #settings-tab-1:target a[href="#settings-tab-1"],
