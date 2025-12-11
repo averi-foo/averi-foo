@@ -761,6 +761,13 @@ ul.tabs.group
 				.label #{__('Anon Name')}
 				input(type='text' name='board_defaults_default_name' value=settings.boardDefaults.defaultName)
 			.row
+				.label #{__('Random Names')}
+				textarea(name='board_defaults_random_names' placeholder=__('Newline separated')) #{settings.boardDefaults.randomNames.join('\n')}
+			.row
+				.label #{__('Enable Random Names')}
+				label.postform-style.ph-5
+					input(type='checkbox', name='board_defaults_random_names_enabled' value='false' checked=settings.boardDefaults.randomNamesEnabled)
+			.row
 				.label #{__('Language')}
 				select(name='board_defaults_language')
 					each language in languages

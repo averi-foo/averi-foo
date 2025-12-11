@@ -142,7 +142,7 @@ block content
 														input(type='text' name='default_name' value=board.settings.defaultName)
 													.row
 														.label #{__('Random Names')}
-														textarea(name='random_names' placeholder=__('Newline separated, max 100')) #{board.settings.randomNames.join('\n')}
+														textarea(name='random_names' placeholder=__('Newline separated')) #{board.settings.randomNames.join('\n')}
 													.row
 														.label #{__('Enable Random Names')}
 														label.postform-style.ph-5

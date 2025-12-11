@@ -425,6 +425,8 @@ module.exports = {
 		maxThreadMessageLength: 20000,
 		maxReplyMessageLength: 20000,
 		defaultName: 'Furchud',
+		randomNames: [],
+		randomNamesEnabled: false,
 		customCSS: null,
 		blockedCountries: [], //2 char ISO country codes to block
 		disableAnonymizerFilePosting: false,
