@@ -8,6 +8,13 @@ module.exports = async(db, redis) => {
 			'settings.randomNamesEnabled': false,
 		}
 	});
+	console.log('Adding board defaults field for randomNames');
+	await db.collection('globalsettings').updateMany({}, {
+		'$set': {
+			'boardDefaults.randomNames': [],
+			'boardDefaults.randomNamesEnabled': false,
+		}
+	});
 	console.log('Cleared boards cache');
 	await redis.deletePattern('board:*');
 };
