@@ -43,10 +43,6 @@ mixin settings(data)
 							input#autowatch-setting(type='checkbox')
 						.rlabel #{__("Watch threads you've replied to")}
 					.row
-						.label #{__('Video/Audio volume')}
-						label.postform-style.ph-5
-							input#volume-setting(type='range' min='0' max='100')
-					.row
 						label.postform-style.ph-5
 							input#live-setting(type='checkbox')
 						.rlabel #{__('Live posts')}
@@ -56,20 +52,25 @@ mixin settings(data)
 						.rlabel #{__('Notifications')}
 					.row
 						label.postform-style.ph-5
-							input#loop-setting(type='checkbox')
-						.rlabel #{__('Loop audio/video')}
+							input#notification-yous-only(type='checkbox')
+						.rlabel #{__('Only notify (You)s')}
 					.row
 						label.postform-style.ph-5
 							input#embedsenabled-setting(type='checkbox')
 						.rlabel #{__('Embeds enabled')}
 					.row
 						label.postform-style.ph-5
-							input#notification-yous-only(type='checkbox')
-						.rlabel #{__('Only notify (You)s')}
-					.row
-						label.postform-style.ph-5
 							input#scroll-setting(type='checkbox')
 						.rlabel #{__('Scroll to new posts')}
+				.col
+					.row
+						.label #{__('Video/Audio volume')}
+						label.postform-style.ph-5
+							input#volume-setting(type='range' min='0' max='100')
+					.row
+						label.postform-style.ph-5
+							input#loop-setting(type='checkbox')
+						.rlabel #{__('Loop audio/video')}
 					.row
 						label.postform-style.ph-5
 							input#localtime-setting(type='checkbox')
@@ -183,6 +184,7 @@ mixin settings(data)
 						.label #{__('Hidden images')}
 						input.mr-1#hiddenimages-setting(type='text' readonly)
 						input#hiddenimages-clear(type='button' value=__('Clear'))
+				.col
 					.row
 						.label #{__('Cache')}
 						input.mr-1#hovercachelist-setting(type='text' readonly)
