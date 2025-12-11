@@ -1638,7 +1638,8 @@ table, .boardtable {
 
 
 #settingsmodal{
-	min-width: 400px;
+	min-width: 700px;
+	padding: 10px;
 }
 #settingsmodal .form-wrapper.flexleft.mt-10, #settingsmodal .form-wrapper.flexleft.mt-10 .row {
 	width: 100%
@@ -1705,10 +1706,11 @@ row.wrap.sb .col {
 	display:none;
 }
 
+
 .sm {
 	scroll-margin-top: 100px;
 }
-
+/* Set visible depending on target */
 #tab-1:target .tab-1,
 #tab-2:target .tab-2,
 #tab-3:target .tab-3,
@@ -1721,6 +1723,32 @@ row.wrap.sb .col {
 #tab-10:target .tab-10,
 #tab-11:target .tab-11 {
 	display: flex;
+}
+
+.settings-tab-1 {
+	display: flex;
+}
+:target .settings-tab-1 {
+	display:none;
+}
+
+#settings-tab-1:target .settings-tab-1,
+#settings-tab-2:target .settings-tab-2,
+#settings-tab-3:target .settings-tab-3,
+#settings-tab-4:target .settings-tab-4,
+#settings-tab-5:target .settings-tab-5,
+#settings-tab-6:target .settings-tab-6 {
+display: flex;
+}
+
+#settings-tab-1:target a[href="#settings-tab-1"],
+#settings-tab-2:target a[href="#settings-tab-2"],
+#settings-tab-3:target a[href="#settings-tab-3"],
+#settings-tab-4:target a[href="#settings-tab-4"],
+#settings-tab-5:target a[href="#settings-tab-5"],
+#settings-tab-6:target a[href="#settings-tab-6"] {
+	border-bottom: 1px solid var(--background-rest);
+	background: var(--background-rest);
 }
 
 #tab-1:target a[href="#tab-1"],
