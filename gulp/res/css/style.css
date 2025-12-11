@@ -583,7 +583,7 @@ input[name="move_to_board"], input[name="move_to_thread"] {
 }
 
 .w900 {
-	width: 900px;
+	width: 1000px;
 }
 
 th {
