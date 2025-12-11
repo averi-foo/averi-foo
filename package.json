@@ -1,7 +1,7 @@
 {
   "name": "averifoo",
-  "version": "1.7.5",
-  "migrateVersion": "1.7.5",
+  "version": "1.7.6",
+  "migrateVersion": "1.7.6",
   "description": "",
   "main": "server.js",
   "dependencies": {

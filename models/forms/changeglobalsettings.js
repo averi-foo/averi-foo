@@ -302,6 +302,8 @@ module.exports = async (req, res) => {
 			captchaReset: numberSetting(req.body.board_defaults_captcha_reset, oldSettings.boardDefaults.captchaReset),
 			lockReset: numberSetting(req.body.board_defaults_lock_reset, oldSettings.boardDefaults.lockReset),
 			defaultName: trimSetting(req.body.board_defaults_default_name, oldSettings.boardDefaults.defaultName),
+			randomNames: arraySetting(req.body.board_defaults_random_names, oldSettings.boardDefaults.randomNames),
+			randomNamesEnabled: booleanSetting(req.body.board_defaults_random_names_enabled, oldSettings.boardDefaults.randomNamesEnabled),
 			forceAnon: booleanSetting(req.body.board_defaults_force_anon, oldSettings.boardDefaults.forceAnon),
 			sageOnlyEmail: booleanSetting(req.body.board_defaults_sage_only_email, oldSettings.boardDefaults.sageOnlyEmail),
 			early404: booleanSetting(req.body.board_defaults_early_404, oldSettings.boardDefaults.early404),

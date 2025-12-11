@@ -141,6 +141,13 @@ block content
 														.label #{__('Anon Name')}
 														input(type='text' name='default_name' value=board.settings.defaultName)
 													.row
+														.label #{__('Random Names')}
+														textarea(name='random_names' placeholder=__('Newline separated')) #{board.settings.randomNames.join('\n')}
+													.row
+														.label #{__('Enable Random Names')}
+														label.postform-style.ph-5
+															input(type='checkbox', name='random_names_enabled', value='true' checked=board.settings.randomNamesEnabled)
+													.row
 														.label #{__('User Post Deletion')}
 														label.postform-style.ph-5
 															input(type='checkbox', name='user_post_delete', value='true' checked=board.settings.userPostDelete)
