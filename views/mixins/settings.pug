@@ -16,7 +16,7 @@ mixin settings(data)
 
 		.box-wrap
 			//- General
-			.tab.tab-1#settings-tab-1
+			.tab.tab-1
 				.col.mr-5
 					.row
 						label.postform-style.ph-5
@@ -83,7 +83,7 @@ mixin settings(data)
 							input#relative-setting(type='checkbox')
 						.rlabel #{__('Show relative time')}
 			//- Visibility
-			.tab.tab-2#settings-tab-2
+			.tab.tab-2
 				.col.mr-5
 					.row
 						label.postform-style.ph-5
@@ -126,7 +126,7 @@ mixin settings(data)
 							input#yous-setting(type='checkbox')
 						.rlabel #{__('Show (You)s')}
 			//- Style
-			.tab.tab-3#settings-tab-3
+			.tab.tab-3
 				.col.mr-5
 					.row
 						.label #{__('Theme')}
@@ -143,7 +143,7 @@ mixin settings(data)
 						.label #{__('Custom CSS')}
 						textarea#customcss-setting(rows=7)
 			//- Filters
-			.tab.tab-4#settings-tab-4
+			.tab.tab-4
 				.col
 					.row.mt-5
 						form.text-center#filter-form
@@ -169,7 +169,7 @@ mixin settings(data)
 											input(type='checkbox' name='regex')
 										td: input.right(type='submit' value=__('Add'))
 			//- User Data
-			.tab.tab-5#settings-tab-5
+			.tab.tab-5
 				.col
 					.row
 						.label #{__('(You)s')}
@@ -199,7 +199,7 @@ mixin settings(data)
 						.postform-style.ph-5.mr-1 ×
 						input.mr-1.w50#tegakiheight-setting(type='number')
 			//- Import/Export
-			.tab.tab-6#settings-tab-6
+			.tab.tab-6
 				.col
 					.row.mt-5
 						.label
