@@ -1703,7 +1703,6 @@ row.wrap.sb .col {
 	display: flex;
 }
 
-
 :target .tab-1 {
 	display:none;
 }
@@ -1727,20 +1726,12 @@ row.wrap.sb .col {
 }
 /* Settings tabs */
 
-#settings-tab-1 {
-	display: flex;
-}
-
-#settings-tab-1:not(:target) {
-	display: none;
-}
-
-#settings-tab-1:target,
-#settings-tab-2:target,
-#settings-tab-3:target,
-#settings-tab-4:target,
-#settings-tab-5:target,
-#settings-tab-6:target {
+#settings-tab-1:target .tab-1,
+#settings-tab-2:target .tab-2,
+#settings-tab-3:target .tab-3,
+#settings-tab-4:target .tab-4,
+#settings-tab-5:target .tab-5,
+#settings-tab-6:target .tab-6 {
 	display: flex;
 }
 
