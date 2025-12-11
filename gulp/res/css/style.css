@@ -1731,6 +1731,10 @@ row.wrap.sb .col {
 	display: flex;
 }
 
+:target #settings-tab-1 {
+	display:none;
+}
+
 #settings-tab-1:target,
 #settings-tab-2:target,
 #settings-tab-3:target,
