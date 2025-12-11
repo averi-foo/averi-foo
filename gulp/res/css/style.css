@@ -1731,8 +1731,8 @@ row.wrap.sb .col {
 	display: flex;
 }
 
-:target #settings-tab-1 {
-	display:none;
+#settings-tab-1:not(:target) {
+	display: none;
 }
 
 #settings-tab-1:target,
