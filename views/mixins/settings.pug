@@ -23,7 +23,7 @@ mixin settings(data)
 						.row
 							label.postform-style.ph-5
 								input#imagehover-setting(type='checkbox')
-							.rlabel #{__('Image hover')}
+							.rlabel #{__('Enlarge images when hovering over them')}
 						.row
 							label.postform-style.ph-5
 								input#imageloadingbars-setting(type='checkbox')
@@ -40,16 +40,8 @@ mixin settings(data)
 							label.postform-style.ph-5
 								input#loop-setting(type='checkbox')
 							.rlabel #{__('Loop audio/video')}
-					h3 Other features
+					h3 Features
 					.col.grid-2
-						.row
-							label.postform-style.ph-5
-								input#smoothscrolling-setting(type='checkbox')
-							.rlabel #{__('Smooth scrolling')}
-						.row
-							label.postform-style.ph-5
-								input#fadepostcontainer-setting(type='checkbox')
-							.rlabel #{__('Fade Post Container')}
 						.row
 							label.postform-style.ph-5
 								input#threadwatcher-setting(type='checkbox')
@@ -57,27 +49,35 @@ mixin settings(data)
 						.row
 							label.postform-style.ph-5
 								input#autowatch-setting(type='checkbox')
-							.rlabel #{__("Watch threads you've replied to")}
+							.rlabel #{__("Auto watch threads you've replied to")}
+						.row
+							label.postform-style.ph-5
+								input#notification-setting(type='checkbox')
+							.rlabel #{__('Desktop Notifications')}
+						.row
+							label.postform-style.ph-5
+								input#notification-yous-only(type='checkbox')
+							.rlabel #{__('Only notify replies to (You)')}
+						.row
+							label.postform-style.ph-5
+								input#smoothscrolling-setting(type='checkbox')
+							.rlabel #{__('Smooth scrolling')}
+						.row
+							label.postform-style.ph-5
+								input#scroll-setting(type='checkbox')
+							.rlabel #{__('Auto scroll to new posts')}
+						.row
+							label.postform-style.ph-5
+								input#fadepostcontainer-setting(type='checkbox')
+							.rlabel #{__('Fade post container when unfocused')}
 						.row
 							label.postform-style.ph-5
 								input#live-setting(type='checkbox')
 							.rlabel #{__('Live posts')}
 						.row
 							label.postform-style.ph-5
-								input#notification-setting(type='checkbox')
-							.rlabel #{__('Notifications')}
-						.row
-							label.postform-style.ph-5
-								input#notification-yous-only(type='checkbox')
-							.rlabel #{__('Only notify (You)s')}
-						.row
-							label.postform-style.ph-5
 								input#embedsenabled-setting(type='checkbox')
 							.rlabel #{__('Embeds enabled')}
-						.row
-							label.postform-style.ph-5
-								input#scroll-setting(type='checkbox')
-							.rlabel #{__('Scroll to new posts')}
 					h3 Time
 					.col.grid-2
 						.row
@@ -114,7 +114,7 @@ mixin settings(data)
 					.row
 						label.postform-style.ph-5
 							input#noncolorids-setting(type='checkbox')
-						.rlabel #{__('Non-color IDs')}
+						.rlabel #{__('Remove colour from IDs')}
 					.row
 						label.postform-style.ph-5
 							input#disableboardcss-setting(type='checkbox')
