@@ -17,9 +17,9 @@ mixin settings(data)
 		.box-wrap
 			//- General
 			.tab.tab-1
-				.col
-					h2 Image and Video options
 				.col.grid-2
+					h3 Image and Video options
+					br
 					.row
 						label.postform-style.ph-5
 							input#imagehover-setting(type='checkbox')
@@ -32,9 +32,8 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#loop-setting(type='checkbox')
 						.rlabel #{__('Loop audio/video')}
-				.col
-					h2 Other options
-				.col.grid-2
+					h3 Other
+					br
 					.row
 						label.postform-style.ph-5
 							input#smoothscrolling-setting(type='checkbox')
