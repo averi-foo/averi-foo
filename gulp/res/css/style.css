@@ -52,6 +52,12 @@ main.minimal {
 	flex-grow: 1;
 }
 
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: auto auto;
+}
+
 .wrap {
 	flex-wrap: wrap;
 }
@@ -1828,6 +1834,7 @@ row.wrap.sb .col {
 	#settingsmodal {
 		width: 100%;
 		min-width: unset;
+		height: 80%
 	}
  	[title] {
 		position:relative

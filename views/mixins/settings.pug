@@ -17,7 +17,7 @@ mixin settings(data)
 		.box-wrap
 			//- General
 			.tab.tab-1
-				.col.mr-5
+				.col.mr-5.grid-2
 					.row
 						label.postform-style.ph-5
 							input#fadepostcontainer-setting(type='checkbox')
@@ -62,11 +62,6 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#scroll-setting(type='checkbox')
 						.rlabel #{__('Scroll to new posts')}
-				.col
-					.row
-						.label #{__('Video/Audio volume')}
-						label.postform-style.ph-5
-							input#volume-setting(type='range' min='0' max='100')
 					.row
 						label.postform-style.ph-5
 							input#loop-setting(type='checkbox')
@@ -85,19 +80,11 @@ mixin settings(data)
 						.rlabel #{__('Show relative time')}
 			//- Visibility
 			.tab.tab-2
-				.col.mr-5
+				.col.mr-5.grid-2
 					.row
 						label.postform-style.ph-5
 							input#hidethumbnails-setting(type='checkbox')
 						.rlabel #{__('Hide thumbnails')}
-					.row
-						label.postform-style.ph-5
-							input#hiderecursive-setting(type='checkbox')
-						.rlabel #{__('Recursive post hide')}
-					.row
-						label.postform-style.ph-5
-							input#noncolorids-setting(type='checkbox')
-						.rlabel #{__('Non-color IDs')}
 					.row
 						label.postform-style.ph-5
 							input#hidepoststubs-setting(type='checkbox')
@@ -106,6 +93,14 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#hidedeletedpostcontent-setting(type='checkbox')
 						.rlabel #{__('Hide deleted post content')}
+					.row
+						label.postform-style.ph-5
+							input#hiderecursive-setting(type='checkbox')
+						.rlabel #{__('Recursive post hide')}
+					.row
+						label.postform-style.ph-5
+							input#noncolorids-setting(type='checkbox')
+						.rlabel #{__('Non-color IDs')}
 					.row
 						label.postform-style.ph-5
 							input#disableboardcss-setting(type='checkbox')
@@ -171,35 +166,38 @@ mixin settings(data)
 										td: input.right(type='submit' value=__('Add'))
 			//- User Data
 			.tab.tab-5
-				.col
+				.col.grid-2
 					.row
 						.label #{__('(You)s')}
 						input.mr-1#youslist-setting(type='text' readonly)
 						input#youslist-clear(type='button' value=__('Clear'))
 					.row
+						.label #{__('Default name')}
+						input#name-setting(type='text' name='name')
+					.row
 						.label #{__('Watchlist')}
 						input.mr-1#watchlist-setting(type='text' readonly)
 						input#watchlist-clear(type='button' value=__('Clear'))
 					.row
+						.label #{__('Post password')}
+						input#postpassword-setting(type='password' name='postpassword' autocomplete='new-password')
+					.row
 						.label #{__('Hidden images')}
 						input.mr-1#hiddenimages-setting(type='text' readonly)
 						input#hiddenimages-clear(type='button' value=__('Clear'))
-				.col
-					.row
-						.label #{__('Cache')}
-						input.mr-1#hovercachelist-setting(type='text' readonly)
-						input#hovercachelist-clear(type='button' value=__('Clear'))
-					.row
-						.label #{__('Default name')}
-						input#name-setting(type='text' name='name')
-					.row
-						.label #{__('Post password')}
-						input#postpassword-setting(type='password' name='postpassword' autocomplete='new-password')
 					.row
 						.label #{__('Tegaki Size')}
 						input.mr-1.w50#tegakiwidth-setting(type='number')
 						.postform-style.ph-5.mr-1 ×
 						input.mr-1.w50#tegakiheight-setting(type='number')
+					.row
+						.label #{__('Cache')}
+						input.mr-1#hovercachelist-setting(type='text' readonly)
+						input#hovercachelist-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Video/Audio volume')}
+						label.postform-style.ph-5
+							input#volume-setting(type='range' min='0' max='100')
 			//- Import/Export
 			.tab.tab-6
 				.col
