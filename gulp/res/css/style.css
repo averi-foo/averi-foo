@@ -52,6 +52,9 @@ main.minimal {
 	flex-grow: 1;
 }
 
+.grid {
+	display: grid;
+}
 
 .grid-2 {
 	display: grid;
@@ -1311,6 +1314,11 @@ input[type="button"], input[type="range"], input[type="number"], input[type="tex
 textarea {
 	max-height: 100%;
 	max-width: 100%;
+}
+
+#customcss-setting, #import-export-setting {
+	height: 57vh;
+	min-height:57vh;
 }
 
 input[type=number]::-webkit-outer-spin-button,

@@ -135,7 +135,7 @@ mixin settings(data)
 							option(value='default') default
 							each theme in data.settings.codeThemes
 								option(value=theme) #{theme}
-					.row.mt-5
+					.row.mt-5.grid
 						.label #{__('Custom CSS')}
 						textarea#customcss-setting(rows=7)
 			//- Filters
@@ -201,7 +201,7 @@ mixin settings(data)
 			//- Import/Export
 			.tab.tab-6
 				.col
-					.row.mt-5
+					.row.mt-5.grid
 						.label
 							| #{__('Import/Export Settings')}
 							small.title #{__('Do NOT import untrusted settings data!')}
