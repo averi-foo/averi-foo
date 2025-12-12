@@ -16,81 +16,82 @@ mixin settings(data)
 
 		.box-wrap
 			//- General
-			.tab.inline.tab-1
-				h3 Image and Video options
-				.col.grid-2
-					.row
-						label.postform-style.ph-5
-							input#imagehover-setting(type='checkbox')
-						.rlabel #{__('Image hover')}
-					.row
-						label.postform-style.ph-5
-							input#imageloadingbars-setting(type='checkbox')
-						.rlabel #{__('Image loading bars')}
-					.row
-						label.postform-style.ph-5
-							input#crispimages-setting(type='checkbox')
-						.rlabel #{__('Crisp image rendering')}
-					.row
-						label.postform-style.ph-5
-							input#heightlimit-setting(type='checkbox')
-						.rlabel #{__('Unlimit media height')}
-					.row
-						label.postform-style.ph-5
-							input#loop-setting(type='checkbox')
-						.rlabel #{__('Loop audio/video')}
-				h3 Other features
-				.col.grid-2
-					.row
-						label.postform-style.ph-5
-							input#smoothscrolling-setting(type='checkbox')
-						.rlabel #{__('Smooth scrolling')}
-					.row
-						label.postform-style.ph-5
-							input#fadepostcontainer-setting(type='checkbox')
-						.rlabel #{__('Fade Post Container')}
-					.row
-						label.postform-style.ph-5
-							input#threadwatcher-setting(type='checkbox')
-						.rlabel #{__('Thread watcher')}
-					.row
-						label.postform-style.ph-5
-							input#autowatch-setting(type='checkbox')
-						.rlabel #{__("Watch threads you've replied to")}
-					.row
-						label.postform-style.ph-5
-							input#live-setting(type='checkbox')
-						.rlabel #{__('Live posts')}
-					.row
-						label.postform-style.ph-5
-							input#notification-setting(type='checkbox')
-						.rlabel #{__('Notifications')}
-					.row
-						label.postform-style.ph-5
-							input#notification-yous-only(type='checkbox')
-						.rlabel #{__('Only notify (You)s')}
-					.row
-						label.postform-style.ph-5
-							input#embedsenabled-setting(type='checkbox')
-						.rlabel #{__('Embeds enabled')}
-					.row
-						label.postform-style.ph-5
-							input#scroll-setting(type='checkbox')
-						.rlabel #{__('Scroll to new posts')}
-				h3 Time
-				.col.grid-2
-					.row
-						label.postform-style.ph-5
-							input#localtime-setting(type='checkbox')
-						.rlabel #{__('Local time')}
-					.row
-						label.postform-style.ph-5
-							input#24hour-setting(type='checkbox')
-						.rlabel #{__('24h time')}
-					.row
-						label.postform-style.ph-5
-							input#relative-setting(type='checkbox')
-						.rlabel #{__('Show relative time')}
+			.tab.tab-1
+				.inline
+					h3 Image and Video options
+					.col.grid-2
+						.row
+							label.postform-style.ph-5
+								input#imagehover-setting(type='checkbox')
+							.rlabel #{__('Image hover')}
+						.row
+							label.postform-style.ph-5
+								input#imageloadingbars-setting(type='checkbox')
+							.rlabel #{__('Image loading bars')}
+						.row
+							label.postform-style.ph-5
+								input#crispimages-setting(type='checkbox')
+							.rlabel #{__('Crisp image rendering')}
+						.row
+							label.postform-style.ph-5
+								input#heightlimit-setting(type='checkbox')
+							.rlabel #{__('Unlimit media height')}
+						.row
+							label.postform-style.ph-5
+								input#loop-setting(type='checkbox')
+							.rlabel #{__('Loop audio/video')}
+					h3 Other features
+					.col.grid-2
+						.row
+							label.postform-style.ph-5
+								input#smoothscrolling-setting(type='checkbox')
+							.rlabel #{__('Smooth scrolling')}
+						.row
+							label.postform-style.ph-5
+								input#fadepostcontainer-setting(type='checkbox')
+							.rlabel #{__('Fade Post Container')}
+						.row
+							label.postform-style.ph-5
+								input#threadwatcher-setting(type='checkbox')
+							.rlabel #{__('Thread watcher')}
+						.row
+							label.postform-style.ph-5
+								input#autowatch-setting(type='checkbox')
+							.rlabel #{__("Watch threads you've replied to")}
+						.row
+							label.postform-style.ph-5
+								input#live-setting(type='checkbox')
+							.rlabel #{__('Live posts')}
+						.row
+							label.postform-style.ph-5
+								input#notification-setting(type='checkbox')
+							.rlabel #{__('Notifications')}
+						.row
+							label.postform-style.ph-5
+								input#notification-yous-only(type='checkbox')
+							.rlabel #{__('Only notify (You)s')}
+						.row
+							label.postform-style.ph-5
+								input#embedsenabled-setting(type='checkbox')
+							.rlabel #{__('Embeds enabled')}
+						.row
+							label.postform-style.ph-5
+								input#scroll-setting(type='checkbox')
+							.rlabel #{__('Scroll to new posts')}
+					h3 Time
+					.col.grid-2
+						.row
+							label.postform-style.ph-5
+								input#localtime-setting(type='checkbox')
+							.rlabel #{__('Local time')}
+						.row
+							label.postform-style.ph-5
+								input#24hour-setting(type='checkbox')
+							.rlabel #{__('24h time')}
+						.row
+							label.postform-style.ph-5
+								input#relative-setting(type='checkbox')
+							.rlabel #{__('Show relative time')}
 			//- Visibility
 			.tab.tab-2
 				.col.mr-5.grid-2
