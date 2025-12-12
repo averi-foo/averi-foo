@@ -1325,8 +1325,8 @@ textarea {
 }
 
 #customcss-setting, #import-export-setting {
-	height: 57vh;
-	min-height:57vh;
+	height: 50vh;
+	min-height:50vh;
 }
 
 input[type=number]::-webkit-outer-spin-button,
@@ -1720,12 +1720,13 @@ row.wrap.sb .col {
 	border: 1px solid var(--post-outline-color);
 }
 
-/* Default selected tab 1 */
+/* Default hide tabs */
 .tab {
 	display: none;
 	margin: 1px;
 	padding: 1px;
 }
+/* Default selected tab 1 */
 .tab-1 {
 	display: flex;
 }
@@ -1752,6 +1753,12 @@ row.wrap.sb .col {
 	display: flex;
 }
 /* Settings tabs */
+.settings-tabbed-area {
+	@media only screen and (max-width: 600px) {
+		display: flex;
+		flex-direction: column;
+	}
+}
 
 #settings-tab-1:target .tab-1,
 #settings-tab-2:target .tab-2,
@@ -1817,6 +1824,14 @@ row.wrap.sb .col {
 	}
 }
 
+.mobile-only {
+	display: none;
+	@media only screen and (min-width: 600px) {
+		display: block;
+	}
+
+}
+
 @media only screen and (max-width: 600px) {
 	/* hide floating hover posts when < 600 width (too small portrait display) */
 	#float {
@@ -1837,6 +1852,9 @@ row.wrap.sb .col {
 		margin-top: -1px;
 		border: 1px solid var(--post-outline-color)!important;
 		width: 91.4%;
+	}
+	.settings-tabbed-area .tabs {
+		order: 2;
 	}
 	select[name="countries"] {
 		max-width: 220px;
