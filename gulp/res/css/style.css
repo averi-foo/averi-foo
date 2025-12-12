@@ -56,6 +56,10 @@ main.minimal {
 .grid-2 {
 	display: grid;
 	grid-template-columns: auto auto;
+	grid-column-gap: 5px;
+	@media only screen and (max-width: 600px) {
+		display: block;
+	}
 }
 
 .wrap {
@@ -1646,6 +1650,7 @@ table, .boardtable {
 #settingsmodal{
 	min-width: 700px;
 	padding: 10px;
+	height: 80%;
 }
 #settingsmodal .form-wrapper.flexleft.mt-10, #settingsmodal .form-wrapper.flexleft.mt-10 .row {
 	width: 100%
@@ -1815,6 +1820,7 @@ row.wrap.sb .col {
 		padding: 8px 15px;
 		margin-top: -1px;
 		border: 1px solid var(--post-outline-color)!important;
+		width: 100%;
 	}
 	select[name="countries"] {
 		max-width: 220px;
