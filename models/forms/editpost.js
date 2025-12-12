@@ -77,6 +77,7 @@ todo: handle some more situations
 		board.owner,
 		board.staff,
 		res.locals.user ? res.locals.user.username : null,
+		null,
 		res.locals.__
 	);
 	//new message and quotes
