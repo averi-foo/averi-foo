@@ -1826,7 +1826,7 @@ row.wrap.sb .col {
 
 .mobile-only {
 	display: none;
-	@media only screen and (min-width: 600px) {
+	@media only screen and (max-width: 600px) {
 		display: block;
 	}
 
