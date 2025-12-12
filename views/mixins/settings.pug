@@ -16,10 +16,9 @@ mixin settings(data)
 
 		.box-wrap
 			//- General
-			.tab.tab-1
+			.tab.inline.tab-1
+				h3 Image and Video options
 				.col.grid-2
-					h3 Image and Video options
-					br
 					.row
 						label.postform-style.ph-5
 							input#imagehover-setting(type='checkbox')
@@ -30,10 +29,18 @@ mixin settings(data)
 						.rlabel #{__('Image loading bars')}
 					.row
 						label.postform-style.ph-5
+							input#crispimages-setting(type='checkbox')
+						.rlabel #{__('Crisp image rendering')}
+					.row
+						label.postform-style.ph-5
+							input#heightlimit-setting(type='checkbox')
+						.rlabel #{__('Unlimit media height')}
+					.row
+						label.postform-style.ph-5
 							input#loop-setting(type='checkbox')
 						.rlabel #{__('Loop audio/video')}
-					h3 Other
-					br
+				h3 Other features
+				.col.grid-2
 					.row
 						label.postform-style.ph-5
 							input#smoothscrolling-setting(type='checkbox')
@@ -70,6 +77,8 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#scroll-setting(type='checkbox')
 						.rlabel #{__('Scroll to new posts')}
+				h3 Time
+				.col.grid-2
 					.row
 						label.postform-style.ph-5
 							input#localtime-setting(type='checkbox')
@@ -109,14 +118,6 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#disableboardcss-setting(type='checkbox')
 						.rlabel #{__('Disable board custom CSS')}
-					.row
-						label.postform-style.ph-5
-							input#heightlimit-setting(type='checkbox')
-						.rlabel #{__('Unlimit media height')}
-					.row
-						label.postform-style.ph-5
-							input#crispimages-setting(type='checkbox')
-						.rlabel #{__('Crisp image rendering')}
 					.row
 						label.postform-style.ph-5
 							input#alwaysshowspoilers-setting(type='checkbox')

@@ -52,6 +52,14 @@ main.minimal {
 	flex-grow: 1;
 }
 
+.inline {
+	display: inline;
+	h3, p {
+		margin-left: 10px;
+		line-height: 0px;
+	}
+}
+
 .grid {
 	display: grid;
 }
