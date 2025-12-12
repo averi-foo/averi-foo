@@ -17,11 +17,9 @@ mixin settings(data)
 		.box-wrap
 			//- General
 			.tab.tab-1
-				.col.mr-5.grid-2
-					.row
-						label.postform-style.ph-5
-							input#fadepostcontainer-setting(type='checkbox')
-						.rlabel #{__('Fade Post Container')}
+				.col
+					h2 Image and Video options
+				.col.grid-2
 					.row
 						label.postform-style.ph-5
 							input#imagehover-setting(type='checkbox')
@@ -32,8 +30,19 @@ mixin settings(data)
 						.rlabel #{__('Image loading bars')}
 					.row
 						label.postform-style.ph-5
+							input#loop-setting(type='checkbox')
+						.rlabel #{__('Loop audio/video')}
+				.col
+					h2 Other options
+				.col.grid-2
+					.row
+						label.postform-style.ph-5
 							input#smoothscrolling-setting(type='checkbox')
 						.rlabel #{__('Smooth scrolling')}
+					.row
+						label.postform-style.ph-5
+							input#fadepostcontainer-setting(type='checkbox')
+						.rlabel #{__('Fade Post Container')}
 					.row
 						label.postform-style.ph-5
 							input#threadwatcher-setting(type='checkbox')
@@ -62,10 +71,6 @@ mixin settings(data)
 						label.postform-style.ph-5
 							input#scroll-setting(type='checkbox')
 						.rlabel #{__('Scroll to new posts')}
-					.row
-						label.postform-style.ph-5
-							input#loop-setting(type='checkbox')
-						.rlabel #{__('Loop audio/video')}
 					.row
 						label.postform-style.ph-5
 							input#localtime-setting(type='checkbox')
@@ -130,6 +135,7 @@ mixin settings(data)
 							option(value='default') default
 							each theme in data.settings.themes
 								option(value=theme) #{theme}
+					.row
 						.label #{__('Code theme')}
 						select#codetheme-setting
 							option(value='default') default
