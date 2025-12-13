@@ -1874,7 +1874,7 @@ row.wrap.sb .col {
 	#settingsmodal {
 		width: 100%;
 		min-width: unset;
-		height: 80%
+		height: 100%
 	}
  	[title] {
 		position:relative
