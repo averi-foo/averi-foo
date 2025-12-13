@@ -1726,13 +1726,15 @@ row.wrap.sb .col {
 	margin: 1px;
 	padding: 1px;
 }
-/* Default selected tab 1 */
-.tab-1 {
-	display: flex;
-}
-
-:target .tab-1 {
-	display:none;
+/* Default selected tab 1, PC only.*/
+@media only screen and (min-width: 600px) {
+	.tab-1 {
+		display: flex;
+	}
+	/*Disable the default tab when one is picked.*/
+	:target .tab-1 {
+		display:none;
+	}
 }
 
 .sm {

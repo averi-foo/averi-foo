@@ -7,7 +7,8 @@ mixin checkbox(idname,description)
 mixin settings(data)
 	.settings-tabbed-area
 		ul.tabs.group
-			h3.mobile-only Navigation
+			li.mobile-only
+				a(href='#') #{__('Back')}
 			li
 				a(href='#settings-tab-1') #{__('General')}
 			li
@@ -28,109 +29,37 @@ mixin settings(data)
 					h3 Image and Video options
 					.col.grid-2
 						+checkbox("imagehover-setting", "Enlarge images when hovering over them")
-						.row
-							label.postform-style.ph-5
-								input#imageloadingbars-setting(type='checkbox')
-							.rlabel #{__('Image loading bars')}
-						.row
-							label.postform-style.ph-5
-								input#crispimages-setting(type='checkbox')
-							.rlabel #{__('Crisp image rendering')}
-						.row
-							label.postform-style.ph-5
-								input#heightlimit-setting(type='checkbox')
-							.rlabel #{__('Unlimit media height')}
-						.row
-							label.postform-style.ph-5
-								input#loop-setting(type='checkbox')
-							.rlabel #{__('Loop audio/video')}
+						+checkbox("imageloadingbars-setting", "Image loading bars")
+						+checkbox("crispimages-setting","Crisp image rendering")
+						+checkbox("heightlimit-setting","Unlimit media height")
+						+checkbox("loop-setting","Loop audio/video")
 					h3 Features
 					.col.grid-2
-						.row
-							label.postform-style.ph-5
-								input#threadwatcher-setting(type='checkbox')
-							.rlabel #{__('Thread watcher')}
-						.row
-							label.postform-style.ph-5
-								input#autowatch-setting(type='checkbox')
-							.rlabel #{__("Auto watch threads you've replied to")}
-						.row
-							label.postform-style.ph-5
-								input#notification-setting(type='checkbox')
-							.rlabel #{__('Desktop Notifications')}
-						.row
-							label.postform-style.ph-5
-								input#notification-yous-only(type='checkbox')
-							.rlabel #{__('Only notify replies to (You)')}
-						.row
-							label.postform-style.ph-5
-								input#smoothscrolling-setting(type='checkbox')
-							.rlabel #{__('Smooth scrolling')}
-						.row
-							label.postform-style.ph-5
-								input#scroll-setting(type='checkbox')
-							.rlabel #{__('Auto scroll to new posts')}
-						.row
-							label.postform-style.ph-5
-								input#fadepostcontainer-setting(type='checkbox')
-							.rlabel #{__('Fade post container when unfocused')}
-						.row
-							label.postform-style.ph-5
-								input#live-setting(type='checkbox')
-							.rlabel #{__('Live posts')}
-						.row
-							label.postform-style.ph-5
-								input#embedsenabled-setting(type='checkbox')
-							.rlabel #{__('Embeds enabled')}
+						+checkbox("threadwatcher-setting","Thread watcher")
+						+checkbox("autowatch-setting","Auto watch threads you've replied to")
+						+checkbox("notification-setting","Desktop Notifications")
+						+checkbox("notification-yous-only","Only notify replies to (You)")
+						+checkbox("smoothscrolling-setting","Smooth scrolling")
+						+checkbox("scroll-setting","Auto scroll to new posts")
+						+checkbox("fadepostcontainer-setting","Fade post container when unfocused")
+						+checkbox("live-setting","Live posts")
+						+checkbox("embedsenabled-setting","Embeds enabled")
 					h3 Time
 					.col.grid-2
-						.row
-							label.postform-style.ph-5
-								input#localtime-setting(type='checkbox')
-							.rlabel #{__('Local time')}
-						.row
-							label.postform-style.ph-5
-								input#24hour-setting(type='checkbox')
-							.rlabel #{__('24h time')}
-						.row
-							label.postform-style.ph-5
-								input#relative-setting(type='checkbox')
-							.rlabel #{__('Show relative time')}
+						+checkbox("localtime-setting","Local time")
+						+checkbox("24hour-setting","24h time")
+						+checkbox("relative-setting","Show relative time")
 			//- Visibility
 			.tab.tab-2
 				.col.mr-5.grid-2
-					.row
-						label.postform-style.ph-5
-							input#hidethumbnails-setting(type='checkbox')
-						.rlabel #{__('Hide thumbnails')}
-					.row
-						label.postform-style.ph-5
-							input#hidepoststubs-setting(type='checkbox')
-						.rlabel #{__('Hide post stubs')}
-					.row
-						label.postform-style.ph-5
-							input#hidedeletedpostcontent-setting(type='checkbox')
-						.rlabel #{__('Hide deleted post content')}
-					.row
-						label.postform-style.ph-5
-							input#hiderecursive-setting(type='checkbox')
-						.rlabel #{__('Recursive post hide')}
-					.row
-						label.postform-style.ph-5
-							input#noncolorids-setting(type='checkbox')
-						.rlabel #{__('Remove colour from IDs')}
-					.row
-						label.postform-style.ph-5
-							input#disableboardcss-setting(type='checkbox')
-						.rlabel #{__('Disable board custom CSS')}
-					.row
-						label.postform-style.ph-5
-							input#alwaysshowspoilers-setting(type='checkbox')
-						.rlabel #{__('Always reveal text spoilers')}
-					.row
-						label.postform-style.ph-5
-							input#yous-setting(type='checkbox')
-						.rlabel #{__('Show (You)s')}
+					+checkbox("yous-setting","Show (You)s")
+					+checkbox("hidethumbnails-setting","Hide thumbnails")
+					+checkbox("hidepoststubs-setting","Hide post stubs")
+					+checkbox("hidedeletedpostcontent-setting","Hide deleted post content")
+					+checkbox("hiderecursive-setting","Recursive post hide")
+					+checkbox("noncolorids-setting","Remove colour from IDs")
+					+checkbox("disableboardcss-setting","Disable board custom CSS")
+					+checkbox("alwaysshowspoilers-setting","Always reveal text spoilers")
 			//- Style
 			.tab.tab-3
 				.col.mr-5
