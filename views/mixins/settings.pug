@@ -1,3 +1,9 @@
+mixin checkbox(idname,description)
+	.row
+		label.postform-style.ph-5
+			input(type='checkbox' id=idname)
+		.rlabel #{__(description)}
+
 mixin settings(data)
 	.settings-tabbed-area
 		ul.tabs.group
@@ -21,10 +27,7 @@ mixin settings(data)
 				.inline
 					h3 Image and Video options
 					.col.grid-2
-						.row
-							label.postform-style.ph-5
-								input#imagehover-setting(type='checkbox')
-							.rlabel #{__('Enlarge images when hovering over them')}
+						+checkbox("imagehover-setting", "Enlarge images when hovering over them")
 						.row
 							label.postform-style.ph-5
 								input#imageloadingbars-setting(type='checkbox')
