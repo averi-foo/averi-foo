@@ -4,6 +4,14 @@ mixin checkbox(idname,description)
 			input(type='checkbox' id=idname)
 		.rlabel #{__(description)}
 
+mixin selection(idname,description,data)
+	.row
+		.label #{__(description)}
+		select(id=idname)
+			option(value='default') default
+			each dataoption in data
+				option(value=dataoption) #{dataoption}
+
 mixin settings(data)
 	.settings-tabbed-area
 		ul.tabs.group
@@ -63,18 +71,8 @@ mixin settings(data)
 			//- Style
 			.tab.tab-3
 				.col.mr-5
-					.row
-						.label #{__('Theme')}
-						select#theme-setting
-							option(value='default') default
-							each theme in data.settings.themes
-								option(value=theme) #{theme}
-					.row
-						.label #{__('Code theme')}
-						select#codetheme-setting
-							option(value='default') default
-							each theme in data.settings.codeThemes
-								option(value=theme) #{theme}
+					+selection("theme-setting","Theme",data.settings.themes)
+					+selection("codetheme-setting","Code theme",data.settings.codeThemes)
 					.row.mt-5.grid
 						.label #{__('Custom CSS')}
 						textarea#customcss-setting(rows=7)

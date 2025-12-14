@@ -52,6 +52,7 @@ main.minimal {
 	flex-grow: 1;
 }
 
+/* Added inline, grid and grid-2 for the settings menu, inline allows me to add text to settings */
 .inline {
 	display: inline;
 	width: 100%;
@@ -604,6 +605,7 @@ input[name="move_to_board"], input[name="move_to_thread"] {
 	max-width: 80px;
 }
 
+/* Used for board stats, used to be width 900. Lazy change. */
 .w900 {
 	width: 1000px;
 }
@@ -1325,11 +1327,6 @@ textarea {
 	max-width: 100%;
 }
 
-#customcss-setting, #import-export-setting {
-	height: 50vh;
-	min-height:50vh;
-}
-
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
@@ -1663,7 +1660,6 @@ table, .boardtable {
 	white-space: nowrap;
 }
 
-
 #settingsmodal{
 	min-width: 700px;
 	padding: 10px;
@@ -1729,10 +1725,11 @@ row.wrap.sb .col {
 }
 /* Default selected tab 1, PC only.*/
 @media only screen and (min-width: 600px) {
+	/* tab-1 is the default tab set to appear first always unless the oage has a :target */
 	.tab-1 {
 		display: flex;
 	}
-	/*Disable the default tab when one is picked.*/
+	/* Disable the default tab when a tab is picked.*/
 	:target .tab-1 {
 		display:none;
 	}
@@ -1761,6 +1758,11 @@ row.wrap.sb .col {
 		display: flex;
 		flex-direction: column;
 	}
+}
+
+#customcss-setting, #import-export-setting {
+	height: 50vh;
+	min-height:50vh;
 }
 
 #settings-tab-1:target .tab-1,
@@ -1882,6 +1884,7 @@ row.wrap.sb .col {
 	#hotposts td:nth-child(3) {
 		display: none;
 	}
+	/* Make settings menu full screen on mobile. */
 	#settingsmodal {
 		width: 100%;
 		min-width: unset;
