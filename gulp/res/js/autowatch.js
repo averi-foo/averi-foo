@@ -1,25 +1,25 @@
 /* globals setLocalStorage threadwatcher watchedthread */
 
-// Only works in a thread
-if (isThread) {
-	window.addEventListener('DOMContentLoaded', () => {
-		// Set autowatch if setting doesnt exist
-		if (localStorage.getItem('autowatch') === undefined || localStorage.getItem('autowatch') === null) {
-			setLocalStorage('autowatch', true);
-		}
-		// Get 'autowatch' in local storage.
-		let autowatchEnabled = localStorage.getItem('autowatch') == 'true';
-		const autowatchEnabledSetting = document.getElementById('autowatch-setting');
-		// Set the autowatchEnabled var on autowatch-setting checkmark change.
-		const toggleAutowatchEnabled = () => {
-			autowatchEnabled = autowatchEnabledSetting.checked;
-			console.log('toggling autowatch', autowatchEnabled);
-			setLocalStorage('autowatch', autowatchEnabled);
-		};
+window.addEventListener('DOMContentLoaded', () => {
+	// Set autowatch if setting doesnt exist
+	if (localStorage.getItem('autowatch') === undefined || localStorage.getItem('autowatch') === null) {
+		setLocalStorage('autowatch', true);
+	}
+	// Get 'autowatch' in local storage.
+	let autowatchEnabled = localStorage.getItem('autowatch') == 'true';
+	const autowatchEnabledSetting = document.getElementById('autowatch-setting');
+	// Set the autowatchEnabled var on autowatch-setting checkmark change.
+	const toggleAutowatchEnabled = () => {
+		autowatchEnabled = autowatchEnabledSetting.checked;
+		console.log('toggling autowatch', autowatchEnabled);
+		setLocalStorage('autowatch', autowatchEnabled);
+	};
 
-		autowatchEnabledSetting.checked = autowatchEnabled;
-		autowatchEnabledSetting.addEventListener('change', toggleAutowatchEnabled, false);
+	autowatchEnabledSetting.checked = autowatchEnabled;
+	autowatchEnabledSetting.addEventListener('change', toggleAutowatchEnabled, false);
 
+	// Only works in a thread
+	if (isThread) {
 		// Find post button and if you do find it, make it so that it watches the current thread.
 		const postSubmitButton = document.getElementById('submitpost');
 		const postMessageForm = document.querySelector("#postform").querySelector("#message")
@@ -43,5 +43,6 @@ if (isThread) {
 
 		postSubmitButton.addEventListener('click', watchThisThread, false);
 		postMessageForm.addEventListener('keydown',checkForControlEnter, false);
-	});
-}
+	}
+});
+
