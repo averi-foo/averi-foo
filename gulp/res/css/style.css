@@ -1833,13 +1833,14 @@ row.wrap.sb .col {
 	}
 }
 
-#mobile-back-option {
+.mobile-back-option {
 	display: none;
 }
 /* Show back button on mobile */
 @media only screen and (max-width: 600px) {
-	:target #mobile-back-option {
+	:target .mobile-back-option {
 		display: block;
+		margin-bottom: 50px;
 	}
 }
 
@@ -1864,9 +1865,6 @@ row.wrap.sb .col {
 		margin-top: -1px;
 		border: 1px solid var(--post-outline-color)!important;
 		width: 91.4%;
-	}
-	.settings-tabbed-area .tabs {
-		order: 2;
 	}
 	select[name="countries"] {
 		max-width: 220px;
