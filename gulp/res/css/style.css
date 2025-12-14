@@ -1833,18 +1833,16 @@ row.wrap.sb .col {
 	}
 }
 
-.mobile-only {
-	display: none !important;
-	@media only screen and (max-width: 600px) {
-		display: block !important;
-		#mobile-back-option {
-			display: none !important;
-		}
-		:target #mobile-back-option {
-			display: block !important;
-		}
+#mobile-back-option {
+	display: none;
+}
+/* Show back button on mobile */
+@media only screen and (max-width: 600px) {
+	:target #mobile-back-option {
+		display: block;
 	}
 }
+
 
 @media only screen and (max-width: 600px) {
 	/* hide floating hover posts when < 600 width (too small portrait display) */
