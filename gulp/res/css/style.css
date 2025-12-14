@@ -1771,6 +1771,18 @@ row.wrap.sb .col {
 	display: flex;
 }
 
+/* Show only back button on mobile */
+@media only screen and (max-width: 600px) {
+	:target #settings-tab-1,
+	:target #settings-tab-2,
+	:target #settings-tab-3,
+	:target #settings-tab-4,
+	:target #settings-tab-5,
+	:target #settings-tab-6 {
+		display: none;
+	}
+}
+
 #settings-tab-1:target a[href="#settings-tab-1"],
 #settings-tab-2:target a[href="#settings-tab-2"],
 #settings-tab-3:target a[href="#settings-tab-3"],
@@ -1827,11 +1839,16 @@ row.wrap.sb .col {
 }
 
 .mobile-only {
-	display: none;
-	@media only screen and (max-width: 600px) {
+	display: none !important;
+	#mobile-back-option {
+		display: none;
+	}
+	:target #mobile-back-option {
 		display: block;
 	}
-
+	@media only screen and (max-width: 600px) {
+		display: block !important;
+	}
 }
 
 @media only screen and (max-width: 600px) {
