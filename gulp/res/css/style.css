@@ -1752,13 +1752,7 @@ row.wrap.sb .col {
 #tab-11:target .tab-11 {
 	display: flex;
 }
-/* Settings tabs */
-.settings-tabbed-area {
-	@media only screen and (max-width: 600px) {
-		display: flex;
-		flex-direction: column;
-	}
-}
+
 
 #customcss-setting, #import-export-setting {
 	height: 50vh;
