@@ -374,7 +374,9 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 	const liveSetting = document.getElementById('live-setting');
 	const toggleLive = () => {
 		liveEnabled = !liveEnabled;
-		liveEnabled ? enableLive() : disableLive();
+		if (updateButton) {
+			liveEnabled ? enableLive() : disableLive();
+		}
 		console.log('toggling live posts', liveEnabled);
 		setLocalStorage('live', liveEnabled);
 	};

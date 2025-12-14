@@ -97,13 +97,13 @@ block content
 					span When new posts are made in a thread, you will automatically scroll to them. This is disabled by default.
 			tr
 				td Local time
-				td Currently unsure.
+				td Uses your timezone. Turning this off will use the Server's timezone.
 			tr
 				td 24 hour time
-				td Currently unsure. Sets time to 24 hour format instead of 12 hour format, or something.
+				td Uses 24 hour formats instead of 12PM/AM where applicable.
 			tr
 				td Show relative time
-				td Currently unsure. Shows time in the format of 1 month ago instead of just showing the date, or something.
+				td Shows time in the format of "1 month ago" or "1 day ago". Turning this off will show time as their exact dates.
 			tr
 				td Non-color IDs
 				td
@@ -138,10 +138,10 @@ block content
 					span Audio and Video will loop when they reach their end timestamp. This is enabled by default.
 			tr
 				td Unlimit Media Height
-				td Currently unsure. Disables restrictions on how high images can be, or something.
+				td Unlimits media height on images and video.
 			tr
 				td Crisp image rendering
-				td Currently unsure. Makes image rendering better, or something.
+				td This is a CSS Toggle that adds the crisp-edges option on image-rendering similar to Nearest Neighbour filtering
 			tr
 				td Image loading bars
 				td
@@ -153,8 +153,7 @@ block content
 			tr
 				td Always reveal text spoilers
 				td
-					span.spoiler Spoliered text
-					span becomes visible always. This is disabled by default.
+					span Spoilered text becomes visible always. This is disabled by default.
 			tr
 				td Show (You)s
 				td
@@ -282,7 +281,7 @@ block content
 			tr
 				td ||spoiler text||
 				td
-					span.spoiler What are you looking at, newfloof?
+					span.spoiler What are you looking at, nufur?
 			tr
 				td **italic**
 				td
@@ -294,6 +293,8 @@ block content
 			tr
 				td ##2%9+3
 				td
+					span This is a dice roll. Syntax: ##roles%sides
+					br
 					img(src='/file/dice.png' height='16' width='16')
 					span.dice (##2%9+3) = 10
 			tr

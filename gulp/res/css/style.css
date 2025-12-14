@@ -52,6 +52,29 @@ main.minimal {
 	flex-grow: 1;
 }
 
+/* Added inline, grid and grid-2 for the settings menu, inline allows me to add text to settings */
+.inline {
+	display: inline;
+	width: 100%;
+	h3, p {
+		margin-left: 10px;
+		line-height: 0px;
+	}
+}
+
+.grid {
+	display: grid;
+}
+
+.grid-2 {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 5px;
+	@media only screen and (max-width: 600px) {
+		display: block;
+	}
+}
+
 .wrap {
 	flex-wrap: wrap;
 }
@@ -582,8 +605,9 @@ input[name="move_to_board"], input[name="move_to_thread"] {
 	max-width: 80px;
 }
 
+/* Used for board stats, used to be width 900. Lazy change. */
 .w900 {
-	width: 900px;
+	width: 1000px;
 }
 
 th {
@@ -1636,9 +1660,10 @@ table, .boardtable {
 	white-space: nowrap;
 }
 
-
 #settingsmodal{
-	min-width: 400px;
+	min-width: 700px;
+	padding: 10px;
+	height: 80%;
 }
 #settingsmodal .form-wrapper.flexleft.mt-10, #settingsmodal .form-wrapper.flexleft.mt-10 .row {
 	width: 100%
@@ -1692,23 +1717,28 @@ row.wrap.sb .col {
 	border: 1px solid var(--post-outline-color);
 }
 
-/* Default selected tab 1 */
+/* Default hide tabs */
 .tab {
 	display: none;
 	margin: 1px;
 	padding: 1px;
 }
-.tab-1 {
-	display: flex;
-}
-:target .tab-1 {
-	display:none;
+/* Default selected tab 1, PC only.*/
+@media only screen and (min-width: 600px) {
+	/* tab-1 is the default tab set to appear first always unless the oage has a :target */
+	.tab-1 {
+		display: flex;
+	}
+	/* Disable the default tab when a tab is picked.*/
+	:target .tab-1 {
+		display:none;
+	}
 }
 
 .sm {
 	scroll-margin-top: 100px;
 }
-
+/* Set visible depending on target */
 #tab-1:target .tab-1,
 #tab-2:target .tab-2,
 #tab-3:target .tab-3,
@@ -1721,6 +1751,38 @@ row.wrap.sb .col {
 #tab-10:target .tab-10,
 #tab-11:target .tab-11 {
 	display: flex;
+}
+
+
+#customcss-setting, #import-export-setting {
+	height: 50vh;
+	min-height:50vh;
+}
+
+#settings-tab-1:target .tab-1,
+#settings-tab-2:target .tab-2,
+#settings-tab-3:target .tab-3,
+#settings-tab-4:target .tab-4,
+#settings-tab-5:target .tab-5,
+#settings-tab-6:target .tab-6 {
+	display: flex;
+}
+
+/* Show only back button on mobile */
+@media only screen and (max-width:600px) {
+	:target ul.tabs.group li {
+		display:none
+	}
+}
+
+#settings-tab-1:target a[href="#settings-tab-1"],
+#settings-tab-2:target a[href="#settings-tab-2"],
+#settings-tab-3:target a[href="#settings-tab-3"],
+#settings-tab-4:target a[href="#settings-tab-4"],
+#settings-tab-5:target a[href="#settings-tab-5"],
+#settings-tab-6:target a[href="#settings-tab-6"] {
+	border-bottom: 1px solid var(--background-rest);
+	background: var(--background-rest);
 }
 
 #tab-1:target a[href="#tab-1"],
@@ -1768,6 +1830,18 @@ row.wrap.sb .col {
 	}
 }
 
+.mobile-back-option {
+	display: none !important;
+}
+/* Show back button on mobile */
+@media only screen and (max-width: 600px) {
+	:target .mobile-back-option {
+		display: block !important;
+		/* margin-bottom: 50px; */
+	}
+}
+
+
 @media only screen and (max-width: 600px) {
 	/* hide floating hover posts when < 600 width (too small portrait display) */
 	#float {
@@ -1787,6 +1861,7 @@ row.wrap.sb .col {
 		padding: 8px 15px;
 		margin-top: -1px;
 		border: 1px solid var(--post-outline-color)!important;
+		width: 91.4%;
 	}
 	select[name="countries"] {
 		max-width: 220px;
@@ -1803,9 +1878,11 @@ row.wrap.sb .col {
 	#hotposts td:nth-child(3) {
 		display: none;
 	}
+	/* Make settings menu full screen on mobile. */
 	#settingsmodal {
 		width: 100%;
 		min-width: unset;
+		height: 100%
 	}
  	[title] {
 		position:relative
@@ -1894,8 +1971,10 @@ row.wrap.sb .col {
 		border-bottom: 1px solid var(--highlighted-post-outline-color);
 	}
 
+	/* Margin on phones */
 	.close {
 		width: 2.25em;
+		margin-bottom: 10px;
 	}
 
 	input[type="range"], input[type="number"], input[type="text"], input[type="submit"], input[type="password"], input[type="file"], .postform-style, select, #postform-dragHandle {

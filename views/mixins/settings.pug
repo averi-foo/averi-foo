@@ -1,0 +1,150 @@
+mixin checkbox(idname,description)
+	.row
+		label.postform-style.ph-5
+			input(type='checkbox' id=idname)
+		.rlabel #{__(description)}
+
+mixin selection(idname,description,data)
+	.row
+		.label #{__(description)}
+		select(id=idname)
+			option(value='default') default
+			each dataoption in data
+				option(value=dataoption) #{dataoption}
+
+mixin settings(data)
+	.tabbed-area
+		ul.tabs.group
+			li.mobile-back-option
+				a(href='#') #{__('⮌ Tap to go back')}
+			li
+				a(href='#settings-tab-1') #{__('General')}
+			li
+				a(href='#settings-tab-2') #{__('Visibility')}
+			li
+				a(href='#settings-tab-3') #{__('Style')}
+			li
+				a(href='#settings-tab-4') #{__('Filters')}
+			li
+				a(href='#settings-tab-5') #{__('User Data')}
+			li
+				a(href='#settings-tab-6') #{__('Import/Export')}
+
+		.box-wrap
+			//- General
+			.tab.tab-1
+				.inline
+					h3 Image and Video options
+					.col.grid-2
+						+checkbox("imagehover-setting", "Enlarge images when hovering over them")
+						+checkbox("imageloadingbars-setting", "Image loading bars")
+						+checkbox("crispimages-setting","Crisp image rendering")
+						+checkbox("heightlimit-setting","Unlimit media height")
+						+checkbox("loop-setting","Loop audio/video")
+					h3 Features
+					.col.grid-2
+						+checkbox("threadwatcher-setting","Thread watcher")
+						+checkbox("autowatch-setting","Auto watch threads you've replied to")
+						+checkbox("notification-setting","Desktop Notifications")
+						+checkbox("notification-yous-only","Only notify replies to (You)")
+						+checkbox("smoothscrolling-setting","Smooth scrolling")
+						+checkbox("scroll-setting","Auto scroll to new posts")
+						+checkbox("fadepostcontainer-setting","Fade post container when unfocused")
+						+checkbox("live-setting","Live posts")
+						+checkbox("embedsenabled-setting","Embeds enabled")
+					h3 Time
+					.col.grid-2
+						+checkbox("localtime-setting","Local time")
+						+checkbox("24hour-setting","24h time")
+						+checkbox("relative-setting","Show relative time")
+			//- Visibility
+			.tab.tab-2
+				.col.mr-5.grid-2
+					+checkbox("yous-setting","Show (You)s")
+					+checkbox("hidethumbnails-setting","Hide thumbnails")
+					+checkbox("hidepoststubs-setting","Hide post stubs")
+					+checkbox("hidedeletedpostcontent-setting","Hide deleted post content")
+					+checkbox("hiderecursive-setting","Recursive post hide")
+					+checkbox("noncolorids-setting","Remove colour from IDs")
+					+checkbox("disableboardcss-setting","Disable board custom CSS")
+					+checkbox("alwaysshowspoilers-setting","Always reveal text spoilers")
+			//- Style
+			.tab.tab-3
+				.col.mr-5
+					+selection("theme-setting","Theme",data.settings.themes)
+					+selection("codetheme-setting","Code theme",data.settings.codeThemes)
+					.row.mt-5.grid
+						.label #{__('Custom CSS')}
+						textarea#customcss-setting(rows=7)
+			//- Filters
+			.tab.tab-4
+				.col
+					.row.mt-5
+						form.text-center#filter-form
+							table.fw
+								tbody#advancedfilters
+									tr
+										th(colspan=4) #{__('Post Filters')}
+									tr
+										td #{__('Type')}
+										td #{__('Value')}
+										td #{__('Regex?')}
+										td: input.right#filters-clear(type='button' value=__('Clear'))
+									tr
+										td: select(name='type')
+											option(value='fname') #{__('Name')}
+											option(value='ftrip') #{__('Tripcode')}
+											option(value='fsub') #{__('Subject')}
+											option(value='fmsg') #{__('Message')}
+											option(value='fflag') #{__('Flag')}
+										td
+											input#filter-value-input(required type='text' name='value')
+										td
+											input(type='checkbox' name='regex')
+										td: input.right(type='submit' value=__('Add'))
+			//- User Data
+			.tab.tab-5
+				.col
+					.row
+						.label #{__('Default name')}
+						input#name-setting(type='text' name='name')
+					.row
+						.label #{__('Post password')}
+						input#postpassword-setting(type='password' name='postpassword' autocomplete='new-password')
+					.row
+						.label #{__('(You)s')}
+						input.mr-1#youslist-setting(type='text' readonly)
+						input#youslist-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Watchlist')}
+						input.mr-1#watchlist-setting(type='text' readonly)
+						input#watchlist-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Hidden files')}
+						input.mr-1#hiddenimages-setting(type='text' readonly)
+						input#hiddenimages-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Cache')}
+						input.mr-1#hovercachelist-setting(type='text' readonly)
+						input#hovercachelist-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Tegaki Size')}
+						input.mr-1.w50#tegakiwidth-setting(type='number')
+						.postform-style.ph-5.mr-1 ×
+						input.mr-1.w50#tegakiheight-setting(type='number')
+					.row
+						.label #{__('Video/Audio volume')}
+						label.postform-style.ph-5
+							input#volume-setting(type='range' min='0' max='100')
+			//- Import/Export
+			.tab.tab-6
+				.col
+					.row.mt-5.grid
+						.label
+							| #{__('Import/Export Settings')}
+							small.title #{__('Do NOT import untrusted settings data!')}
+							small #{__("Export does not include post password or (You)'s")}
+						textarea#import-export-setting(type='text')
+					.row
+						input.mr-1#export-setting(type='button' value=__('Export'))
+						input#import-setting(type='button' value=__('Import'))
