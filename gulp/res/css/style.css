@@ -54,6 +54,7 @@ main.minimal {
 
 .inline {
 	display: inline;
+	width: 100%;
 	h3, p {
 		margin-left: 10px;
 		line-height: 0px;
