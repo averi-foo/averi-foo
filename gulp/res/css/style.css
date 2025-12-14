@@ -1834,13 +1834,13 @@ row.wrap.sb .col {
 }
 
 .mobile-back-option {
-	display: none;
+	display: none !important;
 }
 /* Show back button on mobile */
 @media only screen and (max-width: 600px) {
 	:target .mobile-back-option {
-		display: block;
-		margin-bottom: 50px;
+		display: block !important;
+		/* margin-bottom: 50px; */
 	}
 }
 
