@@ -1973,8 +1973,10 @@ row.wrap.sb .col {
 		border-bottom: 1px solid var(--highlighted-post-outline-color);
 	}
 
+	/* Margin on phones */
 	.close {
 		width: 2.25em;
+		margin-bottom: 10px;
 	}
 
 	input[type="range"], input[type="number"], input[type="text"], input[type="submit"], input[type="password"], input[type="file"], .postform-style, select, #postform-dragHandle {
