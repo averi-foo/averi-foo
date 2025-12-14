@@ -114,15 +114,6 @@ mixin settings(data)
 						.label #{__('Post password')}
 						input#postpassword-setting(type='password' name='postpassword' autocomplete='new-password')
 					.row
-						.label #{__('Tegaki Size')}
-						input.mr-1.w50#tegakiwidth-setting(type='number')
-						.postform-style.ph-5.mr-1 ×
-						input.mr-1.w50#tegakiheight-setting(type='number')
-					.row
-						.label #{__('Video/Audio volume')}
-						label.postform-style.ph-5
-							input#volume-setting(type='range' min='0' max='100')
-					.row
 						.label #{__('(You)s')}
 						input.mr-1#youslist-setting(type='text' readonly)
 						input#youslist-clear(type='button' value=__('Clear'))
@@ -131,13 +122,22 @@ mixin settings(data)
 						input.mr-1#watchlist-setting(type='text' readonly)
 						input#watchlist-clear(type='button' value=__('Clear'))
 					.row
-						.label #{__('Hidden images')}
+						.label #{__('Hidden files')}
 						input.mr-1#hiddenimages-setting(type='text' readonly)
 						input#hiddenimages-clear(type='button' value=__('Clear'))
 					.row
 						.label #{__('Cache')}
 						input.mr-1#hovercachelist-setting(type='text' readonly)
 						input#hovercachelist-clear(type='button' value=__('Clear'))
+					.row
+						.label #{__('Tegaki Size')}
+						input.mr-1.w50#tegakiwidth-setting(type='number')
+						.postform-style.ph-5.mr-1 ×
+						input.mr-1.w50#tegakiheight-setting(type='number')
+					.row
+						.label #{__('Video/Audio volume')}
+						label.postform-style.ph-5
+							input#volume-setting(type='range' min='0' max='100')
 			//- Import/Export
 			.tab.tab-6
 				.col
