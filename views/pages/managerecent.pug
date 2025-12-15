@@ -10,6 +10,8 @@ block head
 block content
 	+boardheader(__('Recent Posts'))
 	br
+	include ../includes/postform.pug
+	br
 	.wrapbar
 		+managenav('recent')
 		if page === 1 && !postId && !queryIp

@@ -7,7 +7,7 @@ section.form-wrapper.flex-center
 	form.form-post#postform(action=`/forms/board/${board._id}/${modview ? 'mod' : ''}post`, enctype='multipart/form-data', method='POST' data-reset-on-submit='true')
 		if modview
 			input(type='hidden' name='_csrf' value=csrf)
-		input(type='hidden' name='thread' value=isThread ? thread.postId : null)
+		input(type=`${manage ? '' : 'hidden'}` name='thread' value=isThread ? thread.postId : null)
 		section.row.jsonly
 			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
 		if board.settings.forceAnon && !modview
