@@ -10,6 +10,7 @@ block head
 block content
 	+boardheader(__('Recent Posts'))
 	br
+	- const manage = true;
 	include ../includes/postform.pug
 	br
 	.wrapbar
