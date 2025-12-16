@@ -22,7 +22,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		//history.replaceState({}, '', '#postform');
 		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'flex';
-		topPostButton.style.visibility = 'hidden';
+		if (topPostButton) {
+			topPostButton.style.visibility = 'hidden';
+		}
 		if (bottomPostButton) {
 			bottomPostButton.style.display = 'none';
 		}
@@ -36,14 +38,18 @@ window.addEventListener('DOMContentLoaded', () => {
 		//history.replaceState({}, '', location.pathname);
 		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'none';
-		topPostButton.style.visibility = 'visible';
+		if (topPostButton) {
+			topPostButton.style.visibility = 'visible';
+		}
 		if (bottomPostButton) {
 			bottomPostButton.style.display = '';
 		}
 	};
 	if (postForm) {
 		const closeButton = postForm ? postForm.querySelector('.close') : null;
-		topPostButton.addEventListener('click', openPostForm, false);
+		if (topPostButton) {
+			topPostButton.addEventListener('click', openPostForm, false);
+		}
 		if (bottomPostButton) {
 			bottomPostButton.addEventListener('click', openPostForm, false);
 		}
