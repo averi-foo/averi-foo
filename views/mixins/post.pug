@@ -88,7 +88,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					a.no-decoration(href=isInRecents ? "#postform" : `${postURL}#postform`, target=undefined) Quote
 				|
 				|
-				if isInRecents && thread
+				if isInRecents && post.thread
 					span.post-thread-id Thread ${post.thread}
 					|
 					|
