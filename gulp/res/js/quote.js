@@ -1,4 +1,4 @@
-/* globals isThread isRecent setLocalStorage */
+/* globals isThread isManageRecent isRecent setLocalStorage */
 window.addEventListener('DOMContentLoaded', () => {
 	const postForm = document.querySelector('#postform');
 	const topPostButton = document.querySelector('.post-button');
@@ -19,7 +19,6 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (!postForm) {
 			return;
 		}
-		//history.replaceState({}, '', '#postform');
 		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'flex';
 		if (topPostButton) {
@@ -35,7 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const closePostForm = (e) => {
 		e.preventDefault();
-		//history.replaceState({}, '', location.pathname);
 		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'none';
 		if (topPostButton) {

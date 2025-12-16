@@ -81,11 +81,11 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				- const isInRecents = (manage || globalmanage)
 				a.noselect.no-decoration(href=`${postURL}#${post.postId}`, target=isInRecents ? '_blank' : undefined) #{__('No.')}
 				span.post-quote-num
-					a.no-decoration(href=isInRecents ? "#postform" : `${postURL}#postform`, target=undefined) #{post.postId}
+					a.no-decoration(href=manage ? "#postform" : `${postURL}#postform`, target=manage ? undefined : '_blank') #{post.postId}
 				|
 				|
 				span.post-quote(post-id=`${post.postId}`)
-					a.no-decoration(href=isInRecents ? "#postform" : `${postURL}#postform`, target=undefined) Quote
+					a.no-decoration(href=manage ? "#postform" : `${postURL}#postform`, target=manage ? undefined : '_blank') Quote
 				|
 				|
 				if isInRecents && post.thread
