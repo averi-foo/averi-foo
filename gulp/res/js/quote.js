@@ -1,4 +1,4 @@
-/* globals isThread setLocalStorage */
+/* globals isThread isRecent setLocalStorage */
 window.addEventListener('DOMContentLoaded', () => {
 	const postForm = document.querySelector('#postform');
 	const topPostButton = document.querySelector('a[href="#postform"]');
@@ -12,7 +12,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (!postForm) {
 			return;
 		}
-		history.replaceState({}, '', '#postform');
+		//history.replaceState({}, '', '#postform');
+		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'flex';
 		topPostButton.style.visibility = 'hidden';
 		if (bottomPostButton) {
@@ -25,7 +26,8 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const closePostForm = (e) => {
 		e.preventDefault();
-		history.replaceState({}, '', location.pathname);
+		//history.replaceState({}, '', location.pathname);
+		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'none';
 		topPostButton.style.visibility = 'visible';
 		if (bottomPostButton) {
@@ -124,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (location.hash === '#postform') {
 		openPostForm();
 	}
-	if (isThread) {
+	if (isThread || isRecent) {
 		let quoteNum = null;
 		if (localStorage.getItem('clickedQuoteNum')) {
 			quoteNum = localStorage.getItem('clickedQuoteNum');
