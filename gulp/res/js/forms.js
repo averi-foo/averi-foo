@@ -262,6 +262,12 @@ class postFormHandler {
 
 	controlEnterSubmit(e) {
 		if (e.ctrlKey && e.key === 'Enter') {
+			/* Check to stop ctrl enter if thread ID is nothing on Manage Recent */
+			if (isManageRecent && document.getElementsByName("thread").length != 0) {
+				if (document.getElementsByName("thread")[0].value === "") {
+					return;
+				}
+			}
 			this.formSubmit(e);
 		}
 	}

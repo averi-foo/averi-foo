@@ -24,13 +24,13 @@ section.form-wrapper.flex-center
 			if managerecentposts
 				section.row
 					.label Thread ID
-					input.mr-1(type='text', name='thread', placeholder="Required", value=null required)
+					input.mr-1(type='text', name='thread', placeholder="Required", value=null required readonly)
 			include ./subjectfield.pug
 		else
 			if managerecentposts
 				section.row
 					.label Thread ID
-					input.mr-1(type='text', name='thread', placeholder="Required", value=null required)
+					input.mr-1(type='number', name='thread', placeholder="Required", value=null required readonly)
 			section.row
 				.label #{__('Name')}
 				if board.settings.randomNamesEnabled
