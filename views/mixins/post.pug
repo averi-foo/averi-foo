@@ -77,12 +77,13 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				if post.userId
 					span.user-id(style=`background-color: #${post.userId}`) #{post.userId}
 					| 
-			- const isInRecents = (manage || globalmanage)
-			if isInRecents && post.thread
-				span.post-thread-id Thread #{post.thread}
-				|
-				|
 			span.post-links
+				- const isInRecents = (manage || globalmanage)
+				if isInRecents && post.thread
+					span.post-thread-id
+					a.no-decoration(href=`${postURL}`, target='_blank') Thread #{post.thread}
+					|
+					|
 				a.noselect.no-decoration(href=`${postURL}#${post.postId}`, target=isInRecents ? '_blank' : undefined) #{__('No.')}
 				span.post-quote-num
 					a.no-decoration(href=manage ? "#postform" : `${postURL}#postform`, target=globalmanage ? '_blank' : undefined) #{post.postId}
