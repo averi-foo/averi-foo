@@ -89,7 +89,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				|
 				|
 				if isInRecents && post.thread
-					span.post-thread-id Thread ${post.thread}
+					span.post-thread-id Thread #{post.thread}
 					|
 					|
 				if !post.thread && (truncate || manage || globalmanage)

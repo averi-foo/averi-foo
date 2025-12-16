@@ -1,7 +1,7 @@
 /* globals isThread isRecent setLocalStorage */
 window.addEventListener('DOMContentLoaded', () => {
 	const postForm = document.querySelector('#postform');
-	const topPostButton = document.querySelector('a[href="#postform"]');
+	const topPostButton = document.querySelector('.post-button');
 	const bottomPostButton = document.querySelector('.bottom-reply');
 	const messageBox = document.getElementById('message');
 	let threadInput = document.getElementsByName("thread");
