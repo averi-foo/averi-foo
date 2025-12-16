@@ -9,8 +9,11 @@ section.form-wrapper.flex-center
 			input(type='hidden' name='_csrf' value=csrf)
 		if !managerecentposts
 			input(type='hidden' name='thread' value=isThread ? thread.postId : null)
-		section.row.jsonly
-			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
+			section.row.jsonly
+				.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
+		else
+			section.row.jsonly
+				.noselect#postform-dragHandle #{__('Reply from Recents')}
 
 		if board.settings.forceAnon && !modview
 			section.row
@@ -18,12 +21,16 @@ section.form-wrapper.flex-center
 				label.postform-style.ph-5
 					input(type='checkbox', name='email', value='sage')
 				a.close.postform-style(href='#!') ×
-			include ./subjectfield.pug
 			if managerecentposts
 				section.row
 					.label Thread ID
 					input.mr-1(type='text', name='thread', placeholder="Leave empty to make new thread", value=null)
+			include ./subjectfield.pug
 		else
+			if managerecentposts
+				section.row
+					.label Thread ID
+					input.mr-1(type='text', name='thread', placeholder="Leave empty to make new thread", value=null)
 			section.row
 				.label #{__('Name')}
 				if board.settings.randomNamesEnabled
@@ -41,10 +48,6 @@ section.form-wrapper.flex-center
 					.label #{__('Email')}
 					input(type='text', name='email', autocomplete='off' maxlength=globalLimits.fieldLength.email)
 			include ./subjectfield.pug
-			if managerecentposts
-				section.row
-					.label Thread ID
-					input.mr-1(type='text' name='thread' placeholder="Leave empty to make new thread" value=null)
 		section.row
 			.label
 				span #{__('Message')}
@@ -112,4 +115,5 @@ section.form-wrapper.flex-center
 		center Please read the !{' '}
 			a(href='/rules.html') rules
 			| !{' '} before posting.
-	a.collapse.no-decoration.post-button(href='#postform') [#{isThread ? __('New Reply') : __('New Thread')}]
+	if !managerecentposts
+		a.collapse.no-decoration.post-button(href='#postform') [#{isThread ? __('New Reply') : __('New Thread')}]

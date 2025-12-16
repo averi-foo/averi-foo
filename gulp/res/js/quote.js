@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const dataContainer = this.closest(".post-container")
 		if (applicableHere && !e.ctrlKey) {
 			if (isManageRecent && dataContainer) {
-				insertThreadId(dataContainer.dataset.threadId)
+				insertThreadId(dataContainer.dataset.threadId || dataContainer.dataset.postId)
 			}
 			addQuoteNum(quoteNum);
 		} else {
@@ -134,7 +134,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (applicableHere && !e.ctrlKey) {
 			addQuote(quoteNum);
 			if (isManageRecent && dataContainer) {
-				insertThreadId(dataContainer.dataset.threadId)
+				insertThreadId(dataContainer.dataset.threadId || dataContainer.dataset.postId)
 			}
 		} else {
 			setLocalStorage('clickedQuote', quoteNum);
