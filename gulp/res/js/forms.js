@@ -262,24 +262,24 @@ class postFormHandler {
 
 	controlEnterSubmit(e) {
 		if (e.ctrlKey && e.key === 'Enter') {
-			/* Check to stop ctrl enter if thread ID is nothing on Manage Recent */
-			if (isManageRecent && document.getElementsByName("thread").length != 0) {
-				if (document.getElementsByName("thread")[0].value === "") {
-					return;
-				}
-			}
 			this.formSubmit(e);
 		}
 	}
 
 	formSubmit(e) {
-
 		//get the captcha response if any recaptcha
 		const captchaResponse = recaptchaResponse;
 
 		//build the form data based on form enctype
 		let postData;
 		if (this.enctype === 'multipart/form-data') {
+			/* Check to stop submit if thread ID is nothing on Manage Recent */
+			if (isManageRecent && document.getElementsByName("thread").length != 0) {
+				if (document.getElementsByName("thread")[0].value === "") {
+					return;
+				}
+			}
+
 			this.fileInput && (this.fileInput.disabled = true);
 			postData = new FormData(this.form);
 			if (captchaResponse) {
