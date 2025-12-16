@@ -77,6 +77,10 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				if post.userId
 					span.user-id(style=`background-color: #${post.userId}`) #{post.userId}
 					| 
+			if isInRecents && post.thread
+				span.post-thread-id Thread #{post.thread}
+				|
+				|
 			span.post-links
 				- const isInRecents = (manage || globalmanage)
 				a.noselect.no-decoration(href=`${postURL}#${post.postId}`, target=isInRecents ? '_blank' : undefined) #{__('No.')}
@@ -88,10 +92,6 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					a.no-decoration(href=manage ? "#postform" : `${postURL}#postform`, target=globalmanage ? '_blank' : undefined) Quote
 				|
 				|
-				if isInRecents && post.thread
-					span.post-thread-id Thread #{post.thread}
-					|
-					|
 				if !post.thread && (truncate || manage || globalmanage)
 					|  
 					span.noselect: a(href=`${postURL}`) [#{__('Open')}]
