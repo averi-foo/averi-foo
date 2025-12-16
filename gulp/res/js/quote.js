@@ -1,9 +1,16 @@
-/* globals isThread setLocalStorage */
+/* globals isThread isManageRecent isRecent setLocalStorage */
 window.addEventListener('DOMContentLoaded', () => {
 	const postForm = document.querySelector('#postform');
-	const topPostButton = document.querySelector('a[href="#postform"]');
+	const topPostButton = document.querySelector('.post-button');
 	const bottomPostButton = document.querySelector('.bottom-reply');
 	const messageBox = document.getElementById('message');
+	let threadInput = document.getElementsByName("thread");
+
+	if (isManageRecent && threadInput.length != 0) {
+		threadInput = threadInput[0];
+	}
+
+	const applicableHere = (isThread || isManageRecent)
 
 	const openPostForm = (e) => {
 		if (e) {
@@ -12,9 +19,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (!postForm) {
 			return;
 		}
-		history.replaceState({}, '', '#postform');
+		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'flex';
-		topPostButton.style.visibility = 'hidden';
+		if (topPostButton) {
+			topPostButton.style.visibility = 'hidden';
+		}
 		if (bottomPostButton) {
 			bottomPostButton.style.display = 'none';
 		}
@@ -25,16 +34,20 @@ window.addEventListener('DOMContentLoaded', () => {
 	};
 	const closePostForm = (e) => {
 		e.preventDefault();
-		history.replaceState({}, '', location.pathname);
+		history.replaceState({},'',location.href.replace("#postform",""))
 		postForm.style.display = 'none';
-		topPostButton.style.visibility = 'visible';
+		if (topPostButton) {
+			topPostButton.style.visibility = 'visible';
+		}
 		if (bottomPostButton) {
 			bottomPostButton.style.display = '';
 		}
 	};
 	if (postForm) {
 		const closeButton = postForm ? postForm.querySelector('.close') : null;
-		topPostButton.addEventListener('click', openPostForm, false);
+		if (topPostButton) {
+			topPostButton.addEventListener('click', openPostForm, false);
+		}
 		if (bottomPostButton) {
 			bottomPostButton.addEventListener('click', openPostForm, false);
 		}
@@ -101,9 +114,17 @@ window.addEventListener('DOMContentLoaded', () => {
 		addQuoteToPostForm(quoteText);	
 	};
 
+	const insertThreadId = function(number) {
+		threadInput.value = number;
+	}
+
 	const quoteNum = function(e) {
 		const quoteNum = this.textContent.trim();
-		if (isThread && !e.ctrlKey) {
+		const dataContainer = this.closest(".post-container")
+		if (applicableHere && !e.ctrlKey) {
+			if (isManageRecent && dataContainer) {
+				insertThreadId(dataContainer.dataset.threadId || dataContainer.dataset.postId)
+			}
 			addQuoteNum(quoteNum);
 		} else {
 			setLocalStorage('clickedQuoteNum', quoteNum);
@@ -112,9 +133,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const quote = function(e) {
 		const quoteNum = this.getAttribute('post-id');
+		const dataContainer = this.closest(".post-container")
 
-		if (isThread && !e.ctrlKey) {
+		if (applicableHere && !e.ctrlKey) {
 			addQuote(quoteNum);
+			if (isManageRecent && dataContainer) {
+				insertThreadId(dataContainer.dataset.threadId || dataContainer.dataset.postId)
+			}
 		} else {
 			setLocalStorage('clickedQuote', quoteNum);
 		}
@@ -124,7 +149,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (location.hash === '#postform') {
 		openPostForm();
 	}
-	if (isThread) {
+	if (applicableHere) {
 		let quoteNum = null;
 		if (localStorage.getItem('clickedQuoteNum')) {
 			quoteNum = localStorage.getItem('clickedQuoteNum');

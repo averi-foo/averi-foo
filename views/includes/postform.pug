@@ -7,17 +7,30 @@ section.form-wrapper.flex-center
 	form.form-post#postform(action=`/forms/board/${board._id}/${modview ? 'mod' : ''}post`, enctype='multipart/form-data', method='POST' data-reset-on-submit='true')
 		if modview
 			input(type='hidden' name='_csrf' value=csrf)
-		input(type='hidden' name='thread' value=isThread ? thread.postId : null)
-		section.row.jsonly
-			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
+		if !managerecentposts
+			input(type='hidden' name='thread' value=isThread ? thread.postId : null)
+			section.row.jsonly
+				.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
+		else
+			section.row.jsonly
+				.noselect#postform-dragHandle #{__('Reply to post from Recents')}
+
 		if board.settings.forceAnon && !modview
 			section.row
 				.label Sage
 				label.postform-style.ph-5
 					input(type='checkbox', name='email', value='sage')
 				a.close.postform-style(href='#!') ×
+			if managerecentposts
+				section.row
+					.label Thread ID
+					input.mr-1(type='text', name='thread', placeholder="Required", value=null required readonly)
 			include ./subjectfield.pug
 		else
+			if managerecentposts
+				section.row
+					.label Thread ID
+					input.mr-1(type='number', name='thread', placeholder="Required", value=null required readonly)
 			section.row
 				.label #{__('Name')}
 				if board.settings.randomNamesEnabled
@@ -102,4 +115,5 @@ section.form-wrapper.flex-center
 		center Please read the !{' '}
 			a(href='/rules.html') rules
 			| !{' '} before posting.
-	a.collapse.no-decoration.post-button(href='#postform') [#{isThread ? __('New Reply') : __('New Thread')}]
+	if !managerecentposts
+		a.collapse.no-decoration.post-button(href='#postform') [#{isThread ? __('New Reply') : __('New Thread')}]

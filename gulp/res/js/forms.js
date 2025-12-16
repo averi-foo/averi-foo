@@ -267,13 +267,20 @@ class postFormHandler {
 	}
 
 	formSubmit(e) {
-
 		//get the captcha response if any recaptcha
 		const captchaResponse = recaptchaResponse;
 
 		//build the form data based on form enctype
 		let postData;
 		if (this.enctype === 'multipart/form-data') {
+			/* Check to stop submit if thread ID is nothing on Manage Recent */
+			if (isManageRecent && document.getElementsByName("thread").length != 0) {
+				if (document.getElementsByName("thread")[0].value === "") {
+					e.preventDefault();
+					return;
+				}
+			}
+
 			this.fileInput && (this.fileInput.disabled = true);
 			postData = new FormData(this.form);
 			if (captchaResponse) {
@@ -402,6 +409,11 @@ class postFormHandler {
 							//set hash to scroll to your post if you are connected to the socket (it will be in the DOM by this point)
 							window.location.hash = json.postId;
 						} else {
+							// Reload on ManageRecent
+							if (isManageRecent) {
+								this.reset();
+								return window.location.reload();
+							}
 							//if we are not in a thread so follow the redirect to open the new thread
 							if (!isThread) {
 								return window.location = json.redirect;
