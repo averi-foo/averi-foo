@@ -409,6 +409,10 @@ class postFormHandler {
 							//set hash to scroll to your post if you are connected to the socket (it will be in the DOM by this point)
 							window.location.hash = json.postId;
 						} else {
+							// Reload on ManageRecent
+							if (isManageRecent) {
+								return window.location.reload();
+							}
 							//if we are not in a thread so follow the redirect to open the new thread
 							if (!isThread) {
 								return window.location = json.redirect;
