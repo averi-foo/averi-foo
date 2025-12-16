@@ -411,6 +411,7 @@ class postFormHandler {
 						} else {
 							// Reload on ManageRecent
 							if (isManageRecent) {
+								this.reset();
 								return window.location.reload();
 							}
 							//if we are not in a thread so follow the redirect to open the new thread
