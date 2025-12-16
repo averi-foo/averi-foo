@@ -276,6 +276,7 @@ class postFormHandler {
 			/* Check to stop submit if thread ID is nothing on Manage Recent */
 			if (isManageRecent && document.getElementsByName("thread").length != 0) {
 				if (document.getElementsByName("thread")[0].value === "") {
+					e.preventDefault();
 					return;
 				}
 			}
