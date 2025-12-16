@@ -18,12 +18,11 @@ section.form-wrapper.flex-center
 				label.postform-style.ph-5
 					input(type='checkbox', name='email', value='sage')
 				a.close.postform-style(href='#!') ×
+			include ./subjectfield.pug
 			if managerecentposts
 				section.row
 					.label Thread ID
-					label.postform-style.ph-5
 						input.mr-1(type='text', name='thread', placeholder="Leave empty to make new thread", value=null)
-			include ./subjectfield.pug
 		else
 			section.row
 				.label #{__('Name')}
@@ -41,12 +40,11 @@ section.form-wrapper.flex-center
 				section.row
 					.label #{__('Email')}
 					input(type='text', name='email', autocomplete='off' maxlength=globalLimits.fieldLength.email)
+			include ./subjectfield.pug
 			if managerecentposts
 				section.row
 					.label Thread ID
-					label.postform-style.ph-5
 						input.mr-1(type='text' name='thread' placeholder="Leave empty to make new thread" value=null)
-			include ./subjectfield.pug
 		section.row
 			.label
 				span #{__('Message')}
