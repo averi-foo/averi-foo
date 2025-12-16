@@ -4,6 +4,13 @@ window.addEventListener('DOMContentLoaded', () => {
 	const topPostButton = document.querySelector('a[href="#postform"]');
 	const bottomPostButton = document.querySelector('.bottom-reply');
 	const messageBox = document.getElementById('message');
+	let threadInput = document.getElementsByName("thread");
+
+	if (isManageRecent && threadInput.length != 0) {
+		threadInput = threadInput[0];
+	}
+
+	const applicableHere = (isThread || isManageRecent)
 
 	const openPostForm = (e) => {
 		if (e) {
@@ -103,9 +110,17 @@ window.addEventListener('DOMContentLoaded', () => {
 		addQuoteToPostForm(quoteText);	
 	};
 
+	const insertThreadId = function(number) {
+		threadInput.value = number;
+	}
+
 	const quoteNum = function(e) {
 		const quoteNum = this.textContent.trim();
-		if (isThread && !e.ctrlKey) {
+		const dataContainer = this.closest(".post-container")
+		if (applicableHere && !e.ctrlKey) {
+			if (isManageRecent && dataContainer) {
+				insertThreadId(dataContainer.dataset.threadId)
+			}
 			addQuoteNum(quoteNum);
 		} else {
 			setLocalStorage('clickedQuoteNum', quoteNum);
@@ -114,9 +129,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	const quote = function(e) {
 		const quoteNum = this.getAttribute('post-id');
+		const dataContainer = this.closest(".post-container")
 
-		if (isThread && !e.ctrlKey) {
+		if (applicableHere && !e.ctrlKey) {
 			addQuote(quoteNum);
+			if (isManageRecent && dataContainer) {
+				insertThreadId(dataContainer.dataset.threadId)
+			}
 		} else {
 			setLocalStorage('clickedQuote', quoteNum);
 		}
@@ -126,7 +145,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	if (location.hash === '#postform') {
 		openPostForm();
 	}
-	if (isThread || isRecent) {
+	if (applicableHere) {
 		let quoteNum = null;
 		if (localStorage.getItem('clickedQuoteNum')) {
 			quoteNum = localStorage.getItem('clickedQuoteNum');

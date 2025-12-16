@@ -83,8 +83,10 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 				span.post-quote-num
 					a.no-decoration(href=isInRecents ? "#postform" : `${postURL}#postform`, target=undefined) #{post.postId}
 				|
+				|
 				span.post-quote(post-id=`${post.postId}`)
 					a.no-decoration(href=isInRecents ? "#postform" : `${postURL}#postform`, target=undefined) Quote
+				|
 				|
 				if !post.thread && (truncate || manage || globalmanage)
 					|  

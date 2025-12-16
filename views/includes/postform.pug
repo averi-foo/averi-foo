@@ -7,16 +7,10 @@ section.form-wrapper.flex-center
 	form.form-post#postform(action=`/forms/board/${board._id}/${modview ? 'mod' : ''}post`, enctype='multipart/form-data', method='POST' data-reset-on-submit='true')
 		if modview
 			input(type='hidden' name='_csrf' value=csrf)
+		if !managerecentposts
+			input(type='hidden' name='thread' value=isThread ? thread.postId : null)
 		section.row.jsonly
 			.noselect#postform-dragHandle #{isThread ? __('New Reply') : __('New Thread')}
-
-		if recentposts
-			section.row
-				.label Thread
-				label.postform-style.ph-5
-					input(type='text' name='thread' placeholder="Leave empty to make new thread" value=null)
-		else
-			input(type='hidden' name='thread' value=isThread ? thread.postId : null)
 
 		if board.settings.forceAnon && !modview
 			section.row
@@ -24,6 +18,11 @@ section.form-wrapper.flex-center
 				label.postform-style.ph-5
 					input(type='checkbox', name='email', value='sage')
 				a.close.postform-style(href='#!') ×
+			if managerecentposts
+				section.row
+					.label Thread ID
+					label.postform-style.ph-5
+						input.mr-1(type='text' name='thread' placeholder="Leave empty to make new thread" value=null)
 			include ./subjectfield.pug
 		else
 			section.row
@@ -42,6 +41,11 @@ section.form-wrapper.flex-center
 				section.row
 					.label #{__('Email')}
 					input(type='text', name='email', autocomplete='off' maxlength=globalLimits.fieldLength.email)
+			if managerecentposts
+				section.row
+					.label Thread ID
+					label.postform-style.ph-5
+						input.mr-1(type='text' name='thread' placeholder="Leave empty to make new thread" value=null)
 			include ./subjectfield.pug
 		section.row
 			.label
