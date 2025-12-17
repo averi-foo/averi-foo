@@ -1011,6 +1011,7 @@ input:invalid, textarea:invalid {
 }
 
 .mediatable {
+	text-align: center;
 	img, video {
 		max-height: 200px;
 		max-width: 100%;
