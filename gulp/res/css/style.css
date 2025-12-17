@@ -1010,9 +1010,11 @@ input:invalid, textarea:invalid {
 	resize: none;
 }
 
-.home-image-widget {
-	max-height: 220px;
-	max-width: 220px;
+.mediatable {
+	img, video {
+		max-height: 200px;
+		max-width: 100%;
+	}
 }
 
 .grid-container {

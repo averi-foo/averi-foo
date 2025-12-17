@@ -25,7 +25,20 @@ block content
 								br
 								| Make sure to read the!{' '}
 								a(href='/rules.html') rules.
-
+			.table-container.flex-center.mv-10
+					table.mediatable
+						tr
+							th Random Tegaki
+							if featuredMedia
+								th Featured Media
+							th Random Image
+						tr
+							td
+								img(id="random-tegaki-widget" src="/randomtegaki" alt="A random tegaki.")
+							if featuredMedia
+								td
+							td
+								img(id="random-image-widget" src="/randomimage" alt="A random image.")
 			if recentNews && recentNews.length > 0
 				.table-container.flex-center.mv-10
 					table.newstable
@@ -100,10 +113,3 @@ block content
 								td
 									pre.no-m-p
 										| #{__('There are currently %s sites and %s boards in the known webring. Across all webring boards, %s posts have been made in the last hour, %s in total.', webringStats.sites, webringStats.total, webringStats.pph, webringStats.posts)}
-		.container
-			.flexcenter
-				h2 Random Tegaki
-				img.home-image-widget(id="random-tegaki-widget" src="/randomtegaki" alt="A random tegaki.")
-			.flexcenter
-				h2 Random Image
-				img.home-image-widget(id="random-image-widget" src="/randomimage" alt="A random image.")
