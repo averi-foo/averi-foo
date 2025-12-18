@@ -409,11 +409,6 @@ module.exports = async (req, res) => {
 		'task': 'buildGlobalSettings',
 	});
 
-	//update homepage because I cant be bothered for it to update on its own
-	// buildQueue.push({
-	// 	'task': 'buildHomepage',
-	// });
-
 	return dynamicResponse(req, res, 200, 'message', {
 		'title': __('Success'),
 		'message': __('Updated settings.'),
