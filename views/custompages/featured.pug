@@ -1,0 +1,20 @@
+extends ../layout.pug
+include ../mixins/post.pug
+
+block head
+	title Featured
+
+block content
+	h1.board-title Featured Media
+	include ../includes/stickynav.pug
+	.table-container.flex-center.mv-5
+		.anchor
+		table
+			tr
+				th Featured Media
+			tr
+				if featuredMedia
+					td
+						video(width="100%" src=featuredMediaURL controls loop autoplay disablePictureInPicture)
+				else
+					td.post-message No media is currently featured, check again later!

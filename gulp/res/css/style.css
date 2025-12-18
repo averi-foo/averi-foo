@@ -965,7 +965,7 @@ video, img {
 	max-height: 100%;
 }
 
-.post-file-src {
+.post-file-src, .featured-media {
 	justify-content: center;
 	display: flex;
 	image-orientation: from-image;
@@ -1010,9 +1010,12 @@ input:invalid, textarea:invalid {
 	resize: none;
 }
 
-.home-image-widget {
-	max-height: 220px;
-	max-width: 220px;
+.mediatable {
+	text-align: center;
+	img, video {
+		max-height: 200px;
+		max-width: 100%;
+	}
 }
 
 .grid-container {
@@ -1585,6 +1588,7 @@ input.illegal-button {
 }
 
 /* ^="f" means only where attachment is false, to prevent showing on attachment files with audio or video mime type */
+.featured-media::after,
 .post-file-src[data-type="audio"][data-attachment^="f"]::after,
 .post-file-src[data-type="video"][data-attachment^="f"]::after {
 	content: "▸";

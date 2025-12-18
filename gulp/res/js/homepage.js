@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-		if (document.getElementsByClassName('home-image-widget').length > 0) {
+		if (document.getElementsByClassName('mediatable').length > 0) {
 			document.getElementById("random-tegaki-widget").onclick = function() {
 				this.src = "/randomtegaki" + '?t=' + new Date().getTime();
 			};

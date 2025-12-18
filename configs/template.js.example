@@ -120,6 +120,10 @@ module.exports = {
 	archiveLinksURL: 'https://archive.today/?run=1&url=%s',
 	reverseImageLinksURL: 'https://tineye.com/search?url=%s',
 	ethereumLinksURL: 'https://etherscan.io/address/%s',
+	// featured media stuff
+	featuredMedia: false,
+	featuredMediaURL: '',
+	featuredMediaThumbURL: '',
 
 	//cache templates in memory. disable only if editing templates and doing dev work
 	cacheTemplates: true,
