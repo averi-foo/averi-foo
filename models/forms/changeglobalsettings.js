@@ -137,6 +137,7 @@ module.exports = async (req, res) => {
 		archiveLinksURL: trimSetting(req.body.archive_links, oldSettings.archiveLinksURL),
 		reverseImageLinksURL: trimSetting(req.body.reverse_links, oldSettings.reverseImageLinksURL),
 		ethereumLinksURL: trimSetting(req.body.ethereum_links, oldSettings.ethereumLinksURL),
+		featuredMedia: booleanSetting(req.body.featured_media, oldSettings.featuredMedia),
 		featuredMediaURL: trimSetting(req.body.featured_media_url, oldSettings.featuredMediaURL),
 		featuredMediaThumbURL: trimSetting(req.body.featured_media_thumb_url, oldSettings.featuredMediaThumbURL),
 		cacheTemplates: booleanSetting(req.body.cache_templates, oldSettings.cacheTemplates),

@@ -465,6 +465,7 @@ async function custompages() {
 			commit,
 			version,
 			globalLanguage: config.get.language,
+			featuredMedia: config.get.featuredMedia,
 			featuredMediaURL: config.get.featuredMediaURL,
 			featuredMediaThumbURL: config.get.featuredMediaThumbURL,
 		};

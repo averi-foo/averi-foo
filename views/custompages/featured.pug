@@ -13,7 +13,8 @@ block content
 			tr
 				th Featured Media
 			tr
-				if featuredMediaURL != null || featuredMediaURL != ''
-					video(src=featuredMediaURL controls autoplay)
+				if featuredMedia
+					td
+						video(src=featuredMediaURL controls autoplay)
 				else
 					td.post-message No media is currently featured, check again later!
