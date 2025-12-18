@@ -965,7 +965,7 @@ video, img {
 	max-height: 100%;
 }
 
-.post-file-src {
+.post-file-src, .featured-media {
 	justify-content: center;
 	display: flex;
 	image-orientation: from-image;
@@ -1588,7 +1588,7 @@ input.illegal-button {
 }
 
 /* ^="f" means only where attachment is false, to prevent showing on attachment files with audio or video mime type */
-.featured-media::after,
+.featured-media::after
 .post-file-src[data-type="audio"][data-attachment^="f"]::after,
 .post-file-src[data-type="video"][data-attachment^="f"]::after {
 	content: "▸";
