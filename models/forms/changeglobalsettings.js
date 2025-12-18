@@ -22,6 +22,7 @@ const { Boards, Modlogs } = require(__dirname+'/../../db/')
 		'archiveLinksURL': ['deletehtml', 'custompages'],
 		'ethereumLinksURL': ['deletehtml', 'custompages', 'scripts'],
 		'reverseImageLinksURL': ['deletehtml', 'custompages'],
+		'featuredMedia': ['deletehtml', 'custompages'],
 		'featuredMediaURL': ['deletehtml', 'custompages'],
 		'featuredMediaThumbURL': ['deletehtml', 'custompages'],
 		'enableWebring': ['deletehtml', 'custompages'],
@@ -409,9 +410,9 @@ module.exports = async (req, res) => {
 	});
 
 	//update homepage because I cant be bothered for it to update on its own
-	buildQueue.push({
-		'task': 'buildHomepage',
-	});
+	// buildQueue.push({
+	// 	'task': 'buildHomepage',
+	// });
 
 	return dynamicResponse(req, res, 200, 'message', {
 		'title': __('Success'),
