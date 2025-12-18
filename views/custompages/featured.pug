@@ -13,4 +13,7 @@ block content
 			tr
 				th Featured Media
 			tr
-				td.post-message No media is currently featured, check again later!
+				if featuredMediaURL == ''
+					td.post-message No media is currently featured, check again later!
+				else
+					video(src=featuredMediaURL controls autoplay)

@@ -111,6 +111,16 @@ ul.tabs.group
 						| )
 				input(type='text', name='reverse_links', value=settings.reverseImageLinksURL)
 			.row
+				.label
+					| #{__('Featured media URL')}
+					|
+				input(type='text', name='featured_media_url', value=settings.featuredMediaURL)
+			.row
+				.label
+					| #{__('Featured media thumbnail URL')}
+					|
+				input(type='text', name='featured_media_thumb_url', value=settings.featuredMediaThumbURL)
+			.row
 				.label #{__('Prune Modlogs Days')}
 				input(type='number', name='prune_modlogs' value=settings.pruneModlogs)
 

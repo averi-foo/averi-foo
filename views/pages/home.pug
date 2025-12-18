@@ -35,8 +35,10 @@ block content
 						tr
 							td
 								img(id="random-tegaki-widget" src="/randomtegaki" alt="A random tegaki.")
-							if featuredMedia
+							if featuredMediaThumbURL != ''
 								td
+									a(href="/featured.html")
+										img(src=featuredMediaThumbURL)
 							td
 								img(id="random-image-widget" src="/randomimage" alt="A random image.")
 			if recentNews && recentNews.length > 0

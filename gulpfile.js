@@ -465,6 +465,8 @@ async function custompages() {
 			commit,
 			version,
 			globalLanguage: config.get.language,
+			featuredMediaURL: config.get.featuredMediaURL,
+			featuredMediaThumbURL: config.get.featuredMediaThumbURL,
 		};
 	i18n.init(locals);
 	locals.setLocale(locals, config.get.language);
