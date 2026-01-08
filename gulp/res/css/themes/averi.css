@@ -11,7 +11,7 @@
 	--box-border-color: #623d2a;
 	--box-background-color: #fff5e6;
 	--darken: #e0ccaf;
-	--highlighted-post-color: #fff1dc;
+	--highlighted-post-color: #f3dfbe;
 	--highlighted-post-outline-color: #623d2a;
 	--board-title: #ad203f;
 	--hr: #e0ccaf;
@@ -37,20 +37,24 @@
 	transition: scale 0.2s;
 }
 
+
 body {
-	background: url('/css/themes/assets/averi-wave.png') fixed no-repeat bottom right #fff0d3;
-	background-size: 15%;
+	background: url('/css/themes/assets/averi-wave.png') fixed no-repeat bottom right/20% #fff0d3 !important;
 }
 
 @media only screen and (max-width: 600px) {
 	body {
-		background: #fff0d3;
+		background: #fff0d3 !important;
 	}
 }
 
 .post-container, #float .post-container, .stickynav, .pages, #action-menu, .catalog-tile, #livetext, #threadstats, .collapse, .bottom-reply {
 	border-width: 1px 1px 1px 1px !important;
 	border-radius: 5px;
+}
+
+.post-info, .alt, tr {
+	border-radius: 4px 4px 0 0;
 }
 
 .label, .rlabel {
@@ -90,4 +94,27 @@ tr, tr:nth-child(2n+1) {
 
 table, textarea, input, select, .postform-style, .form-post {
 	border-radius: 5px;
+}
+
+.anchor:target + .post-container,
+.anchor:target + .catalog-tile,
+.post-container.highlighted,
+.post-container.hoverhighlighted,
+.anchor:target + table tbody tr th,
+.anchor:target + tabl {
+	background-image: linear-gradient(to top,#ffe7c4,#fff5e1) !important;
+}
+
+/* Custom cursors. Please save these images in links, replace the links, then delete this comment */
+* {
+	cursor: url('/css/themes/assets/averi-cursor.png'),default
+}
+textarea, input, select, .postform-style, .form-post {
+	cursor: text
+}
+a, a:hover, .file-thumb, .navbar-img, .user-id, .jsonly.postmenu, .jsonly.postform-style.filelabel, input.dummy-link.tegaki-button, input#submitpost, img.catalog-thumb, input[type="submit"], .collapse, input[type="button"] {
+	cursor: url('/css/themes/assets/averi-cursor-hover.png'),default
+}
+input.post-check, select, .postform-style.ph-5, input[type="checkbox"], input[type="range"] {
+	cursor: url('/css/themes/assets/averi-cursor.png'),default
 }
