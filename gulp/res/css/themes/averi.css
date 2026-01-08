@@ -105,7 +105,6 @@ table, textarea, input, select, .postform-style, .form-post {
 	background-image: linear-gradient(to top,#ffe7c4,#fff5e1) !important;
 }
 
-/* Custom cursors. Please save these images in links, replace the links, then delete this comment */
 * {
 	cursor: url('/css/themes/assets/averi-cursor.png'),default
 }
