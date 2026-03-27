@@ -299,14 +299,22 @@ class postFormHandler {
 			
 			const submitter = e.submitter;
 			if (submitter.id === 'approval-input') {
-				// make sure every checkbox is unchecked to only affect post button clicked in
+				// Make sure every checkbox is unchecked to only affect the post the button is clicked in
 				document.querySelectorAll('.post-check').forEach(checkbox => checkbox.checked = false);
 				const post_check = submitter.closest('.post-container').querySelector('.post-check');
+
+				// Get the approval options box. The options are approve, illegal or NSFW.
+				const action_box = submitter.closest('.post-container').querySelector(".approval-list")
+
+				// Checks the post, creates new form data and then unchecks it.
 				post_check.checked = true;
 				formData = new FormData(this.form);
 				post_check.checked = false;
+
 				formData.append('approve', true);
-				formData.append('file_moderation_status', submitter.name);
+				// Set file moderation status to the value of the action in the action box.
+				formData.append('file_moderation_status', action_box.value);
+				// Set file name to the filename provided by the data in the submit button.
 				formData.append('file_moderation_filename', submitter.dataset.filename);
 			} else {
 				formData = new FormData(this.form);

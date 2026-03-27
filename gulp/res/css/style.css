@@ -1554,29 +1554,25 @@ table.boardtable .nobreak {
 	width: 100%;
 } 
 
-input.nsfw-button {
-	flex: 1;
-	background-color: yellow;
-	text-align: center;
-	color: black;
-	font-weight: bold;
-}
-
 input.approve-button {
-	flex: 2;
-	background-color: green;
+	flex: 1;
 	text-align: center;
-	color: black;
 	font-weight: bold;
 }
 
-input.illegal-button {
-	flex: 1;
-	background-color: red;
-	text-align: center;
-	color: black;
-	font-weight: bold;
+.approval-list:has(
+	option[value="nsfw"]:checked,
+	option[value="illegal"]:checked
+){
+	color:red;
+	font-weight: 700;
 }
+
+.approval-list:has(option[value="approve"]:checked){
+	color:green;
+	font-weight: 700;
+}
+
 
 /* Easy on the eyes. */
 .overlay-text + .post-file-src .file-thumb {
