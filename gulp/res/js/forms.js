@@ -299,6 +299,10 @@ class postFormHandler {
 			
 			const submitter = e.submitter;
 			if (submitter.id === 'approval-input') {
+				if (!window.confirm("Are you sure you want to perform action '" + submitter.name.toUpperCase() + "'?")) {
+					e.preventDefault();
+					return;
+				}
 				// make sure every checkbox is unchecked to only affect post button clicked in
 				document.querySelectorAll('.post-check').forEach(checkbox => checkbox.checked = false);
 				const post_check = submitter.closest('.post-container').querySelector('.post-check');
