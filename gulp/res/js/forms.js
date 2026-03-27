@@ -299,18 +299,21 @@ class postFormHandler {
 			
 			const submitter = e.submitter;
 			if (submitter.id === 'approval-input') {
-				if (!window.confirm("Are you sure you want to perform action '" + submitter.name.toUpperCase() + "'?")) {
-					e.preventDefault();
-					return;
-				}
+				// if (!window.confirm("Are you sure you want to perform action '" + submitter.name.toUpperCase() + "'?")) {
+				// 	e.preventDefault();
+				// 	return;
+				// }
+
 				// make sure every checkbox is unchecked to only affect post button clicked in
 				document.querySelectorAll('.post-check').forEach(checkbox => checkbox.checked = false);
 				const post_check = submitter.closest('.post-container').querySelector('.post-check');
+				// Get the approval options box.
+				const action_box = submitter.closest('.post-container').querySelector(".approval-list")
 				post_check.checked = true;
 				formData = new FormData(this.form);
 				post_check.checked = false;
 				formData.append('approve', true);
-				formData.append('file_moderation_status', submitter.name);
+				formData.append('file_moderation_status', action_box.value);
 				formData.append('file_moderation_filename', submitter.dataset.filename);
 			} else {
 				formData = new FormData(this.form);
