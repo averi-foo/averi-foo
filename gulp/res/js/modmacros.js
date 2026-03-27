@@ -90,12 +90,14 @@ class modMacroHandler {
 				this.banduration.value = '1y';
 				break;
 			case 'rule5':
+				this.delete.checked = true;
+				this.deletefile.checked = true;
 				this.globalban.checked = true;
 				this.widerange.checked = true;
-				this.noappeal.checked = true;
+				this.noappeal.checked = false;
 				this.preservepost.checked = true;
 				this.banreason.value = 'Rule 5 (Advertising)';
-				this.banduration.value = '4h';
+				this.banduration.value = '1y';
 				break;
 			case 'rule6':
 				this.globalban.checked = true;
@@ -103,6 +105,14 @@ class modMacroHandler {
 				this.noappeal.checked = false;
 				this.preservepost.checked = true;
 				this.banreason.value = 'Rule 6 (Tor, Proxy, VPN).';
+				this.banduration.value = '1y';
+				break;
+			case 'rule7':
+				this.globalban.checked = true;
+				this.widerange.checked = true;
+				this.noappeal.checked = false;
+				this.preservepost.checked = true;
+				this.banreason.value = 'Rule 7 (Immoral offsite behaviour).';
 				this.banduration.value = '1y';
 				break;
 			case 'banevasion':
