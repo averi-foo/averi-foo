@@ -1557,8 +1557,20 @@ table.boardtable .nobreak {
 input.approve-button {
 	flex: 1;
 	text-align: center;
-	color: black;
 	font-weight: bold;
+}
+
+.approval-list:has(
+	option[value="nsfw"]:checked,
+	option[value="illegal"]:checked
+){
+	color:red;
+	font-weight: 700;
+}
+
+.approval-list:has(option[value="approve"]:checked){
+	color:green;
+	font-weight: 700;
 }
 
 
