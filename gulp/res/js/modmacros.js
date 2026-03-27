@@ -112,7 +112,7 @@ class modMacroHandler {
 				this.widerange.checked = true;
 				this.noappeal.checked = false;
 				this.preservepost.checked = true;
-				this.banreason.value = 'Rule 7 (Immoral offsite behaviour).';
+				this.banreason.value = 'Rule 7 (Immoral offsite behaviour)';
 				this.banduration.value = '1y';
 				break;
 			case 'banevasion':
