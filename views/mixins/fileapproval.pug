@@ -2,6 +2,7 @@ mixin fileapproval(filename)
 	.approval-button-container(filename)
 		select(class="approval-list")
 			option(value="approve") Approve
+			option(value="delete") Deny: DELETE
 			option(value="nsfw") Deny: NSFW
 			option(value="illegal") Deny: ILLEGAL
 		input.approve-button(id='approval-input' type='submit' name='approve' value='Submit', data-filename=filename)
