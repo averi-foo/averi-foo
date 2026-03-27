@@ -1,0 +1,189 @@
+/*ame*/
+* {
+	--icon-color:invert(17%)sepia(89%)saturate(7057%)hue-rotate(2deg)brightness(93%)contrast(120%);
+	--alt-label-color: #3b2648;
+	--alt-font-color: #e7fbff;
+	--navbar-color: #e7fbff;
+	--post-color: #e7fbff;
+	--post-outline-color: #3b2648;
+	--label-color: #e7fbff;
+	--box-border-color: #3b2648;
+	--box-background-color: #e7fbff;
+	--darken: #e7fbff;
+	--highlighted-post-color: #ffffff;
+	--highlighted-post-outline-color: #5c5579;
+	--board-title: #2d4175;
+	--hr: #e7fbff;
+	--font-color: #3b2648;
+	--name-color: #ffd167;
+	--capcode-color: #f00;
+	--subject-color: #2d4175;
+	--link-color: #586d86;
+	--post-link-color: #586d86;
+	--link-hover: #778a9b;
+	--accent-color: #2d4175;
+	--input-borders: #3b2648;
+	--input-color: #3b2648;
+	--input-background: #e7fbff;
+	--dice-color: darkorange;
+	--title-color: #ff5770;
+	--greentext-color: #789922;
+	--pinktext-color:#E0727F;
+}
+
+.post-name, .post-tripcode {
+	text-shadow:
+	-1px -1px 0 #bb98d0,
+	1px -1px 0 #572575,
+	-1px 1px 0 #66586f,
+	1px 1px 0 #3b2648;
+}
+
+a.post-name {
+	text-shadow: none;
+}
+
+.nav-item:hover {
+	scale: 1.1;
+	transition: scale 0.2s;
+}
+
+/* Save this image and store it locally on your server then change the link to the local image */
+body {
+	background: url('/css/themes/assets/ame_character.png') fixed no-repeat bottom right/18% #caf6ff !important;
+}
+
+@media only screen and (max-width: 600px) {
+	body {
+		background: #caf6ff !important;
+	}
+}
+
+.post-container.op {
+	box-shadow: none;
+}
+
+.post-container, #float .post-container, .stickynav, .pages, #action-menu, .catalog-tile, #livetext, #threadstats, .collapse, .bottom-reply, table {
+	border-width: 2px !important;
+	border-radius: 5px;
+	box-shadow: 3px 3px 0px 0px rgba(59,38,72,.25);
+}
+
+.post-info, .alt, tr {
+	border-radius: 2px 2px 0 0;
+}
+
+.label, .rlabel {
+	border-width: 0;
+	padding:2px;
+}
+
+input, textarea, .label, .close {
+	border-radius: 2px;
+}
+
+.user-id {
+	border-radius: 4px;
+}
+
+.navbar {
+	background-image: linear-gradient(to top,#f5fdff,#e7fbff);
+	border-width: 2px;
+}
+
+.post-info {
+	padding: 5px;
+}
+
+tr, tr:nth-child(2n+1) {
+	background: #e7fbff !important;
+}
+
+.form-post, form.form-post {
+	border-width: 2px !important;
+	border-radius: 5px !important;
+	box-shadow: 3px 3px 0px 0px rgba(59,38,72,.25);
+	border-color: #3b2648 !important;
+	padding: 5px;
+	background: #e7fbff !important;
+}
+
+table, textarea, input, select, .postform-style, .form-post {
+	border-radius: 5px;
+}
+
+.anchor:target + .post-container,
+.anchor:target + .catalog-tile,
+.post-container.highlighted,
+.post-container.hoverhighlighted,
+.anchor:target + table tbody tr th,
+.anchor:target + tabl {
+	background-image: linear-gradient(to top,#f4fdff,#ffffff) !important;
+	box-shadow: 3px 3px 0px 0px rgba(59,38,72,.25) !important;
+}
+
+
+@font-face {
+	font-family: Pixelify Sans;
+	src: url("/css/themes/assets/Pixelify-Sans.ttf");
+}
+
+*, h1.board-title {
+	font-family: Pixelify Sans;
+}
+
+* {
+	cursor: url('/css/themes/assets/ame-cursor.png'),default;
+}
+
+textarea, input, select, .postform-style, .form-post {
+	cursor: text
+}
+
+a, a:hover, .file-thumb, .navbar-img, .user-id, .jsonly.postmenu, .jsonly.postform-style.filelabel, input.dummy-link.tegaki-button, input#submitpost, img.catalog-thumb, input[type="submit"], .collapse, input[type="button"] {
+	cursor: url('/css/themes/assets/ame-cursor-hover.png'),default
+}
+
+input.post-check, select, .postform-style.ph-5, input[type="checkbox"], input[type="range"] {
+	cursor: url('/css/themes/assets/ame-cursor.png'),default
+}
+
+img[src$="/file/homepage-icon.png"] {
+	content: url("/css/themes/assets/ame_homepage_icon.png");
+}
+
+img[src$="/file/home.png"] {
+	content: url("/css/themes/assets/ame_home.png");
+}
+
+img[src$="/file/boards.png"] {
+	content: url("/css/themes/assets/ame_boards.png");
+}
+
+img[src$="/file/overboard.png"] {
+	content: url("/css/themes/assets/ame_overboard.png");
+}
+
+img[src$="/file/account.png"] {
+	content: url("/css/themes/assets/ame_account.png");
+}
+
+img[src$="/file/manage.png"] {
+	content: url("/css/themes/assets/ame_manage.png");
+}
+
+img[src$="/file/settings.png"] {
+	content: url("/css/themes/assets/ame_settings.png");
+}
+
+img[src$="/file/media-pending-approval.png"] {
+	content: url("/css/themes/assets/ame_media-pending-approval.png");
+}
+
+.spoilerimg {
+	background-image: url("/css/themes/assets/ame_spoiler.png")
+}
+
+img[src$="/file/deleted.png"] {
+	content: url("/css/themes/assets/ame_deleted.png");
+}
