@@ -43,20 +43,21 @@ module.exports = async (locals, unlinkOnly) => {
 		};
 	}
 
-	if (files.length > 0) {
-		const fileNames = files.map(x => x.filename);
-		await Files.decrement(fileNames);
-		if (pruneImmediately) {
-			await pruneFiles(fileNames);
-		}
+	const fileNames = files.map(x => x.filename);
+	await Files.decrement(fileNames);
+	if (pruneImmediately) {
+		await pruneFiles(fileNames);
 	}
+
 
 	if (unlinkOnly) {
 		return {
 			message: __n('Unlinked %s files', files.length),
-			action:'$set',
+			action:'$pull',
 			query: {
-				'files': []
+				'files': {
+					'filename': { $in: fileNames }
+				}
 			}
 		};
 	} else {
@@ -65,9 +66,11 @@ module.exports = async (locals, unlinkOnly) => {
 		return {
 			message: __n('Deleted %s files from server', files.length),
 			//NOTE: only deletes from selected posts. other posts with same image will 404
-			action:'$set',
+			action:'$pull',
 			query: {
-				'files': []
+				'files': {
+					'filename': { $in: fileNames }
+				}
 			}
 		};
 	}
