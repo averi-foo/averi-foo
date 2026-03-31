@@ -9,6 +9,7 @@ module.exports = async (locals, unlinkOnly) => {
 
 	const { posts, __, __n } = locals;
 	const { pruneImmediately } = config.get;
+	const filenameToDelete = locals.filename;
 
 	//get filenames from all the posts
 	let files = [];
@@ -26,6 +27,15 @@ module.exports = async (locals, unlinkOnly) => {
 		}
 	}
 	files = [...new Set(files)];
+
+	// If filenameToDelete is not empty, it will filter the files array down to only
+	// the singular file that matches the filenameToDelete string.
+
+	if (filenameToDelete) {
+		files = files.filter(file => {
+			return file.filename === filenameToDelete;
+		});
+	}
 
 	if (files.length == 0) {
 		return {

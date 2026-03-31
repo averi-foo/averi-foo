@@ -3,6 +3,7 @@
 const { Posts } = require(__dirname+'/../../db/')
 	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js');
+	, deletePostsFiles = require(__dirname+'/deletepostsfiles.js');
 
 module.exports = async (req, res) => {
 
@@ -17,6 +18,11 @@ module.exports = async (req, res) => {
 		const filename = req.body.file_moderation_filename;
 		const filehash = filename.substring(0, 6);
 		switch (req.body.file_moderation_status) {
+			case 'delete':
+				req.body.delete_file = true;
+				message = `Deleted file ${filehash}`;
+				log_message = message;
+				break;
 			case 'approve':
 				await Posts.approveFile(filename);
 				denied = false;
