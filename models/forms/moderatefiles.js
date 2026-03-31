@@ -3,7 +3,6 @@
 const { Posts } = require(__dirname+'/../../db/')
 	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js');
-	, deletePostsFiles = require(__dirname+'/deletepostsfiles.js');
 
 module.exports = async (req, res) => {
 
