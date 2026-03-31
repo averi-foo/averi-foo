@@ -17,16 +17,16 @@ module.exports = async (req, res) => {
 		const filename = req.body.file_moderation_filename;
 		const filehash = filename.substring(0, 6);
 		switch (req.body.file_moderation_status) {
-			case 'delete':
-				res.locals.filename_to_delete = filename;
-				req.body.delete_file = true;
-				message = `Deleted file ${filehash}`;
-				log_message = message;
-				break;
 			case 'approve':
 				await Posts.approveFile(filename);
 				denied = false;
 				message = `Approved ${filehash}`;
+				break;
+			case 'delete_file':
+				res.locals.filename_to_delete = filename;
+				req.body.delete_file = true;
+				message = `Deleted file ${filehash}`;
+				log_message = message;
 				break;
 			case 'nsfw':
 				req.body.delete_file = true; // delete files
