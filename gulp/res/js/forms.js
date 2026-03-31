@@ -304,7 +304,7 @@ class postFormHandler {
 				const post_check = submitter.closest('.post-container').querySelector('.post-check');
 
 				// Get the approval options box. The options are approve, illegal or NSFW.
-				const action_box = submitter.closest('.post-container').querySelector(".approval-list")
+				const action_box = submitter.parentElement.querySelector(".approval-list")
 
 				// Checks the post, creates new form data and then unchecks it.
 				post_check.checked = true;
