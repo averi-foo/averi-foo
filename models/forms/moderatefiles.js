@@ -18,6 +18,7 @@ module.exports = async (req, res) => {
 		const filehash = filename.substring(0, 6);
 		switch (req.body.file_moderation_status) {
 			case 'delete':
+				res.locals.filename_to_delete = filename;
 				req.body.delete_file = true;
 				message = `Deleted file ${filehash}`;
 				log_message = message;

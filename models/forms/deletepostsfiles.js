@@ -9,7 +9,7 @@ module.exports = async (locals, unlinkOnly) => {
 
 	const { posts, __, __n } = locals;
 	const { pruneImmediately } = config.get;
-	const filenameToDelete = locals.filename;
+	const filenameToDelete = locals.filename_to_delete;
 
 	//get filenames from all the posts
 	let files = [];
