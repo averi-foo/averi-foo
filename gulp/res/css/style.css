@@ -1562,7 +1562,8 @@ input.approve-button {
 
 .approval-list:has(
 	option[value="nsfw"]:checked,
-	option[value="illegal"]:checked
+	option[value="illegal"]:checked,
+	option[value="artificial"]:checked
 ){
 	color:red;
 	font-weight: 700;
