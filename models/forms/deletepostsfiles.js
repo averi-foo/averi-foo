@@ -49,7 +49,8 @@ module.exports = async (locals, unlinkOnly) => {
 		await pruneFiles(fileNames);
 	}
 
-
+	// Unlinking  simply does not run deletePostFiles(), allowing for files to be
+	// removed from the post but not 404 on the server.
 	if (unlinkOnly) {
 		return {
 			message: __n('Unlinked %s files', files.length),
@@ -61,7 +62,7 @@ module.exports = async (locals, unlinkOnly) => {
 			}
 		};
 	} else {
-		//delete all the files
+		//Delete the selected files on the server.
 		await deletePostFiles(files);
 		return {
 			message: __n('Deleted %s files from server', files.length),
