@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
 				req.body.delete_file = true; // delete files
 				req.body.delete = true; // delete post
 				req.body.global_ban = true;
-				req.body.ban_duration = 86400000 * 3; // ban 3 day in ms
+				req.body.ban_duration = 3600000 // 1 hour ban
 				req.body.ban_reason = `Uploaded AI ART hash ${filehash} that was denied`;
 				req.body.no_appeal = false;
 				message = `Denied AI ART ${filehash}`;
