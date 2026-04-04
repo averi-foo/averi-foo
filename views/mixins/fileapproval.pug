@@ -5,4 +5,5 @@ mixin fileapproval(filename)
 			option(value="delete_file") Deny: DELETE
 			option(value="nsfw") Deny: NSFW
 			option(value="illegal") Deny: ILLEGAL
+			option(value="artificial") Deny: AI ART
 		input.approve-button(id='approval-input' type='submit' name='approve' value='Submit', data-filename=filename)
