@@ -22,6 +22,12 @@ module.exports = async (req, res) => {
 				denied = false;
 				message = `Approved ${filehash}`;
 				break;
+			case 'delete_file':
+				res.locals.filename_to_delete = filename; // set filename to delete
+				req.body.delete_file = true; // delete files, but only delete the one selected above.
+				message = `Deleted file ${filehash}`;
+				log_message = message;
+				break;
 			case 'nsfw':
 				req.body.delete_file = true; // delete files
 				req.body.delete = true; // delete post

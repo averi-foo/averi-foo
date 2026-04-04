@@ -9,6 +9,7 @@ module.exports = async (locals, unlinkOnly) => {
 
 	const { posts, __, __n } = locals;
 	const { pruneImmediately } = config.get;
+	const filenameToDelete = locals.filename_to_delete;
 
 	//get filenames from all the posts
 	let files = [];
@@ -27,37 +28,50 @@ module.exports = async (locals, unlinkOnly) => {
 	}
 	files = [...new Set(files)];
 
+	// If filenameToDelete is not empty, it will filter the files array down to only
+	// the singular file that matches the filenameToDelete string.
+
+	if (filenameToDelete) {
+		files = files.filter(file => {
+			return file.filename === filenameToDelete;
+		});
+	}
+
 	if (files.length == 0) {
 		return {
 			message: __('No files found')
 		};
 	}
 
-	if (files.length > 0) {
-		const fileNames = files.map(x => x.filename);
-		await Files.decrement(fileNames);
-		if (pruneImmediately) {
-			await pruneFiles(fileNames);
-		}
+	const fileNames = files.map(x => x.filename);
+	await Files.decrement(fileNames);
+	if (pruneImmediately) {
+		await pruneFiles(fileNames);
 	}
 
+	// Unlinking  simply does not run deletePostFiles(), allowing for files to be
+	// removed from the post but not 404 on the server.
 	if (unlinkOnly) {
 		return {
 			message: __n('Unlinked %s files', files.length),
-			action:'$set',
+			action:'$pull',
 			query: {
-				'files': []
+				'files': {
+					'filename': { $in: fileNames }
+				}
 			}
 		};
 	} else {
-		//delete all the files
+		//Delete the selected files on the server.
 		await deletePostFiles(files);
 		return {
 			message: __n('Deleted %s files from server', files.length),
 			//NOTE: only deletes from selected posts. other posts with same image will 404
-			action:'$set',
+			action:'$pull',
 			query: {
-				'files': []
+				'files': {
+					'filename': { $in: fileNames }
+				}
 			}
 		};
 	}
