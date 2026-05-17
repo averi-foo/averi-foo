@@ -14,6 +14,7 @@ const { createHash, randomBytes } = require('crypto')
 	, filterActions = require(__dirname+'/../../lib/post/filteractions.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
+	, emojiHandler = require(__dirname+'/../../lib/post/emoji.js')
 	, moveUpload = require(__dirname+'/../../lib/file/moveupload.js')
 	, mimeTypes = require(__dirname+'/../../lib/file/mimetypes.js')
 	, imageThumbnail = require(__dirname+'/../../lib/file/image/imagethumbnail.js')
@@ -525,10 +526,17 @@ module.exports = async (req, res) => {
 		userId,
 		__ //i18n translation local
 	);
+	
 	//get message, quotes and crossquote array
 	const nomarkup = prepareMarkdown(req.body.message, true);
 	const { message, quotes, crossquotes } = await messageHandler(nomarkup, req.params.board, req.body.thread, res.locals.permissions);
-
+	
+	// process customEmojis
+	if (customEmojis === true) {
+		const emojiMessage = await emojiHandler(req.params.board, res.locals.board.emojis, message)
+		message = emojiMessage
+	}
+	
 	//web3 sig
 	let signature = null
 		, address = null;
