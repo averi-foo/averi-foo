@@ -46,6 +46,7 @@ class CssToggle {
 const hidePostStubsCss = '.post-container.hidden, .catalog-tile.hidden { display: none;margin-top: -1.5em;height: 0; }';
 const hideDeletedPostContentCss = '.post-container.marked[data-mark="Deleted"] .post-data { display: none; }';
 const hideThumbnailsCss = '.file-thumb, .catalog-thumb { content: url("/file/defaultimage.png") !important; }';
+const hideEmojisCss = '.asset-emoji { display: none !important; }';
 const fadePostContainer = '@media screen and (min-width: 800px) {#postform {opacity: 0.4; transition: opacity 3s; &:hover { opacity: 1.0; transition: opacity 0.3s; } } }'
 const hideRecursiveCss = '.op.hidden ~ .anchor, .op.hidden ~ .post-container { display: none; }';
 const heightUnlimitCss = 'img, video { max-height: unset; }';
@@ -60,6 +61,7 @@ new CssToggle('hiderecursive-setting', 'hiderecursive', settings.hideRecursive, 
 new CssToggle('heightlimit-setting', 'heightlimit', settings.heightUnlimit, heightUnlimitCss);
 new CssToggle('crispimages-setting', 'crispimages', settings.crispImages, crispCss);
 new CssToggle('hidethumbnails-setting', 'hidethumbnails', settings.hideThumbnails, hideThumbnailsCss);
+new CssToggle('hideemojis-setting', 'hideemojis', settings.hideEmojis, hideEmojisCss);
 new CssToggle('fadepostcontainer-setting', 'fadepostcontainer', settings.fadePostContainer, fadePostContainer);
 new CssToggle('noncolorids-setting', 'noncolorids', settings.nonColorIds, nonColorIdsCss);
 new CssToggle('alwaysshowspoilers-setting', 'alwaysshowspoilers', settings.alwaysShowSpoilers, alwaysShowSpoilersCss);

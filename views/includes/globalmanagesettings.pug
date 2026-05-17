@@ -613,6 +613,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_hide_thumbnails', value='true' checked=settings.frontendScriptDefault.hideThumbnails)
 			.row
+				.label #{__('Hide Emojis')}
+				label.postform-style.ph-5
+					input(type='checkbox', name='frontend_script_default_hide_emojis', value='true' checked=settings.frontendScriptDefault.hideEmojis)
+			.row
 				.label #{__('Fade Post Container')}
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_fade_post_container', value='true' checked=settings.frontendScriptDefault.fadePostContainer)
