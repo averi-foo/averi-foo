@@ -534,7 +534,9 @@ module.exports = async (req, res) => {
 	// process customEmojis
 	if (customEmojis === true) {
 		let emojiMessage = await emojiHandler(req.params.board, res.locals.board.emojis, message)
+		console.log("emojiMessage: ",emojiMessage)
 		message = emojiMessage
+		console.log("After: ", message)
 	}
 	
 	//web3 sig
