@@ -53,7 +53,8 @@ section.form-wrapper.flex-center
 				span #{__('Message')}
 					if messageRequired
 						span.required *
-				if board.settings.customEmojis === true
+			//- TODO: Implement
+			//-	if board.settings.customEmojis === true
 					input(id="emoji-button", class="postform-style", type="button", value="😃",title="Emoji Selector")
 					select#emoji-select(name='emoji-select', style="display:none;")
 						- const boardEmojis = Object.entries(board.emojis)
