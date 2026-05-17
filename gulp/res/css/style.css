@@ -1073,6 +1073,10 @@ input:invalid, textarea:invalid {
 	object-fit: scale-down;
 }
 
+.asset-emoji {
+	height: 24px;
+}
+
 .asset-flag {
 	margin: 0 5px;
 	max-width: 100%;

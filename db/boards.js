@@ -258,6 +258,17 @@ module.exports = {
 			}
 		});
 	},
+	
+	setEmojis: (board, emojis) => {
+		cache.del(`board:${board}`);
+		return db.updateOne({
+			'_id': board,
+		}, {
+			'$set': {
+				'emojis': emojis,
+			}
+		});
+	},
 
 	getLocalListed: async () => {
 		let cachedListed = await cache.sgetall('boards:listed');

@@ -290,6 +290,10 @@ module.exports = {
 			max: 10, //number of banners uploadable in one request
 			total: 100, //max number of flags for a board
 		},
+		emojiFiles: {
+			max: 10, //number of banners uploadable in one request
+			total: 100, //max number of emojis for a board
+		},
 		assetFiles: {
 			max: 10, //number of assets uploadable in one request
 			total: 50, //max number of assets for a board
@@ -301,6 +305,9 @@ module.exports = {
 			max: 10485760
 		},
 		flagFilesSize: { //in bytes, 1MB default
+			max: 1048576
+		},
+		emojiFilesSize: { //in bytes, 1MB default
 			max: 1048576
 		},
 		/* NOTE: xFilesSize in bytes the amount of total data in form submission including
