@@ -76,6 +76,7 @@ module.exports = async (req, res) => {
 		'ids': booleanSetting(req.body.ids),
 		'geoFlags': booleanSetting(req.body.geo_flags),
 		'customFlags': booleanSetting(req.body.custom_flags),
+		'customEmojis': booleanSetting(req.body.custom_emojis),
 		'enableTegaki': booleanSetting(req.body.enable_tegaki),
 		'enableWeb3': booleanSetting(req.body.enable_web3),
 		'forceAnon': booleanSetting(req.body.force_anon),

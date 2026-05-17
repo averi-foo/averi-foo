@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
 	const { blockedCountries, threadLimit, ids, userPostSpoiler,
 		pphTrigger, tphTrigger, tphTriggerAction, pphTriggerAction,
 		sageOnlyEmail, forceAnon, replyLimit, disableReplySubject,
-		captchaMode, lockMode, allowedFileTypes, customFlags, geoFlags, fileR9KMode, messageR9KMode } = res.locals.board.settings;
+		captchaMode, lockMode, allowedFileTypes, customFlags, customEmojis, geoFlags, fileR9KMode, messageR9KMode } = res.locals.board.settings;
 
 	//
 	// Check if country is blocked

@@ -18,6 +18,8 @@ module.exports = {
 	deleteAssetsController: require(__dirname+'/deleteassets.js'),
 	addFlagsController: require(__dirname+'/addflags.js'),
 	deleteFlagsController: require(__dirname+'/deleteflags.js'),
+	addEmojisController: require(__dirname+'/addemojis.js'),
+	deleteEmojisController: require(__dirname+'/deleteemojis.js'),
 	boardSettingsController: require(__dirname+'/boardsettings.js'),
 	transferController: require(__dirname+'/transfer.js'),
 	resignController: require(__dirname+'/resign.js'),

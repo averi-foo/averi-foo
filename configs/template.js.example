@@ -413,6 +413,7 @@ module.exports = {
 		ids: true, //show per thread poster ID based on ip
 		geoFlags: false, //show geo flags, requires nginx setup
 		customFlags: true, //show custom flags
+		customEmojis: true, //show custom emojis
 		enableTegaki: true,
 		enableWeb3: false,
 		userPostDelete: true, //allow users to delete their posts

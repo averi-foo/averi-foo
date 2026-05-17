@@ -14,12 +14,14 @@ module.exports = async(db) => {
 		'$set': {
 			'globalLimits.emojiFiles': template.globalLimits.emojiFiles,
 			'globalLimits.emojiFilesSize': template.globalLimits.emojiFilesSize,
+			'boardDefaults.customEmojis': false,
 		}
 	});
 	// For every board, add an emojis table.
 	await db.collection('boards').updateMany({}, {
 		'$set': {
 			'emojis': {},
+			'settings.customEmojis': false,
 		}
 	});
 };

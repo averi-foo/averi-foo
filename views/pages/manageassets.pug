@@ -23,6 +23,12 @@ block content
 		`/flag/${board._id}`, 'asset-flag', true, false,
 		__('Flags that can be applied to posts if custom flags are enabled in board settings'))
 	hr(size=1)
+	+fileform('emoji', globalLimits.emojiFiles.max, globalLimits.emojiFiles.total,
+		`/forms/board/${board._id}/addemojis`, `/forms/board/${board._id}/deleteemojis`,
+		'checkedemojis', Object.values(board.emojis), Object.keys(board.emojis),
+		`/emoji/${board._id}`, 'asset-emoji', true, false,
+		__('Emojis that can be added to post messages.'))
+	hr(size=1)
 	+fileform('asset', globalLimits.assetFiles.max, globalLimits.assetFiles.total,
 		`/forms/board/${board._id}/addassets`, `/forms/board/${board._id}/deleteassets`,
 		'checkedassets', board.assets, board.assets,

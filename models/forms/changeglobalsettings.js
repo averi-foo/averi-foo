@@ -315,6 +315,7 @@ module.exports = async (req, res) => {
 			early404: booleanSetting(req.body.board_defaults_early_404, oldSettings.boardDefaults.early404),
 			ids: booleanSetting(req.body.board_defaults_ids, oldSettings.boardDefaults.ids),
 			customFlags: booleanSetting(req.body.board_defaults_custom_flags, oldSettings.boardDefaults.customFlags),
+			customEmojis: booleanSetting(req.body.board_defaults_custom_emojis, oldSettings.boardDefaults.customEmojis),
 			geoFlags: booleanSetting(req.body.board_defaults_geo_flags, oldSettings.boardDefaults.geoFlags),
 			enableTegaki: booleanSetting(req.body.board_defaults_enable_tegaki, oldSettings.boardDefaults.enableTegaki),
 			userPostDelete: booleanSetting(req.body.board_defaults_user_post_delete, oldSettings.boardDefaults.userPostDelete),

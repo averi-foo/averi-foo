@@ -813,6 +813,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='board_defaults_custom_flags', value='true' checked=settings.boardDefaults.customFlags)
 			.row
+				.label #{__('Custom Emojis')}
+				label.postform-style.ph-5
+					input(type='checkbox', name='board_defaults_custom_emojis', value='true' checked=settings.boardDefaults.customEmojis)
+			.row
 				.label #{__('Enable Tegaki')}
 				label.postform-style.ph-5
 					input(type='checkbox', name='board_defaults_enable_tegaki', value='true' checked=settings.boardDefaults.enableTegaki)
