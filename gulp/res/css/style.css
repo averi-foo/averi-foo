@@ -1074,7 +1074,12 @@ input:invalid, textarea:invalid {
 }
 
 .asset-emoji {
-	height: 18px;
+	height: 20px;
+}
+
+#emoji-button {
+	max-height: 20px;
+	margin-top: 2px;
 }
 
 .asset-flag {

@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		const minLength = messageBox.getAttribute('minlength');
 		let currentLength = messageBox.value.length;
 		const counter = document.createElement('small');
-		messageBoxLabel.appendChild(counter);
+		messageBoxLabel.insertBefore(counter,messageBoxLabel.childNodes[0].nextSibling);
 
 		const updateCounter = () => {
 			counter.innerText = `(${currentLength}/${maxLength})`;
