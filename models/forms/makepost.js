@@ -533,7 +533,7 @@ module.exports = async (req, res) => {
 	
 	// process customEmojis
 	if (customEmojis === true) {
-		const emojiMessage = await emojiHandler(req.params.board, res.locals.board.emojis, message)
+		const emojiMessage = await emojiHandler.process(req.params.board, res.locals.board.emojis, message)
 		message = emojiMessage
 	}
 	
