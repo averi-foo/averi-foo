@@ -1090,8 +1090,12 @@ input:invalid, textarea:invalid {
 	-webkit-overflow-scrolling: touch
 }
 
-.post-action-bar {
+#post-action-bar {
 	display: none;
+}
+
+#post-action-bar-label {
+display: inline;
 }
 
 #post-action-bar-close {

@@ -63,7 +63,7 @@ section.form-wrapper.flex-center
 		section.row.jsonly#post-action-bar
 			.label#post-action-bar-label
 				input#post-action-bar-close(value="✖" type="button")
-				| #{__('Actions')} 
+				element#post-action-bar-label-text #{__('Actions')} 
 			- const boardEmojis = Object.entries(board.emojis)
 			if board.settings.customEmojis === true && boardEmojis.length > 0
 				.emoji-bar

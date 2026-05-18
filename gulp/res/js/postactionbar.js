@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	//let postActionButtonContainer = document.getElementById("post-action-buttons")
 	let postActionBarClose = document.getElementById("post-action-bar-close")
+	let postActionBarLabelText = document.getElementById("post-action-bar-label-text")
 	let postActionBar = document.getElementById("post-action-bar")
 	let emojiButton = document.getElementById("emoji-button")
 	
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	
 	function emojiButtonClicked() {
+		postActionBarLabelText.textContent = "Emojis"
 		postActionBarShow()
 	}
 	
