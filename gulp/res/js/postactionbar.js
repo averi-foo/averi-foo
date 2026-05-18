@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+	// Small thing for emoji first
+	
+	document.querySelectorAll("img.asset-emoji").forEach(function(img){
+		img.onerror = function() {this.style.display='none';};
+	})
+	
 	//let postActionButtonContainer = document.getElementById("post-action-buttons")
 	let postActionBarLabel = document.getElementById("post-action-bar-label")
 	let postActionBar = document.getElementById("post-action-bar")
