@@ -259,6 +259,13 @@ module.exports = async (req, res) => {
 			flagFilesSize: {
 				max: numberSetting(req.body.global_limits_flag_files_size_max, oldSettings.globalLimits.flagFilesSize.max),
 			},
+			emojiFiles: {
+				max: numberSetting(req.body.global_limits_emoji_files_max, oldSettings.globalLimits.emojiFiles.max),
+				total: numberSetting(req.body.global_limits_emoji_files_total, oldSettings.globalLimits.emojiFiles.total),
+			},
+			emojiFilesSize: {
+				max: numberSetting(req.body.global_limits_emoji_files_size_max, oldSettings.globalLimits.emojiFilesSize.max),
+			},
 			assetFiles: {
 				max: numberSetting(req.body.global_limits_asset_files_max, oldSettings.globalLimits.assetFiles.max),
 				total: numberSetting(req.body.global_limits_asset_files_total, oldSettings.globalLimits.assetFiles.total),
