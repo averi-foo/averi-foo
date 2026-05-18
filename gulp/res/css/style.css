@@ -1077,8 +1077,22 @@ input:invalid, textarea:invalid {
 	height: 20px;
 }
 
+.emoji-bar {
+	background: var(--input-background);
+	flex-grow: 1;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	position: relative;
+	flex-shrink: 1;
+	width: 100px;
+	height: 23px;
+	-webkit-overflow-scrolling: touch
+}
+
 .asset-emoji-picker {
 	height: 20px;
+	float: none;
 }
 
 #emoji-button {
