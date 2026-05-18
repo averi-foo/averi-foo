@@ -60,10 +60,10 @@ section.form-wrapper.flex-center
 			- const minLength = (isThread ? board.settings.minReplyMessageLength : board.settings.minThreadMessageLength) || 0;
 			- const maxLength = Math.min((isThread ? board.settings.maxReplyMessageLength : board.settings.maxThreadMessageLength), globalLimits.fieldLength.message) || globalLimits.fieldLength.message;
 			textarea#message(name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
-		section.row.jsonly.post-action-bar
+		section.row.jsonly#post-action-bar
 			.label#post-action-bar-label
 				input#post-action-bar-close(value="✖" type="button")
-				#{__('Actions')} 
+				| #{__('Actions')} 
 			- const boardEmojis = Object.entries(board.emojis)
 			if board.settings.customEmojis === true && boardEmojis.length > 0
 				.emoji-bar
