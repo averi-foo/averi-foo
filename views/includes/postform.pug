@@ -61,9 +61,7 @@ section.form-wrapper.flex-center
 			- const maxLength = Math.min((isThread ? board.settings.maxReplyMessageLength : board.settings.maxThreadMessageLength), globalLimits.fieldLength.message) || globalLimits.fieldLength.message;
 			textarea#message(name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
 		section.row.jsonly#post-action-bar
-			.label#post-action-bar-label
-				input#post-action-bar-close(value="✖" type="button")
-				element#post-action-bar-label-text #{__('Actions')} 
+			.label#post-action-bar-label #{__('Actions')} 
 			- const boardEmojis = Object.entries(board.emojis)
 			if board.settings.customEmojis === true && boardEmojis.length > 0
 				#emoji-bar

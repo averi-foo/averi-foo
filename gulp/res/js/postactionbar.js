@@ -1,14 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	//let postActionButtonContainer = document.getElementById("post-action-buttons")
-	let postActionBarClose = document.getElementById("post-action-bar-close")
-	let postActionBarLabelText = document.getElementById("post-action-bar-label-text")
+	let postActionBarLabel = document.getElementById("post-action-bar-label")
 	let postActionBar = document.getElementById("post-action-bar")
 	let emojiButton = document.getElementById("emoji-button")
 	let emojiBar = document.getElementById("emoji-bar")
 	let messageBox = document.getElementById("message")
 	
 	if (postActionBar != null) {
-		postActionBarClose.addEventListener("click",postActionBarHide)
 		emojiButton.addEventListener("click",emojiButtonClicked)
 		
 		emojiBar.childNodes.forEach((node) =>{
@@ -22,8 +20,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 	
 	function emojiButtonClicked() {
-		postActionBarLabelText.textContent = "Emojis"
-		postActionBarShow()
+		if (postActionBarLabel.textContent != "Emojis") {
+			postActionBarLabel.textContent = "Emojis"
+			postActionBarShow()
+		} else {
+			postActionBarToggle()
+		}
+	}
+	
+	function postActionBarToggle() {
+		if (postActionBar.style.display == "none") {
+			postActionBarShow()
+		} else {
+			postActionBarHide()
+		}
 	}
 	
 	function postActionBarShow() {
