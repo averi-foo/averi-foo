@@ -1090,8 +1090,23 @@ input:invalid, textarea:invalid {
 	-webkit-overflow-scrolling: touch
 }
 
+.post-action-bar {
+	display: none;
+}
+
+#post-action-bar-close {
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+
+#post-action-buttons input {
+	border-radius: 4px;
+}
+
 .asset-emoji-picker {
 	height: 20px;
+	padding: 1px;
 	float: none;
 }
 
