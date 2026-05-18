@@ -77,6 +77,27 @@ module.exports = () => describe('test some global form submissions', () => {
 		expect(response.ok).toBe(true);
 		flagId = 'flags';
 	});
+	
+	let emojiId;
+	test('add emoji',  async () => {
+		const fileParams = new FormData();
+		const filePath = 'gulp/res/img/emoji.png';
+		const fileSizeInBytes = fs.statSync(filePath).size;
+		const fileStream = fs.createReadStream(filePath);
+		fileParams.append('_csrf', csrfToken);
+		fileParams.append('file', fileStream, { knownLength: fileSizeInBytes });
+		const response = await fetch('http://localhost/forms/board/test/addemojis', {
+			headers: {
+				'x-using-xhr': 'true',
+				'cookie': sessionCookie,
+				...fileParams.getHeaders(),
+			},
+			method: 'POST',
+			body: fileParams
+		});
+		expect(response.ok).toBe(true);
+		emojiId = 'emoji';
+	});
 
 	test('add asset',  async () => {
 		const fileParams = new FormData();
@@ -129,6 +150,23 @@ module.exports = () => describe('test some global form submissions', () => {
 			checkedflags: flagId,
 		});
 		const response = await fetch('http://localhost/forms/board/test/deleteflags', {
+			headers: {
+				'x-using-xhr': 'true',
+				'cookie': sessionCookie,
+			},
+			method: 'POST',
+			body: params,
+			redirect: 'manual',
+		});
+		expect(response.ok).toBe(true);
+	});
+	
+	test('delete emoji',  async () => {
+		const params = new URLSearchParams({
+			_csrf: csrfToken,
+			checkedemojis: emojiId,
+		});
+		const response = await fetch('http://localhost/forms/board/test/deleteemojis', {
 			headers: {
 				'x-using-xhr': 'true',
 				'cookie': sessionCookie,

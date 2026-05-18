@@ -58,6 +58,7 @@ module.exports = async (req, res) => {
 		},
 		'trusted': {},
 		'flags': {},
+		'emojis': {},
 		'assets': [],
 		'settings': {
 			name,
@@ -88,6 +89,7 @@ module.exports = async (req, res) => {
 		ensureDir(`${uploadDirectory}/json/${uri}`),
 		ensureDir(`${uploadDirectory}/banner/${uri}`),
 		ensureDir(`${uploadDirectory}/flag/${uri}`),
+		ensureDir(`${uploadDirectory}/emoji/${uri}`),
 		ensureDir(`${uploadDirectory}/asset/${uri}`),
 	]);
 
