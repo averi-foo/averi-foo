@@ -297,6 +297,7 @@ async function wipe() {
 		del([ 'static/json/*' ]),
 		del([ 'static/banner/*' ]),
 		del([ 'static/flag/*' ]),
+		del([ 'static/emoji/*' ]),
 		del([ 'static/asset/*' ]),
 		del([ 'static/css/*' ]),
 		del([ 'static/js/*' ]),

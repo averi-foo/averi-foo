@@ -230,6 +230,12 @@ ul.tabs.group
 				.label #{__('Bump Limit Max')}
 				input(type='number' name='global_limits_bump_limit_max' value=settings.globalLimits.bumpLimit.max)
 			.row
+				.label #{__('Emoji Limit Min')}
+				input(type='number' name='global_limits_emoji_limit_min' value=settings.globalLimits.emojiLimit.min)
+			.row
+				.label #{__('Emoji Limit Max')}
+				input(type='number' name='global_limits_emoji_limit_max' value=settings.globalLimits.emojiLimit.max)
+			.row
 				.label #{__('Files Per Post Max')}
 				input(type='number' name='global_limits_post_files_max' value=settings.globalLimits.postFiles.max)
 			.row
@@ -278,6 +284,15 @@ ul.tabs.group
 			.row
 				.label #{__('Total Assets Per Board')}
 				input(type='number' name='global_limits_asset_files_total' value=settings.globalLimits.assetFiles.total)
+			.row
+				.label #{__('Emoji File Size Max')}
+				input(type='number' name='global_limits_emoji_files_size_max' value=settings.globalLimits.emojiFilesSize.max)
+			.row
+				.label #{__('Emoji Per Upload Max')}
+				input(type='number' name='global_limits_emoji_files_max' value=settings.globalLimits.emojiFiles.max)
+			.row
+				.label #{__('Total Emojis Per Board')}
+				input(type='number' name='global_limits_emoji_files_total' value=settings.globalLimits.emojiFiles.total)
 			.row
 				.label #{__('Max Filters Per Board')}
 				input(type='number' name='global_limits_filters_max' value=settings.globalLimits.filters.max)
@@ -613,6 +628,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_hide_thumbnails', value='true' checked=settings.frontendScriptDefault.hideThumbnails)
 			.row
+				.label #{__('Hide Emojis')}
+				label.postform-style.ph-5
+					input(type='checkbox', name='frontend_script_default_hide_emojis', value='true' checked=settings.frontendScriptDefault.hideEmojis)
+			.row
 				.label #{__('Fade Post Container')}
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_fade_post_container', value='true' checked=settings.frontendScriptDefault.fadePostContainer)
@@ -813,6 +832,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='board_defaults_custom_flags', value='true' checked=settings.boardDefaults.customFlags)
 			.row
+				.label #{__('Custom Emojis')}
+				label.postform-style.ph-5
+					input(type='checkbox', name='board_defaults_custom_emojis', value='true' checked=settings.boardDefaults.customEmojis)
+			.row
 				.label #{__('Enable Tegaki')}
 				label.postform-style.ph-5
 					input(type='checkbox', name='board_defaults_enable_tegaki', value='true' checked=settings.boardDefaults.enableTegaki)
@@ -841,6 +864,9 @@ ul.tabs.group
 			.row
 				.label #{__('Bump Limit')}
 				input(type='number' name='board_defaults_bump_limit' value=settings.boardDefaults.bumpLimit)
+			.row
+				.label #{__('Emoji Limit')}
+				input(type='number' name='board_defaults_emoji_limit' value=settings.boardDefaults.emojiLimit)
 			.row
 				.label #{__('Max Files')}
 				input(type='number' name='board_defaults_max_files' value=settings.boardDefaults.maxFiles)

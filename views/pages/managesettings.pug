@@ -109,6 +109,10 @@ block content
 														label.postform-style.ph-5
 															input(type='checkbox', name='custom_flags', value='true' checked=board.settings.customFlags)
 													.row
+														.label #{__('Custom Emojis')}
+														label.postform-style.ph-5
+															input(type='checkbox', name='custom_emojis', value='true' checked=board.settings.customEmojis)
+													.row
 														.label #{__('Reverse Image Search Links')}
 														label.postform-style.ph-5
 															input(type='checkbox', name='reverse_image_search_links', value='true' checked=board.settings.reverseImageSearchLinks)
@@ -243,6 +247,9 @@ block content
 													.row
 														.label #{__('Bump Limit')}
 														input(type='number' name='bump_limit' value=board.settings.bumpLimit min=globalLimits.bumpLimit.min max=globalLimits.bumpLimit.max)
+													.row
+														.label #{__('Emoji Limit')}
+														input(type='number' name='emoji_limit' value=board.settings.emojiLimit min=globalLimits.emojiLimit.min max=globalLimits.emojiLimit.max)
 													.row
 														.label #{__('Enforce Unique Files')}
 														select(name='file_r9k_mode')

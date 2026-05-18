@@ -269,6 +269,10 @@ module.exports = {
 			min: 10,
 			max: 1000
 		},
+		emojiLimit: { //number of emojis a post can have
+			min: 1,
+			max: 1000
+		},
 		postFiles: { //number of files in a post
 			max: 5,
 		},
@@ -290,6 +294,10 @@ module.exports = {
 			max: 10, //number of banners uploadable in one request
 			total: 100, //max number of flags for a board
 		},
+		emojiFiles: {
+			max: 10, //number of banners uploadable in one request
+			total: 100, //max number of emojis for a board
+		},
 		assetFiles: {
 			max: 10, //number of assets uploadable in one request
 			total: 50, //max number of assets for a board
@@ -301,6 +309,9 @@ module.exports = {
 			max: 10485760
 		},
 		flagFilesSize: { //in bytes, 1MB default
+			max: 1048576
+		},
+		emojiFilesSize: { //in bytes, 1MB default
 			max: 1048576
 		},
 		/* NOTE: xFilesSize in bytes the amount of total data in form submission including
@@ -355,6 +366,7 @@ module.exports = {
 		hideRecursive: true, //hide replies to hidden OPs
 		crispImages: false, //use crisp/pixelated image rendering
 		hideThumbnails: false, //hide thumbnails
+		hideEmojis: false, //hide emojis
 		fadePostContainer: false, //Post container automatically fades when mouse not hovering on it
 		nonColorIds: false, //dont color ids
 		alwaysShowSpoilers: false , //always reveal spoiler text
@@ -406,6 +418,7 @@ module.exports = {
 		ids: true, //show per thread poster ID based on ip
 		geoFlags: false, //show geo flags, requires nginx setup
 		customFlags: true, //show custom flags
+		customEmojis: true, //show custom emojis
 		enableTegaki: true,
 		enableWeb3: false,
 		userPostDelete: true, //allow users to delete their posts
@@ -416,6 +429,7 @@ module.exports = {
 		threadLimit: 400,
 		replyLimit: 1000,
 		bumpLimit: 1000,
+		emojiLimit: 20,
 		maxFiles: 5,
 		forceReplyMessage: false,
 		forceReplyFile: false,

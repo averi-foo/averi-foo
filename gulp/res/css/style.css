@@ -1073,6 +1073,46 @@ input:invalid, textarea:invalid {
 	object-fit: scale-down;
 }
 
+.asset-emoji {
+	height: 20px;
+}
+
+#emoji-bar {
+	background: var(--input-background);
+	flex-grow: 1;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	white-space: nowrap;
+	position: relative;
+	flex-shrink: 1;
+	width: 100px;
+	height: 23px;
+	-webkit-overflow-scrolling: touch
+}
+
+#post-action-bar {
+	display: none;
+}
+
+#post-action-bar-label {
+	display: inline;
+}
+
+#post-action-buttons input {
+	border-radius: 4px;
+}
+
+.asset-emoji-picker {
+	height: 20px;
+	padding: 1px;
+	float: none;
+}
+
+#emoji-button {
+	max-height: 20px;
+	margin-top: 2px;
+}
+
 .asset-flag {
 	margin: 0 5px;
 	max-width: 100%;
