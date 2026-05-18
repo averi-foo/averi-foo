@@ -1,11 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	// Small thing for emoji first
-	
+	// Remove emojis if you cannot find them.
 	document.querySelectorAll("img.asset-emoji").forEach(function(img){
 		img.onerror = function() {this.style.display='none';};
 	})
 	
-	//let postActionButtonContainer = document.getElementById("post-action-buttons")
 	let postActionBarLabel = document.getElementById("post-action-bar-label")
 	let postActionBar = document.getElementById("post-action-bar")
 	let emojiButton = document.getElementById("emoji-button")
@@ -14,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	if (postActionBar != null) {
 		emojiButton.addEventListener("click",emojiButtonClicked)
-		
 		emojiBar.childNodes.forEach((node) =>{
 			if (node.className == "asset-emoji-picker") {
 				node.addEventListener("click",()=>{

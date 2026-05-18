@@ -1095,7 +1095,7 @@ input:invalid, textarea:invalid {
 }
 
 #post-action-bar-label {
-display: inline;
+	display: inline;
 }
 
 #post-action-buttons input {
