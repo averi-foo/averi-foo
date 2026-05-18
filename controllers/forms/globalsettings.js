@@ -27,6 +27,7 @@ module.exports = {
 			'global_limits_thread_limit_max', 'global_limits_reply_limit_min', 'global_limits_reply_limit_max', 'global_limits_bump_limit_min', 'global_limits_bump_limit_max',
 			'global_limits_emoji_limit_min', 'global_limits_emoji_limit_max',
 			'global_limits_emoji_files_total', 'global_limits_emoji_files_size_max',
+			'global_limits_emoji_files_max',
 			'global_limits_post_files_max', 'global_limits_post_files_size_max', 'global_limits_asset_files_total', 'global_limits_asset_files_max', 'global_limits_asset_files_size_max',
 			'global_limits_banner_files_width', 'global_limits_banner_files_height', 'global_limits_banner_files_max',
 			'global_limits_banner_files_total', 'global_limits_banner_files_size_max', 'global_limits_flag_files_max', 'global_limits_flag_files_total', 'global_limits_flag_files_size_max',
