@@ -62,11 +62,12 @@ section.form-wrapper.flex-center
 			textarea#message(name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
 		section.row.jsonly#post-action-bar
 			.label#post-action-bar-label #{__('Actions')} 
-			- const boardEmojis = Object.entries(board.emojis)
-			if board.settings.customEmojis === true && boardEmojis.length > 0
-				#emoji-bar
-					each emoji in boardEmojis
-						img(class="asset-emoji-picker" alt=`:${emoji[0]}:` title=`:${emoji[0]}:` src=`/emoji/${board._id}/${emoji[1]}`)
+			if board.settings.customEmojis === true
+				- const boardEmojis = Object.entries(board.emojis)
+				if boardEmojis.length > 0
+					#emoji-bar
+						each emoji in boardEmojis
+							img(class="asset-emoji-picker" alt=`:${emoji[0]}:` title=`:${emoji[0]}:` src=`/emoji/${board._id}/${emoji[1]}`)
 			//- Potentially add other post options here
 		if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
 			- const maxFiles = board.settings.maxFiles;
