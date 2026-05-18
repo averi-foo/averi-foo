@@ -1077,7 +1077,7 @@ input:invalid, textarea:invalid {
 	height: 20px;
 }
 
-.emoji-bar {
+#emoji-bar {
 	background: var(--input-background);
 	flex-grow: 1;
 	overflow-x: scroll;

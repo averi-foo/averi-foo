@@ -4,12 +4,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	let postActionBarLabelText = document.getElementById("post-action-bar-label-text")
 	let postActionBar = document.getElementById("post-action-bar")
 	let emojiButton = document.getElementById("emoji-button")
+	let emojiBar = document.getElementById("emoji-bar")
+	let messageBox = document.getElementById("message")
 	
 	if (postActionBar != null) {
 		postActionBarClose.addEventListener("click",postActionBarHide)
 		emojiButton.addEventListener("click",emojiButtonClicked)
+		
+		emojiBar.childNodes.forEach((node) =>{
+			if (node.className == "asset-emoji-picker") {
+				node.addEventListener("click",()=>{
+					messageBox.value += node.alt
+				})
+			}
+		})
+		
 	}
-	
 	
 	function emojiButtonClicked() {
 		postActionBarLabelText.textContent = "Emojis"
@@ -17,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 	
 	function postActionBarShow() {
-		postActionBar.style.display = "block";
+		postActionBar.style.display = "flex";
 	}
 	
 	function postActionBarHide() {
