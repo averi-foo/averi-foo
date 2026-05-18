@@ -53,17 +53,18 @@ section.form-wrapper.flex-center
 				span #{__('Message')}
 					if messageRequired
 						span.required *
-			//- TODO: Implement
-			//-	if board.settings.customEmojis === true
-					input(id="emoji-button", class="postform-style", type="button", value="😃",title="Emoji Selector")
-					select#emoji-select(name='emoji-select', style="display:none;")
-						- const boardEmojis = Object.entries(board.emojis)
-						if board.settings.customEmojis === true && boardEmojis.length > 0
-							each emoji in boardEmojis
-								option(value=emoji[0] data-src=`/emoji/${board._id}/${emoji[1]}`) #{emoji[0]}
 			- const minLength = (isThread ? board.settings.minReplyMessageLength : board.settings.minThreadMessageLength) || 0;
 			- const maxLength = Math.min((isThread ? board.settings.maxReplyMessageLength : board.settings.maxThreadMessageLength), globalLimits.fieldLength.message) || globalLimits.fieldLength.message;
 			textarea#message(name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
+		//- Emoji Bar
+		if board.settings.customEmojis === true
+			section.row.jsonly
+				.label(class="post-action-bar") #{__('Emojis')} 
+				.emoji-bar
+					- const boardEmojis = Object.entries(board.emojis)
+					if board.settings.customEmojis === true && boardEmojis.length > 0
+						each emoji in boardEmojis
+							img(class="asset-emoji-picker" alt=`:${emoji[0]}:` src=`/emoji/${board._id}/${emoji[1]}`)
 		if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
 			- const maxFiles = board.settings.maxFiles;
 			section.row
