@@ -19,7 +19,7 @@ module.exports = {
 		trimFields: ['twofactor', 'tags', 'announcement', 'description', 'name', 'custom_css', 'language'],
 		allowedArrays: ['countries'],
 		numberFields: ['lock_reset', 'captcha_reset', 'lock_mode', 'message_r9k_mode', 'file_r9k_mode', 'captcha_mode', 'tph_trigger', 'pph_trigger', 'pph_trigger_action',
-			'tph_trigger_action', 'bump_limit', 'reply_limit', 'max_files', 'thread_limit', 'max_thread_message_length', 'max_reply_message_length', 'min_thread_message_length',
+			'tph_trigger_action', 'bump_limit', 'emoji_limit', 'reply_limit', 'max_files', 'thread_limit', 'max_thread_message_length', 'max_reply_message_length', 'min_thread_message_length',
 			'min_reply_message_length', 'delete_protection_count'],
 	}),
 
@@ -60,6 +60,7 @@ module.exports = {
 			{ result: lengthBody(req.body.default_name, 0, 50), expected: false, error: __('Anon name must be 50 characters or less') },
 			{ result: numberBody(req.body.reply_limit, globalLimits.replyLimit.min, globalLimits.replyLimit.max), expected: true, error: __('Reply Limit must be %s-%s', globalLimits.replyLimit.min, globalLimits.replyLimit.max) },
 			{ result: numberBody(req.body.bump_limit, globalLimits.bumpLimit.min, globalLimits.bumpLimit.max), expected: true, error: __('Bump Limit must be %s-%s', globalLimits.bumpLimit.min, globalLimits.bumpLimit.max) },
+			{ result: numberBody(req.body.emoji_limit, globalLimits.emojiLimit.min, globalLimits.emojiLimit.max), expected: true, error: __('Emoji Limit must be %s-%s', globalLimits.emojiLimit.min, globalLimits.emojiLimit.max) },
 			{ result: numberBody(req.body.thread_limit, globalLimits.threadLimit.min, globalLimits.threadLimit.max), expected: true, error: __('Threads Limit must be %s-%s', globalLimits.threadLimit.min, globalLimits.threadLimit.max) },
 			{ result: numberBody(req.body.max_files, 0, globalLimits.postFiles.max), expected: true, error: __('Max files must be 0-%s', globalLimits.postFiles.max) },
 			{ result: numberBody(req.body.min_thread_message_length, 0, globalLimits.fieldLength.message), expected: true, error: __('Min thread message length must be 0-%s', globalLimits.fieldLength.message) },

@@ -269,6 +269,10 @@ module.exports = {
 			min: 10,
 			max: 1000
 		},
+		emojiLimit: { //number of emojis a post can have
+			min: 1,
+			max: 1000
+		},
 		postFiles: { //number of files in a post
 			max: 5,
 		},
@@ -425,6 +429,7 @@ module.exports = {
 		threadLimit: 400,
 		replyLimit: 1000,
 		bumpLimit: 1000,
+		emojiLimit: 20,
 		maxFiles: 5,
 		forceReplyMessage: false,
 		forceReplyFile: false,

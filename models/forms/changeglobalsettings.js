@@ -230,6 +230,10 @@ module.exports = async (req, res) => {
 				min: numberSetting(req.body.global_limits_bump_limit_min, oldSettings.globalLimits.bumpLimit.min),
 				max: numberSetting(req.body.global_limits_bump_limit_max, oldSettings.globalLimits.bumpLimit.max),
 			},
+			emojiLimit: {
+				min: numberSetting(req.body.global_limits_emoji_limit_min, oldSettings.globalLimits.emojiLimit.min),
+				max: numberSetting(req.body.global_limits_emoji_limit_max, oldSettings.globalLimits.emojiLimit.max),
+			},
 			postFiles: {
 				max: numberSetting(req.body.global_limits_post_files_max, oldSettings.globalLimits.postFiles.max),
 			},
@@ -325,6 +329,7 @@ module.exports = async (req, res) => {
 			threadLimit: numberSetting(req.body.board_defaults_thread_limit, oldSettings.boardDefaults.threadLimit),
 			replyLimit: numberSetting(req.body.board_defaults_reply_limit, oldSettings.boardDefaults.replyLimit),
 			bumpLimit: numberSetting(req.body.board_defaults_bump_limit, oldSettings.boardDefaults.bumpLimit),
+			emojiLimit: numberSetting(req.body.board_defaults_emoji_limit, oldSettings.boardDefaults.emojiLimit),
 			maxFiles: numberSetting(req.body.board_defaults_max_files, oldSettings.boardDefaults.maxFiles),
 			forceReplyMessage: booleanSetting(req.body.board_defaults_force_reply_message, oldSettings.boardDefaults.forceReplyMessage),
 			forceReplyFile: booleanSetting(req.body.board_defaults_force_reply_file, oldSettings.boardDefaults.forceReplyFile),

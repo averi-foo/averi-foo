@@ -101,6 +101,7 @@ module.exports = async (req, res) => {
 		'threadLimit': numberSetting(req.body.thread_limit, oldSettings.threadLimit),
 		'replyLimit': numberSetting(req.body.reply_limit, oldSettings.replyLimit),
 		'bumpLimit': numberSetting(req.body.bump_limit, oldSettings.bumpLimit),
+		'emojiLimit': numberSetting(req.body.emoji_limit, oldSettings.emojiLimit),
 		'maxFiles': numberSetting(req.body.max_files, oldSettings.maxFiles),
 		'minThreadMessageLength': numberSetting(req.body.min_thread_message_length, oldSettings.minThreadMessageLength),
 		'minReplyMessageLength': numberSetting(req.body.min_reply_message_length, oldSettings.minReplyMessageLength),

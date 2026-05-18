@@ -14,6 +14,7 @@ module.exports = async(db) => {
 		'$set': {
 			'globalLimits.emojiFiles': template.globalLimits.emojiFiles,
 			'globalLimits.emojiFilesSize': template.globalLimits.emojiFilesSize,
+			'globalLimits.emojiLimit': template.globalLimits.emojiLimit,
 			'boardDefaults.customEmojis': false,
 		}
 	});
@@ -22,6 +23,7 @@ module.exports = async(db) => {
 		'$set': {
 			'emojis': {},
 			'settings.customEmojis': false,
+			'settings.emojiLimit': 20,
 		}
 	});
 };

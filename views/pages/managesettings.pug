@@ -248,6 +248,9 @@ block content
 														.label #{__('Bump Limit')}
 														input(type='number' name='bump_limit' value=board.settings.bumpLimit min=globalLimits.bumpLimit.min max=globalLimits.bumpLimit.max)
 													.row
+														.label #{__('Emoji Limit')}
+														input(type='number' name='emoji_limit' value=board.settings.emojiLimit min=globalLimits.emojiLimit.min max=globalLimits.emojiLimit.max)
+													.row
 														.label #{__('Enforce Unique Files')}
 														select(name='file_r9k_mode')
 															option(value='0', selected=board.settings.fileR9KMode === 0) #{__('Off')}

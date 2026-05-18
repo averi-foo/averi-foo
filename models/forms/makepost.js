@@ -66,7 +66,7 @@ module.exports = async (req, res) => {
 	const isTrusted = res.locals.permissions.hasAny(Permissions.BYPASS_FILE_APPROVAL);
 	const { blockedCountries, threadLimit, ids, userPostSpoiler,
 		pphTrigger, tphTrigger, tphTriggerAction, pphTriggerAction,
-		sageOnlyEmail, forceAnon, replyLimit, disableReplySubject,
+		sageOnlyEmail, forceAnon, replyLimit, emojiLimit, disableReplySubject,
 		captchaMode, lockMode, allowedFileTypes, customFlags, customEmojis, geoFlags, fileR9KMode, messageR9KMode } = res.locals.board.settings;
 
 	//
@@ -533,7 +533,16 @@ module.exports = async (req, res) => {
 	
 	// process customEmojis.
 	if (customEmojis === true) {
-		let emojiMessage = await emojiHandler(req.params.board, res.locals.board.emojis, message)
+		const emojiCount = (message.match(emojiHandler.regex) || []).length
+		if (emojiCount > emojiLimit) {
+			await deleteTempFiles(req).catch(console.error);
+			return dynamicResponse(req, res, 400, 'message', {
+				'title': __('Bad request'),
+				'message': __(`Your message exceeded the custom emoji limit of ${emojiLimit}. Please use less emojis in your post.`),
+				'redirect': redirect
+			});
+		}
+		let emojiMessage = await emojiHandler.process(req.params.board, res.locals.board.emojis, message)
 		message = emojiMessage
 	}
 	

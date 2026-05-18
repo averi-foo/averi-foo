@@ -230,6 +230,12 @@ ul.tabs.group
 				.label #{__('Bump Limit Max')}
 				input(type='number' name='global_limits_bump_limit_max' value=settings.globalLimits.bumpLimit.max)
 			.row
+				.label #{__('Emoji Limit Min')}
+				input(type='number' name='global_limits_emoji_limit_min' value=settings.globalLimits.emojiLimit.min)
+			.row
+				.label #{__('Emoji Limit Max')}
+				input(type='number' name='global_limits_emoji_limit_max' value=settings.globalLimits.emojiLimit.max)
+			.row
 				.label #{__('Files Per Post Max')}
 				input(type='number' name='global_limits_post_files_max' value=settings.globalLimits.postFiles.max)
 			.row
@@ -849,6 +855,9 @@ ul.tabs.group
 			.row
 				.label #{__('Bump Limit')}
 				input(type='number' name='board_defaults_bump_limit' value=settings.boardDefaults.bumpLimit)
+			.row
+				.label #{__('Emoji Limit')}
+				input(type='number' name='board_defaults_emoji_limit' value=settings.boardDefaults.emojiLimit)
 			.row
 				.label #{__('Max Files')}
 				input(type='number' name='board_defaults_max_files' value=settings.boardDefaults.maxFiles)
