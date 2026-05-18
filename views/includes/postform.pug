@@ -64,9 +64,9 @@ section.form-wrapper.flex-center
 			.label#post-action-bar-label
 				input#post-action-bar-close(value="✖" type="button")
 				#{__('Actions')} 
+			- const boardEmojis = Object.entries(board.emojis)
 			if board.settings.customEmojis === true && boardEmojis.length > 0
 				.emoji-bar
-					- const boardEmojis = Object.entries(board.emojis)
 					each emoji in boardEmojis
 						img(class="asset-emoji-picker" alt=`:${emoji[0]}:` title=`:${emoji[0]}:` src=`/emoji/${board._id}/${emoji[1]}`)
 			//- Potentially add other post options here
