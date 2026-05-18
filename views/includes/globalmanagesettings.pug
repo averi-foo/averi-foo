@@ -285,6 +285,12 @@ ul.tabs.group
 				.label #{__('Total Assets Per Board')}
 				input(type='number' name='global_limits_asset_files_total' value=settings.globalLimits.assetFiles.total)
 			.row
+				.label #{__('Emoji File Size Max')}
+				input(type='number' name='global_limits_emoji_files_size_max' value=settings.globalLimits.emojiFilesSize.max)
+			.row
+				.label #{__('Emoji Per Upload Max')}
+				input(type='number' name='global_limits_emoji_files_max' value=settings.globalLimits.emojiFiles.max)
+			.row
 				.label #{__('Max Filters Per Board')}
 				input(type='number' name='global_limits_filters_max' value=settings.globalLimits.filters.max)
 			.row
