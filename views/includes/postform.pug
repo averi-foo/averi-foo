@@ -53,9 +53,22 @@ section.form-wrapper.flex-center
 				span #{__('Message')}
 					if messageRequired
 						span.required *
+				#post-action-buttons
+					if board.settings.customEmojis === true
+						input(id="emoji-button", type="button", value="🎭",title="Emoji Selector")
+					//- Other buttons here
 			- const minLength = (isThread ? board.settings.minReplyMessageLength : board.settings.minThreadMessageLength) || 0;
 			- const maxLength = Math.min((isThread ? board.settings.maxReplyMessageLength : board.settings.maxThreadMessageLength), globalLimits.fieldLength.message) || globalLimits.fieldLength.message;
 			textarea#message(name='message', rows='5', minlength=minLength maxlength=maxLength required=messageRequired)
+		section.row.jsonly#post-action-bar
+			.label#post-action-bar-label #{__('Actions')} 
+			if board.settings.customEmojis === true
+				- const boardEmojis = Object.entries(board.emojis)
+				if boardEmojis.length > 0
+					#emoji-bar
+						each emoji in boardEmojis
+							img(class="asset-emoji-picker" alt=`:${emoji[0]}:` title=`:${emoji[0]}:` src=`/emoji/${board._id}/${emoji[1]}`)
+			//- Potentially add other post options here
 		if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
 			- const maxFiles = board.settings.maxFiles;
 			section.row

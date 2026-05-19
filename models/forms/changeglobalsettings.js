@@ -169,6 +169,7 @@ module.exports = async (req, res) => {
 			hideRecursive: booleanSetting(req.body.frontend_script_default_hide_recursive, oldSettings.frontendScriptDefault.hideRecursive),
 			crispImages: booleanSetting(req.body.frontend_script_default_crisp_images, oldSettings.frontendScriptDefault.crispImages),
 			hideThumbnails: booleanSetting(req.body.frontend_script_default_hide_thumbnails, oldSettings.frontendScriptDefault.hideThumbnails),
+			hideEmojis: booleanSetting(req.body.frontend_script_default_hide_emojis, oldSettings.frontendScriptDefault.hideEmojis),
 			fadePostContainer: booleanSetting(req.body.frontend_script_default_fade_post_container, oldSettings.frontendScriptDefault.fadePostContainer),
 			nonColorIds: booleanSetting(req.body.frontend_script_default_non_color_ids, oldSettings.frontendScriptDefault.nonColorIds),
 			alwaysShowSpoilers: booleanSetting(req.body.frontend_script_default_always_show_spoilers, oldSettings.frontendScriptDefault.alwaysShowSpoilers),
@@ -229,6 +230,10 @@ module.exports = async (req, res) => {
 				min: numberSetting(req.body.global_limits_bump_limit_min, oldSettings.globalLimits.bumpLimit.min),
 				max: numberSetting(req.body.global_limits_bump_limit_max, oldSettings.globalLimits.bumpLimit.max),
 			},
+			emojiLimit: {
+				min: numberSetting(req.body.global_limits_emoji_limit_min, oldSettings.globalLimits.emojiLimit.min),
+				max: numberSetting(req.body.global_limits_emoji_limit_max, oldSettings.globalLimits.emojiLimit.max),
+			},
 			postFiles: {
 				max: numberSetting(req.body.global_limits_post_files_max, oldSettings.globalLimits.postFiles.max),
 			},
@@ -253,6 +258,13 @@ module.exports = async (req, res) => {
 			},
 			flagFilesSize: {
 				max: numberSetting(req.body.global_limits_flag_files_size_max, oldSettings.globalLimits.flagFilesSize.max),
+			},
+			emojiFiles: {
+				max: numberSetting(req.body.global_limits_emoji_files_max, oldSettings.globalLimits.emojiFiles.max),
+				total: numberSetting(req.body.global_limits_emoji_files_total, oldSettings.globalLimits.emojiFiles.total),
+			},
+			emojiFilesSize: {
+				max: numberSetting(req.body.global_limits_emoji_files_size_max, oldSettings.globalLimits.emojiFilesSize.max),
 			},
 			assetFiles: {
 				max: numberSetting(req.body.global_limits_asset_files_max, oldSettings.globalLimits.assetFiles.max),
@@ -315,6 +327,7 @@ module.exports = async (req, res) => {
 			early404: booleanSetting(req.body.board_defaults_early_404, oldSettings.boardDefaults.early404),
 			ids: booleanSetting(req.body.board_defaults_ids, oldSettings.boardDefaults.ids),
 			customFlags: booleanSetting(req.body.board_defaults_custom_flags, oldSettings.boardDefaults.customFlags),
+			customEmojis: booleanSetting(req.body.board_defaults_custom_emojis, oldSettings.boardDefaults.customEmojis),
 			geoFlags: booleanSetting(req.body.board_defaults_geo_flags, oldSettings.boardDefaults.geoFlags),
 			enableTegaki: booleanSetting(req.body.board_defaults_enable_tegaki, oldSettings.boardDefaults.enableTegaki),
 			userPostDelete: booleanSetting(req.body.board_defaults_user_post_delete, oldSettings.boardDefaults.userPostDelete),
@@ -323,6 +336,7 @@ module.exports = async (req, res) => {
 			threadLimit: numberSetting(req.body.board_defaults_thread_limit, oldSettings.boardDefaults.threadLimit),
 			replyLimit: numberSetting(req.body.board_defaults_reply_limit, oldSettings.boardDefaults.replyLimit),
 			bumpLimit: numberSetting(req.body.board_defaults_bump_limit, oldSettings.boardDefaults.bumpLimit),
+			emojiLimit: numberSetting(req.body.board_defaults_emoji_limit, oldSettings.boardDefaults.emojiLimit),
 			maxFiles: numberSetting(req.body.board_defaults_max_files, oldSettings.boardDefaults.maxFiles),
 			forceReplyMessage: booleanSetting(req.body.board_defaults_force_reply_message, oldSettings.boardDefaults.forceReplyMessage),
 			forceReplyFile: booleanSetting(req.body.board_defaults_force_reply_file, oldSettings.boardDefaults.forceReplyFile),

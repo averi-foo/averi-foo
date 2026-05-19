@@ -34,6 +34,7 @@ module.exports = async (uri, board) => {
 		remove(`${uploadDirectory}/json/${uri}/`), //json
 		remove(`${uploadDirectory}/banner/${uri}/`), //banners
 		remove(`${uploadDirectory}/flag/${uri}/`), //flags
+		remove(`${uploadDirectory}/emoji/${uri}/`), //emojis
 		remove(`${uploadDirectory}/asset/${uri}/`), //assets
 	]);
 
