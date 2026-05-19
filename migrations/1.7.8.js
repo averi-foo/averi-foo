@@ -16,6 +16,7 @@ module.exports = async(db) => {
 			'globalLimits.emojiFilesSize': template.globalLimits.emojiFilesSize,
 			'globalLimits.emojiLimit': template.globalLimits.emojiLimit,
 			'boardDefaults.customEmojis': false,
+			'boardDefaults.emojiLimit': template.boardDefaults.emojiLimit,
 		}
 	});
 	// For every board, add an emojis table.
@@ -23,7 +24,7 @@ module.exports = async(db) => {
 		'$set': {
 			'emojis': {},
 			'settings.customEmojis': false,
-			'settings.emojiLimit': 20,
+			'settings.emojiLimit': template.boardDefaults.emojiLimit,
 		}
 	});
 };

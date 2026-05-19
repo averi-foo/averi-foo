@@ -528,8 +528,8 @@ module.exports = async (req, res) => {
 	);
 	
 	//get message, quotes and crossquote array
-	let nomarkup = prepareMarkdown(req.body.message, true);
-	let { message, quotes, crossquotes } = await messageHandler(nomarkup, req.params.board, req.body.thread, res.locals.permissions);
+	const nomarkup = prepareMarkdown(req.body.message, true);
+	const { message, quotes, crossquotes } = await messageHandler(nomarkup, req.params.board, req.body.thread, res.locals.permissions);
 	
 	// process customEmojis.
 	if (customEmojis === true) {
@@ -542,8 +542,6 @@ module.exports = async (req, res) => {
 				'redirect': redirect
 			});
 		}
-		let emojiMessage = await emojiHandler.process(req.params.board, res.locals.board.emojis, message)
-		message = emojiMessage
 	}
 	
 	//web3 sig
