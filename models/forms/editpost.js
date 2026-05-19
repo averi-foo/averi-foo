@@ -7,6 +7,7 @@ const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, nameHandler = require(__dirname+'/../../lib/post/name.js')
+	, emojiHandler = require(__dirname+'/../../lib/post/emojis.js')
 	, getFilterStrings = require(__dirname+'/../../lib/post/getfilterstrings.js')
 	, checkFilters = require(__dirname+'/../../lib/post/checkfilters.js')
 	, filterActions = require(__dirname+'/../../lib/post/filteractions.js')
@@ -29,6 +30,7 @@ todo: handle some more situations
 	const { __ } = res.locals;
 	const { globalLimits, previewReplies } = config.get;
 	const { board, post } = res.locals;
+	const { emojiLimit, customEmojis } = res.locals.board.settings;
 
 	//filters
 	if (!res.locals.permissions.get(Permissions.BYPASS_FILTERS)) {
@@ -83,6 +85,18 @@ todo: handle some more situations
 	//new message and quotes
 	const nomarkup = prepareMarkdown(req.body.message, false);
 	const { message, quotes, crossquotes } = await messageHandler(nomarkup, req.body.board, post.thread, res.locals.permissions);
+	
+	// Enforce customEmoji limit
+	if (customEmojis === true) {
+		const emojiCount = (message.match(emojiHandler.regex) || []).length
+		if (emojiCount > emojiLimit) {
+			return dynamicResponse(req, res, 400, 'message', {
+				'title': __('Bad request'),
+				'message': __(`Your message exceeded the custom emoji limit of ${emojiLimit}. Please use less emojis in your post.`),
+				'redirect': null
+			});
+		}
+	}
 
 	//intersection/difference of quotes sets for linking and unlinking
 	const oldQuoteIds = post.quotes.map(q => q._id.toString());
