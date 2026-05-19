@@ -531,7 +531,7 @@ module.exports = async (req, res) => {
 	const nomarkup = prepareMarkdown(req.body.message, true);
 	const { message, quotes, crossquotes } = await messageHandler(nomarkup, req.params.board, req.body.thread, res.locals.permissions);
 	
-	// process customEmojis.
+	// Enforce customEmoji limit
 	if (customEmojis === true) {
 		const emojiCount = (message.match(emojiHandler.regex) || []).length
 		if (emojiCount > emojiLimit) {
