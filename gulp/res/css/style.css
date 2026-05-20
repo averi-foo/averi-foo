@@ -1079,7 +1079,6 @@ input:invalid, textarea:invalid {
 }
 
 #emoji-bar {
-	background: var(--input-background);
 	flex-grow: 1;
 	overflow-x: scroll;
 	overflow-y: hidden;
@@ -1344,7 +1343,7 @@ input[type="button"][disabled] {
 	opacity: 0.5;
 }
 
-input, textarea, select {
+input, textarea, select, #emoji-bar {
 	accent-color: var(--accent-color);
 	border: 1px solid var(--input-borders);
 	border-radius: 0px;

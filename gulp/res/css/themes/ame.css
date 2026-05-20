@@ -108,7 +108,7 @@ tr, tr:nth-child(2n+1) {
 	background: #e7fbff !important;
 }
 
-table, textarea, input, select, .postform-style, .form-post {
+table, textarea, input, select, .postform-style, .form-post, #emoji-bar {
 	border-radius: 5px;
 }
 
