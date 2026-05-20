@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		emojiBar.childNodes.forEach((node) =>{
 			if (node.className == "asset-emoji-picker") {
 				node.addEventListener("click",()=>{
-					messageBox.value += node.alt
+					insertAtCursor(messageBox, node.alt)
 				})
 			}
 		})
@@ -64,6 +64,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		} else {
 			// IE 6/7/8
 			div.attachEvent('onmousewheel', scrollHorizontally);
+		}
+	}
+	
+	function insertAtCursor(myField, myValue) {
+		//IE support
+		if (document.selection) {
+			myField.focus();
+			let sel = document.selection.createRange();
+			sel.text = myValue;
+		}
+		//MOZILLA and others
+		else if (myField.selectionStart || myField.selectionStart == '0') {
+			var startPos = myField.selectionStart;
+			var endPos = myField.selectionEnd;
+			myField.value = myField.value.substring(0, startPos)
+			+ myValue
+			+ myField.value.substring(endPos, myField.value.length);
+			myField.selectionStart = startPos + myValue.length;
+			myField.selectionEnd = startPos + myValue.length;
+		} else {
+			myField.value += myValue;
 		}
 	}
 	

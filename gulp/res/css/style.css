@@ -1075,6 +1075,7 @@ input:invalid, textarea:invalid {
 
 .asset-emoji {
 	height: 20px;
+	vertical-align: middle;
 }
 
 #emoji-bar {
