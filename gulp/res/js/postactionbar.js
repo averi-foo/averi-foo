@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			if (node.className == "asset-emoji-picker") {
 				node.addEventListener("mousedown",(e)=>{
 					e.preventDefault()
-					typeInTextarea(node.alt, messageBox)
+					insertAtCursor(messageBox, node.alt)
 				})
 			}
 		})
@@ -68,9 +68,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}
 	
-	function typeInTextarea(newText, el = document.activeElement) {
-		const [start, end] = [el.selectionStart, el.selectionEnd];
-		el.setRangeText(newText, start, end, 'select');
+	function insertAtCursor(myField, myValue) {
+		//IE support
+		if (document.selection) {
+			myField.focus();
+			let sel = document.selection.createRange();
+			sel.text = myValue;
+		}
+		//MOZILLA and others
+		else if (myField.selectionStart || myField.selectionStart == '0') {
+			var startPos = myField.selectionStart;
+			var endPos = myField.selectionEnd;
+			myField.value = myField.value.substring(0, startPos)
+			+ myValue
+			+ myField.value.substring(endPos, myField.value.length);
+			myField.selectionStart = startPos + myValue.length;
+			myField.selectionEnd = startPos + myValue.length;
+		} else {
+			myField.value += myValue;
+		}
 	}
 	
 });
