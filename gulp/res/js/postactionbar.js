@@ -3,12 +3,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	document.querySelectorAll("img.asset-emoji").forEach(function(img){
 		img.onerror = function() {this.style.display='none';};
 	})
-	
+		
 	let postActionBarLabel = document.getElementById("post-action-bar-label")
 	let postActionBar = document.getElementById("post-action-bar")
 	let emojiButton = document.getElementById("emoji-button")
 	let emojiBar = document.getElementById("emoji-bar")
 	let messageBox = document.getElementById("message")
+	
+	activateScrollLeft(emojiBar)
 	
 	if (postActionBar != null) {
 		emojiButton.addEventListener("click",emojiButtonClicked)
@@ -46,5 +48,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	function postActionBarHide() {
 		postActionBar.style.display = "none";
 	}
+	
+	function scrollHorizontally(e) {
+		e = window.event || e;
+		var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+		this.scrollLeft += (delta * 40); // Multiplied by 40
+		e.preventDefault();
+	}
+	
+	function activateScrollLeft(div) {
+		if (document.getElementById(div).addEventListener) {
+			// IE9, Chrome, Safari, Opera
+			document.getElementById(div).addEventListener('mousewheel', scrollHorizontally, false);
+			// Firefox
+			document.getElementById(div).addEventListener('DOMMouseScroll', scrollHorizontally, false);
+		} else {
+			// IE 6/7/8
+			document.getElementById(div).attachEvent('onmousewheel', scrollHorizontally);
+		}
+	}
+	
 });
 
