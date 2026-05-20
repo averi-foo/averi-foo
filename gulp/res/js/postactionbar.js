@@ -57,14 +57,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 	
 	function activateScrollLeft(div) {
-		if (document.getElementById(div).addEventListener) {
+		if (div.addEventListener) {
 			// IE9, Chrome, Safari, Opera
-			document.getElementById(div).addEventListener('mousewheel', scrollHorizontally, false);
+			div.addEventListener('mousewheel', scrollHorizontally, false);
 			// Firefox
-			document.getElementById(div).addEventListener('DOMMouseScroll', scrollHorizontally, false);
+			div.addEventListener('DOMMouseScroll', scrollHorizontally, false);
 		} else {
 			// IE 6/7/8
-			document.getElementById(div).attachEvent('onmousewheel', scrollHorizontally);
+			div.attachEvent('onmousewheel', scrollHorizontally);
 		}
 	}
 	
