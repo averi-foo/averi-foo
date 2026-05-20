@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	let emojiBar = document.getElementById("emoji-bar")
 	let messageBox = document.getElementById("message")
 	
-	activateScrollLeft(emojiBar)
-	
 	if (postActionBar != null) {
+		activateScrollLeft(emojiBar)
 		emojiButton.addEventListener("click",emojiButtonClicked)
 		emojiBar.childNodes.forEach((node) =>{
 			if (node.className == "asset-emoji-picker") {
