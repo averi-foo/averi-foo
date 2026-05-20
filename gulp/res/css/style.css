@@ -1087,7 +1087,7 @@ input:invalid, textarea:invalid {
 	scrollbar-width: thin;
 	flex-shrink: 1;
 	width: 100px;
-	height: 26px;
+	height: 36px;
 	-webkit-overflow-scrolling: touch
 }
 
@@ -1104,7 +1104,7 @@ input:invalid, textarea:invalid {
 }
 
 .asset-emoji-picker {
-	height: 24px;
+	height: 28px;
 	padding: 1px;
 	float: none;
 }
