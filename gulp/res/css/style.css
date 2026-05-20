@@ -1084,9 +1084,10 @@ input:invalid, textarea:invalid {
 	overflow-y: hidden;
 	white-space: nowrap;
 	position: relative;
+	scrollbar-width: thin;
 	flex-shrink: 1;
 	width: 100px;
-	height: 23px;
+	height: 26px;
 	-webkit-overflow-scrolling: touch
 }
 
@@ -1103,7 +1104,7 @@ input:invalid, textarea:invalid {
 }
 
 .asset-emoji-picker {
-	height: 20px;
+	height: 24px;
 	padding: 1px;
 	float: none;
 }
