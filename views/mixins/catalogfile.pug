@@ -6,18 +6,17 @@ mixin catalogfile(postURL, post, file, small=false)
     if !(manage || modview || globalmanage || file.approved)
         +filependingapproval(true, postURL, post, small)
     else
-        if (manage || modview || globalmanage) && !file.approved
-            if !small
-                .overlay-text File pending approval
-            .post-file-src.unapproved-catalog-mpa-tile
-                a(href=`${postURL}#${post.postId}`)
-                    if post.spoiler || file.spoiler
-                        div.spoilerimg.catalog-thumb(class=(small?'small':''))
-                    else if file.hasThumb
-                        img.catalog-thumb(class=(small?'small':'') src=`/file/thumb/${file.hash}${file.thumbextension}` width=file.geometry.thumbwidth height=file.geometry.thumbheight loading='lazy')
-                    else if file.attachment
-                        div.attachmentimg.catalog-thumb(class=(small?'small':'') data-mimetype=file.mimetype)
-                    else if type === 'audio'
-                        div.audioimg.catalog-thumb(class=(small?'small':''))
-                    else
-                        img.catalog-thumb(class=(small?'small':'') src=`/file/${file.filename}` width=file.geometry.width height=file.geometry.height loading='lazy')
+        if (manage || modview || globalmanage) && !small && !file.approved
+            .overlay-text File pending approval
+        .post-file-src.unapproved-catalog-mpa-tile
+            a(href=`${postURL}#${post.postId}`)
+                if post.spoiler || file.spoiler
+                    div.spoilerimg.catalog-thumb(class=(small?'small':''))
+                else if file.hasThumb
+                    img.catalog-thumb(class=(small?'small':'') src=`/file/thumb/${file.hash}${file.thumbextension}` width=file.geometry.thumbwidth height=file.geometry.thumbheight loading='lazy')
+                else if file.attachment
+                    div.attachmentimg.catalog-thumb(class=(small?'small':'') data-mimetype=file.mimetype)
+                else if type === 'audio'
+                    div.audioimg.catalog-thumb(class=(small?'small':''))
+                else
+                    img.catalog-thumb(class=(small?'small':'') src=`/file/${file.filename}` width=file.geometry.width height=file.geometry.height loading='lazy')
