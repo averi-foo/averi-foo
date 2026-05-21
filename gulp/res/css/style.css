@@ -1625,7 +1625,7 @@ input.approve-button {
 	content: url("/file/janny-warning.png") !important;
 }
 
-.ct-r1:has(.overlay-text) + .ct-r2 .catalog-thumb {
+.post-file-src .unapproved-catalog-mpa-tile .catalog-thumb {
 	content: url("/file/janny-warning.png") !important;
 }
 
