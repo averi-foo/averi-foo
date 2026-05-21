@@ -1625,6 +1625,10 @@ input.approve-button {
 	content: url("/file/janny-warning.png") !important;
 }
 
+.ct-r1:has(.overlay-text) + .ct-r2 .catalog-thumb {
+	content: url("/file/janny-warning.png") !important;
+}
+
 /* ^="f" means only where attachment is false, to prevent showing on attachment files with audio or video mime type */
 .featured-media::after,
 .post-file-src[data-type="audio"][data-attachment^="f"]::after,
