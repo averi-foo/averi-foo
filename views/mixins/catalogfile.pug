@@ -7,7 +7,9 @@ mixin catalogfile(postURL, post, file, small=false)
         +filependingapproval(true, postURL, post, small)
     else
         if (manage || modview || globalmanage) && !file.approved
-            .overlay-text File pending approval
+			.unapproved-catalog-mpa-tile
+			if !small
+				.overlay-text File pending approval
         .post-file-src
             a(href=`${postURL}#${post.postId}`)
                 if post.spoiler || file.spoiler
