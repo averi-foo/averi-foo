@@ -8,7 +8,7 @@ mixin catalogfile(postURL, post, file, small=false)
     else
         if (manage || modview || globalmanage) && !small && !file.approved
             .overlay-text File pending approval
-        .post-file-src.unapproved-catalog-mpa-tile
+        .post-file-src(class=(file.approved?'':'unapproved-catalog-mpa-tile'))
             a(href=`${postURL}#${post.postId}`)
                 if post.spoiler || file.spoiler
                     div.spoilerimg.catalog-thumb(class=(small?'small':''))
