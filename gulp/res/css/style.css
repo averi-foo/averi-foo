@@ -684,6 +684,33 @@ td {
 		opacity: 0.5;
 	}
 }
+
+@keyframes pulse {
+	0% {
+		color: red;
+	}
+	50% {
+		color: white;
+	}
+	100% {
+		color: red;
+	}
+}
+
+
+/* Moderation visibility update to make sure you dont accidentally delete something */
+label:has(
+	input#deletecheck:checked,
+	input#deletefilecheck:checked,
+	input#deleteipthreadcheck:checked,
+	input#deleteipboardcheck:checked,
+	input#deleteipglobalcheck:checked
+) {
+	color: red;
+	font-weight: bold;
+	animation: pulse 2s infinite;
+}
+
 .post-container, #float .post-container, .stickynav, .pages, .catalog-tile, #livetext, #threadstats, .bottom-reply, .collapse {
 	background: var(--post-color);
 	border-width: 1px;
