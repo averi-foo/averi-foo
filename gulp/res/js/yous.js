@@ -16,7 +16,33 @@ function clearYousList() {
 }
 
 function toggleAllYous(state) {
-	savedYous.forEach(y => toggleOne(y, state));
+	// Get all quotes and modify them if quote is in savedYous
+	document.querySelectorAll(".quote").forEach((quote) => {
+		if (
+			quote.href.split("#").length >= 2 &&
+			quote.getAttribute("href").split("/") >= 2
+		) {
+			const quotedId = quote.href.split("#")[1]
+			const board = quote.getAttribute("href").split("/")[1]
+			if (savedYous.has(board + "-" + quotedId)) {
+				quote[state?'setAttribute':'removeAttribute']('data-label', __('You'));
+				quote.classList[state?'add':'remove']('you');
+			}
+		}
+	})
+	
+	document.querySelectorAll(".post-container").forEach((post) => {
+		const board = post.dataset.board
+		const id = post.dataset.postId
+		const postName = post.querySelector('.post-name');
+		if (savedYous.has(board + "-" + id)) {
+			if (postName) {
+				postName[state?'setAttribute':'removeAttribute']('data-label', __('You'));
+				postName.classList[state?'add':'remove']('you');
+			}
+		}
+	})
+	//savedYous.forEach(y => toggleOne(y, state));
 }
 
 const toggleQuotes = (quotes, state) => {
@@ -29,10 +55,11 @@ const toggleQuotes = (quotes, state) => {
 const toggleOne = (you, state) => {
 	const [board, postId] = you.split('-');
 	// If postId not even on page, then return
-	if (!document.getElementById(postId)) {
+	const postFromId = document.getElementById(postId)
+	if (!postFromId) {
 		return
 	}
-	const post = document.querySelector(`[data-board="${board}"][data-post-id="${postId}"]`);
+	const post = postFromId.nextSibling
 	if (post) {
 		const postName = post.querySelector('.post-name');
 		if (postName) {
