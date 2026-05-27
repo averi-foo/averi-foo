@@ -16,8 +16,6 @@ function clearYousList() {
 }
 
 function toggleAllYous(state) {
-	// TEMPORARILY DISABLED DUE TO PERFORMANCE ISSUES
-	return
 	savedYous.forEach(y => toggleOne(y, state));
 }
 
@@ -30,6 +28,10 @@ const toggleQuotes = (quotes, state) => {
 
 const toggleOne = (you, state) => {
 	const [board, postId] = you.split('-');
+	// If postId not even on page, then return
+	if (!document.getElementById(postId)) {
+		return
+	}
 	const post = document.querySelector(`[data-board="${board}"][data-post-id="${postId}"]`);
 	if (post) {
 		const postName = post.querySelector('.post-name');
@@ -73,6 +75,7 @@ const formatNotificationOptions = (postData) => {
 	return notificationOptions;
 };
 
+// On page load, toggle all the yous
 if (yousEnabled) {
 	toggleAllYous(yousEnabled);
 }
