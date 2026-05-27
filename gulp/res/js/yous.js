@@ -20,7 +20,7 @@ function toggleAllYous(state) {
 	document.querySelectorAll(".quote").forEach((quote) => {
 		if (
 			quote.href.split("#").length >= 2 &&
-			quote.getAttribute("href").split("/") >= 2
+			quote.getAttribute("href").split("/").length >= 2
 		) {
 			const quotedId = quote.href.split("#")[1]
 			const board = quote.getAttribute("href").split("/")[1]
