@@ -16,7 +16,8 @@ function clearYousList() {
 }
 
 function toggleAllYous(state) {
-	// Get all quotes and modify them if quote is in savedYous
+	// Rewritten to value the page itself rather than the posts in savedYous
+	// Get all quotes on the page and modify them if quote is in savedYous
 	document.querySelectorAll(".quote").forEach((quote) => {
 		if (
 			quote.href.split("#").length >= 2 &&
@@ -30,7 +31,7 @@ function toggleAllYous(state) {
 			}
 		}
 	})
-	
+	// Then get all posts on the page, and if they're in savedYous, add (You) to postName
 	document.querySelectorAll(".post-container").forEach((post) => {
 		const board = post.dataset.board
 		const id = post.dataset.postId
@@ -42,7 +43,6 @@ function toggleAllYous(state) {
 			}
 		}
 	})
-	//savedYous.forEach(y => toggleOne(y, state));
 }
 
 const toggleQuotes = (quotes, state) => {
@@ -52,6 +52,7 @@ const toggleQuotes = (quotes, state) => {
 	});
 };
 
+// Toggle One unchanged as performance impact is relatively minor
 const toggleOne = (you, state) => {
 	const [board, postId] = you.split('-');
 	// If postId not even on page, then return
