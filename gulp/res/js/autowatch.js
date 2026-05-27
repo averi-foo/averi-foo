@@ -18,11 +18,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	autowatchEnabledSetting.checked = autowatchEnabled;
 	autowatchEnabledSetting.addEventListener('change', toggleAutowatchEnabled, false);
 
-	// Only works in a thread
-	if (isThread) {
+	// Only works in a thread that has the message box
+	if (isThread && document.getElementById("message")) {
 		// Find post button and if you do find it, make it so that it watches the current thread.
 		const postSubmitButton = document.getElementById('submitpost');
-		const postMessageForm = document.querySelector("#postform").querySelector("#message")
+		const postMessageForm = document.getElementById('message');
 		const postContainer = document.querySelector('.post-container');
 		const postMessage = postContainer.querySelector('.post-message');
 		const postDataset = postContainer.dataset;
