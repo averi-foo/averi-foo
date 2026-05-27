@@ -16,7 +16,33 @@ function clearYousList() {
 }
 
 function toggleAllYous(state) {
-	savedYous.forEach(y => toggleOne(y, state));
+	// Rewritten to value the page itself rather than the posts in savedYous
+	// Get all quotes on the page and modify them if quote is in savedYous
+	document.querySelectorAll(".quote").forEach((quote) => {
+		if (
+			quote.href.split("#").length >= 2 &&
+			quote.getAttribute("href").split("/").length >= 2
+		) {
+			const quotedId = quote.href.split("#")[1]
+			const board = quote.getAttribute("href").split("/")[1]
+			if (savedYous.has(board + "-" + quotedId)) {
+				quote[state?'setAttribute':'removeAttribute']('data-label', __('You'));
+				quote.classList[state?'add':'remove']('you');
+			}
+		}
+	})
+	// Then get all posts on the page, and if they're in savedYous, add (You) to postName
+	document.querySelectorAll(".post-container").forEach((post) => {
+		const board = post.dataset.board
+		const id = post.dataset.postId
+		const postName = post.querySelector('.post-name');
+		if (savedYous.has(board + "-" + id)) {
+			if (postName) {
+				postName[state?'setAttribute':'removeAttribute']('data-label', __('You'));
+				postName.classList[state?'add':'remove']('you');
+			}
+		}
+	})
 }
 
 const toggleQuotes = (quotes, state) => {
@@ -26,13 +52,15 @@ const toggleQuotes = (quotes, state) => {
 	});
 };
 
+// Toggle One unchanged as performance impact is relatively minor
 const toggleOne = (you, state) => {
 	const [board, postId] = you.split('-');
 	// If postId not even on page, then return
-	if (!document.getElementById(postId)) {
+	const postFromId = document.getElementById(postId)
+	if (!postFromId) {
 		return
 	}
-	const post = document.querySelector(`[data-board="${board}"][data-post-id="${postId}"]`);
+	const post = postFromId.nextSibling
 	if (post) {
 		const postName = post.querySelector('.post-name');
 		if (postName) {
