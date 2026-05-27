@@ -16,6 +16,8 @@ function clearYousList() {
 }
 
 function toggleAllYous(state) {
+	// TEMPORARILY DISABLED DUE TO PERFORMANCE ISSUES
+	return
 	savedYous.forEach(y => toggleOne(y, state));
 }
 
