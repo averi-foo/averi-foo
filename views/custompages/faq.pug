@@ -17,7 +17,7 @@ block content
 					b General
 					ul.mv-0
 						li: a(href='#welcome') Welcome to Averi.foo!
-						li: a(href='#welcome') We are not furries.
+						li: a(href='#we-are-not-furries') We are not furries.
 						li: a(href='#whats-an-imageboard') What is an imageboard?
 						li: a(href='/rules.html') What are the rules?
 						li: a(href='#contact') How can I contact the administration?
@@ -27,6 +27,7 @@ block content
 						li: a(href='#themes-info') How do I change the theme?
 					b Making posts
 					ul.mv-0
+						li: a(href='#post-requirements') Why is there an email, name and subject field?
 						li: a(href='#name-formatting') How do names, tripcodes and capcodes work?
 						li: a(href='#post-styling') What kind of styling options are available when making a post?
 						li: a(href='#post-info') What is the file size limit?
@@ -199,6 +200,38 @@ block content
 			tr
 				td
 					p You can change the theme in the settings. Under the post password field and above the Code theme field is the Theme field. By default it is on, well... "default", but you can change it to a multitude of different themes. Navy is my best pick if you like darkmode and win95 if you're looking for something retro. You can ofcourse make your own theme using the Custom CSS option.
+					
+	.table-container.flex-center.mv-5
+		.anchor#post-requirements
+		table
+			tr
+				th: a(href='#post-requirements') Why is there a name, email and subject field?
+			tr
+				td
+					p You may see in the post form that there are fields for a name, email and subject. All of these are optional, you do not need to input a name or email to post on this website. Below is an example of what a post looks like if all these fields are used.
+					-
+							const postReqShowcase = {
+								"date" : new Date("2026-08-02T09:48:44.180Z"),
+								"name" : "Name",
+								"subject" : "My subject",
+								"board" : "example",
+								"tripcode" : "",
+								"capcode" : "",
+								"message" : "Hello, FAQ!",
+								"nomarkup" : "Hello, FAQ!",
+								"thread" : 1,
+								"password" : null,
+								"email" : "name@myemail.com",
+								"spoiler" : false,
+								"banmessage" : null,
+								"files" : [ ],
+								"reports" : [ ],
+								"globalreports" : [ ],
+								"quotes" : [ ],
+								"backlinks" : [ ],
+								"postId" : 1
+							}	
+						+post(postReqShowcase)
 
 	.table-container.flex-center.mv-5
 		.anchor#name-formatting
