@@ -41,11 +41,11 @@ const createSteganographyCanvas = (img, container, slider) => {
 	const canvas = container.querySelector("canvas") ? container.querySelector("canvas") : document.createElement("canvas")
 	let expanded = canvas.dataset.expanded == "true"
 	
-	if (!expanded && !img.parentElement) {
+	if (!img.parentElement) {
 		console.log("Steg error: Image doesn't have a parent A link.")
 		return
 	}
-	if (!expanded && img.parentElement.tagName != "A") {
+	if (img.parentElement.tagName != "A") {
 		console.log("Steg error: Image doesn't have the correct parent element.")
 		return
 	}
@@ -54,10 +54,10 @@ const createSteganographyCanvas = (img, container, slider) => {
 	const fullSrc = img.parentElement.href;
 	let canvasWidth = img.width
 	let canvasHeight = img.height
-	canvas.width = canvasWidth
-	canvas.height = canvasHeight
 	
 	if (!container.querySelector("canvas")) {
+		canvas.width = canvasWidth
+		canvas.height = canvasHeight
 		container.insertBefore(canvas,container.children[0])
 		canvas.classList.add("steg-canvas")
 		canvas.addEventListener("click", () => {
