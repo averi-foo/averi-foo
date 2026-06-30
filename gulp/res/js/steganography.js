@@ -65,7 +65,7 @@ const createSteganographyCanvas = (img, container, slider) => {
 	base_image.src = fullSrc;
 	base_image.onload = function() {
 		context.clearRect(0, 0, img.width, img.height);
-		context.drawImage(base_image, 0, 0);
+		context.drawImage(base_image, 0, 0, img.width, img.height);
 		
 		var stegdata = context.getImageData(0, 0, img.width, img.height);
 		doUnhideImage(stegdata, slider.value);
@@ -75,7 +75,7 @@ const createSteganographyCanvas = (img, container, slider) => {
 			var result_image = new Image();
 			result_image.src = URL.createObjectURL(blob);
 			result_image.onload = function() {
-				context.clearRect(0, 0, 300, 300);
+				context.clearRect(0, 0, img.width, img.height);
 				context.drawImage(result_image, 0, 0, img.width, img.height);
 			}
 		});
