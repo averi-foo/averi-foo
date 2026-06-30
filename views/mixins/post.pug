@@ -188,6 +188,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 								if (manage || modview || globalmanage)
 									+fileapproval(file.filename, file.approved)
 								.steganography-container.steg-hidden
+									br
 									input.steganography-slider(type="range" min="0" max="7" value="0")
 									|
 									|
