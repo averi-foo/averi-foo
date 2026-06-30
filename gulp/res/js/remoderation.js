@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	Array.from(document.getElementsByClassName('remod-link')).forEach(link => {
 		link.addEventListener('click', onRemodClicked, false);
 	});
-}
+})
 window.addEventListener('addPost', handleRemod, false);
 
 
