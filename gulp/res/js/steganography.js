@@ -55,9 +55,12 @@ const createSteganographyCanvas = (img, container, slider) => {
 	let canvasWidth = img.width
 	let canvasHeight = img.height
 	
-	if (!container.querySelector("canvas")) {
+	if (!expanded) {
 		canvas.width = canvasWidth
 		canvas.height = canvasHeight
+	}
+	
+	if (!container.querySelector("canvas")) {
 		container.insertBefore(canvas,container.children[0])
 		canvas.classList.add("steg-canvas")
 		canvas.addEventListener("click", () => {
