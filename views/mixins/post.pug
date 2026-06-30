@@ -187,7 +187,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 										else
 											img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
 								if (manage || modview || globalmanage)
-									+fileapproval(file.filename)
+									+fileapproval(file.filename, file.approved)
 			- if (post.message && modview) { post.message = post.message.replace(new RegExp(`<a class="quote" href="/${post.board}/`, 'g'), `<a class="quote" href="/${post.board}/manage/`); } //its either this, a subdomain, or nothing.
 			- let truncatedMessage = post.message;
 			if post.message

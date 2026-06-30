@@ -1622,6 +1622,10 @@ table.boardtable .nobreak {
 	width: 100%;
 } 
 
+.approval-hidden {
+	display: none;
+} 
+
 input.approve-button {
 	flex: 1;
 	text-align: center;
