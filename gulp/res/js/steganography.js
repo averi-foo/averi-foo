@@ -19,14 +19,42 @@ const toggleSteganography = (container, link) => {
 	const state = container.classList.contains("steg-hidden")
 	if (state) {
 		container.classList.remove("steg-hidden")
-		container.closest(".post-file").querySelector(".post-file-src").classList.add("steg-hidden")
+		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
+		let img = postFileSrc.querySelector("img")
+		createSteganographyCanvas(img, container)
+		postFileSrc.classList.add("steg-hidden")
 		link.textContent = "[Close Steg]"
 	} else {
 		container.classList.add("steg-hidden")
-		container.closest(".post-file").querySelector(".post-file-src").classList.remove("steg-hidden")
+		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
+		postFileSrc.classList.remove("steg-hidden")
+		
+		if (container.querySelector("canvas")) {
+			container.querySelector("canvas").remove()
+		}
+		
 		link.textContent = "Steg"
 	}
 };
+
+const createSteganographyCanvas = (img, container) => {
+	const stegCanvas = document.createElement("canvas")
+	const context = stegCanvas.getContext("2d")
+	canvas.width = img.width
+	canvas.height = img.height
+	container.insertBefore(stegCanvas,container.children[0])
+	
+	make_base();
+	
+	function make_base()
+	{
+		base_image = new Image();
+		base_image.src = img.src;
+		base_image.onload = function(){
+			context.drawImage(base_image, 0, 0);
+		}
+	}
+}
 
 const handleSteg = (e) => {
 	//add the remoderation toggle link and event listener
