@@ -1630,6 +1630,10 @@ table.boardtable .nobreak {
 	display: none;
 }
 
+.steg-canvas {
+	max-height: 90vh;
+}
+
 input.approve-button {
 	flex: 1;
 	text-align: center;

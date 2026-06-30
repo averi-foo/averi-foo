@@ -37,7 +37,10 @@ const toggleSteganography = (container, link) => {
 	}
 };
 
-const createSteganographyCanvas = (img, container, slider, expanded=false) => {
+const createSteganographyCanvas = (img, container, slider) => {
+	const canvas = container.querySelector("canvas") ? container.querySelector("canvas") : document.createElement("canvas")
+	let expanded = canvas.dataset.expanded == "true"
+	
 	if (!expanded && !img.parentElement) {
 		console.log("Steg error: Image doesn't have a parent A link.")
 		return
@@ -46,7 +49,7 @@ const createSteganographyCanvas = (img, container, slider, expanded=false) => {
 		console.log("Steg error: Image doesn't have the correct parent element.")
 		return
 	}
-	const canvas = container.querySelector("canvas") ? container.querySelector("canvas") : document.createElement("canvas")
+	
 	const context = canvas.getContext("2d")
 	const fullSrc = expanded ? img.src : img.parentElement.href;
 	const canvasWidth = img.width
@@ -56,6 +59,7 @@ const createSteganographyCanvas = (img, container, slider, expanded=false) => {
 	
 	if (!container.querySelector("canvas")) {
 		container.insertBefore(canvas,container.children[0])
+		canvas.classList.add("steg-canvas")
 		canvas.addEventListener("click", () => {
 			expanded = !expanded;
 			if (expanded) {
@@ -63,7 +67,7 @@ const createSteganographyCanvas = (img, container, slider, expanded=false) => {
 				full_image = new Image();
 				full_image.src = fullSrc;
 				full_image.onload = function() {
-					createSteganographyCanvas(full_image,container,slider,expanded)
+					createSteganographyCanvas(full_image,container,slider)
 				}
 			} else {
 				canvas.dataset.expanded = "false"
