@@ -52,8 +52,8 @@ const createSteganographyCanvas = (img, container, slider) => {
 	
 	const context = canvas.getContext("2d")
 	const fullSrc = expanded ? img.src : img.parentElement.href;
-	const canvasWidth = img.width
-	const canvasHeight = img.height
+	let canvasWidth = img.width
+	let canvasHeight = img.height
 	canvas.width = canvasWidth
 	canvas.height = canvasHeight
 	
