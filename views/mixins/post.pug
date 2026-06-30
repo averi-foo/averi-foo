@@ -149,7 +149,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 										if (manage || modview || globalmanage)
 											|
 											|
-											span: a.dummy-link.remod-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Remod')}
+											span: a.dummy-link.remod-link.noselect(data-filename=file.filename) #{__('Remod')}
 										br
 										if globalmanage && file.phash != null
 											span #{file.phash}
