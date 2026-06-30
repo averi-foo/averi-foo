@@ -62,17 +62,8 @@ const createSteganographyCanvas = (img, container, slider) => {
 		canvas.classList.add("steg-canvas")
 		canvas.addEventListener("click", () => {
 			expanded = !expanded;
-			if (expanded) {
-				canvas.dataset.expanded = "true"
-				full_image = new Image();
-				full_image.src = fullSrc;
-				full_image.onload = function() {
-					createSteganographyCanvas(full_image,container,slider)
-				}
-			} else {
-				canvas.dataset.expanded = "false"
-				createSteganographyCanvas(img,container,slider)
-			}
+			canvas.dataset.expanded = expanded ? "true" : "false"
+			createSteganographyCanvas(img,container,slider)
 		});
 	}
 	
@@ -83,6 +74,12 @@ const createSteganographyCanvas = (img, container, slider) => {
 	base_image = new Image();
 	base_image.src = fullSrc;
 	base_image.onload = function() {
+		if (expanded) {
+			canvasWidth = base_image.width
+			canvasHeight = base_image.height
+			canvas.width = canvasWidth
+			canvas.height = canvasHeight
+		}
 		context.clearRect(0, 0, canvasWidth, canvasHeight);
 		context.drawImage(base_image, 0, 0, canvasWidth, canvasHeight);
 		if (slider.value == 0) return;
