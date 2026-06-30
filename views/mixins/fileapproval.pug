@@ -1,8 +1,8 @@
-mixin fileapproval(filename)
-	.approval-button-container(filename)
+mixin fileapproval(filename, approved)
+	.approval-button-container(data-filename=filename, class=(approved ? "approval-hidden" : ""))
 		select(class="approval-list")
 			option(value="approve") Approve
-			option(value="delete_file") Deny: DELETE
+			option(value="delete_file") Delete
 			option(value="nsfw") Deny: NSFW
 			option(value="illegal") Deny: ILLEGAL
 			option(value="artificial") Deny: AI ART

@@ -43,7 +43,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					|
 					if (manage || globalmanage) && viewRawIp
 						- const ip = viewRawIp === true ? post.ip.raw : post.ip.cloak;
-						a.bold(href=`https://www.abuseipdb.com/check/${encodeURIComponent(ip)}` target='_blank') [IPInfo]
+						a.bold(href=`https://ipinfo.io/${encodeURIComponent(ip)}` target='_blank') [IPInfo]
 					|
 					|
 					if (modview || manage || globalmanage) && post.account
@@ -129,9 +129,26 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 								span
 									if file.approved || manage || modview || globalmanage
 										a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : file.originalFilename}
-										|
-										|
+										br
 										a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=post.u+fileindex+' '+file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : 'Archive'}
+										|
+										|
+										if type === 'image'
+											if (board && board.settings.reverseImageSearchLinks === true) || (overboard && overboardReverseLinks === true) || manage || modview || globalmanage
+												|  
+												span: a(href=`${reverseImageLinksURL.replace('%s', encodeURIComponent(meta.url+'/file/'+file.filename))}` rel='nofollow' referrerpolicy='same-origin' title=__('Reverse Image Search') target='_blank') #{__('Reverse')}
+											if file.originalFilename.endsWith('-tegaki.png')
+												- const matchingReplayFile = post.files.find(f => f.originalFilename.slice(0, -4) === file.originalFilename.slice(0,-3));
+												if matchingReplayFile !== undefined
+													|  
+													span: a.dummy-link.replay-tegaki.noselect(href=`/file/${matchingReplayFile.filename}` download=matchingReplayFile.originalFilename) #{__('Replay')}
+											|
+											|
+											span: a.dummy-link.steganography-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Steg')}
+										if (manage || modview || globalmanage)
+											|
+											|
+											span: a.dummy-link.remod-link.noselect(data-filename=file.filename) #{__('Remod')}
 										br
 										if globalmanage && file.phash != null
 											span #{file.phash}
@@ -148,15 +165,6 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 											if file.durationString
 												| , #{file.durationString}
 											| )
-										if type === 'image'
-											if (board && board.settings.reverseImageSearchLinks === true) || (overboard && overboardReverseLinks === true) || manage || modview || globalmanage
-												|  
-												span: a(href=`${reverseImageLinksURL.replace('%s', encodeURIComponent(meta.url+'/file/'+file.filename))}` rel='nofollow' referrerpolicy='same-origin' title=__('Reverse Image Search') target='_blank') #{__('Reverse')}
-											if file.originalFilename.endsWith('-tegaki.png')
-												- const matchingReplayFile = post.files.find(f => f.originalFilename.slice(0, -4) === file.originalFilename.slice(0,-3));
-												if matchingReplayFile !== undefined
-													|  
-													span: a.dummy-link.replay-tegaki.noselect(href=`/file/${matchingReplayFile.filename}` download=matchingReplayFile.originalFilename) #{__('Replay')}
 										if file.mimetype === 'tegaki/replay'
 											|  
 											span.jsonly: a.dummy-link.replay-tegaki.noselect(href=`/file/${file.filename}` download=file.originalFilename) #{__('Replay')}
@@ -177,8 +185,14 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 											div.audioimg.file-thumb
 										else
 											img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
-								if (manage || modview || globalmanage) && !file.approved
-									+fileapproval(file.filename)
+								if (manage || modview || globalmanage)
+									+fileapproval(file.filename, file.approved)
+								.steganography-container.steg-hidden
+									br
+									input.steganography-slider(type="range" min="0" max="7" value="0")
+									|
+									|
+									span.steganography-bits Hidden Bits: 0
 			- if (post.message && modview) { post.message = post.message.replace(new RegExp(`<a class="quote" href="/${post.board}/`, 'g'), `<a class="quote" href="/${post.board}/manage/`); } //its either this, a subdomain, or nothing.
 			- let truncatedMessage = post.message;
 			if post.message
