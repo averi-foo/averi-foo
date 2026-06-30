@@ -1669,8 +1669,10 @@ input.approve-button {
 }
 
 /* ^="f" means only where attachment is false, to prevent showing on attachment files with audio or video mime type */
+
 /* TEMPORARILY DISABLED
 .featured-media::after,
+*/
 .post-file-src[data-type="audio"][data-attachment^="f"]::after,
 .post-file-src[data-type="video"][data-attachment^="f"]::after {
 	content: "▸";
@@ -1693,7 +1695,7 @@ input.approve-button {
 	box-shadow: 0 0 3px #fff;
 	pointer-events: none;
 }
-*/
+
 .post-file-src[data-attachment^="f"]:hover::after {
 	opacity: 1;
 }
