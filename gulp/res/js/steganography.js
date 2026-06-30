@@ -38,7 +38,7 @@ const toggleSteganography = (container, link) => {
 };
 
 const createSteganographyCanvas = (img, container, slider, expanded=false) => {
-	if (!img.parentElement) {
+	if (!expanded && !img.parentElement) {
 		console.log("Steg error: Image doesn't have a parent A link.")
 		return
 	}
