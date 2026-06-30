@@ -14,6 +14,10 @@ const toggleApprovalContainer = (container, link) => {
 		return
 	}
 	const state = container.classList.contains("approval-hidden")
+	if (!state && link.textContent == "Remod") {
+		// Do nothing if trying to click remod on a post that needs to be moderated first
+		return
+	}
 	if (state) {
 		container.classList.remove("approval-hidden")
 		link.textContent = "[Close Remod]"
@@ -34,11 +38,10 @@ const handleRemod = (e) => {
 };
 
 // For every remod link, when clicked, do the remodhandler
-if (isManage) {
-	Array.from(document.getElementsByClassName('remod-link')).forEach(link => {
+Array.from(document.getElementsByClassName('remod-link')).forEach(link => {
 		link.addEventListener('click', onRemodClicked, false);
 	});
-	window.addEventListener('addPost', handleRemod, false);
-}
+window.addEventListener('addPost', handleRemod, false);
+
 
 
