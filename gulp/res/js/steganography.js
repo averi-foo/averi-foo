@@ -83,12 +83,29 @@ const createSteganographyCanvas = (img, container, slider) => {
 	}
 }
 
+const handleSteganographySlider = (slider) => {
+	slider.addEventListener("input", () => {
+		slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
+	});
+	
+	slider.addEventListener("mouseup", () => {
+		let container = slider.closest(".steganography-container")
+		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
+		let img = postFileSrc.querySelector("img")
+		createSteganographyCanvas(img,container,slider)
+	});
+}
+
 const handleSteg = (e) => {
 	//add the remoderation toggle link and event listener
 	if (!e.detail.hover) {
 		const stegButtons = e.detail.post.querySelectorAll('.steganography-link');
+		const stegSlider = e.detail.post.querySelectorAll(".steganography-slider");
 		for (let i = 0; i < stegButtons.length; i++) {
 			stegButtons[i].addEventListener('click', onStegClicked, false);
+		}
+		for (let i = 0; i < stegSlider.length; i++) {
+			handleSteganographySlider(i)
 		}
 	}
 };
@@ -126,18 +143,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 	
 	Array.from(document.getElementsByClassName('steganography-slider')).forEach(slider => {
-		slider.addEventListener("input", () => {
-			slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
-		});
-		
-		slider.addEventListener("mouseup", () => {
-			let container = slider.closest(".steganography-container")
-			let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-			let img = postFileSrc.querySelector("img")
-			createSteganographyCanvas(img,container,slider)
-		});
+		handleSteganographySlider(slider)
 	});
 })
+
 window.addEventListener('addPost', handleSteg, false);
 
 
