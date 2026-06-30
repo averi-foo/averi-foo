@@ -61,14 +61,15 @@ const createSteganographyCanvas = (img, container, slider) => {
 		var stegdata = context.getImageData(0, 0, img.width, img.height);
 		doUnhideImage(stegdata, slider.value);
 		
-		var result_image = new Image();
 		context.putImageData(stegdata, 0, 0);
-		stegdataurl = canvas.toDataURL();
-		result_image.src = stegdataurl;
-		result_image.onload = function() {
-			ctx.clearRect(0, 0, 300, 300);
-			ctx.drawImage(result_image, 0, 0, img.width, img.height);
-		}
+		stegdataurl = canvas.toBlob((blob) => {
+			var result_image = new Image();
+			result_image.src = URL.createObjectURL(blob);
+			result_image.onload = function() {
+				context.clearRect(0, 0, 300, 300);
+				context.drawImage(result_image, 0, 0, img.width, img.height);
+			}
+		});
 		
 	}
 }
