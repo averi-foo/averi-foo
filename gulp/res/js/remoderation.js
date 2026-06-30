@@ -37,10 +37,12 @@ const handleRemod = (e) => {
 	}
 };
 
-// For every remod link, when clicked, do the remodhandler
-Array.from(document.getElementsByClassName('remod-link')).forEach(link => {
+window.addEventListener('DOMContentLoaded', () => {
+	// For every remod link, when clicked, do the remodhandler
+	Array.from(document.getElementsByClassName('remod-link')).forEach(link => {
 		link.addEventListener('click', onRemodClicked, false);
 	});
+}
 window.addEventListener('addPost', handleRemod, false);
 
 
