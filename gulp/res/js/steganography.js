@@ -21,7 +21,8 @@ const toggleSteganography = (container, link) => {
 		container.classList.remove("steg-hidden")
 		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
 		let img = postFileSrc.querySelector("img")
-		createSteganographyCanvas(img, container)
+		let slider = container.querySelector(".steganography-slider")
+		createSteganographyCanvas(img, container, slider)
 		postFileSrc.classList.add("steg-hidden")
 		link.textContent = "[Close Steg]"
 	} else {
@@ -37,22 +38,38 @@ const toggleSteganography = (container, link) => {
 	}
 };
 
-const createSteganographyCanvas = (img, container) => {
+const createSteganographyCanvas = (img, container, slider) => {
+	if (container.querySelector("canvas")) {
+		container.querySelector("canvas").remove()
+	}
 	const canvas = document.createElement("canvas")
 	const context = canvas.getContext("2d")
 	canvas.width = img.width
 	canvas.height = img.height
 	container.insertBefore(canvas,container.children[0])
 	
-	make_base();
+	context.clearRect(0, 0, img.width, img.height);
+	context.font = '15px sans-serif';
+	context.fillText("Processing...", 10, 30);
 	
-	function make_base()
-	{
-		base_image = new Image();
-		base_image.src = img.src;
-		base_image.onload = function(){
-			context.drawImage(base_image, 0, 0);
+	base_image = new Image();
+	base_image.src = img.src;
+	base_image.onload = function() {
+		context.clearRect(0, 0, img.width, img.height);
+		context.drawImage(base_image, 0, 0);
+		
+		var stegdata = context.getImageData(0, 0, img.width, img.height);
+		doUnhideImage(stegdata, slider.value);
+		
+		var result_image = new Image();
+		context.putImageData(stegdata, 0, 0);
+		stegdataurl = canvas.toDataURL();
+		result_image.src = stegdataurl;
+		result_image.onload = function() {
+			ctx.clearRect(0, 0, 300, 300);
+			ctx.drawImage(result_image, 0, 0, img.width, img.height);
 		}
+		
 	}
 }
 
@@ -99,16 +116,16 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 	
 	Array.from(document.getElementsByClassName('steganography-slider')).forEach(slider => {
-		slider.addEventListener("mousedown", () => {
-			console.log("Started dragging");
-		});
-		
 		slider.addEventListener("input", () => {
 			slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
 			console.log("Sliding:", slider.value);
 		});
 		
 		slider.addEventListener("mouseup", () => {
+			let container = slider.closest(".steganography-container")
+			let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
+			let img = postFileSrc.querySelector("img")
+			createSteganographyCanvas(container,img,slider)
 			console.log("Finished dragging");
 		});
 	});
