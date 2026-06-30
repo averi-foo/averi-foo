@@ -38,11 +38,11 @@ const toggleSteganography = (container, link) => {
 };
 
 const createSteganographyCanvas = (img, container) => {
-	const stegCanvas = document.createElement("canvas")
-	const context = stegCanvas.getContext("2d")
+	const canvas = document.createElement("canvas")
+	const context = canvas.getContext("2d")
 	canvas.width = img.width
 	canvas.height = img.height
-	container.insertBefore(stegCanvas,container.children[0])
+	container.insertBefore(canvas,container.children[0])
 	
 	make_base();
 	
