@@ -1,6 +1,6 @@
 const onRemodClicked = (e) => {
 	const filename = e.target.dataset.filename;
-	const container = document.querySelector(`.approval-button-container[data-filename="${filename}"]`)
+	const container = e.target.closest(".post-file").querySelector(`.approval-button-container[data-filename="${filename}"]`)
 	toggleApprovalContainer(container,e.target);
 };
 
