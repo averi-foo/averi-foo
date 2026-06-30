@@ -1,9 +1,8 @@
+// Steganography functionality, ported from https://www.incoherency.co.uk/image-steganography/#unhide
+// To help prevent or otherwise detect embedded images
+
 const onStegClicked = (e) => {
 	const container = e.target.closest(".post-file").querySelector(".steganography-container")
-	// find image thumb
-	// hide it, add a canvas, set canvas width and height
-	// add a slider, add functionality to everything
-	// when clicked again, remove steg container and go back to normal.
 	toggleSteganography(container, e.target)
 };
 
@@ -20,7 +19,7 @@ const toggleSteganography = (container, link) => {
 	if (state) {
 		container.classList.remove("steg-hidden")
 		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-		let img = postFileSrc.querySelector("img")
+		let img = postFileSrc.querySelector("img.file-thumb")
 		let slider = container.querySelector(".steganography-slider")
 		createSteganographyCanvas(img, container, slider)
 		postFileSrc.classList.add("steg-hidden")
@@ -50,25 +49,42 @@ const createSteganographyCanvas = (img, container, slider) => {
 	const canvas = container.querySelector("canvas") ? container.querySelector("canvas") : document.createElement("canvas")
 	const context = canvas.getContext("2d")
 	const fullSrc = img.parentElement.href;
-	canvas.width = img.width
-	canvas.height = img.height
+	const canvasWidth = img.width
+	const canvasHeight = img.height
+	let expanded = false;
+	canvas.width = canvasWidth
+	canvas.height = canvasHeight
 	
 	if (!container.querySelector("canvas")) {
 		container.insertBefore(canvas,container.children[0])
+		canvas.addEventListener("click", () => {
+			expanded = !expanded;
+			if (expanded) {
+				canvas.dataset.expanded = "true"
+				full_image = new Image();
+				full_image.src = fullSrc;
+				full_image.onload = function() {
+					createSteganographyCanvas(full_image,container,slider)
+				}
+			} else {
+				canvas.dataset.expanded = "false"
+				createSteganographyCanvas(img,container,slider)
+			}
+		});
 	}
 	
-	context.clearRect(0, 0, img.width, img.height);
+	context.clearRect(0, 0, canvasWidth, canvasHeight);
 	context.font = '15px sans-serif';
 	context.fillText("Processing...", 10, 30);
 	
 	base_image = new Image();
 	base_image.src = fullSrc;
 	base_image.onload = function() {
-		context.clearRect(0, 0, img.width, img.height);
-		context.drawImage(base_image, 0, 0, img.width, img.height);
+		context.clearRect(0, 0, canvasWidth, canvasHeight);
+		context.drawImage(base_image, 0, 0, canvasWidth, canvasHeight);
 		if (slider.value == 0) return;
 		
-		var stegdata = context.getImageData(0, 0, img.width, img.height);
+		var stegdata = context.getImageData(0, 0, canvasWidth, canvasHeight);
 		doUnhideImage(stegdata, slider.value);
 		
 		context.putImageData(stegdata, 0, 0);
@@ -76,8 +92,8 @@ const createSteganographyCanvas = (img, container, slider) => {
 			var result_image = new Image();
 			result_image.src = URL.createObjectURL(blob);
 			result_image.onload = function() {
-				context.clearRect(0, 0, img.width, img.height);
-				context.drawImage(result_image, 0, 0, img.width, img.height);
+				context.clearRect(0, 0, canvasWidth, canvasHeight);
+				context.drawImage(result_image, 0, 0, canvasWidth, canvasHeight);
 			}
 		});
 		
@@ -92,13 +108,12 @@ const handleSteganographySlider = (slider) => {
 	slider.addEventListener("mouseup", () => {
 		let container = slider.closest(".steganography-container")
 		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-		let img = postFileSrc.querySelector("img")
+		let img = postFileSrc.querySelector("img.file-thumb")
 		createSteganographyCanvas(img,container,slider)
 	});
 }
 
 const handleSteg = (e) => {
-	//add the remoderation toggle link and event listener
 	if (!e.detail.hover) {
 		const stegButtons = e.detail.post.querySelectorAll('.steganography-link');
 		const stegSlider = e.detail.post.querySelectorAll(".steganography-slider");
@@ -138,7 +153,6 @@ function doUnhideImage(stegdata, bits) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-	// For every remod link, when clicked, do the remodhandler
 	Array.from(document.getElementsByClassName('steganography-link')).forEach(link => {
 		link.addEventListener('click', onStegClicked, false);
 	});
