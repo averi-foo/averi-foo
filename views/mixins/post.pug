@@ -144,8 +144,10 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 													|  
 													span: a.dummy-link.replay-tegaki.noselect(href=`/file/${matchingReplayFile.filename}` download=matchingReplayFile.originalFilename) #{__('Replay')}
 											|
+											|
 											span: a.dummy-link.steganography-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Steg')}
 										if (manage || modview || globalmanage)
+											|
 											|
 											span: a.dummy-link.remod-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Remod')}
 										br
