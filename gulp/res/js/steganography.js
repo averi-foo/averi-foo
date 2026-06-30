@@ -44,6 +44,15 @@ const createSteganographyCanvas = (img, container, slider) => {
 	}
 	const canvas = document.createElement("canvas")
 	const context = canvas.getContext("2d")
+	if (!img.parentElement) {
+		console.log("Steg error: Image doesn't have a parent A link.")
+		return
+	}
+	if (img.parentElement.tagName != "A") {
+		console.log("Steg error: Image doesn't have the correct parent element.")
+		return
+	}
+	const fullSrc = img.parentElement.href;
 	canvas.width = img.width
 	canvas.height = img.height
 	container.insertBefore(canvas,container.children[0])
@@ -53,7 +62,7 @@ const createSteganographyCanvas = (img, container, slider) => {
 	context.fillText("Processing...", 10, 30);
 	
 	base_image = new Image();
-	base_image.src = img.src;
+	base_image.src = fullSrc;
 	base_image.onload = function() {
 		context.clearRect(0, 0, img.width, img.height);
 		context.drawImage(base_image, 0, 0);
@@ -119,16 +128,13 @@ window.addEventListener('DOMContentLoaded', () => {
 	Array.from(document.getElementsByClassName('steganography-slider')).forEach(slider => {
 		slider.addEventListener("input", () => {
 			slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
-			console.log("Sliding:", slider.value);
 		});
 		
 		slider.addEventListener("mouseup", () => {
 			let container = slider.closest(".steganography-container")
 			let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
 			let img = postFileSrc.querySelector("img")
-			console.log(container, postFileSrc, img)
 			createSteganographyCanvas(img,container,slider)
-			console.log("Finished dragging");
 		});
 	});
 })
