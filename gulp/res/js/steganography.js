@@ -66,6 +66,7 @@ const createSteganographyCanvas = (img, container, slider) => {
 	base_image.onload = function() {
 		context.clearRect(0, 0, img.width, img.height);
 		context.drawImage(base_image, 0, 0, img.width, img.height);
+		if (slider.value == 0) return;
 		
 		var stegdata = context.getImageData(0, 0, img.width, img.height);
 		doUnhideImage(stegdata, slider.value);
