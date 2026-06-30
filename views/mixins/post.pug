@@ -129,8 +129,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 								span
 									if file.approved || manage || modview || globalmanage
 										a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : file.originalFilename}
-										|
-										|
+										br
 										a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=post.u+fileindex+' '+file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : 'Archive'}
 										|
 										|
@@ -188,6 +187,11 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 											img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
 								if (manage || modview || globalmanage)
 									+fileapproval(file.filename, file.approved)
+								.steganography-container.steg-hidden
+									input.steganography-slider(type="range" min="0" max="7" value="0")
+									|
+									|
+									span.steganography-bits Hidden Bits: 0
 			- if (post.message && modview) { post.message = post.message.replace(new RegExp(`<a class="quote" href="/${post.board}/`, 'g'), `<a class="quote" href="/${post.board}/manage/`); } //its either this, a subdomain, or nothing.
 			- let truncatedMessage = post.message;
 			if post.message
