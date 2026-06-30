@@ -66,10 +66,51 @@ const handleSteg = (e) => {
 	}
 };
 
+// taken from incoherency.com
+function doUnhideImage(stegdata, bits) {
+	var stegpix = stegdata.data;
+	
+	var w = stegdata.width;
+	var h = stegdata.height;
+	
+	for (var y = 0; y < h; y++) {
+		var stegy = y*w;
+		for (var x = 0; x < w; x++) {
+			var stegidx = 4*(stegy + x);
+			
+			// red
+			stegpix[stegidx] = (stegpix[stegidx] << (8 - bits)) & 0xff;
+			
+			// green
+			++stegidx;
+			stegpix[stegidx] = (stegpix[stegidx] << (8 - bits)) & 0xff;
+			
+			// blue
+			++stegidx;
+			stegpix[stegidx] = (stegpix[stegidx] << (8 - bits)) & 0xff;
+		}
+	}
+}
+
 window.addEventListener('DOMContentLoaded', () => {
 	// For every remod link, when clicked, do the remodhandler
 	Array.from(document.getElementsByClassName('steganography-link')).forEach(link => {
 		link.addEventListener('click', onStegClicked, false);
+	});
+	
+	Array.from(document.getElementsByClassName('steganography-slider')).forEach(slider => {
+		slider.addEventListener("mousedown", () => {
+			console.log("Started dragging");
+		});
+		
+		slider.addEventListener("input", () => {
+			slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
+			console.log("Sliding:", slider.value);
+		});
+		
+		slider.addEventListener("mouseup", () => {
+			console.log("Finished dragging");
+		});
 	});
 })
 window.addEventListener('addPost', handleSteg, false);
