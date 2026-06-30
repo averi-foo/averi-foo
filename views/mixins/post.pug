@@ -132,7 +132,20 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 										|
 										|
 										a.filename(href='/file/'+file.filename title='Download '+file.originalFilename download=post.u+fileindex+' '+file.originalFilename) #{post.spoiler || file.spoiler ? __('Spoiler File') : 'Archive'}
-										br
+										if type === 'image'
+											if (board && board.settings.reverseImageSearchLinks === true) || (overboard && overboardReverseLinks === true) || manage || modview || globalmanage
+												|  
+												span: a(href=`${reverseImageLinksURL.replace('%s', encodeURIComponent(meta.url+'/file/'+file.filename))}` rel='nofollow' referrerpolicy='same-origin' title=__('Reverse Image Search') target='_blank') #{__('Reverse')}
+											if file.originalFilename.endsWith('-tegaki.png')
+												- const matchingReplayFile = post.files.find(f => f.originalFilename.slice(0, -4) === file.originalFilename.slice(0,-3));
+												if matchingReplayFile !== undefined
+													|  
+													span: a.dummy-link.replay-tegaki.noselect(href=`/file/${matchingReplayFile.filename}` download=matchingReplayFile.originalFilename) #{__('Replay')}
+											|
+											span: a.dummy-link.steganography-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Steg')}
+										if (manage || modview || globalmanage)
+											|
+											span: a.dummy-link.remod-link.noselect(data-src=`/file/${file.hasThumb ? 'thumb/'+file.hash+file.thumbextension : file.filename}`) #{__('Remod')}
 										if globalmanage && file.phash != null
 											span #{file.phash}
 											br
@@ -148,15 +161,6 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 											if file.durationString
 												| , #{file.durationString}
 											| )
-										if type === 'image'
-											if (board && board.settings.reverseImageSearchLinks === true) || (overboard && overboardReverseLinks === true) || manage || modview || globalmanage
-												|  
-												span: a(href=`${reverseImageLinksURL.replace('%s', encodeURIComponent(meta.url+'/file/'+file.filename))}` rel='nofollow' referrerpolicy='same-origin' title=__('Reverse Image Search') target='_blank') #{__('Reverse')}
-											if file.originalFilename.endsWith('-tegaki.png')
-												- const matchingReplayFile = post.files.find(f => f.originalFilename.slice(0, -4) === file.originalFilename.slice(0,-3));
-												if matchingReplayFile !== undefined
-													|  
-													span: a.dummy-link.replay-tegaki.noselect(href=`/file/${matchingReplayFile.filename}` download=matchingReplayFile.originalFilename) #{__('Replay')}
 										if file.mimetype === 'tegaki/replay'
 											|  
 											span.jsonly: a.dummy-link.replay-tegaki.noselect(href=`/file/${file.filename}` download=file.originalFilename) #{__('Replay')}
