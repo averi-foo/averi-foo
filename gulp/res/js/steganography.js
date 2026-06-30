@@ -125,7 +125,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			let container = slider.closest(".steganography-container")
 			let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
 			let img = postFileSrc.querySelector("img")
-			createSteganographyCanvas(container,img,slider)
+			console.log(container, postFileSrc, img)
+			createSteganographyCanvas(img,container,slider)
 			console.log("Finished dragging");
 		});
 	});
