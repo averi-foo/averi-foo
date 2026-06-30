@@ -43,7 +43,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 					|
 					if (manage || globalmanage) && viewRawIp
 						- const ip = viewRawIp === true ? post.ip.raw : post.ip.cloak;
-						a.bold(href=`https://www.abuseipdb.com/check/${encodeURIComponent(ip)}` target='_blank') [IPInfo]
+						a.bold(href=`https://ipinfo.io/${encodeURIComponent(ip)}` target='_blank') [IPInfo]
 					|
 					|
 					if (modview || manage || globalmanage) && post.account
