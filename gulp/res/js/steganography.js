@@ -39,11 +39,6 @@ const toggleSteganography = (container, link) => {
 };
 
 const createSteganographyCanvas = (img, container, slider) => {
-	if (container.querySelector("canvas")) {
-		container.querySelector("canvas").remove()
-	}
-	const canvas = document.createElement("canvas")
-	const context = canvas.getContext("2d")
 	if (!img.parentElement) {
 		console.log("Steg error: Image doesn't have a parent A link.")
 		return
@@ -52,10 +47,15 @@ const createSteganographyCanvas = (img, container, slider) => {
 		console.log("Steg error: Image doesn't have the correct parent element.")
 		return
 	}
+	const canvas = container.querySelector("canvas") ? container.querySelector("canvas") : document.createElement("canvas")
+	const context = canvas.getContext("2d")
 	const fullSrc = img.parentElement.href;
 	canvas.width = img.width
 	canvas.height = img.height
-	container.insertBefore(canvas,container.children[0])
+	
+	if (!container.querySelector("canvas")) {
+		container.insertBefore(canvas,container.children[0])
+	}
 	
 	context.clearRect(0, 0, img.width, img.height);
 	context.font = '15px sans-serif';
