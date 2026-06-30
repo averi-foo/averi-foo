@@ -100,7 +100,7 @@ const handleSteg = (e) => {
 	//add the remoderation toggle link and event listener
 	if (!e.detail.hover) {
 		const stegButtons = e.detail.post.querySelectorAll('.steganography-link');
-		const stegSlider = e.detail.post.querySelectorAll(".steganography-slider");
+		const stegSlider = e.detail.post.closest(".post-file").querySelectorAll(".steganography-slider");
 		for (let i = 0; i < stegButtons.length; i++) {
 			stegButtons[i].addEventListener('click', onStegClicked, false);
 		}
