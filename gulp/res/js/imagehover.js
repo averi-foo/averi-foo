@@ -26,7 +26,11 @@ window.addEventListener('DOMContentLoaded', () => {
 			if (imageHoverEnabled && event.target && event.target.classList.contains('file-thumb')) {
 				if (event.target.src != undefined) {
 					if (event.target.closest(".post-file") != null) {
-						if (event.target.closest(".post-file").querySelector(".approval-button-container") != null) {
+						const approvalButtonContainer = event.target.closest(".post-file").querySelector(".approval-button-container")
+						if (!approvalButtonContainer) {
+							return
+						}
+						if (!approvalButtonContainer.classList.contains("approval-hidden")) {
 							return
 						}
 					}
