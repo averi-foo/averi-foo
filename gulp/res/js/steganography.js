@@ -19,7 +19,7 @@ const toggleSteganography = (container, link) => {
 	if (state) {
 		container.classList.remove("steg-hidden")
 		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-		let img = postFileSrc.querySelector("img.file-thumb")
+		let img = postFileSrc.querySelector("img")
 		let slider = container.querySelector(".steganography-slider")
 		createSteganographyCanvas(img, container, slider)
 		postFileSrc.classList.add("steg-hidden")
@@ -111,7 +111,7 @@ const handleSteganographySlider = (slider) => {
 	slider.addEventListener("mouseup", () => {
 		let container = slider.closest(".steganography-container")
 		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-		let img = postFileSrc.querySelector("img.file-thumb")
+		let img = postFileSrc.querySelector("img")
 		createSteganographyCanvas(img,container,slider)
 	});
 }
