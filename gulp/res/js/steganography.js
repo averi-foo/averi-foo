@@ -55,7 +55,7 @@ const createSteganographyCanvas = (img, container, slider) => {
 	let canvasWidth = img.width || img.offsetWidth
 	let canvasHeight = img.height || img.offsetHeight
 	
-	if (!expanded || !img.classList.contains("spoilerimg")) {
+	if (!expanded) {
 		canvas.width = canvasWidth
 		canvas.height = canvasHeight
 	}
