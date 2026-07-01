@@ -27,11 +27,10 @@ window.addEventListener('DOMContentLoaded', () => {
 				if (event.target.src != undefined) {
 					if (event.target.closest(".post-file") != null) {
 						const approvalButtonContainer = event.target.closest(".post-file").querySelector(".approval-button-container")
-						if (!approvalButtonContainer) {
-							return
-						}
-						if (!approvalButtonContainer.classList.contains("approval-hidden")) {
-							return
+						if (approvalButtonContainer) {
+							if (!approvalButtonContainer.classList.contains("approval-hidden")) {
+								return
+							}
 						}
 					}
 					document.querySelector(".hover-img").src = event.target.parentElement.href
