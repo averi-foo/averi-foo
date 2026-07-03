@@ -15,9 +15,6 @@ module.exports = async (req, res) => {
 	// single file operation
 	if (req.body.file_moderation_filename) {
 		const filename = req.body.file_moderation_filename;
-		// this is responsible for setting the individual files to delete or spoiler, etc.
-		res.locals.file_moderation_filename = filename;
-		
 		const filehash = filename.substring(0, 6);
 		switch (req.body.file_moderation_status) {
 			case 'approve':
@@ -26,12 +23,14 @@ module.exports = async (req, res) => {
 				message = `Approved ${filehash}`;
 				break;
 			case 'spoiler_file':
-				req.body.spoiler_file = true; // spoiler file
+				res.locals.filename_to_spoiler = filename; // set filename to delete
+				req.body.spoiler_file = true; // spoiler files, but only spoiler the one selected above.
 				message = `Spoilered file ${filehash}`;
 				log_message = message;
 				break;
 			case 'delete_file':
-				req.body.delete_file = true; // delete file
+				res.locals.filename_to_delete = filename; // set filename to delete
+				req.body.delete_file = true; // delete files, but only delete the one selected above.
 				message = `Deleted file ${filehash}`;
 				log_message = message;
 				break;
@@ -55,8 +54,8 @@ module.exports = async (req, res) => {
 				log_message = message;
 				break;
 			case 'artificial':
-				req.body.delete_file = true; // delete files
-				req.body.delete = true; // delete post
+				res.locals.filename_to_delete = filename; // set filename to delete
+				req.body.delete_file = true; // delete files, but only delete the one selected above.
 				req.body.global_ban = true;
 				req.body.ban_duration = 3600000 // 1 hour ban
 				req.body.ban_reason = `Uploaded AI ART hash ${filehash} that was denied`;

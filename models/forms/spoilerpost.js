@@ -5,7 +5,7 @@ const { Posts } = require(__dirname + '/../../db/');
 module.exports = async (locals) => {
 
 	const { __, __n, posts } = locals;
-	const filenameToSpoiler = locals.file_moderation_filename;
+	const filenameToSpoiler = locals.filename_to_spoiler;
 
 	// filter to ones not spoilered
 	const filteredPosts = posts.filter(post => {
