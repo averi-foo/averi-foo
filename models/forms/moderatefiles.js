@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 				break;
 			case 'spoiler_file':
 				res.locals.filename_to_spoiler = filename; // set filename to delete
-				req.body.spoiler_file = true; // spoiler files, but only spoiler the one selected above.
+				req.body.spoiler = true; // spoiler files, but only spoiler the one selected above.
 				message = `Spoilered file ${filehash}`;
 				log_message = message;
 				break;
