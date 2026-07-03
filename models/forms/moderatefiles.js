@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
 				log_message = message;
 				break;
 			case 'delete_file':
-				res.locals.filename_to_delete = filename; // set filename to delete
+				res.locals.filename_to_delete = filename; // set filename to spoiler
 				req.body.delete_file = true; // delete files, but only delete the one selected above.
 				message = `Deleted file ${filehash}`;
 				log_message = message;
