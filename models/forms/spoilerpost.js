@@ -21,9 +21,7 @@ module.exports = async (locals) => {
 	if (filenameToSpoiler) {
 		const results = await Posts.spoilerFile(filenameToSpoiler);
 		return {
-			message: __n(`Spoilered ${results.modifiedCount} files`),
-			action: '$set',
-			query: {}
+			message: __n(`Spoilered ${results.modifiedCount} files`)
 		};
 	} else {
 		return {
