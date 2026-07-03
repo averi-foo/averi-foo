@@ -1,8 +1,11 @@
 'use strict';
 
+const { Posts } = require(__dirname + '/../../db/');
+
 module.exports = (locals) => {
 
 	const { __, __n, posts } = locals;
+	const filenameToSpoiler = locals.file_moderation_filename;
 
 	// filter to ones not spoilered
 	const filteredPosts = posts.filter(post => {
@@ -14,12 +17,21 @@ module.exports = (locals) => {
 			message: __('No files to spoiler'),
 		};
 	}
-
-	return {
-		message: __n('Spoilered %s posts', filteredPosts.length),
-		action: '$set',
-		query: {
-			'spoiler': true
+	// single file action
+	if (filenameToSpoiler) {
+		await Posts.spoilerFile(filenameToSpoiler);
+		return {
+			message: __n('Spoilered 1 file'),
+			action: '$set',
+			query: {}
+		};
+	} else {
+		return {
+			message: __n('Spoilered %s posts', filteredPosts.length),
+			action: '$set',
+			query: {
+				'spoiler': true
+			}
 		}
 	};
 

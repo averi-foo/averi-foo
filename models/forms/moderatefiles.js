@@ -15,6 +15,9 @@ module.exports = async (req, res) => {
 	// single file operation
 	if (req.body.file_moderation_filename) {
 		const filename = req.body.file_moderation_filename;
+		// this is responsible for setting the individual files to delete or spoiler, etc.
+		res.locals.file_moderation_filename = filename;
+		
 		const filehash = filename.substring(0, 6);
 		switch (req.body.file_moderation_status) {
 			case 'approve':
@@ -22,9 +25,13 @@ module.exports = async (req, res) => {
 				denied = false;
 				message = `Approved ${filehash}`;
 				break;
+			case 'spoiler_file':
+				req.body.spoiler_file = true; // spoiler file
+				message = `Spoilered file ${filehash}`;
+				log_message = message;
+				break;
 			case 'delete_file':
-				res.locals.filename_to_delete = filename; // set filename to delete
-				req.body.delete_file = true; // delete files, but only delete the one selected above.
+				req.body.delete_file = true; // delete file
 				message = `Deleted file ${filehash}`;
 				log_message = message;
 				break;

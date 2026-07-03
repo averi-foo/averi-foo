@@ -2,6 +2,7 @@ mixin fileapproval(filename, approved)
 	.approval-button-container(data-filename=filename, class=(approved ? "approval-hidden" : ""))
 		select(class="approval-list")
 			option(value="approve") Approve
+			option(value="spoiler_file") Spoiler
 			option(value="delete_file") Delete
 			option(value="nsfw") Deny: NSFW
 			option(value="illegal") Deny: ILLEGAL

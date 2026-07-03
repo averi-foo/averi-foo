@@ -1059,5 +1059,21 @@ module.exports = {
 			return false
 		}
 		return getRandomTegaki[0].file.filename
+	},
+	
+	spoilerFile: async (filename) => {
+		return db.updateMany(
+			{ 'files.filename': filename },
+			{
+				$set: {
+					'files.$[file].spoiler': true
+				}
+			},
+			{
+				arrayFilters: [
+					{ 'file.filename': filename }
+				]
+			}
+		);
 	}
 };

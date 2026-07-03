@@ -245,6 +245,13 @@ const moderatePost = (postContainer) => {
 	actionForm.classList.add('floatactions');
 	actionForm.setAttribute('open', 'open');
 	actionForm.style.zIndex = 3;
+	
+	// to prevent accidents
+	// disable all previously checked boxes
+	actionForm.querySelectorAll("input.post-check[type=checkbox]").forEach(e => e.checked = false);
+	// set all text inputs to nothing
+	actionForm.querySelectorAll("input[type=text]").forEach(e => e.value = "");
+	
 	postContainer.style.zIndex = 3;
 	if (postContainer.classList.contains('op')) {
 		postContainer.style.background = 'var(--post-color)';
