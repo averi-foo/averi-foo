@@ -1062,7 +1062,7 @@ module.exports = {
 	},
 	
 	spoilerFile: async (filename) => {
-		return db.updateMany(
+		return await db.updateMany(
 			{ 'files': { '$elemMatch': { 'filename': filename } } },  
 			{ '$set': { 'files.$[elem].spoiler': true } },  
 			{ 'arrayFilters': [{ 'elem.filename': filename }] }  
