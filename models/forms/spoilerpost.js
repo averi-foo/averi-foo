@@ -2,7 +2,7 @@
 
 const { Posts } = require(__dirname + '/../../db/');
 
-module.exports = (locals) => {
+module.exports = async (locals) => {
 
 	const { __, __n, posts } = locals;
 	const filenameToSpoiler = locals.file_moderation_filename;
