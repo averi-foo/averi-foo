@@ -244,7 +244,7 @@ module.exports = async (req, res, next) => {
 			}
 			messages.push(message);
 		} else if (req.body.spoiler) {
-			const { message, action, query } = spoilerPosts(res.locals);
+			const { message, action, query } = await spoilerPosts(res.locals);
 			if (action) {
 				modlogActions.push(ModlogActions.SPOILER_FILES);
 				combinedQuery[action] = { ...combinedQuery[action], ...query};

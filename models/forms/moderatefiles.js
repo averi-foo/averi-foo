@@ -22,8 +22,14 @@ module.exports = async (req, res) => {
 				denied = false;
 				message = `Approved ${filehash}`;
 				break;
+			case 'spoiler_file':
+				res.locals.filename_to_spoiler = filename; // set filename to delete
+				req.body.spoiler = true; // spoiler files, but only spoiler the one selected above.
+				message = `Spoilered file ${filehash}`;
+				log_message = message;
+				break;
 			case 'delete_file':
-				res.locals.filename_to_delete = filename; // set filename to delete
+				res.locals.filename_to_delete = filename; // set filename to spoiler
 				req.body.delete_file = true; // delete files, but only delete the one selected above.
 				message = `Deleted file ${filehash}`;
 				log_message = message;
@@ -48,8 +54,8 @@ module.exports = async (req, res) => {
 				log_message = message;
 				break;
 			case 'artificial':
-				req.body.delete_file = true; // delete files
-				req.body.delete = true; // delete post
+				res.locals.filename_to_delete = filename; // set filename to delete
+				req.body.delete_file = true; // delete files, but only delete the one selected above.
 				req.body.global_ban = true;
 				req.body.ban_duration = 3600000 // 1 hour ban
 				req.body.ban_reason = `Uploaded AI ART hash ${filehash} that was denied`;
