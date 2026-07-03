@@ -1067,5 +1067,5 @@ module.exports = {
 			{ '$set': { 'files.$[elem].spoiler': true } },  
 			{ 'arrayFilters': [{ 'elem.filename': filename }] }  
 		);
-	}
+	},
 };

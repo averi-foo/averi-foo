@@ -19,10 +19,9 @@ module.exports = async (locals) => {
 	}
 	// single file action
 	if (filenameToSpoiler) {
-		const outcome = await Posts.spoilerFile(filenameToSpoiler);
-		console.log(outcome)
+		const results = await Posts.spoilerFile(filenameToSpoiler);
 		return {
-			message: __n('Spoilered 1 file'),
+			message: __n(`Spoilered ${results.modifiedCount} files`),
 			action: '$set',
 			query: {}
 		};
