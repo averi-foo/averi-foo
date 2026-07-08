@@ -524,6 +524,7 @@ module.exports = async (req, res) => {
 		res.locals.board.staff,
 		res.locals.user ? res.locals.user.username : null,
 		userId,
+		globalLimits.fieldLength.name,
 		__ //i18n translation local
 	);
 	
