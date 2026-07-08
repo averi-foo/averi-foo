@@ -80,6 +80,7 @@ todo: handle some more situations
 		board.staff,
 		res.locals.user ? res.locals.user.username : null,
 		null,
+		globalLimits.fieldLength.name,
 		res.locals.__
 	);
 	//new message and quotes
