@@ -298,7 +298,7 @@ run_install_mongodb () {
 	sudo chown -R mongodb:mongodb /var/log/mongodb
 	sleep 5
 	sudo chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
-	service mongod restart 
+	sudo service mongod restart 
 	echo "Waiting until mongod is alive..."
 	sleep 5
 
@@ -332,7 +332,7 @@ run_setup_redis () {
 	sudo sed -i -e 's/supervised no/supervised systemd/' -e '$!b' -e '/# supervised auto/!b' -e 's/# supervised auto/supervised auto/' -e '$!s/$/\nsupervised systemd/' /etc/redis/redis.conf
 	sudo systemctl enable --now redis-server 
 
-	echo "requirepass $REDIS_PASSWORD" | sudo tee -a /etc/redis/redis.conf
+	echo "requirepass $REDIS_PASSWORD" | sudo tee -a /etc/redis/redis.conf > /dev/null
 	sudo systemctl restart redis-server
 }
 
@@ -349,7 +349,7 @@ run_install_nginx () {
 	wget https://raw.githubusercontent.com/averi-foo/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh
 	sudo chmod +x nginx-autoinstall.sh
 	
-	HEADLESS=y OPTION=1 NGINX_VER=STABLE SUBFILTER=y RTMP=y sudo ./nginx-autoinstall.sh
+	sudo HEADLESS=y OPTION=1 NGINX_VER=STABLE SUBFILTER=y RTMP=y ./nginx-autoinstall.sh
 	echo "You can safely ignore that error about restarting nginx ^"
 	rm nginx-autoinstall.sh
 	sudo mkdir -p /etc/nginx/snippets
