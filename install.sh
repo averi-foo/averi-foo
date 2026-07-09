@@ -147,9 +147,13 @@ if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
 	SKIP_QUESTIONS="y"
 fi
 
+if [ "$CONFIG_NGINX_DEFAULT_CONFIG" != "y" ]; then
+
 read -p "Configure nginx configuration now? (y/n): " CONFIG_NGINX_CONFIG
 
-if [ "$CONFIG_NGINX_CONFIG" == "y" ] && [ "$CONFIG_NGINX_DEFAULT_CONFIG" != "y" ]; then
+fi
+
+if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
 	JSCHAN_DIRECTORY=$AVFOO_FOLDER
 	read -p "Enter your clearnet domain name e.g. example.com (blank=no clearnet domain): " CLEARNET_DOMAIN
 	SITES_AVAILABLE_NAME=${CLEARNET_DOMAIN:-jschan} #not sure on a good default, used for sites-available config name
@@ -209,7 +213,7 @@ run_install_dependencies () {
 }
 
 run_setup_secrets () {
-	echo "module.exports = {
+	sudo echo "module.exports = {
 
 	//mongodb connection string
 	dbURL: 'mongodb://$DATABASE_USERNAME:$MONGODB_PASSWORD@$HOST_IP:$MONGODB_PORT/$DATABASE_NAME',
@@ -255,7 +259,8 @@ run_setup_secrets () {
 	debugLogs: true,
 
 };" > $AVFOO_FOLDER/configs/secrets.js 
-	editor $AVFOO_FOLDER/configs/secrets.js
+	sudo editor $AVFOO_FOLDER/configs/secrets.js
+	sudo chown -R www-data:www-data $AVFOO_FOLDER
 
 }
 
