@@ -67,7 +67,7 @@ done
 
 echo "Ensuring permissions for the /var/www folder are correct..."
 echo "If prompted, please input your password."
-sudo mkdir -p /var/www
+sudo mkdir -p /var/www || echo "Skipping mkdir..."
 sudo chown -R www-data:www-data /var/www
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
