@@ -224,7 +224,7 @@ run_install_dependencies () {
 }
 
 run_setup_secrets () {
-	sudo echo "module.exports = {
+	echo "module.exports = {
 
 	//mongodb connection string
 	dbURL: 'mongodb://$DATABASE_USERNAME:$MONGODB_PASSWORD@$HOST_IP:$MONGODB_PORT/$DATABASE_NAME',
@@ -269,7 +269,7 @@ run_setup_secrets () {
 	//enable debug logging
 	debugLogs: true,
 
-};" > $AVFOO_FOLDER/configs/secrets.js 
+};" | sudo tee $AVFOO_FOLDER/configs/secrets.js > /dev/null
 	sudo editor $AVFOO_FOLDER/configs/secrets.js
 	sudo chown -R www-data:www-data $AVFOO_FOLDER
 
@@ -319,7 +319,7 @@ processManagement:
 	timeZoneInfo: /usr/share/zoneinfo
 security:
 	authorization: \"enabled\"
-" > /etc/mongod.conf 
+" | sudo tee /etc/mongod.conf > /dev/null
 
 	sudo systemctl restart mongod 
 
