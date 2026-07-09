@@ -267,9 +267,11 @@ run_install_mongodb () {
 	mkdir -p /var/log/mongodb
 	chown -R mongodb:mongodb /var/lib/mongodb 
 	chown -R mongodb:mongodb /var/log/mongodb
-	sleep 2
+	sleep 5
 	chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
 	service mongod restart 
+	echo "Waiting until mongod is alive..."
+	sleep 5
 
 	# Create database
 	mongosh admin --eval "db.getSiblingDB('$DATABASE_NAME').createUser({user: '$DATABASE_USERNAME', pwd: '$MONGODB_PASSWORD', roles: [{role:'readWrite', db:'$DATABASE_NAME'}]})"
