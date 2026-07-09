@@ -55,6 +55,7 @@ for arg in "$@"; do
             echo "Flags: "
             echo "--help: Displays help."
             echo "--stage: Run specific function, e.g --stage=run_install_dependencies"
+            exit
             ;;
         *)
             echo "Unknown argument: $arg"
@@ -189,9 +190,9 @@ if [ "$PROCEED_INSTALLATION" == "n" ]; then
 fi
 
 run_install_dependencies () {
-	echo "Installing dependencies: git nano curl wget redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot"
+	echo "Installing dependencies: git nano coreutils curl wget redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot"
 	apt update -y 
-	apt install git nano curl wget redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
+	apt install git nano curl wget coreutils redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
 }
 
 run_setup_secrets () {
@@ -266,6 +267,7 @@ run_install_mongodb () {
 	mkdir -p /var/log/mongodb
 	chown -R mongodb:mongodb /var/lib/mongodb 
 	chown -R mongodb:mongodb /var/log/mongodb
+	sleep 2
 	chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
 	service mongod restart 
 
