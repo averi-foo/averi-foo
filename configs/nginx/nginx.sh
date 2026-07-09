@@ -4,6 +4,12 @@
 #are you root?
 [[ "$EUID" -ne 0 ]] && echo "Please run as root" && exit;
 
+HOST_IP=${HOST_IP:-"127.0.0.1"}
+HOST_PORT=${HOST_PORT:-"7000"}
+$SKIP_QUESTIONS=${SKIP_QUESTIONS:-""}
+
+if [ "$SKIP_QUESTIONS" == "" ]; then
+
 echo "[jschan nginx configuration helper]"
 read -p "Enter the directory you cloned jschan, no trailing slash. (blank=$(pwd)): " JSCHAN_DIRECTORY
 JSCHAN_DIRECTORY=${JSCHAN_DIRECTORY:-$(pwd)}
@@ -12,6 +18,7 @@ SITES_AVAILABLE_NAME=${CLEARNET_DOMAIN:-jschan} #not sure on a good default, use
 read -p "Enter tor .onion address (blank=no .onion address): " ONION_DOMAIN
 read -p "Enter lokinet .loki address (blank=no .loki address): " LOKI_DOMAIN
 read -p "Would you like to add a www. subdomain? (y/n): " ADD_WWW_SUBDOMAIN
+
 if [ "$CLEARNET_DOMAIN" != "" ]; then
 	read -p "Run certbot and automatically configure a certificate for https on clearnet? (y/n): " CERTBOT
 	if [ "$CERTBOT" == "n" ]; then
@@ -22,6 +29,7 @@ if [ "$CLEARNET_DOMAIN" != "" ]; then
 		[[ "$NOHTTPS" == "n" ]] && echo "Exiting..." && exit;
 	fi
 fi
+
 read -p "Should robots.txt disallow compliant crawlers? (y/n): " ROBOTS_TXT_DISALLOW
 read -p "Allow google captcha in content-security policy? (y/n): " GOOGLE_CAPTCHA
 read -p "Allow Hcaptcha in content-security policy? (y/n): " H_CAPTCHA
@@ -44,6 +52,8 @@ hcaptcha: $H_CAPTCHA
 yandex captcha: $Y_CAPTCHA
 geoip: $GEOIP
 (y/n): " CORRECT
+
+fi
 #not saying no = yes, just like real life
 [[ "$CORRECT" == "n" ]] && echo "Exiting..." && exit;
 
@@ -76,8 +86,27 @@ sudo sed -i "s|/path/to/jschan|$JSCHAN_DIRECTORY|g" /etc/nginx/snippets/*
 
 #declare teplate start
 JSCHAN_CONFIG="upstream chan {
-	server 127.0.0.1:7000;
+	server $HOST_IP:$HOST_PORT;
 }"
+
+# for offline usage. Needed for CSS, etc.
+if [ "$CLEARNET_DOMAIN" == "" ]; then
+
+JSCHAN_CONFIG="${JSCHAN_CONFIG}
+
+server {
+	server_name localhost;
+	client_max_body_size 0;
+
+	include /etc/nginx/snippets/security_headers.conf;
+	include /etc/nginx/snippets/error_pages.conf;
+	include /etc/nginx/snippets/jschan_common_routes.conf;
+	include /etc/nginx/snippets/jschan_clearnet_routes.conf;
+	
+	listen 80;
+	listen [::]:80;
+}"
+fi
 
 #Use some variabels to make the templating easier later, depending on if they want www. or not
 CLEARNET_SERVER_NAME="$CLEARNET_DOMAIN"
@@ -286,7 +315,7 @@ if [ "$GEOIP" == "y" ]; then
 	grep -qF "geoip_country" /etc/nginx/nginx.conf
 	if [ $? -eq 1 ]; then
 		sudo sed -i '/http {/a \
-geoip_country /usr/share/GeoIP/geoip.mmdb;' /etc/nginx/nginx.conf
+geoip_country /usr/share/GeoIP/dbip.mmdb;' /etc/nginx/nginx.conf
 	fi
 else
 	echo "Geoip not installed, removing directives..."

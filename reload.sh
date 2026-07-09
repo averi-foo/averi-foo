@@ -16,19 +16,19 @@ while getopts "p" opt; do
     esac
 done
 
-# Stop anthrochan server and flush logs
+# Stop averi.foo server and flush logs
 pm2 stop all
 pm2 flush
 
 # In prod
-#if [ "$env" == "production" ]; then
+if [ "$env" == "production" ]; then
     # Pull new main branch
-    #git pull || { echo "Git pull failed"; exit 1; }
+    git pull || { echo "Git pull failed"; exit 1; }
     #npm install || { echo "NPM install failed"; exit 1; }
-#fi
+fi
 
 gulp migrate && gulp || { echo "Gulp tasks failed"; exit 1; }
-# Start anthrochan server
+# Start averi.foo server
 pm2 restart ecosystem.config.js --env $env
 
 echo "Server successfully reloaded in $env environment."
