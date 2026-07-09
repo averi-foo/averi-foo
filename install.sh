@@ -65,6 +65,10 @@ for arg in "$@"; do
     esac
 done
 
+echo "Ensuring permissions for the /var/www folder are correct..."
+echo "If prompted, please input your password."
+sudo mkdir /var/www
+sudo chown -R www-data:www-data /var/www
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
     read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
