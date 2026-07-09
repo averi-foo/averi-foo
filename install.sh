@@ -4,16 +4,16 @@ set -e
 
 # Averi.foo auto install script. Written by Lachlan (s5lachlan)
 # Can be used standalone or as part of the repo
-# To use standalone, curl onto a machine, and sudo ./install.sh
+# To use standalone, curl onto a machine, and ./install.sh
 
 # Recommended: 
-# sudo curl -o- https://raw.githubusercontent.com/averi-foo/averi-foo/main/install.sh | bash
+# curl -o- https://raw.githubusercontent.com/averi-foo/averi-foo/main/install.sh | bash
 
 # Alternatively: Git clone averi-foo into /var/www/ then run script
 # git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo
 # chmod -R www-data:www-data /var/www/averi-foo
 # cd /var/www/averi-foo
-# sudo ./install.sh
+# ./install.sh
 
 # To get access to the folder as an admin run
 # sudo usermod -a -G $USER www-data
@@ -37,8 +37,8 @@ POSTPASSWORDSECRET="changeme"
 
 AVFOO_FOLDER=/var/www/averi-foo
 
-if [[ $EUID -ne 0 ]]; then
-	echo -e "Sorry, you need to run this as root or sudo."
+if [[ $EUID -eq 0 ]]; then
+	echo -e "Please do not run this script as root or with sudo. Only some commands need sudo in the script, run normally and input your password when it comes to them."
 	exit 1
 fi
 
@@ -69,12 +69,12 @@ done
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
     read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
     AVFOO_FOLDER="/var/www/$(basename $(pwd))"
-    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && mv "$(pwd)" /var/www/ && chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER
+    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
 fi
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
     read -p "Git clone averi-foo into /var/www/ ? (y/n)" GIT_CLONE_AVERI_FOO
-	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo && chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && usermod -a -G $USER www-data
+	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
 
 fi
 
@@ -134,9 +134,22 @@ if [ "$CONFIG_SITE_CONFIG" == "y" ]; then
 editor $AVFOO_FOLDER/configs/template.js.example
 fi
 
-read -p "Configure nginx configuration now? (y/n): " CONFIG_NGINX_CONFIG
+read -p "Use a default nginx configuration? (y/n): " CONFIG_NGINX_DEFAULT_CONFIG
 
 if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
+	JSCHAN_DIRECTORY=$AVFOO_FOLDER
+	SITES_AVAILABLE_NAME=jschan
+	ROBOTS_TXT_DISALLOW="n"
+	GOOGLE_CAPTCHA="y"
+	H_CAPTCHA="y"
+	Y_CAPTCHA="y"
+	GEOIP="y"
+	SKIP_QUESTIONS="y"
+fi
+
+read -p "Configure nginx configuration now? (y/n): " CONFIG_NGINX_CONFIG
+
+if [ "$CONFIG_NGINX_CONFIG" == "y" ] && [ "$CONFIG_NGINX_DEFAULT_CONFIG" != "y" ]; then
 	JSCHAN_DIRECTORY=$AVFOO_FOLDER
 	read -p "Enter your clearnet domain name e.g. example.com (blank=no clearnet domain): " CLEARNET_DOMAIN
 	SITES_AVAILABLE_NAME=${CLEARNET_DOMAIN:-jschan} #not sure on a good default, used for sites-available config name
@@ -191,8 +204,8 @@ fi
 
 run_install_dependencies () {
 	echo "Installing dependencies: git nano coreutils curl wget redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot"
-	apt update -y 
-	apt install git nano curl wget coreutils redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
+	sudo apt update -y 
+	sudo apt install git nano curl wget coreutils redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot -y
 }
 
 run_setup_secrets () {
@@ -247,7 +260,7 @@ run_setup_secrets () {
 }
 
 run_install_mongodb () {
-	cd $HOME
+	cd /tmp
 	echo "Installing MongoDB 8.0"
 	# Curl the keyring
 	curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
@@ -259,14 +272,14 @@ run_install_mongodb () {
 	
 	cd $AVFOO_FOLDER
 	
-	apt-get update -y
-	apt-get install -y mongodb-org 
-	systemctl enable --now mongod
+	sudo apt-get update -y
+	sudo apt-get install -y mongodb-org 
+	sudo systemctl enable --now mongod
 
-	mkdir -p /var/lib/mongodb 
-	mkdir -p /var/log/mongodb
-	chown -R mongodb:mongodb /var/lib/mongodb 
-	chown -R mongodb:mongodb /var/log/mongodb
+	sudo mkdir -p /var/lib/mongodb 
+	sudo mkdir -p /var/log/mongodb
+	sudo chown -R mongodb:mongodb /var/lib/mongodb 
+	sudo chown -R mongodb:mongodb /var/log/mongodb
 	sleep 5
 	chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
 	service mongod restart 
@@ -278,21 +291,21 @@ run_install_mongodb () {
 	
 	# Do config
 	echo "storage:
-dbPath: /var/lib/mongodb
+	dbPath: /var/lib/mongodb
 systemLog:
-destination: file
-logAppend: true
-path: /var/log/mongodb/mongod.log
+	destination: file
+	logAppend: true
+	path: /var/log/mongodb/mongod.log
 net:
-port: $MONGODB_PORT
-bindIp: $HOST_IP
+	port: $MONGODB_PORT
+	bindIp: $HOST_IP
 processManagement:
-timeZoneInfo: /usr/share/zoneinfo
+	timeZoneInfo: /usr/share/zoneinfo
 security:
-authorization: \"enabled\"
+	authorization: \"enabled\"
 " > /etc/mongod.conf 
 
-	systemctl restart mongod 
+	sudo systemctl restart mongod 
 
 	#NOTE: to access to DB directly in future:
 	#mongosh "mongodb://$DATABASE:$MONGODB_PASSWORD@$HOST_IP:$MONGODB_PORT/$DATABASE_NAME"
@@ -300,31 +313,30 @@ authorization: \"enabled\"
 }
 
 run_setup_redis () {
-	sed -i -e 's/supervised no/supervised systemd/' -e '$!b' -e '/# supervised auto/!b' -e 's/# supervised auto/supervised auto/' -e '$!s/$/\nsupervised systemd/' /etc/redis/redis.conf
-	systemctl enable --now redis-server 
+	sudo sed -i -e 's/supervised no/supervised systemd/' -e '$!b' -e '/# supervised auto/!b' -e 's/# supervised auto/supervised auto/' -e '$!s/$/\nsupervised systemd/' /etc/redis/redis.conf
+	sudo systemctl enable --now redis-server 
 
 	echo "requirepass $REDIS_PASSWORD" | sudo tee -a /etc/redis/redis.conf
-	systemctl restart redis-server
+	sudo systemctl restart redis-server
 }
 
 
 run_install_node () {
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-	nvm install --lts
+	curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+	sudo apt-get install -y nodejs
+	# Confirm node installation
+	node -v
 }
 
 run_install_nginx () {
-	cd /root
+	cd /tmp
 	wget https://raw.githubusercontent.com/averi-foo/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh
-	chmod +x nginx-autoinstall.sh
+	sudo chmod +x nginx-autoinstall.sh
 	
-	HEADLESS=y OPTION=1 NGINX_VER=STABLE SUBFILTER=y RTMP=y ./nginx-autoinstall.sh
+	HEADLESS=y OPTION=1 NGINX_VER=STABLE SUBFILTER=y RTMP=y sudo ./nginx-autoinstall.sh
 	echo "You can safely ignore that error about restarting nginx ^"
 	rm nginx-autoinstall.sh
-	mkdir -p /etc/nginx/snippets
+	sudo mkdir -p /etc/nginx/snippets
 	cd $AVFOO_FOLDER
 	
 	# Setup nginx
