@@ -67,13 +67,20 @@ done
 
 echo "Ensuring permissions for the /var/www folder are correct..."
 echo "If prompted, please input your password."
-sudo mkdir -p /var/www || echo "Skipping mkdir..."
+sudo mkdir -p /var/www 
 sudo chown -R www-data:www-data /var/www
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
     read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
     AVFOO_FOLDER="/var/www/$(basename $(pwd))"
     [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+fi
+
+if [[ -f $AVFOO_FOLDER/server.js ]]; then
+	cd $AVFOO_FOLDER
+	sudo chown -R www-data:www-data /var/www/averi-foo
+	sudo usermod -a -G $USER www-data
+	git config --global --add safe.directory $AVFOO_FOLDER
 fi
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
