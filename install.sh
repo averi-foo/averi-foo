@@ -297,7 +297,7 @@ run_install_mongodb () {
 	sudo chown -R mongodb:mongodb /var/lib/mongodb 
 	sudo chown -R mongodb:mongodb /var/log/mongodb
 	sleep 5
-	chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
+	sudo chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
 	service mongod restart 
 	echo "Waiting until mongod is alive..."
 	sleep 5
