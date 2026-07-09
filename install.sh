@@ -280,7 +280,7 @@ run_install_mongodb () {
 	echo "Installing MongoDB 8.0"
 	# Curl the keyring
 	curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
-	gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+	sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
 	--dearmor 
 	
 	# Enable apt repo
