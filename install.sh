@@ -307,18 +307,18 @@ run_install_mongodb () {
 	
 	# Do config
 	echo "storage:
-	dbPath: /var/lib/mongodb
+  dbPath: /var/lib/mongodb
 systemLog:
-	destination: file
-	logAppend: true
-	path: /var/log/mongodb/mongod.log
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
 net:
-	port: $MONGODB_PORT
-	bindIp: $HOST_IP
+  port: $MONGODB_PORT
+  bindIp: $HOST_IP
 processManagement:
-	timeZoneInfo: /usr/share/zoneinfo
+  timeZoneInfo: /usr/share/zoneinfo
 security:
-	authorization: \"enabled\"
+  authorization: \"enabled\"
 " | sudo tee /etc/mongod.conf > /dev/null
 
 	sudo systemctl restart mongod 
