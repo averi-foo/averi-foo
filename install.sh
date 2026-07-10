@@ -127,7 +127,7 @@ run_install_mongodb () {
 	sudo chown -R mongodb:mongodb /var/log/mongodb
 	
 	echo "Waiting ample time for /tmp/mongodb-$MONGODB_PORT.sock to exist... if you are stuck here, you may need to CTRL+C"
-	while [ ! -f /tmp/mongodb-$MONGODB_PORT.sock ]; do 
+	while [ ! -S /tmp/mongodb-$MONGODB_PORT.sock ]; do 
 		sleep 1
 		printf "."
 	done
