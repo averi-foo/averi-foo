@@ -183,7 +183,7 @@ run_install_nginx () {
 	cd $AVFOO_FOLDER
 	
 	# Setup nginx
-	JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" \
+	sudo JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" \
 	CLEARNET_DOMAIN="$CLEARNET_DOMAIN" \
 	ONION_DOMAIN="$ONION_DOMAIN" \
 	LOKI_DOMAIN="$LOKI_DOMAIN" \
@@ -199,7 +199,7 @@ run_install_nginx () {
 	SKIP_QUESTIONS="$SKIP_QUESTIONS" \
 	HOST_IP="$HOST_IP" \
 	HOST_PORT="$HOST_PORT" \
-	bash $AVFOO_FOLDER/configs/nginx/nginx.sh
+	$AVFOO_FOLDER/configs/nginx/nginx.sh
 }
 
 run_setup_npm () {
