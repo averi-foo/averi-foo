@@ -221,19 +221,19 @@ run_install_nginx () {
 
 run_setup_npm () {
 	cd $AVFOO_FOLDER
-	npm install 
-	npm run-script setup 
-	gulp reset
+	sudo -u www-data npm install 
+	sudo -u www-data npm run-script setup 
+	sudo -u www-data gulp reset
 	sudo env PATH="$PATH" pm2 startup systemd -u "$USER" --hp "$HOME"
 }
 
 run_setup_npm_2 () {
 	cd $AVFOO_FOLDER
-	npm run-script start 
-	gulp 
-	pm2 save 
-	./reload.sh 
-	pm2 update 
+	sudo -u www-data npm run-script start 
+	sudo -u www-data gulp 
+	sudo -u www-data pm2 save 
+	sudo -u www-data ./reload.sh 
+	sudo -u www-data pm2 update 
 }
 
 # Check arguments
