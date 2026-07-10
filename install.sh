@@ -247,7 +247,9 @@ done
 echo "Ensuring permissions for the /var/www folder are correct..."
 echo "If prompted, please input your password."
 sudo mkdir -p /var/www 
+sudo usermod -a -G $USER www-data
 sudo chown -R www-data:www-data /var/www
+sudo chmod -R g+rwX /var/www
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
     read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
