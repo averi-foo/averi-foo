@@ -212,22 +212,21 @@ run_setup_npm () {
 	sudo chmod -R 755 /usr/local/www-data/lib/node_modules
 	sudo chmod -R 755 /usr/local/www-data/bin
 
-	sudo echo PATH=$PATH:/usr/local/www-data/bin
 	
 	sudo -u www-data npm config set prefix '/usr/local/www-data/'
 	sudo -u www-data npm install 
 	sudo -u www-data npm install -g pm2 gulp
-	sudo -u www-data gulp generate-favicon && gulp default && gulp reset
-	sudo env PATH="$PATH" pm2 startup systemd -u "www-data" --hp "/usr/local/www-data/"
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" gulp generate-favicon && gulp default && gulp reset
+	sudo env PATH="$PATH:/usr/local/www-data/bin" pm2 startup systemd -u "www-data" --hp "/usr/local/www-data/"
 }
 
 run_setup_npm_2 () {
 	cd $AVFOO_FOLDER
-	sudo -u www-data pm2 start ecosystem.config.js --env production
-	sudo -u www-data gulp 
-	sudo -u www-data pm2 save 
-	sudo -u www-data ./reload.sh 
-	sudo -u www-data pm2 update 
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 start ecosystem.config.js --env production
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" gulp 
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 save 
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" ./reload.sh 
+	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 update 
 }
 
 # Check arguments
