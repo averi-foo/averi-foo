@@ -185,7 +185,9 @@ run_install_node () {
 	sudo apt-get install -y nodejs
 	# Confirm node installation
 	node -v
-	sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
+	# Install pnpm
+	sudo npm install -g pnpm
+	sudo chown -R www-data $(npm config get prefix)/lib/node_modules
 }
 
 run_install_nginx () {
@@ -200,36 +202,20 @@ run_install_nginx () {
 	cd $AVFOO_FOLDER
 	
 	# Setup nginx
-	sudo JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" \
-	CLEARNET_DOMAIN="$CLEARNET_DOMAIN" \
-	ONION_DOMAIN="$ONION_DOMAIN" \
-	LOKI_DOMAIN="$LOKI_DOMAIN" \
-	ADD_WWW_SUBDOMAIN="$ADD_WWW_SUBDOMAIN" \
-	CERTBOT="$CERTBOT" \
-	SELFSIGNED="$SELFSIGNED" \
-	NOHTTPS="$NOHTTPS" \
-	ROBOTS_TXT_DISALLOW="$ROBOTS_TXT_DISALLOW" \
-	GOOGLE_CAPTCHA="$GOOGLE_CAPTCHA" \
-	H_CAPTCHA="$H_CAPTCHA" \
-	Y_CAPTCHA="$Y_CAPTCHA" \
-	GEOIP="$GEOIP" \
-	SKIP_QUESTIONS="$SKIP_QUESTIONS" \
-	HOST_IP="$HOST_IP" \
-	HOST_PORT="$HOST_PORT" \
-	$AVFOO_FOLDER/configs/nginx/nginx.sh
+	sudo JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" CLEARNET_DOMAIN="$CLEARNET_DOMAIN" ONION_DOMAIN="$ONION_DOMAIN" LOKI_DOMAIN="$LOKI_DOMAIN" ADD_WWW_SUBDOMAIN="$ADD_WWW_SUBDOMAIN" CERTBOT="$CERTBOT" SELFSIGNED="$SELFSIGNED" NOHTTPS="$NOHTTPS" ROBOTS_TXT_DISALLOW="$ROBOTS_TXT_DISALLOW" GOOGLE_CAPTCHA="$GOOGLE_CAPTCHA" H_CAPTCHA="$H_CAPTCHA" Y_CAPTCHA="$Y_CAPTCHA" GEOIP="$GEOIP" SKIP_QUESTIONS="$SKIP_QUESTIONS" HOST_IP="$HOST_IP" HOST_PORT="$HOST_PORT" $AVFOO_FOLDER/configs/nginx/nginx.sh
 }
 
 run_setup_npm () {
 	cd $AVFOO_FOLDER
-	sudo -u www-data npm install 
-	sudo -u www-data npm run-script setup 
-	sudo -u www-data gulp reset
+	sudo -u www-data pnpm install 
+	sudo pnpm i --location=global pm2 gulp
+	sudo -u www-data gulp generate-favicon && gulp default && gulp reset
 	sudo env PATH="$PATH" pm2 startup systemd -u "$USER" --hp "$HOME"
 }
 
 run_setup_npm_2 () {
 	cd $AVFOO_FOLDER
-	sudo -u www-data npm run-script start 
+	sudo -u www-data pm2 start ecosystem.config.js --env production
 	sudo -u www-data gulp 
 	sudo -u www-data pm2 save 
 	sudo -u www-data ./reload.sh 
