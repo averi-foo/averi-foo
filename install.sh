@@ -35,6 +35,8 @@ TRIPCODESECRET="changeme"
 IPHASHSECRET="changeme"
 POSTPASSWORDSECRET="changeme"
 
+REPO_LOCATION="-b feature-install-script https://github.com/averi-foo/averi-foo"
+
 AVFOO_FOLDER=/var/www/averi-foo
 
 if [[ $EUID -eq 0 ]]; then
@@ -123,14 +125,24 @@ run_install_mongodb () {
 	sudo mkdir -p /var/log/mongodb
 	sudo chown -R mongodb:mongodb /var/lib/mongodb 
 	sudo chown -R mongodb:mongodb /var/log/mongodb
-	sleep 5
+	
+	echo "Waiting ample time for /tmp/mongodb-$MONGODB_PORT.sock to exist... if you are stuck here, you may need to CTRL+C"
+	while [ ! -f /tmp/mongodb-$MONGODB_PORT.sock ]; do 
+		sleep 1
+		printf "."
+	done
+	
 	sudo chown mongodb:mongodb /tmp/mongodb-$MONGODB_PORT.sock 
 	sudo service mongod restart 
-	echo "Waiting until mongod is alive..."
-	sleep 5
+	
+	echo "Waiting until mongod is alive... if you are stuck here, you may need to CTRL+C"
+	while ! systemctl is-active --quiet mongod.service; do
+		sleep 1
+		printf "."
+	done
 
 	# Create database
-	mongosh admin --eval "db.getSiblingDB('$DATABASE_NAME').createUser({user: '$DATABASE_USERNAME', pwd: '$MONGODB_PASSWORD', roles: [{role:'readWrite', db:'$DATABASE_NAME'}]})"
+	mongosh admin --eval "db.getSiblingDB('$DATABASE_NAME').createUser({user: '$DATABASE_USERNAME', pwd: '$MONGODB_PASSWORD', roles: [{role:'readWrite', db:'$DATABASE_NAME'}]})" || read -p "MongoSH Database creation step failed. If you're re-running the install script, then this is expected, but otherwise, this appears to have failed. If you wish to continue, press enter, else press Ctrl+C"
 	
 	# Do config
 	echo "storage:
@@ -169,6 +181,7 @@ run_install_node () {
 	sudo apt-get install -y nodejs
 	# Confirm node installation
 	node -v
+	sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
 }
 
 run_install_nginx () {
@@ -207,9 +220,7 @@ run_setup_npm () {
 	npm install 
 	npm run-script setup 
 	gulp reset
-	pm2 startup
-	echo "Run the command above and then run sudo ./install.sh --stage=run_setup_npm_2 to continue"
-	exit
+	sudo env PATH="$PATH" pm2 startup systemd -u "$USER" --hp "$HOME"
 }
 
 run_setup_npm_2 () {
@@ -266,7 +277,7 @@ fi
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
     read -p "Git clone averi-foo into /var/www/ ? (y/n)" GIT_CLONE_AVERI_FOO
-	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone $REPO_LOCATION /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
 
 fi
 
