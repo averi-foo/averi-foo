@@ -137,12 +137,16 @@ run_install_mongodb () {
 	
 	echo "Waiting until mongod is alive... if you are stuck here, you may need to CTRL+C"
 	while ! systemctl is-active --quiet mongod.service; do
-		sleep 1
+		sleep 2
 		printf "."
 	done
-
-	# Create database
-	mongosh admin --eval "db.getSiblingDB('$DATABASE_NAME').createUser({user: '$DATABASE_USERNAME', pwd: '$MONGODB_PASSWORD', roles: [{role:'readWrite', db:'$DATABASE_NAME'}]})" || read -p "MongoSH Database creation step failed. If you're re-running the install script, then this is expected, but otherwise, this appears to have failed. If you wish to continue, press enter, else press Ctrl+C"
+	
+	while sleep 1; do
+		# Create database
+		mongosh admin --eval "db.getSiblingDB('$DATABASE_NAME').createUser({user: '$DATABASE_USERNAME', pwd: '$MONGODB_PASSWORD', roles: [{role:'readWrite', db:'$DATABASE_NAME'}]})" && break || read -p "MongoSH Database creation step failed. If it failed to connect, then retry by pressing enter. If you're re-running the install script and it refused to create the DB, then this is expected, but otherwise, this appears to have failed. If you wish to retry, press enter, else type continue to continue, or press Ctrl+C to exit script." CONTINUE
+		[[ "$CONTINUE" == "continue" ]] && break
+	done
+	
 	
 	# Do config
 	echo "storage:
