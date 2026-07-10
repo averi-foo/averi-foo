@@ -42,180 +42,7 @@ if [[ $EUID -eq 0 ]]; then
 	exit 1
 fi
 
-# Check arguments
-
-for arg in "$@"; do
-    case $arg in
-        --stage=*)
-            "${arg#*=}"
-            exit
-            ;;
-		--help)
-            echo "Usage: ./install.sh <flags>"
-            echo "Flags: "
-            echo "--help: Displays help."
-            echo "--stage: Run specific function, e.g --stage=run_install_dependencies"
-            exit
-            ;;
-        *)
-            echo "Unknown argument: $arg"
-            echo "For usage, run ./install.sh --help"
-            exit 1
-            ;;
-    esac
-done
-
-echo "Ensuring permissions for the /var/www folder are correct..."
-echo "If prompted, please input your password."
-sudo mkdir -p /var/www 
-sudo chown -R www-data:www-data /var/www
-
-if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
-    read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
-    AVFOO_FOLDER="/var/www/$(basename $(pwd))"
-    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
-fi
-
-if [[ -f $AVFOO_FOLDER/server.js ]]; then
-	cd $AVFOO_FOLDER
-	sudo chown -R www-data:www-data /var/www/averi-foo
-	sudo usermod -a -G $USER www-data
-	git config --global --add safe.directory $AVFOO_FOLDER
-fi
-
-if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
-    read -p "Git clone averi-foo into /var/www/ ? (y/n)" GIT_CLONE_AVERI_FOO
-	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
-
-fi
-
-if [[ ! -f "server.js" ]]; then
-	echo "Server.js not detected, are you sure you are in the averi-foo folder?"
-	exit 1
-fi
-
-read -p "Configure secrets instead of using defaults? (y/n): " CONFIG_SECRETS_BOOL
-
-if [ "$CONFIG_SECRETS_BOOL" == "y" ]; then
-	read -p "Enter your host IP (usually 127.0.0.1. blank/default: $HOST_IP)" NEW_HOST_IP
-	read -p "Enter your backend host port (usually 7000. blank/default: $HOST_PORT)" NEW_HOST_PORT
-	
-	read -p "Enter your desired database name (blank/default: $DATABASE_NAME)" NEW_DATABASE_NAME
-	read -p "Enter your desired database user name (blank/default: $DATABASE_USERNAME)" NEW_DATABASE_USERNAME
-	
-	read -p "Enter your desired MongoDB Port (blank/default: $MONGODB_PORT)" NEW_MONGODB_PORT
-	read -p "Enter your desired Redis Port (blank/default: $MONGODB_PORT)" NEW_REDIS_PORT
-	read -p "Enter your desired MongoDB Password (blank/default: $MONGODB_PASSWORD)" NEW_MONGODB_PASSWORD
-	read -p "Enter your desired Redis Password (blank/default: $REDIS_PASSWORD)" NEW_REDIS_PASSWORD
-
-	read -p "Enter your cookie secret (blank/default: $COOKIESECRET)" COOKIESECRET
-	read -p "Enter your tripcode secret (blank/default: $TRIPCODESECRET)" TRIPCODESECRET
-	read -p "Enter your IP Hash secret (blank/default: $IPHASHSECRET)" IPHASHSECRET
-	read -p "Enter your post password secret (blank/default: $POSTPASSWORDSECRET)" POSTPASSWORDSECRET
-		
-	HOST_IP=${NEW_HOST_IP:-$HOST_IP}
-	HOST_PORT=${NEW_HOST_PORT:-$HOST_PORT}
-	DATABASE_NAME=${NEW_DATABASE_NAME:-$DATABASE_NAME}
-	DATABASE_USERNAME=${NEW_DATABASE_USERNAME:-$DATABASE_USERNAME}
-	MONGODB_PORT=${NEW_MONGODB_PORT:-$MONGODB_PORT}
-	REDIS_PORT=${NEW_REDIS_PORT:-$REDIS_PORT}
-	MONGODB_PASSWORD=${NEW_MONGODB_PASSWORD:-$MONGODB_PASSWORD}
-	REDIS_PASSWORD=${NEW_REDIS_PASSWORD:-$REDIS_PASSWORD}
-	
-	read -p "Is this correct?
-	Host IP Address: $HOST_IP
-	Host Backend Port Address: $HOST_PORT
-	Database Name: $DATABASE_NAME
-	Database Username: $DATABASE_USERNAME
-	Redis Port: $REDIS_PORT
-	MongoDB Port: $MONGODB_PORT
-	MongoDB Password: $MONGODB_PASSWORD
-	Redis Password: $REDIS_PASSWORD
-	Cookie Secret: $COOKIESECRET
-	Tripcode Secret: $TRIPCODESECRET
-	IP Hash Secret: $IPHASHSECRET
-	Post Password Secret: $POSTPASSWORDSECRET
-	(y/n): " CORRECT
-	[[ "$CORRECT" == "n" ]] && echo "Exiting..." && exit;
-fi
-
-read -p "Configure website template? (y/n): " CONFIG_SITE_CONFIG
-
-if [ "$CONFIG_SITE_CONFIG" == "y" ]; then
-editor $AVFOO_FOLDER/configs/template.js.example
-fi
-
-read -p "Use a default nginx configuration? (y/n): " CONFIG_NGINX_DEFAULT_CONFIG
-
-if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
-	JSCHAN_DIRECTORY=$AVFOO_FOLDER
-	SITES_AVAILABLE_NAME=jschan
-	ROBOTS_TXT_DISALLOW="n"
-	GOOGLE_CAPTCHA="y"
-	H_CAPTCHA="y"
-	Y_CAPTCHA="y"
-	GEOIP="y"
-	SKIP_QUESTIONS="y"
-fi
-
-if [ "$CONFIG_NGINX_DEFAULT_CONFIG" != "y" ]; then
-
-read -p "Configure nginx configuration now? (y/n): " CONFIG_NGINX_CONFIG
-
-fi
-
-if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
-	JSCHAN_DIRECTORY=$AVFOO_FOLDER
-	read -p "Enter your clearnet domain name e.g. example.com (blank=no clearnet domain): " CLEARNET_DOMAIN
-	SITES_AVAILABLE_NAME=${CLEARNET_DOMAIN:-jschan} #not sure on a good default, used for sites-available config name
-	read -p "Enter tor .onion address (blank=no .onion address): " ONION_DOMAIN
-	read -p "Enter lokinet .loki address (blank=no .loki address): " LOKI_DOMAIN
-	read -p "Would you like to add a www. subdomain? (y/n): " ADD_WWW_SUBDOMAIN
-	
-	if [ "$CLEARNET_DOMAIN" != "" ]; then
-		read -p "Run certbot and automatically configure a certificate for https on clearnet? (y/n): " CERTBOT
-		if [ "$CERTBOT" == "n" ]; then
-			read -p "Generate a self-signed certificate instead? (y/n): " SELFSIGNED
-		fi
-		if [ "$SELFSIGNED" == "n" ]; then
-			read -p "Warning: no https certificate chosen for clearnet. Continue without https? (y/n): " NOHTTPS
-			[[ "$NOHTTPS" == "n" ]] && echo "Exiting..." && exit;
-		fi
-	fi
-	
-	read -p "Should robots.txt disallow compliant crawlers? (y/n): " ROBOTS_TXT_DISALLOW
-	read -p "Allow google captcha in content-security policy? (y/n): " GOOGLE_CAPTCHA
-	read -p "Allow Hcaptcha in content-security policy? (y/n): " H_CAPTCHA
-	read -p "Allow Yandex SmartCaptcha in content-security policy? (y/n): " Y_CAPTCHA
-	read -p "Download and setup geoip for post flags? (y/n): " GEOIP
-
-	#looks good?
-	read -p "Is this correct?
-	jschan directory: $JSCHAN_DIRECTORY
-	clearnet domain: $CLEARNET_DOMAIN
-	.onion address: $ONION_DOMAIN
-	.loki address: $LOKI_DOMAIN
-	www subdomains: $ADD_WWW_SUBDOMAIN
-	certbot https cert: $CERTBOT
-	self-signed https cert: $SELFSIGNED
-	no https cert: $NOHTTPS
-	robots.txt disallow all: $ROBOTS_TXT_DISALLOW
-	google captcha: $GOOGLE_CAPTCHA
-	hcaptcha: $H_CAPTCHA
-	yandex captcha: $Y_CAPTCHA
-	geoip: $GEOIP
-	(y/n): " CORRECT
-	[[ "$CORRECT" == "n" ]] && echo "Exiting..." && exit;
-	# Skip questions in the setup nginx script
-	
-	SKIP_QUESTIONS="y"
-fi
-
-read -p "Proceed with installation? (y/n): " PROCEED_INSTALLATION
-
-if [ "$PROCEED_INSTALLATION" == "n" ]; then
-	exit 1
-fi
+# Steps
 
 run_install_dependencies () {
 	echo "Installing dependencies: git nano coreutils curl wget redis-server libgeoip-dev gnupg ffmpeg imagemagick graphicsmagick fontconfig fonts-dejavu certbot"
@@ -394,7 +221,180 @@ run_setup_npm_2 () {
 	pm2 update 
 }
 
+# Check arguments
 
+for arg in "$@"; do
+    case $arg in
+        --stage=*)
+            "${arg#*=}"
+            exit
+            ;;
+		--help)
+            echo "Usage: ./install.sh <flags>"
+            echo "Flags: "
+            echo "--help: Displays help."
+            echo "--stage: Run specific function, e.g --stage=run_install_dependencies"
+            exit
+            ;;
+        *)
+            echo "Unknown argument: $arg"
+            echo "For usage, run ./install.sh --help"
+            exit 1
+            ;;
+    esac
+done
+
+echo "Ensuring permissions for the /var/www folder are correct..."
+echo "If prompted, please input your password."
+sudo mkdir -p /var/www 
+sudo chown -R www-data:www-data /var/www
+
+if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
+    read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
+    AVFOO_FOLDER="/var/www/$(basename $(pwd))"
+    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+fi
+
+if [[ -f $AVFOO_FOLDER/server.js ]]; then
+	cd $AVFOO_FOLDER
+	sudo chown -R www-data:www-data /var/www/averi-foo
+	sudo usermod -a -G $USER www-data
+	git config --global --add safe.directory $AVFOO_FOLDER
+fi
+
+if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
+    read -p "Git clone averi-foo into /var/www/ ? (y/n)" GIT_CLONE_AVERI_FOO
+	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+
+fi
+
+if [[ ! -f "server.js" ]]; then
+	echo "Server.js not detected, are you sure you are in the averi-foo folder?"
+	exit 1
+fi
+
+read -p "Configure secrets instead of using defaults? (y/n): " CONFIG_SECRETS_BOOL
+
+if [ "$CONFIG_SECRETS_BOOL" == "y" ]; then
+	read -p "Enter your host IP (usually 127.0.0.1. blank/default: $HOST_IP)" NEW_HOST_IP
+	read -p "Enter your backend host port (usually 7000. blank/default: $HOST_PORT)" NEW_HOST_PORT
+	
+	read -p "Enter your desired database name (blank/default: $DATABASE_NAME)" NEW_DATABASE_NAME
+	read -p "Enter your desired database user name (blank/default: $DATABASE_USERNAME)" NEW_DATABASE_USERNAME
+	
+	read -p "Enter your desired MongoDB Port (blank/default: $MONGODB_PORT)" NEW_MONGODB_PORT
+	read -p "Enter your desired Redis Port (blank/default: $MONGODB_PORT)" NEW_REDIS_PORT
+	read -p "Enter your desired MongoDB Password (blank/default: $MONGODB_PASSWORD)" NEW_MONGODB_PASSWORD
+	read -p "Enter your desired Redis Password (blank/default: $REDIS_PASSWORD)" NEW_REDIS_PASSWORD
+
+	read -p "Enter your cookie secret (blank/default: $COOKIESECRET)" COOKIESECRET
+	read -p "Enter your tripcode secret (blank/default: $TRIPCODESECRET)" TRIPCODESECRET
+	read -p "Enter your IP Hash secret (blank/default: $IPHASHSECRET)" IPHASHSECRET
+	read -p "Enter your post password secret (blank/default: $POSTPASSWORDSECRET)" POSTPASSWORDSECRET
+		
+	HOST_IP=${NEW_HOST_IP:-$HOST_IP}
+	HOST_PORT=${NEW_HOST_PORT:-$HOST_PORT}
+	DATABASE_NAME=${NEW_DATABASE_NAME:-$DATABASE_NAME}
+	DATABASE_USERNAME=${NEW_DATABASE_USERNAME:-$DATABASE_USERNAME}
+	MONGODB_PORT=${NEW_MONGODB_PORT:-$MONGODB_PORT}
+	REDIS_PORT=${NEW_REDIS_PORT:-$REDIS_PORT}
+	MONGODB_PASSWORD=${NEW_MONGODB_PASSWORD:-$MONGODB_PASSWORD}
+	REDIS_PASSWORD=${NEW_REDIS_PASSWORD:-$REDIS_PASSWORD}
+	
+	read -p "Is this correct?
+	Host IP Address: $HOST_IP
+	Host Backend Port Address: $HOST_PORT
+	Database Name: $DATABASE_NAME
+	Database Username: $DATABASE_USERNAME
+	Redis Port: $REDIS_PORT
+	MongoDB Port: $MONGODB_PORT
+	MongoDB Password: $MONGODB_PASSWORD
+	Redis Password: $REDIS_PASSWORD
+	Cookie Secret: $COOKIESECRET
+	Tripcode Secret: $TRIPCODESECRET
+	IP Hash Secret: $IPHASHSECRET
+	Post Password Secret: $POSTPASSWORDSECRET
+	(y/n): " CORRECT
+	[[ "$CORRECT" == "n" ]] && echo "Exiting..." && exit;
+fi
+
+read -p "Configure website template? (y/n): " CONFIG_SITE_CONFIG
+
+if [ "$CONFIG_SITE_CONFIG" == "y" ]; then
+editor $AVFOO_FOLDER/configs/template.js.example
+fi
+
+read -p "Use a default nginx configuration? (y/n): " CONFIG_NGINX_DEFAULT_CONFIG
+
+if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
+	JSCHAN_DIRECTORY=$AVFOO_FOLDER
+	SITES_AVAILABLE_NAME=jschan
+	ROBOTS_TXT_DISALLOW="n"
+	GOOGLE_CAPTCHA="y"
+	H_CAPTCHA="y"
+	Y_CAPTCHA="y"
+	GEOIP="y"
+	SKIP_QUESTIONS="y"
+fi
+
+if [ "$CONFIG_NGINX_DEFAULT_CONFIG" != "y" ]; then
+
+read -p "Configure nginx configuration now? (y/n): " CONFIG_NGINX_CONFIG
+
+fi
+
+if [ "$CONFIG_NGINX_CONFIG" == "y" ]; then
+	JSCHAN_DIRECTORY=$AVFOO_FOLDER
+	read -p "Enter your clearnet domain name e.g. example.com (blank=no clearnet domain): " CLEARNET_DOMAIN
+	SITES_AVAILABLE_NAME=${CLEARNET_DOMAIN:-jschan} #not sure on a good default, used for sites-available config name
+	read -p "Enter tor .onion address (blank=no .onion address): " ONION_DOMAIN
+	read -p "Enter lokinet .loki address (blank=no .loki address): " LOKI_DOMAIN
+	read -p "Would you like to add a www. subdomain? (y/n): " ADD_WWW_SUBDOMAIN
+	
+	if [ "$CLEARNET_DOMAIN" != "" ]; then
+		read -p "Run certbot and automatically configure a certificate for https on clearnet? (y/n): " CERTBOT
+		if [ "$CERTBOT" == "n" ]; then
+			read -p "Generate a self-signed certificate instead? (y/n): " SELFSIGNED
+		fi
+		if [ "$SELFSIGNED" == "n" ]; then
+			read -p "Warning: no https certificate chosen for clearnet. Continue without https? (y/n): " NOHTTPS
+			[[ "$NOHTTPS" == "n" ]] && echo "Exiting..." && exit;
+		fi
+	fi
+	
+	read -p "Should robots.txt disallow compliant crawlers? (y/n): " ROBOTS_TXT_DISALLOW
+	read -p "Allow google captcha in content-security policy? (y/n): " GOOGLE_CAPTCHA
+	read -p "Allow Hcaptcha in content-security policy? (y/n): " H_CAPTCHA
+	read -p "Allow Yandex SmartCaptcha in content-security policy? (y/n): " Y_CAPTCHA
+	read -p "Download and setup geoip for post flags? (y/n): " GEOIP
+
+	#looks good?
+	read -p "Is this correct?
+	jschan directory: $JSCHAN_DIRECTORY
+	clearnet domain: $CLEARNET_DOMAIN
+	.onion address: $ONION_DOMAIN
+	.loki address: $LOKI_DOMAIN
+	www subdomains: $ADD_WWW_SUBDOMAIN
+	certbot https cert: $CERTBOT
+	self-signed https cert: $SELFSIGNED
+	no https cert: $NOHTTPS
+	robots.txt disallow all: $ROBOTS_TXT_DISALLOW
+	google captcha: $GOOGLE_CAPTCHA
+	hcaptcha: $H_CAPTCHA
+	yandex captcha: $Y_CAPTCHA
+	geoip: $GEOIP
+	(y/n): " CORRECT
+	[[ "$CORRECT" == "n" ]] && echo "Exiting..." && exit;
+	# Skip questions in the setup nginx script
+	
+	SKIP_QUESTIONS="y"
+fi
+
+read -p "Proceed with installation? (y/n): " PROCEED_INSTALLATION
+
+if [ "$PROCEED_INSTALLATION" == "n" ]; then
+	exit 1
+fi
 
 echo "Installing..."
 
