@@ -185,8 +185,6 @@ run_install_node () {
 	sudo apt-get install -y nodejs
 	# Confirm node installation
 	node -v
-	# Install pnpm
-	sudo npm install -g pnpm
 	sudo chown -R www-data $(npm config get prefix)/lib/node_modules
 }
 
@@ -202,15 +200,25 @@ run_install_nginx () {
 	cd $AVFOO_FOLDER
 	
 	# Setup nginx
-	sudo JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" CLEARNET_DOMAIN="$CLEARNET_DOMAIN" ONION_DOMAIN="$ONION_DOMAIN" LOKI_DOMAIN="$LOKI_DOMAIN" ADD_WWW_SUBDOMAIN="$ADD_WWW_SUBDOMAIN" CERTBOT="$CERTBOT" SELFSIGNED="$SELFSIGNED" NOHTTPS="$NOHTTPS" ROBOTS_TXT_DISALLOW="$ROBOTS_TXT_DISALLOW" GOOGLE_CAPTCHA="$GOOGLE_CAPTCHA" H_CAPTCHA="$H_CAPTCHA" Y_CAPTCHA="$Y_CAPTCHA" GEOIP="$GEOIP" SKIP_QUESTIONS="$SKIP_QUESTIONS" HOST_IP="$HOST_IP" HOST_PORT="$HOST_PORT" $AVFOO_FOLDER/configs/nginx/nginx.sh
+	sudo env JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" CLEARNET_DOMAIN="$CLEARNET_DOMAIN" ONION_DOMAIN="$ONION_DOMAIN" LOKI_DOMAIN="$LOKI_DOMAIN" ADD_WWW_SUBDOMAIN="$ADD_WWW_SUBDOMAIN" CERTBOT="$CERTBOT" SELFSIGNED="$SELFSIGNED" NOHTTPS="$NOHTTPS" ROBOTS_TXT_DISALLOW="$ROBOTS_TXT_DISALLOW" GOOGLE_CAPTCHA="$GOOGLE_CAPTCHA" H_CAPTCHA="$H_CAPTCHA" Y_CAPTCHA="$Y_CAPTCHA" GEOIP="$GEOIP" SKIP_QUESTIONS="$SKIP_QUESTIONS" HOST_IP="$HOST_IP" HOST_PORT="$HOST_PORT" $AVFOO_FOLDER/configs/nginx/nginx.sh
 }
 
 run_setup_npm () {
 	cd $AVFOO_FOLDER
-	sudo -u www-data pnpm install 
-	sudo pnpm i --location=global pm2 gulp
+	sudo mkdir -p /usr/local/www-data/lib/node_modules
+	sudo mkdir -p /usr/local/www-data/bin
+	sudo chown -R www-data:www-data /usr/local/www-data/lib/node_modules
+	sudo chown -R www-data:www-data /usr/local/www-data/bin
+	sudo chmod -R 755 /usr/local/www-data/lib/node_modules
+	sudo chmod -R 755 /usr/local/www-data/bin
+
+	sudo echo PATH=$PATH:/usr/local/www-data/bin
+	
+	sudo -u www-data npm config set prefix '/usr/local/www-data/'
+	sudo -u www-data npm install 
+	sudo -u www-data npm install -g pm2 gulp
 	sudo -u www-data gulp generate-favicon && gulp default && gulp reset
-	sudo env PATH="$PATH" pm2 startup systemd -u "$USER" --hp "$HOME"
+	sudo env PATH="$PATH" pm2 startup systemd -u "www-data" --hp "/usr/local/www-data/"
 }
 
 run_setup_npm_2 () {
