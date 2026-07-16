@@ -35,7 +35,7 @@ TRIPCODESECRET="changeme"
 IPHASHSECRET="changeme"
 POSTPASSWORDSECRET="changeme"
 
-REPO_LOCATION="-b feature-install-script https://github.com/averi-foo/averi-foo"
+REPO_LOCATION="https://github.com/averi-foo/averi-foo"
 
 AVFOO_FOLDER=/var/www/averi-foo
 
@@ -216,7 +216,7 @@ run_setup_npm () {
 	npm install 
 	npm run-script setup
 	gulp generate-favicon && gulp default && gulp reset
-	pm2 startup systemd -u "$USER" --hp "$HOME"
+	sudo env PATH="$PATH" pm2 startup systemd -u "$USER" --hp "$HOME"
 }
 
 run_setup_npm_2 () {
