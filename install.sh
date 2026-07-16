@@ -100,7 +100,7 @@ run_setup_secrets () {
 
 };" | sudo tee $AVFOO_FOLDER/configs/secrets.js > /dev/null
 	sudo editor $AVFOO_FOLDER/configs/secrets.js
-	sudo chown -R www-data:www-data $AVFOO_FOLDER
+	sudo chown -R $USER:www-data $AVFOO_FOLDER
 
 }
 
@@ -181,11 +181,14 @@ run_setup_redis () {
 
 
 run_install_node () {
-	curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
-	sudo apt-get install -y nodejs
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+	
+	nvm install --lts
 	# Confirm node installation
 	node -v
-	sudo chown -R www-data $(npm config get prefix)/lib/node_modules
 }
 
 run_install_nginx () {
@@ -200,33 +203,29 @@ run_install_nginx () {
 	cd $AVFOO_FOLDER
 	
 	# Setup nginx
-	sudo env JSCHAN_DIRECTORY="$JSCHAN_DIRECTORY" CLEARNET_DOMAIN="$CLEARNET_DOMAIN" ONION_DOMAIN="$ONION_DOMAIN" LOKI_DOMAIN="$LOKI_DOMAIN" ADD_WWW_SUBDOMAIN="$ADD_WWW_SUBDOMAIN" CERTBOT="$CERTBOT" SELFSIGNED="$SELFSIGNED" NOHTTPS="$NOHTTPS" ROBOTS_TXT_DISALLOW="$ROBOTS_TXT_DISALLOW" GOOGLE_CAPTCHA="$GOOGLE_CAPTCHA" H_CAPTCHA="$H_CAPTCHA" Y_CAPTCHA="$Y_CAPTCHA" GEOIP="$GEOIP" SKIP_QUESTIONS="$SKIP_QUESTIONS" HOST_IP="$HOST_IP" HOST_PORT="$HOST_PORT" $AVFOO_FOLDER/configs/nginx/nginx.sh
+	
+	export JSCHAN_DIRECTORY CLEARNET_DOMAIN ONION_DOMAIN LOKI_DOMAIN ADD_WWW_SUBDOMAIN CERTBOT SELFSIGNED NOHTTPS ROBOTS_TXT_DISALLOW GOOGLE_CAPTCHA H_CAPTCHA Y_CAPTCHA GEOIP SKIP_QUESTIONS HOST_IP HOST_PORT
+	
+	sudo $AVFOO_FOLDER/configs/nginx/nginx.sh
+	
+	unset JSCHAN_DIRECTORY CLEARNET_DOMAIN ONION_DOMAIN LOKI_DOMAIN ADD_WWW_SUBDOMAIN CERTBOT SELFSIGNED NOHTTPS ROBOTS_TXT_DISALLOW GOOGLE_CAPTCHA H_CAPTCHA Y_CAPTCHA GEOIP SKIP_QUESTIONS HOST_IP HOST_PORT
 }
 
 run_setup_npm () {
-	cd $AVFOO_FOLDER
-	sudo mkdir -p /usr/local/www-data/lib/node_modules
-	sudo mkdir -p /usr/local/www-data/bin
-	sudo chown -R www-data:www-data /usr/local/www-data/lib/node_modules
-	sudo chown -R www-data:www-data /usr/local/www-data/bin
-	sudo chmod -R 755 /usr/local/www-data/lib/node_modules
-	sudo chmod -R 755 /usr/local/www-data/bin
-
-	
-	sudo -u www-data npm config set prefix '/usr/local/www-data/'
-	sudo -u www-data npm install 
-	sudo -u www-data npm install -g pm2 gulp
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" gulp generate-favicon && gulp default && gulp reset
-	sudo env PATH="$PATH:/usr/local/www-data/bin" pm2 startup systemd -u "www-data" --hp "/usr/local/www-data/"
+	cd $AVFOO_FOLDER	
+	npm install 
+	npm run-script setup
+	gulp generate-favicon && gulp default && gulp reset
+	pm2 startup systemd -u "$USER" --hp "$HOME"
 }
 
 run_setup_npm_2 () {
 	cd $AVFOO_FOLDER
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 start ecosystem.config.js --env production
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" gulp 
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 save 
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" ./reload.sh 
-	sudo -u www-data env PATH="$PATH:/usr/local/www-data/bin" pm2 update 
+	pm2 start ecosystem.config.js --env production
+	gulp 
+	pm2 save 
+	./reload.sh 
+	pm2 update 
 }
 
 # Check arguments
@@ -259,22 +258,25 @@ sudo usermod -a -G $USER www-data
 sudo chown -R www-data:www-data /var/www
 sudo chmod -R g+rwX /var/www
 
+read -p "Installing averi-foo as user: $USER. Are you sure? (y/n)" CONTINUE
+[[ "$CONTINUE" == "n" ]] && echo "Exiting..." && exit;
+
 if [[ "$(pwd)" != "/var/www/averi-foo" && -f server.js ]]; then
     read -p "Move current folder $(pwd) into /var/www/ ? (y/n)" MOVE_CURRENT_FOLDER
     AVFOO_FOLDER="/var/www/$(basename $(pwd))"
-    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R www-data:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+    [[ "$MOVE_CURRENT_FOLDER" == "y" ]] && sudo mv "$(pwd)" /var/www/ && sudo chown -R $USER:www-data $AVFOO_FOLDER && cd $AVFOO_FOLDER && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
 fi
 
 if [[ -f $AVFOO_FOLDER/server.js ]]; then
 	cd $AVFOO_FOLDER
-	sudo chown -R www-data:www-data /var/www/averi-foo
+	sudo chown -R $USER:www-data /var/www/averi-foo
 	sudo usermod -a -G $USER www-data
 	git config --global --add safe.directory $AVFOO_FOLDER
 fi
 
 if [[ "$(pwd)" != "/var/www/averi-foo" && ! -f server.js ]]; then
     read -p "Git clone averi-foo into /var/www/ ? (y/n)" GIT_CLONE_AVERI_FOO
-	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone $REPO_LOCATION /var/www/averi-foo && sudo chown -R www-data:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
+	[[ "$GIT_CLONE_AVERI_FOO" == "y" ]] && sudo git clone $REPO_LOCATION /var/www/averi-foo && sudo chown -R $USER:www-data /var/www/averi-foo && cd /var/www/averi-foo && sudo usermod -a -G $USER www-data && git config --global --add safe.directory $AVFOO_FOLDER
 
 fi
 
