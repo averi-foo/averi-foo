@@ -6,18 +6,9 @@ set -e
 # Can be used standalone or as part of the repo
 # To use standalone, curl onto a machine, and ./install.sh
 
-# Recommended: 
-# curl -o- https://raw.githubusercontent.com/averi-foo/averi-foo/main/install.sh | bash
-
-# Alternatively: Git clone averi-foo into /var/www/ then run script
-# git clone https://github.com/averi-foo/averi-foo /var/www/averi-foo
-# chmod -R www-data:www-data /var/www/averi-foo
-# cd /var/www/averi-foo
-# ./install.sh
-
-# To get access to the folder as an admin run
-# sudo usermod -a -G $USER www-data
-# newgrp www-data
+# Recommended methods: 
+# 1. curl -o- https://raw.githubusercontent.com/averi-foo/averi-foo/main/install.sh | bash
+# 2. git clone https://github.com/averi-foo/averi-foo && cd averi-foo && ./install.sh
 
 # Edit the variables below, if you wish
 # DO NOT USE THESE VARIABLES ON YOUR PROD SERVER
@@ -419,3 +410,4 @@ run_install_nginx
 run_setup_npm
 run_setup_npm_2
 
+echo "Installation complete. If pm2, nvm, npm or node returns command not found, restart your bash session or run: source .bashrc"
