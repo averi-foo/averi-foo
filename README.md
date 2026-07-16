@@ -22,6 +22,7 @@ Contact the author:
 This fork is intended specifically for the website above, all changes are made in service of it. If you wish to use this code as a basis for your own imageboard, you may have to manually remove all averi.foo branding, etc.
 
 ## Features
+ - [x] Install script, ./install.sh
  - [x] Custom board-specific emojis
  - [x] File approval system
  - [x] [Steganographic Image Checker](https://www.incoherency.co.uk/image-steganography/)
