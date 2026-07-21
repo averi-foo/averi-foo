@@ -44,7 +44,7 @@ block content
 	if boards && boards.length > 0
 		+boardtable(true, true)
 			each board in boards
-				- const path = board.webring ? board.path : `/${board._id}/index.html`;
+				- const path = board.webring ? board.path : `/${board._id}/catalog.html`;
 				tr
 					td 
 						span.left
