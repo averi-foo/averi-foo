@@ -4,4 +4,4 @@ if !isThread || !board.settings.disableReplySubject
 			span #{__('Subject')}
 				if subjectRequired
 					span.required *
-		input(type='text', name='subject', autocomplete='off' maxlength=globalLimits.fieldLength.subject required=subjectRequired)
+		input(type='text', name='subject', placeholder="Optional", autocomplete='off' maxlength=globalLimits.fieldLength.subject required=subjectRequired)
