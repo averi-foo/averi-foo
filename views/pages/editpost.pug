@@ -41,6 +41,25 @@ block content
 						span.post-quote-num
 							a.no-decoration(href=`${postURL}#postform`) #{post.postId}
 				.post-data
+					if post.files.length > 0
+						.post-files(class=(post.files.length > 1 ? 'fn' : ''))
+							each file, fileindex in post.files
+								if file.mimetype === 'tegaki/replay' && post.files.some(f => f.originalFilename.slice(0, -3) === file.originalFilename.slice(0,-4))
+									- continue; //Skip showing tegaki replay alone if is includes the image
+								.post-file
+									- const type = file.mimetype.split('/')[0]
+									span.post-file-info
+										span
+											.post-file-src(data-type=type data-attachment=(file.attachment ? "true" : "false"))
+												a(target='_blank' href=`/file/${file.filename}`)
+													if file.hasThumb
+														img.file-thumb(src=`/file/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
+													else if file.attachment
+														div.attachmentimg.file-thumb(data-mimetype=file.mimetype)
+													else if type === 'audio'
+														div.audioimg.file-thumb
+													else
+														img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
 					pre.post-message
 						textarea.edit.fw(name='message' rows='15' placeholder=__('Message')) #{post.nomarkup}
 					if post.banmessage
