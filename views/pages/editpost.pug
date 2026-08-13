@@ -70,6 +70,8 @@ block content
 			if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
 				- const maxFiles = board.settings.maxFiles;
 				section.row
+					.label.edit-hidden
+						span #{__n('Files', maxFiles)}
 					span.col
 						+filelabel('file', maxFiles)
 						input#file(type='file', name='file' multiple required=fileRequired )
