@@ -78,11 +78,12 @@ block content
 						input#file(type='file', name='file' multiple required=fileRequired )
 						.upload-list(data-spoilers=(board.settings.userPostSpoiler ? 'true' : 'false') data-strip-filenames='true')
 							each file, fileindex in post.files
-								- const item = {
-									name: file.name,
-									hash: file.hash,
-									url:  `/file/${file.filename}`,
-								};
+								-
+									const item = {
+										name: file.name,
+										hash: file.hash,
+										url:  `/file/${file.filename}`,
+									};
 								+uploaditem(item)
 				
 			label.mt-5
