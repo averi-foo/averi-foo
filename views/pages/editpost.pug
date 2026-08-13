@@ -1,5 +1,6 @@
 extends ../layout.pug
 include ../mixins/filelabel.pug
+include ../mixins/uploaditem.pug
 
 block head
 	title #{__('Edit Post')}
@@ -76,6 +77,9 @@ block content
 						+filelabel('file', maxFiles)
 						input#file(type='file', name='file' multiple required=fileRequired )
 						.upload-list(data-spoilers=(board.settings.userPostSpoiler ? 'true' : 'false') data-strip-filenames='true')
+							each file, fileindex in post.files
+								+uploaditem(file)
+				
 			label.mt-5
 				input.post-check(type='checkbox', name='hide_name' value='1')
 				| #{__('Hide Username')}
