@@ -108,12 +108,14 @@ const handleSteganographySlider = (slider) => {
 		slider.nextElementSibling.textContent = "Hidden Bits: " + slider.value
 	});
 	
-	slider.addEventListener("mouseup", () => {
-		let container = slider.closest(".steganography-container")
-		let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
-		let img = postFileSrc.querySelector(".file-thumb")
-		createSteganographyCanvas(img,container,slider)
-	});
+	['mouseup', 'touchend'].forEach(function(e){
+		slider.addEventListener(e, () => {
+			let container = slider.closest(".steganography-container")
+			let postFileSrc = container.closest(".post-file").querySelector(".post-file-src")
+			let img = postFileSrc.querySelector(".file-thumb")
+			createSteganographyCanvas(img,container,slider)
+		});
+	})
 }
 
 const handleSteg = (e) => {
