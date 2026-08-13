@@ -1617,6 +1617,11 @@ table.boardtable .nobreak {
     text-shadow: 2px 2px 10px black;
 }
 
+/* added in edit update 13 aug 2026 */
+.edit-hidden {
+	display: none;
+}
+
 .approval-button-container {
 	display: flex;
 	width: 100%;
