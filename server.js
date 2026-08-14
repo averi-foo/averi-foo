@@ -128,7 +128,6 @@ const config = require(__dirname+'/lib/misc/config.js')
 		let errStatus = 500;
 		let errMessage = 'Internal Server Error';
 		if (err.code === 'EBADCSRFTOKEN') {
-			console.log("Error: ", err, req, res, next)
 			errMessage = 'Invalid CSRF token';
 			errStatus= 403;
 		}
