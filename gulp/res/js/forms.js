@@ -159,9 +159,9 @@ class postFormHandler {
 		}
 		
 		// Add files back to edit post
-		this.isEditForm = this.form.action === '/forms/editpost';
+		this.isEditForm = this.form.action === "/forms/editpost";
 		if (this.isEditForm) {
-			this.form.querySelectorAll(".post-file-src").forEach(this.addFileForEditPage)
+			this.form.querySelectorAll(".post-file-src").forEach((file) => this.addFileForEditPage(file))
 		}
 
 		form.addEventListener('submit', e => this.formSubmit(e));
@@ -170,7 +170,7 @@ class postFormHandler {
 	
 	async addFileForEditPage(file) {
 		const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
-		.then(res => res.blob());
+			.then(res => res.blob());
 		
 		const postFile = new File([blob], file.dataset.originalFilename, {
 			type: file.dataset.mimetype
