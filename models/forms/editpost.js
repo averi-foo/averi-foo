@@ -27,6 +27,7 @@ const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, audioThumbnail = require(__dirname+'/../../lib/file/audio/audiothumbnail.js')
 	, ffprobe = require(__dirname+'/../../lib/file/ffprobe.js')
 	, fixGifs = require(__dirname+'/../../lib/file/image/fixgifs.js')
+	, timeUtils = require(__dirname+'/../../lib/converter/timeutils.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
 	, { buildThread } = require(__dirname+'/../../lib/build/tasks.js')
 	, FIELDS_TO_REPLACE = ['email', 'subject', 'message'];
@@ -135,6 +136,7 @@ module.exports = async (req, res) => {
 				mimetype: file.mimetype,
 				size: file.size,
 				extension: file.extension,
+				approved: false,
 			};
 			
 			//phash
@@ -271,8 +273,6 @@ module.exports = async (req, res) => {
 					processedFile.geometry.thumbheight = Math.floor(Math.min(processedFile.geometry.height*ratio, thumbSize));
 				}
 			}
-			// set approved to false
-			processedFile.approved = false
 			
 			//delete the temp file
 			await remove(file.tempFilePath);
