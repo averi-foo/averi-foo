@@ -50,8 +50,9 @@ router.post('/global/actions', geoIp, processIp, useSession, sessionRefresh, csr
 //appeal ban
 router.post('/appeal', geoIp, processIp, useSession, sessionRefresh, appealController.paramConverter, verifyCaptcha, appealController.controller);
 //edit post
-router.post('/editpost', geoIp, processIp, useSession, sessionRefresh, csrf, fileMiddlewares.posts, editPostController.paramConverter, Boards.bodyExists, setBoardLanguage, calcPerms,
-	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), imageHashes, editPostController.controller);
+
+router.post('/editpost', geoIp, processIp, useSession, sessionRefresh, csrf, editPostController.paramConverter, Boards.bodyExists, setBoardLanguage, calcPerms,
+	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), editPostController.controller);
 
 //board management forms
 router.post('/board/:board/transfer', useSession, sessionRefresh, csrf, Boards.exists, setBoardLanguage, calcPerms, isLoggedIn,
