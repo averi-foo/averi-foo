@@ -162,7 +162,6 @@ class postFormHandler {
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
 			this.form.querySelectorAll(".post-file-src").forEach(file => this.addFileForEditPage(file))
-			this.updateFilesText()
 		}
 
 		form.addEventListener('submit', e => this.formSubmit(e));
@@ -176,6 +175,7 @@ class postFormHandler {
 		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
 		console.log("original filename: ", file.dataset.originalfilename)
 		this.addFile(postFile, { stripFilenames: false });
+		this.updateFilesText()
 	}
 	
 	reset() {
