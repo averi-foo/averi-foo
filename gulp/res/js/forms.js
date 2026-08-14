@@ -564,8 +564,7 @@ class postFormHandler {
 				fileIndex = index;
 			}
 		});
-
-		this.fileUploadList.insertBefore(fileElem,this.fileUploadList.childNodes[fileIndex + shiftAmount])
+		
 		const deleteCount = 1;
 		// remove `from` item and store it
 		var f = this.files.splice(fileIndex, deleteCount)[0];
@@ -573,6 +572,17 @@ class postFormHandler {
 		var to = fileIndex + shiftAmount
 		this.files.splice(to, 0, f);
 		// move in fileUploadList
+		
+		fileElem.remove();
+		
+		const remaining = Array.from(this.fileUploadList.children);
+		
+		if (newIndex >= remaining.length) {
+			this.fileUploadList.appendChild(fileElem);
+		} else {
+			this.fileUploadList.insertBefore(fileElem, remaining[to]);
+		}
+	
 		this.updateFilesText();
 	}
 	
