@@ -573,14 +573,16 @@ class postFormHandler {
 		this.files.splice(to, 0, f);
 		// move in fileUploadList
 		
+		var newElem = fileElem
+		
 		fileElem.remove();
 		
 		const remaining = Array.from(this.fileUploadList.children);
 		
 		if (newIndex >= remaining.length) {
-			this.fileUploadList.appendChild(fileElem);
+			this.fileUploadList.appendChild(newElem);
 		} else {
-			this.fileUploadList.insertBefore(fileElem, remaining[to]);
+			this.fileUploadList.insertBefore(newElem, remaining[to]);
 		}
 	
 		this.updateFilesText();
