@@ -159,7 +159,7 @@ class postFormHandler {
 		}
 		
 		// Add files back to edit post
-		this.getFilesForEditPage();
+		await this.getFilesForEditPage();
 		
 
 		form.addEventListener('submit', e => this.formSubmit(e));
@@ -168,22 +168,21 @@ class postFormHandler {
 	
 	async getFilesForEditPage() {
 		if (this.form.action === '/forms/editpost') {
-			this.form.querySelectorAll(".post-file-src").forEach(
-				(file) => async {
-					try {
-						const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`))
-							.then(res => res.blob());
-						const postFile = new File([blob], file.dataset.originalFilename, {
-							type: file.dataset.mimetype
-						});
-						
-						this.addFile(postFile, { stripFilenames: false });
-					} catch (e) {
-						return console.error(e);
-					}
+			function addFileToList(file) {
+				try {
+					const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`))
+						.then(res => res.blob());
+					const postFile = new File([blob], file.dataset.originalFilename, {
+						type: file.dataset.mimetype
+					});
+					
+					this.addFile(postFile, { stripFilenames: false });
+				} catch (e) {
+					return console.error(e);
 				}
-			)
-		}
+			}
+			
+			this.form.querySelectorAll(".post-file-src").forEach(addFileToList)
 	}
 	
 	reset() {
