@@ -559,13 +559,14 @@ class postFormHandler {
 
 	moveFile(fileElem, name, size, shiftAmount) {
 		let fileIndex;
+		const deleteCount = 1;
+		
 		this.files.find((f, index) => {
 			if (f.name === name && f.size === size) {
 				fileIndex = index;
 			}
 		});
 		
-		const deleteCount = 1;
 		// remove `from` item and store it
 		var f = this.files.splice(fileIndex, deleteCount)[0];
 		// insert stored item into position `to`
@@ -665,11 +666,11 @@ class postFormHandler {
 		});
 		const lastMoveUp = fileElem.querySelector('.move-up');
 		lastMoveUp.addEventListener('click', () => {
-			this.moveFile(fileElem, file.name, file.size, 1);
+			this.moveFile(fileElem, file.name, file.size, -1);
 		});
 		const lastMoveDown = fileElem.querySelector('.move-down');
 		lastMoveDown.addEventListener('click', () => {
-			this.moveFile(fileElem, file.name, file.size, -1);
+			this.moveFile(fileElem, file.name, file.size, 1);
 		});
 		
 		this.fileUploadList.style.display = 'unset';
