@@ -28,18 +28,20 @@ const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, FIELDS_TO_REPLACE = ['email', 'subject', 'message'];
 
 module.exports = async (req, res) => {
+	/*
+	todo: handle some more situations
+	- last activity date
+	- correct bump date when editing thread or last post in a thread
+	*/
 
-/*
-todo: handle some more situations
-- last activity date
-- correct bump date when editing thread or last post in a thread
-*/
+	//TODO: In the event that users want to edit their own posts, this functionality needs to change to
+	// 		ensure that they're not allowed to do certain things like bypass restrictions, etc.
 
 	const { __ } = res.locals;
 	const { globalLimits, previewReplies, checkRealMimeTypes, thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails} = config.get;
 		
 	const { board, post } = res.locals;
-	const { emojiLimit, customEmojis } = res.locals.board.settings;
+	const { emojiLimit, customEmojis, userPostSpoiler, allowedFileTypes } = res.locals.board.settings;
 
 	//filters
 	if (!res.locals.permissions.get(Permissions.BYPASS_FILTERS)) {
