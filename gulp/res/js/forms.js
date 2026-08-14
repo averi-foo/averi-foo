@@ -159,7 +159,7 @@ class postFormHandler {
 		}
 		
 		// Add files back to edit post
-		await this.getFilesForEditPage();
+		this.getFilesForEditPage();
 		
 
 		form.addEventListener('submit', e => this.formSubmit(e));
@@ -181,8 +181,8 @@ class postFormHandler {
 					return console.error(e);
 				}
 			}
-			
 			this.form.querySelectorAll(".post-file-src").forEach(addFileToList)
+		}
 	}
 	
 	reset() {
