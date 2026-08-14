@@ -572,7 +572,7 @@ class postFormHandler {
 		// insert stored item into position `to`
 		var to = fileIndex + shiftAmount
 		if (to < 0) {
-			this.files.splice(this.files.length + to, 0, f);
+			this.files.splice(this.files.length + (to + 1), 0, f);
 		} else {
 			this.files.splice(to, 0, f);
 		}
