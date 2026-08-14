@@ -161,13 +161,16 @@ class postFormHandler {
 		// Add files back to edit post
 		if (this.form.action === '/forms/editpost') {
 			this.form.querySelectorAll(".post-file-src").forEach( (file) => {
-				const blob = await fetch(`/file/${file.dataset.filename}`).then(res => res.blob());
-				
-				const postFile = new File([blob], file.dataset.originalFilename, {
-					type: file.dataset.mimetype
-				});
-				
-				this.addFile(postFile, { stripFilenames: false });
+				try {
+					const blob = await fetch(`/file/${file.dataset.filename}`).then(res => res.blob());
+					const postFile = new File([blob], file.dataset.originalFilename, {
+						type: file.dataset.mimetype
+					});
+					
+					this.addFile(postFile, { stripFilenames: false });
+				} catch (e) {
+					return console.error(e);
+				}
 			})
 		}
 		
