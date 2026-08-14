@@ -271,6 +271,8 @@ module.exports = async (req, res) => {
 					processedFile.geometry.thumbheight = Math.floor(Math.min(processedFile.geometry.height*ratio, thumbSize));
 				}
 			}
+			// set approved to false
+			processedFile.approved = false
 			
 			//delete the temp file
 			await remove(file.tempFilePath);
