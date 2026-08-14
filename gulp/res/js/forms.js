@@ -169,10 +169,10 @@ class postFormHandler {
 	async getFilesForEditPage() {
 		if (this.form.action === '/forms/editpost') {
 			this.form.querySelectorAll(".post-file-src").forEach(
-				(file) => {
+				(file) => async {
 					try {
 						const blob = await fetch(`/file/${file.dataset.filename}`)
-						.then(res => res.blob());
+							.then(res => res.blob());
 						const postFile = new File([blob], file.dataset.originalFilename, {
 							type: file.dataset.mimetype
 						});
