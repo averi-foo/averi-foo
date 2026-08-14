@@ -170,9 +170,9 @@ class postFormHandler {
 	
 	async getFilesForEditPage() {
 		if (this.isEditForm) {
-			this.form.querySelectorAll(".post-file-src",(file) => {
+			this.form.querySelectorAll(".post-file-src").forEach( (file) => {
 				try {
-					const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`)
+					const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
 					.then(res => res.blob());
 					
 					const postFile = new File([blob], file.dataset.originalFilename, {
