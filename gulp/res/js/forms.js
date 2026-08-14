@@ -159,7 +159,7 @@ class postFormHandler {
 		}
 		
 		// Add files back to edit post
-		this.isEditForm = this.form.action === '/forms/editpost');
+		this.isEditForm = this.form.action === '/forms/editpost';
 		if (this.isEditForm) {
 			this.getFilesForEditPage();
 		}
