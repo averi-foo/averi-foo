@@ -564,12 +564,15 @@ class postFormHandler {
 				fileIndex = index;
 			}
 		});
+
+		this.fileUploadList.insertBefore(fileElem,this.fileUploadList.childNodes[fileIndex + shiftAmount])
 		const deleteCount = 1;
 		// remove `from` item and store it
 		var f = this.files.splice(fileIndex, deleteCount)[0];
 		// insert stored item into position `to`
 		var to = fileIndex + shiftAmount
 		this.files.splice(to, 0, f);
+		// move in fileUploadList
 		this.updateFilesText();
 	}
 	
