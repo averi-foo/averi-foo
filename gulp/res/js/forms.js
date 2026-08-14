@@ -570,18 +570,16 @@ class postFormHandler {
 		// remove `from` item and store it
 		var f = this.files.splice(fileIndex, deleteCount)[0];
 		// insert stored item into position `to`
-		var to = fileIndex + shiftAmount
+		var to = fileIndex + shiftAmount;
 		if (to < 0) {
 			this.files.splice(this.files.length + (to + 1), 0, f);
 		} else {
 			this.files.splice(to, 0, f);
 		}
+		
 		// move in fileUploadList
-		
-		var newElem = fileElem
-		
+		var newElem = fileElem;
 		this.fileUploadList.removeChild(fileElem);
-		
 		const remaining = Array.from(this.fileUploadList.children);
 		
 		if (to >= remaining.length) {

@@ -2,9 +2,11 @@
 
 const editPost = require(__dirname+'/../../models/forms/editpost.js')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
+	, deleteTempFiles = require(__dirname+'/../../lib/file/deletetempfiles.js')
 	, dynamicResponse = require(__dirname+'/../../lib/misc/dynamic.js')
+	, { func: pruneFiles } = require(__dirname+'/../../schedules/tasks/prune.js')
 	, config = require(__dirname+'/../../lib/misc/config.js')
-	, { Ratelimits, Posts } = require(__dirname+'/../../db/')
+	, { Ratelimits, Posts, Files } = require(__dirname+'/../../db/')
 	, paramConverter = require(__dirname+'/../../lib/middleware/input/paramconverter.js')
 	, { checkSchema, lengthBody, numberBody, existsBody } = require(__dirname+'/../../lib/input/schema.js');
 
@@ -37,6 +39,7 @@ module.exports = {
 		]);
 
 		if (errors.length > 0) {
+			await deleteTempFiles(req).catch(console.error);
 			return dynamicResponse(req, res, 400, 'message', {
 				'title': __('Bad request'),
 				'errors': errors,
@@ -57,6 +60,15 @@ module.exports = {
 		try {
 			await editPost(req, res, next);
 		} catch (err) {
+			await deleteTempFiles(req).catch(console.error);
+			if (res.locals.numFiles > 0) {
+				const incedFiles = req.files.file.filter(x => x.inced === true && x.filename != null);
+				if (incedFiles.length > 0) {
+					const incedFileNames = incedFiles.map(x => x.filename);
+					await Files.decrement(incedFileNames).catch(console.error);
+					await pruneFiles(incedFileNames);
+				}
+			}
 			return next(err);
 		}
 
