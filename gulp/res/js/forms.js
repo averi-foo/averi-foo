@@ -170,18 +170,20 @@ class postFormHandler {
 	
 	async getFilesForEditPage() {
 		if (this.isEditForm) {
-			try {
-				const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`)
+			this.form.querySelectorAll(".post-file-src",(file) => {
+				try {
+					const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`)
 					.then(res => res.blob());
 					
-				const postFile = new File([blob], file.dataset.originalFilename, {
-					type: file.dataset.mimetype
-				});
-				
-				this.addFile(postFile, { stripFilenames: false });
-			} catch (e) {
-				console.error(e);
-			} 
+					const postFile = new File([blob], file.dataset.originalFilename, {
+						type: file.dataset.mimetype
+					});
+					
+					this.addFile(postFile, { stripFilenames: false });
+				} catch (e) {
+					console.error(e);
+				} 
+			})
 		}
 	}
 	
