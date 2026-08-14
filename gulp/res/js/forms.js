@@ -172,10 +172,8 @@ class postFormHandler {
 		const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
 			.then(res => res.blob());
 		
-		const postFile = new File([blob], file.dataset.originalfilename, {
-			type: file.dataset.mimetype
-		});
-		
+		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
+		console.log("original filename: ", file.dataset.originalfilename)
 		this.addFile(postFile, { stripFilenames: false });
 	}
 	
@@ -579,7 +577,8 @@ class postFormHandler {
 		let fileHash;
 		if (window.crypto.subtle) {
 			let fileBuffer;
-			if (file.arryaBuffer) {
+			// Was that a fucking typo? arryaBuffer.
+			if (file.arrayBuffer) {
 				fileBuffer = await file.arrayBuffer();
 			} else {
 				//can old browsers just fuck off please?
