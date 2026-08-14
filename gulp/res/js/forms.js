@@ -159,9 +159,9 @@ class postFormHandler {
 		}
 		
 		// Add files back to edit post
-		this.isEditForm = this.form.action === "/forms/editpost";
+		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
-			this.form.querySelectorAll(".post-file-src").forEach((file) => this.addFileForEditPage(file))
+			this.form.querySelectorAll(".post-file-src").forEach(file => this.addFileForEditPage(file))
 		}
 
 		form.addEventListener('submit', e => this.formSubmit(e));
