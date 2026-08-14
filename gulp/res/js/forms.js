@@ -571,6 +571,9 @@ class postFormHandler {
 		var f = this.files.splice(fileIndex, deleteCount)[0];
 		// insert stored item into position `to`
 		var to = fileIndex + shiftAmount
+		if (to < 0) {
+			to = this.files.length + to
+		}
 		this.files.splice(to, 0, f);
 		// move in fileUploadList
 		
