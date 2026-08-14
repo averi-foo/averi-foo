@@ -8,6 +8,7 @@ const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, nameHandler = require(__dirname+'/../../lib/post/name.js')
 	, emojiHandler = require(__dirname+'/../../lib/post/emojis.js')
+	, moveUpload = require(__dirname+'/../../lib/file/moveupload.js')
 	, getFilterStrings = require(__dirname+'/../../lib/post/getfilterstrings.js')
 	, checkFilters = require(__dirname+'/../../lib/post/checkfilters.js')
 	, filterActions = require(__dirname+'/../../lib/post/filteractions.js')
@@ -42,6 +43,7 @@ module.exports = async (req, res) => {
 		
 	const { board, post } = res.locals;
 	const { emojiLimit, customEmojis, userPostSpoiler, allowedFileTypes } = res.locals.board.settings;
+	const isStaffOrGlobal = res.locals.permissions.hasAny(Permissions.MANAGE_GLOBAL_GENERAL, Permissions.MANAGE_BOARD_GENERAL);
 
 	//filters
 	if (!res.locals.permissions.get(Permissions.BYPASS_FILTERS)) {
