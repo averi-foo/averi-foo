@@ -50,7 +50,7 @@ block content
 									- continue; //Skip showing tegaki replay alone if is includes the image
 								.post-file
 									- const type = file.mimetype.split('/')[0]
-									.post-file-src(data-type=type data-mimetype=file.mimetype data-originalFilename=file.originalFilename data-filename=file.filename data-hash=file.hash data-attachment=(file.attachment ? "true" : "false"))
+									.post-file-src(data-type=type data-mimetype=file.mimetype data-originalfilename=file.originalFilename data-filename=file.filename data-hash=file.hash data-attachment=(file.attachment ? "true" : "false"))
 										a(target='_blank' href=`/file/${file.filename}`)
 											if file.hasThumb
 												img.file-thumb(src=`/file/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')

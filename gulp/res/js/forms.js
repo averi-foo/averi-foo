@@ -172,7 +172,7 @@ class postFormHandler {
 		const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
 			.then(res => res.blob());
 		
-		const postFile = new File([blob], file.dataset.originalFilename, {
+		const postFile = new File([blob], file.dataset.originalfilename, {
 			type: file.dataset.mimetype
 		});
 		
