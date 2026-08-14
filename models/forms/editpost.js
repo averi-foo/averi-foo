@@ -3,6 +3,7 @@
 const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
 	, { createHash } = require('crypto')
+	, { remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
