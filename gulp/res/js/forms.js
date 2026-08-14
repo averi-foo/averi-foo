@@ -106,8 +106,8 @@ class postFormHandler {
 		if (this.submit) {
 			this.originalSubmitText = this.submit.value;
 		}
-
-		//get different element for diffeent captcha types
+		
+		//get different element for different captcha types
 		this.captchaField = form.querySelector('.captchafield')
 			|| form.querySelector('.g-recaptcha')
 			|| form.querySelector('.h-captcha');
@@ -157,6 +157,21 @@ class postFormHandler {
 		if (this.messageBox) {
 			this.messageBox.addEventListener('keydown', e => this.controlEnterSubmit(e));
 		}
+		
+		// later
+		if (this.form.action === '/forms/editpost') {
+			this.form.querySelectorAll(".post-file-src").forEach((file) => {
+				const response = await fetch(`/file/${file.dataset.filename}`);
+				const blob = await response.blob();
+				
+				const postFile = new File([blob], file.dataset.originalFilename, {
+					type: file.dataset.mimetype
+				});
+				
+				this.addFile(postFile, { stripFilenames: false })
+			})
+		}
+		
 
 		form.addEventListener('submit', e => this.formSubmit(e));
 		form.addEventListener('messageBoxChange', () => this.handleMessageChange());
