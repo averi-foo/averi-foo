@@ -3,6 +3,9 @@ mixin uploaditem(item)
 		.upload-item
 			img.upload-thumb(src=item.url)
 			p #{item.name}
+			div.ml-a
+			a.move-up 🠉
+			a.move-down 🠋
 			a.close ×
 		if item.hash
 			.row.sb

@@ -162,6 +162,7 @@ class postFormHandler {
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
 			this.form.querySelectorAll(".post-file-src").forEach(file => this.addFileForEditPage(file))
+			this.updateFilesText()
 		}
 
 		form.addEventListener('submit', e => this.formSubmit(e));
@@ -556,6 +557,22 @@ class postFormHandler {
 		this.messageBox && this.messageBox.dispatchEvent(new Event('input'));
 	}
 
+	moveFile(fileElem, name, size, shiftAmount) {
+		let fileIndex;
+		this.files.find((f, index) => {
+			if (f.name === name && f.size === size) {
+				fileIndex = index;
+			}
+		});
+		const deleteCount = 1;
+		// remove `from` item and store it
+		var f = this.files.splice(fileIndex, deleteCount)[0];
+		// insert stored item into position `to`
+		var to = fileIndex + shiftAmount
+		this.files.splice(to, 0, f);
+		this.updateFilesText();
+	}
+	
 	removeFile(fileElem, name, size) {
 		fileElem.remove();
 		let fileIndex;
@@ -631,6 +648,15 @@ class postFormHandler {
 		lastClose.addEventListener('click', () => {
 			this.removeFile(fileElem, file.name, file.size);
 		});
+		const lastMoveUp = fileElem.querySelector('.move-up');
+		lastMoveUp.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, 1);
+		});
+		const lastMoveDown = fileElem.querySelector('.move-down');
+		lastMoveDown.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, -1);
+		});
+		
 		this.fileUploadList.style.display = 'unset';
 	}
 
