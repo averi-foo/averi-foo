@@ -518,6 +518,15 @@ p {
 	font-size: initial;
 }
 
+.move {
+	width: 25px;
+	font-weight: bolder;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: initial;
+	justify-content: center;
+}
+
 
 .reports {
 	margin-top: 5px;
