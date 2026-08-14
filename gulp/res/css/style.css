@@ -415,6 +415,10 @@ p {
 	align-items: center;
 }
 
+.upload-item .close {
+	margin-left: 0px;
+}
+
 .upload-thumb {
 	width: 50px;
 	height: 50px;
@@ -513,6 +517,7 @@ p {
 	cursor: pointer;
 	font-size: initial;
 }
+
 
 .reports {
 	margin-top: 5px;
