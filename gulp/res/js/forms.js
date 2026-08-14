@@ -158,17 +158,16 @@ class postFormHandler {
 			this.messageBox.addEventListener('keydown', e => this.controlEnterSubmit(e));
 		}
 		
-		// later
+		// Add files back to edit post
 		if (this.form.action === '/forms/editpost') {
-			this.form.querySelectorAll(".post-file-src").forEach((file) => {
-				const response = await fetch(`/file/${file.dataset.filename}`);
-				const blob = await response.blob();
+			this.form.querySelectorAll(".post-file-src").forEach( (file) => {
+				const blob = await fetch(`/file/${file.dataset.filename}`).then(res => res.blob());
 				
 				const postFile = new File([blob], file.dataset.originalFilename, {
 					type: file.dataset.mimetype
 				});
 				
-				this.addFile(postFile, { stripFilenames: false })
+				this.addFile(postFile, { stripFilenames: false });
 			})
 		}
 		
