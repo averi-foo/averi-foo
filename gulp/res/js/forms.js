@@ -575,7 +575,7 @@ class postFormHandler {
 		
 		var newElem = fileElem
 		
-		fileElem.remove();
+		this.fileUploadList.removeChild(fileElem);
 		
 		const remaining = Array.from(this.fileUploadList.children);
 		
