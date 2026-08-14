@@ -171,7 +171,7 @@ class postFormHandler {
 			this.form.querySelectorAll(".post-file-src").forEach(
 				(file) => async {
 					try {
-						const blob = await fetch(`/file/${file.dataset.filename}`)
+						const blob = await fetch(`/file/${encodeURIComponent(file.dataset.filename)}`))
 							.then(res => res.blob());
 						const postFile = new File([blob], file.dataset.originalFilename, {
 							type: file.dataset.mimetype
