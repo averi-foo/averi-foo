@@ -8,7 +8,7 @@ block content
 	- const fileRequired = (!managerecentposts && !isThread && board.settings.forceThreadFile) || (isThread && board.settings.forceReplyFile);
 	h1.board-title #{__('Edit Post')}
 	.form-wrapper.flex-center.mv-10
-		form.form-post(action='/forms/editpost' method='POST')
+		form.form-post(action='/forms/editpost', enctype='multipart/form-data', method='POST')
 			input(type='hidden' name='_csrf' value=csrf)
 			input(type='hidden' name='referer' value=referer)
 			input(type='hidden' name='board' value=post.board)
