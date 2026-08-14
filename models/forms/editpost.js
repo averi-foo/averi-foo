@@ -36,7 +36,8 @@ todo: handle some more situations
 */
 
 	const { __ } = res.locals;
-	const { globalLimits, previewReplies } = config.get;
+	const { globalLimits, previewReplies, checkRealMimeTypes, thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails} = config.get;
+		
 	const { board, post } = res.locals;
 	const { emojiLimit, customEmojis } = res.locals.board.settings;
 
@@ -85,29 +86,6 @@ todo: handle some more situations
 	//
 	let files = [];
 	if (res.locals.numFiles > 0) {
-		// Unique file check
-		if ((req.body.thread && fileR9KMode === 1) || fileR9KMode === 2) {
-			const filesHashes = req.files.file.map(f => f.sha256);
-			const postWithExistingFiles = await Posts.checkExistingFiles(res.locals.board._id, (fileR9KMode === 2 ? null : req.body.thread), filesHashes);
-			if (postWithExistingFiles != null) {
-				await deleteTempFiles(req).catch(console.error);
-				const conflictingFiles = req.files.file
-				.filter(f => postWithExistingFiles.files.some(fx => fx.hash === f.sha256))
-				.map(f => f.name)
-				.join(', ');
-				const r9kFilesMessage = __(`Uploaded files must be unique ${fileR9KMode === 1 ? 'in this thread' : 'on this board'}.`)
-				+ '\n'
-				+ conflictingFiles.length > 1 //slightly gross but __mf() is more so
-				? __('At least the following file is not unique: %s', conflictingFiles)
-				: __('At least the following files are not unique: %s', conflictingFiles);
-				return dynamicResponse(req, res, 409, 'message', {
-					'title': 'Conflict',
-					'message': r9kFilesMessage,
-					'redirect': redirect,
-				});
-			}
-		}
-		
 		// Fast mime type check
 		for (let i = 0; i < res.locals.numFiles; i++) {
 			if (!mimeTypes.allowed(req.files.file[i].mimetype, allowedFileTypes)) {
