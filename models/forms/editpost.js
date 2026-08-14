@@ -1,6 +1,6 @@
 'use strict';
 
-const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
+const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
 	, { createHash } = require('crypto')
 	, Mongo = require(__dirname+'/../../db/db.js')
@@ -15,6 +15,14 @@ const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
 	, config = require(__dirname+'/../../lib/misc/config.js')
 	, buildQueue = require(__dirname+'/../../lib/build/queue.js')
 	, dynamicResponse = require(__dirname+'/../../lib/misc/dynamic.js')
+	, deleteTempFiles = require(__dirname+'/../../lib/file/deletetempfiles.js')
+	, mimeTypes = require(__dirname+'/../../lib/file/mimetypes.js')
+	, imageThumbnail = require(__dirname+'/../../lib/file/image/imagethumbnail.js')
+	, getDimensions = require(__dirname+'/../../lib/file/image/getdimensions.js')
+	, videoThumbnail = require(__dirname+'/../../lib/file/video/videothumbnail.js')
+	, audioThumbnail = require(__dirname+'/../../lib/file/audio/audiothumbnail.js')
+	, ffprobe = require(__dirname+'/../../lib/file/ffprobe.js')
+	, fixGifs = require(__dirname+'/../../lib/file/image/fixgifs.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
 	, { buildThread } = require(__dirname+'/../../lib/build/tasks.js')
 	, FIELDS_TO_REPLACE = ['email', 'subject', 'message'];
