@@ -30,6 +30,17 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		lastPostIds[board] = Math.max((lastPostIds[board] || 0), postId);
 	}
 
+	const changeStatCount = (post_increment, files_increment) => {
+		const statsElem = document.getElementById('threadstats');
+		if (!statsElem) {return}
+		const numPosts = +statsElem.children[0].innerText.match(/^(\d+)/g);
+		const numFiles = +statsElem.children[1].innerText.match(/^(\d+)/g);
+		const filesTotal = numFiles + files_increment;
+		const postTotal = numPosts + post_increment;
+		statsElem.children[0].innerText = __n('%s replies', postTotal);
+		statsElem.children[1].innerText = __n('%s files', filesTotal);
+	}
+	
 	//add text before post-info to show posts deleted, moved, etc
 	const approvePost = (data) => {
 		console.log('got approve post message', data);
@@ -45,6 +56,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		}
 		anchor.remove();
 		postContainer.remove();
+		changeStatCount(-1, -data.files.length)
 		newPost(data, {
 			nonotify: true, //should we notify of edits in open threads, maybe just for OP? idk
 			insertPoint,
@@ -57,6 +69,8 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		console.log('got mark post message', data);
 		const anchor = document.getElementById(data.postId);
 		const postContainer = anchor.nextSibling;
+		const postFiles = postContainer.querySelector(".post-files")
+		const postFilesCount = postFiles ? postFiles.childElementCount : 0
 		const isOp = postContainer && postContainer.classList.contains('op');
 		let dataMark;
 		let applyToReplies = false;
@@ -66,11 +80,13 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				dataMark = __('Deleted');
 				applyToReplies = true;
 				disableReplies = true;
+				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'move':
 				dataMark = __('Moved');
 				applyToReplies = true;
 				disableReplies = true;
+				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'banmessage':
 			case 'edit': //opting for no data mark, already has the usual "edited x ago"
@@ -111,6 +127,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			}
 			anchor.remove();
 			postContainer.remove();
+			changeStatCount(-1, -postFilesCount)
 			newPost(data, {
 				nonotify: true, //should we notify of edits in open threads, maybe just for OP? idk
 				insertPoint,
