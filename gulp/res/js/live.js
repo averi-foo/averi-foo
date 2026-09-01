@@ -56,7 +56,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		}
 		anchor.remove();
 		postContainer.remove();
-		changeStatCount(-1, -data.json.files.length)
+		changeStatCount(-1, -data.files.length)
 		newPost(data, {
 			nonotify: true, //should we notify of edits in open threads, maybe just for OP? idk
 			insertPoint,
@@ -78,13 +78,13 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				dataMark = __('Deleted');
 				applyToReplies = true;
 				disableReplies = true;
-				changeStatCount(-1, -data.json.files.length)
+				changeStatCount(-1, -data.files.length)
 				break;
 			case 'move':
 				dataMark = __('Moved');
 				applyToReplies = true;
 				disableReplies = true;
-				changeStatCount(-1, -data.json.files.length)
+				changeStatCount(-1, -data.files.length)
 				break;
 			case 'banmessage':
 			case 'edit': //opting for no data mark, already has the usual "edited x ago"
@@ -125,7 +125,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			}
 			anchor.remove();
 			postContainer.remove();
-			changeStatCount(-1, -data.json.files.length)
+			changeStatCount(-1, -data.files.length)
 			newPost(data, {
 				nonotify: true, //should we notify of edits in open threads, maybe just for OP? idk
 				insertPoint,
