@@ -69,6 +69,8 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		console.log('got mark post message', data);
 		const anchor = document.getElementById(data.postId);
 		const postContainer = anchor.nextSibling;
+		const postFiles = postContainer.querySelector(".post-files")
+		const postFilesCount = postFiles ? postFiles.childElementCount : 0
 		const isOp = postContainer && postContainer.classList.contains('op');
 		let dataMark;
 		let applyToReplies = false;
@@ -78,13 +80,13 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				dataMark = __('Deleted');
 				applyToReplies = true;
 				disableReplies = true;
-				changeStatCount(-1, -data.files.length)
+				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'move':
 				dataMark = __('Moved');
 				applyToReplies = true;
 				disableReplies = true;
-				changeStatCount(-1, -data.files.length)
+				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'banmessage':
 			case 'edit': //opting for no data mark, already has the usual "edited x ago"
@@ -125,7 +127,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			}
 			anchor.remove();
 			postContainer.remove();
-			changeStatCount(-1, -data.files.length)
+			changeStatCount(-1, -postFilesCount)
 			newPost(data, {
 				nonotify: true, //should we notify of edits in open threads, maybe just for OP? idk
 				insertPoint,
