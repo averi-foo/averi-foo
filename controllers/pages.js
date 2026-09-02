@@ -35,6 +35,8 @@ const express  = require('express')
 //testing unapproved file router location
 router.get('/file/unapproved/:filename', useSession, sessionRefresh, isLoggedIn, calcPerms,
 	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
+router.get('/file/unapproved/thumb/:filename', useSession, sessionRefresh, isLoggedIn, calcPerms,
+	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 //homepage
 router.get('/index.html', home);
 
