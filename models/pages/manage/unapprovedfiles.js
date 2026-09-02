@@ -4,7 +4,7 @@ const path = require('path')
 , directory = path.join(__dirname+'/../../../static');
 
 module.exports = async (req, res, next) => {
-	const isThumb = req.path.startsWith('/thumb/');
+	const isThumb = req.path.startsWith('/file/unapproved/thumb/');
 	console.log(req.path)
 	console.log(req.params.filename)
 	const correctDirectory = isThumb ? "unapproved/thumb" : "unapproved" 
