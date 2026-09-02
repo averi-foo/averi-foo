@@ -2,7 +2,7 @@ include ./filependingapproval.pug
 
 mixin catalogfile(postURL, post, file, small=false)
     - const type = file.mimetype.split('/')[0]
-	- let prefix = '/file'
+    - let prefix = '/file'
     if !(manage || modview || globalmanage || file.approved)
         +filependingapproval(true, postURL, post, small)
     else
