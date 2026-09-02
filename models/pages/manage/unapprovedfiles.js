@@ -4,8 +4,12 @@ const path = require('path')
 , directory = path.join(__dirname+'/../../../static');
 
 module.exports = async (req, res, next) => {
+	const isThumb = req.path.startsWith('/thumb/');
+	console.log(req.path)
+	console.log(req.params.filename)
+	const correctDirectory = isThumb ? "unapproved/thumb" : "unapproved" 
 	const options = {
-		root: path.join(directory, 'unapproved'),
+		root: path.join(directory, correctDirectory),
 		dotfiles: 'deny',
 		headers: {
 			'x-timestamp': Date.now(),
