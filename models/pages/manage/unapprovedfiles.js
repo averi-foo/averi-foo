@@ -20,7 +20,11 @@ module.exports = async (req, res, next) => {
 	const fileName = req.params.filename;
 	return res.sendFile(fileName, options, (err) => {
 		if (err) {
-			next(err);
+			if (err.code === 'ENOENT') {
+				return res.status(404).render('404');
+			} else {
+				next(err);
+			}
 		} else {
 			console.log('Sent:', fileName);
 		}
