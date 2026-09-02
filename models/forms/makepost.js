@@ -327,7 +327,7 @@ module.exports = async (req, res) => {
 				processedFile.attachment = true;
 				await saveFull();
 			} else {
-				existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
+				const existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 				try {
 					switch (type) {
 						case 'image': {
