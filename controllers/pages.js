@@ -19,7 +19,7 @@ const express  = require('express')
 	, { setBoardLanguage, setQueryLanguage } = require(__dirname+'/../lib/middleware/locale/locale.js')
 	//page models
 	, { manageRecent, manageReports, manageAssets, manageSettings, manageBans, manageFilters, editFilter, editCustomPage, manageMyPermissions,
-		manageBoard, manageThread, manageLogs, manageCatalog, manageCustomPages, manageStaff, editStaff, manageTrusted, editPost } = require(__dirname+'/../models/pages/manage/')
+		manageBoard, manageThread, manageLogs, manageCatalog, manageCustomPages, manageStaff, editStaff, manageTrusted, editPost, unapprovedFiles } = require(__dirname+'/../models/pages/manage/')
 	, { globalManageApproval, globalManageSettings, globalManageReports, globalManageBans, globalManageBoards, globalManageFilters, globalEditFilter, editNews, editAccount, editRole,
 		globalManageRecent, globalManageAccounts, globalManageNews, globalManageLogs, globalManageRoles } = require(__dirname+'/../models/pages/globalmanage/')
 	, { changePassword, blockBypass, home, register, login, create, myPermissions, sessions, setupTwoFactor,
@@ -32,6 +32,9 @@ const express  = require('express')
 	, roleParamConverter = paramConverter({ objectIdParams: ['roleid'] })
 	, custompageParamConverter = paramConverter({ objectIdParams: ['custompageid'] });
 
+//testing unapproved file router location
+router.get('/unapproved/:file', useSession, sessionRefresh, isLoggedIn, calcPerms,
+	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 //homepage
 router.get('/index.html', home);
 

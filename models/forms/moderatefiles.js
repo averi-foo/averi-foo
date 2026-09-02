@@ -1,8 +1,10 @@
 'use strict';
 
+const fs = require('fs-extra')
 const { Posts } = require(__dirname+'/../../db/')
 	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js');
+	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 
 module.exports = async (req, res) => {
 
@@ -82,6 +84,10 @@ module.exports = async (req, res) => {
 					(req.body.file_moderation_filename && file.filename == req.body.file_moderation_filename)
 					|| !req.body.file_moderation_filename) {
 					file.approved = true;
+					
+					await moveUpload(file, file.filename, 'file');
+					fs.moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
+								`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 					fileCount++;
 					log_message += `Approved ${file.filename.substring(0,6)},`;
 				}

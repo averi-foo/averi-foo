@@ -312,13 +312,13 @@ module.exports = async (req, res) => {
 			//type and subtype
 			let [type, subtype] = processedFile.mimetype.split('/');
 			//check if already exists
-			const existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
+			existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
 			processedFile.sizeString = formatSize(processedFile.size);
 			const saveFull = async () => {
 				await Files.increment(processedFile);
 				req.files.file[i].inced = true;
 				if (!existsFull) {
-					await moveUpload(file, processedFile.filename, 'file');
+					await moveUpload(file, processedFile.filename, 'unapproved');
 				}
 			};
 			if (mimeTypes.getOther().has(processedFile.mimetype)) {
@@ -327,7 +327,7 @@ module.exports = async (req, res) => {
 				processedFile.attachment = true;
 				await saveFull();
 			} else {
-				const existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
+				existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 				try {
 					switch (type) {
 						case 'image': {

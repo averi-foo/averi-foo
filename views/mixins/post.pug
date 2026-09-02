@@ -174,17 +174,17 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 								if (manage || modview || globalmanage) && !file.approved
 										.overlay-text File pending approval
 								.post-file-src(data-type=type data-attachment=(file.attachment ? "true" : "false"))
-									a(target='_blank' href=`/file/${file.filename}`)
+									a(target='_blank' href=`/unapproved/${file.filename}`)
 										if post.spoiler || file.spoiler
 											div.spoilerimg.file-thumb
 										else if file.hasThumb
-											img.file-thumb(src=`/file/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
+											img.file-thumb(src=`/unapproved/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
 										else if file.attachment
 											div.attachmentimg.file-thumb(data-mimetype=file.mimetype)
 										else if type === 'audio'
 											div.audioimg.file-thumb
 										else
-											img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
+											img.file-thumb(src=`/unapproved/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
 								if (manage || modview || globalmanage)
 									+fileapproval(file.filename, file.approved)
 								.steganography-container.steg-hidden
