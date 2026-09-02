@@ -3,8 +3,8 @@
 const fs = require('fs-extra')
 const { Posts } = require(__dirname+'/../../db/')
 	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
-	, Socketio = require(__dirname+'/../../lib/misc/socketio.js');
-	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
+	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
+	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js');
 
 module.exports = async (req, res) => {
 
