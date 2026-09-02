@@ -305,6 +305,7 @@ async function wipe() {
 
 	return Promise.all([
 		fs.ensureDir(`${uploadDirectory}/captcha`),
+		fs.ensureDir(`${uploadDirectory}/unapproved`),
 		fs.ensureDir(`${uploadDirectory}/unapproved/thumb`),
 		fs.ensureDir(`${uploadDirectory}/file/thumb`),
 		fs.ensureDir(paths.scripts.dest),
