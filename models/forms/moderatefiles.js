@@ -85,7 +85,8 @@ module.exports = async (req, res) => {
 					|| !req.body.file_moderation_filename) {
 					file.approved = true;
 					
-					await moveUpload(file, file.filename, 'file');
+					fs.moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
+							`${uploadDirectory}/file/${file.filename}`)
 					fs.moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
 								`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 					fileCount++;
