@@ -312,7 +312,7 @@ module.exports = async (req, res) => {
 			//type and subtype
 			let [type, subtype] = processedFile.mimetype.split('/');
 			//check if already exists
-			existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
+			const existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
 			processedFile.sizeString = formatSize(processedFile.size);
 			const saveFull = async () => {
 				await Files.increment(processedFile);
