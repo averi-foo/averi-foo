@@ -33,9 +33,9 @@ const express  = require('express')
 	, custompageParamConverter = paramConverter({ objectIdParams: ['custompageid'] });
 
 //testing unapproved file router location
-router.get('/file/unapproved/:filename', useSession, sessionRefresh, isLoggedIn, calcPerms,
+router.get('/:board/manage/unapproved/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, calcPerms,
 	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
-router.get('/file/unapproved/thumb/:filename', useSession, sessionRefresh, isLoggedIn, calcPerms,
+router.get('/:board/manage/unapproved/thumb/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, calcPerms,
 	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 //homepage
 router.get('/index.html', home);

@@ -174,7 +174,7 @@ mixin post(post, truncate, manage=false, globalmanage=false, ban=false, overboar
 								- let prefix = '/file'
 								if (manage || modview || globalmanage) && !file.approved
 										.overlay-text File pending approval
-										- prefix = '/file/unapproved'
+										- prefix = `${post.board}/manage/unapproved`
 								.post-file-src(data-type=type data-attachment=(file.attachment ? "true" : "false"))
 									a(target='_blank' href=`${prefix}/${file.filename}`)
 										if post.spoiler || file.spoiler
