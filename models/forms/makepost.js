@@ -302,6 +302,8 @@ module.exports = async (req, res) => {
 				mimetype: file.mimetype,
 				size: file.size,
 				extension: file.extension,
+				thumbextension: thumbExtension;
+				approved: false,
 			};
 
 			//phash
@@ -313,7 +315,6 @@ module.exports = async (req, res) => {
 			let [type, subtype] = processedFile.mimetype.split('/');
 			//check if already exists
 			const existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
-			console.log("existsFull: ", existsFull, " ", `${uploadDirectory}/file/${processedFile.filename}`)
 			processedFile.sizeString = formatSize(processedFile.size);
 			const saveFull = async () => {
 				await Files.increment(processedFile);
@@ -329,7 +330,7 @@ module.exports = async (req, res) => {
 				await saveFull();
 			} else {
 				let existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
-				console.log("existsThumb: ", existsThumb, " ", `${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`)
+				console.log("Thumbnail exists?: ", existsThumb)
 				try {
 					switch (type) {
 						case 'image': {
@@ -355,8 +356,7 @@ module.exports = async (req, res) => {
 								&& subtype !== 'png'
 								&& lteThumbSize);
 							await saveFull();
-							existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
-							console.log("existsThumb After: ", existsThumb, " ", `${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`)
+							
 							if (!existsThumb) {
 								await imageThumbnail(processedFile);
 							}

@@ -83,14 +83,15 @@ const formatNotificationOptions = (postData) => {
 		let notificationImageURL;
 		const spoilerNotification = (postData.spoiler || postData.files.some(f => f.spoiler === true));
 		const notificationFile = postData.files.find(f => (!f.spoiler && (f.hasThumb === true || f.mimetype.startsWith('image/'))));
+		let prefix = IsMange ? `/${postData.board}/manage/unapproved/file` : "/file"
 		if (spoilerNotification && !notificationFile) {
 			notificationImageURL = '/file/spoiler.png';
 		} else {
 			if (notificationFile) {
 				if (notificationFile.hasThumb) {
-					notificationImageURL = `/file/thumb/${notificationFile.hash}${notificationFile.thumbextension}`;
+					notificationImageURL = `${prefix}/thumb/${notificationFile.hash}${notificationFile.thumbextension}`;
 				} else {
-					notificationImageURL = `/file/${notificationFile.filename}`;
+					notificationImageURL = `${prefix}/${notificationFile.filename}`;
 				}
 			}
 		}
