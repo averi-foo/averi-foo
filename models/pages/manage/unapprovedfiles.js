@@ -1,16 +1,16 @@
 'use strict';
 
 const path = require('path')
+, { pathExists } = require('fs-extra')
 , directory = path.join(__dirname+'/../../../static');
 
 module.exports = async (req, res, next) => {
-	console.log(req.route.path)
 	const isThumb = req.route.path.startsWith('/:board/manage/unapproved/thumb/');
-	console.log(req.path)
-	console.log(req.params.filename)
 	const correctDirectory = isThumb ? "unapproved/thumb" : "unapproved" 
+	const movedDirectory = isThumb ? "file/thumb" : "file" 
+	const exists = pathExists(path.join(directory, correctDirectory, req.params.filename))
 	const options = {
-		root: path.join(directory, correctDirectory),
+		root: path.join(directory, exists ? correctDirectory : movedDirectory),
 		dotfiles: 'deny',
 		headers: {
 			'x-timestamp': Date.now(),
