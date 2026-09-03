@@ -347,6 +347,7 @@ module.exports = async (req, res) => {
 							if (thumbExtension === '.jpg' && subtype === 'png') {
 								//avoid transparency issues for jpg thumbnails on pngs (the most common case -- for anything else, use webp thumbExtension)
 								processedFile.thumbextension = '.png';
+								existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 							}
 							processedFile.geometry = imageDimensions;
 							processedFile.geometryString = `${imageDimensions.width}x${imageDimensions.height}`;
@@ -356,7 +357,7 @@ module.exports = async (req, res) => {
 								&& subtype !== 'png'
 								&& lteThumbSize);
 							await saveFull();
-							
+
 							if (!existsThumb) {
 								await imageThumbnail(processedFile);
 							}
@@ -411,6 +412,7 @@ module.exports = async (req, res) => {
 								processedFile.hasThumb = audioThumbnails;
 								processedFile.geometry = { thumbwidth: thumbSize, thumbheight: thumbSize };
 								await saveFull();
+								existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 								if (processedFile.hasThumb && !existsThumb) {
 									await audioThumbnail(processedFile);
 								}
