@@ -333,8 +333,8 @@ module.exports = async (req, res) => {
 					animatedGifThumbnails === true) {
 					processedFile.thumbextension = '.gif';
 				}
+				// Should always return false when uploading a new image and always return true when uploading a pre-approved image
 				let existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
-				console.log("Thumbnail exists?: ", existsThumb)
 				try {
 					switch (type) {
 						case 'image': {

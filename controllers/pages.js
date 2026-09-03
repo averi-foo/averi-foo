@@ -32,11 +32,6 @@ const express  = require('express')
 	, roleParamConverter = paramConverter({ objectIdParams: ['roleid'] })
 	, custompageParamConverter = paramConverter({ objectIdParams: ['custompageid'] });
 
-//testing unapproved file router location
-router.get('/:board/manage/unapproved/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, setBoardLanguage, calcPerms,
-	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
-router.get('/:board/manage/unapproved/thumb/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, setBoardLanguage, calcPerms,
-	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 //homepage
 router.get('/index.html', home);
 
@@ -101,6 +96,11 @@ router.get('/:board/manage/filters.html', useSession, sessionRefresh, isLoggedIn
 	hasPerms.one(Permissions.MANAGE_BOARD_SETTINGS), csrf, manageFilters);
 router.get('/:board/manage/editfilter/:filterid([a-f0-9]{24}).html', useSession, sessionRefresh, isLoggedIn, Boards.exists, setBoardLanguage, calcPerms,
 	hasPerms.one(Permissions.MANAGE_BOARD_SETTINGS), csrf, filterParamConverter, editFilter);
+//board manage view unapproved files
+router.get('/:board/manage/unapproved/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, setBoardLanguage, calcPerms,
+	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
+router.get('/:board/manage/unapproved/thumb/:filename', useSession, sessionRefresh, isLoggedIn, Boards.exists, setBoardLanguage, calcPerms,
+	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 
 //global manage pages
 router.get('/globalmanage/approval.html', useSession, sessionRefresh, isLoggedIn, calcPerms,
