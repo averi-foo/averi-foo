@@ -329,6 +329,11 @@ module.exports = async (req, res) => {
 				processedFile.attachment = true;
 				await saveFull();
 			} else {
+				if (processedFile.hasThumb && 
+					processedFile.mimetype === 'image/gif' && 
+					animatedGifThumbnails === true) {
+					processedFile.thumbextension = '.gif';
+				}
 				let existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 				console.log("Thumbnail exists?: ", existsThumb)
 				try {
