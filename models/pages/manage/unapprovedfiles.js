@@ -22,11 +22,13 @@ module.exports = async (req, res, next) => {
 	const fileName = req.params.filename;
 	return res.sendFile(fileName, options, (err) => {
 		if (err) {
+			if (err.code === 'ECONNABORTED' || err.code === 'EPIPE') {
+				return;
+			}
 			if (err.code === 'ENOENT') {
 				return res.status(404).render('404');
-			} else {
-				return next(err);
 			}
+			return next(err);
 		} else {
 			console.log('Moderator is viewing:', fileName);
 		}
