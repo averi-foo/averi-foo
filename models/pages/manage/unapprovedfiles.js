@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
 	const correctDirectory = isThumb ? "unapproved/thumb" : "unapproved" 
 	const movedDirectory = isThumb ? "file/thumb" : "file" 
 	const exists = await pathExists(path.join(directory, correctDirectory, req.params.filename))
-	console.log("Exists: ", exists)
+
 	const options = {
 		root: path.join(directory, exists ? correctDirectory : movedDirectory),
 		dotfiles: 'deny',

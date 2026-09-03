@@ -1,10 +1,10 @@
 'use strict';
 
-const fs = require('fs-extra')
 const { Posts } = require(__dirname+'/../../db/')
-	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
-	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
-	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js');
+, { existsSync, moveSync } = require('fs-extra')
+, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
+, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
+, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js');
 
 module.exports = async (req, res) => {
 
@@ -86,11 +86,11 @@ module.exports = async (req, res) => {
 					file.approved = true;
 					const unapproved_file = `${uploadDirectory}/unapproved/${file.filename}`
 					const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
-					if (fs.existsSync(unapproved_file)) {
-						fs.moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
+					if (existsSync(unapproved_file)) {
+						moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
 					}
-					if (fs.existsSync(unapproved_file_thumb)) {
-						fs.moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+					if (existsSync(unapproved_file_thumb)) {
+						moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 					}
 					fileCount++;
 					log_message += `Approved ${file.filename.substring(0,6)},`;
