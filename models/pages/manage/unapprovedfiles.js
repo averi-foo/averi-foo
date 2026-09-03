@@ -25,7 +25,7 @@ module.exports = async (req, res, next) => {
 			if (err.code === 'ENOENT') {
 				return res.status(404).render('404');
 			} else {
-				next(err);
+				return next(err);
 			}
 		} else {
 			console.log('Moderator is viewing:', fileName);
