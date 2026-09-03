@@ -1,3 +1,26 @@
+### 1.7.0 - 1.7.10
+Many new features were added, that I have forgot to document. 
+	- Forked by anthrochan and then averi-foo
+	- Media pending approval was added
+	- Added image links to the navbar, updated assets, more information to the home page, tweaked the catalog to be more appealing
+	- Flag tom select box was added
+	- Owner only anti impersonation feature was added
+	- Home page random image and random tegaki was added
+	- Accounts only board lock mode
+	- Added image hover
+	- Fixed catalog filtering
+	- Fixed embed links not working sometimes
+	- Updated user settings page to look fancier
+	- Added thread auto watching
+	- Updated tegaki to latest version
+	- Added many custom site assets and themes
+	- Added a feature that lets you reply to posts from the recents page
+	- Added remoderation for MPA so you can delete files and change decision
+	- Added pre-approval for images
+	- Performance enhancements to yous.js causing a speed up for users who have posted a lot
+	- Custom Emojis
+	- Steganography Feature
+	- Unapproved folder for unapproved files and lock it behind janny access.
 ### 1.7.0
   - Important permission logic changes. Technical explanation:
     - If an account is a board owner or board staff, they will only get the permissions that are under the `_MANAGE_BOARD_BITS` if the "Board Owner" or "Board Staff" roles respectively have the permission ticked, AND its ticked in the board staff permissions.

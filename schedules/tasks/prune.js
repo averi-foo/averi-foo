@@ -36,6 +36,14 @@ module.exports = {
 					}) : [])
 			);
 		}));
+		// remove unapproved too
+		await Promise.all(unreferenced.map(async file => {
+			debugLogs && console.log('Pruning unapproved', file._id);
+			return Promise.all([
+				remove(`${uploadDirectory}/unapproved/${file.filename}`),
+				remove(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`),
+			]).catch(console.error);
+		}));
 	},
 	interval: timeUtils.DAY,
 	immediate: true,
