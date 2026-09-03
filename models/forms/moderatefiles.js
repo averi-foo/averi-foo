@@ -84,11 +84,14 @@ module.exports = async (req, res) => {
 					(req.body.file_moderation_filename && file.filename == req.body.file_moderation_filename)
 					|| !req.body.file_moderation_filename) {
 					file.approved = true;
-					
-					fs.moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
-							`${uploadDirectory}/file/${file.filename}`)
-					fs.moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
-								`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+					const unapproved_file = `${uploadDirectory}/unapproved/${file.filename}`
+					const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
+					if (fs.existsSync(unapproved_file)) {
+						fs.moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
+					}
+					if (fs.existsSync(unapproved_file_thumb)) {
+						fs.moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+					}
 					fileCount++;
 					log_message += `Approved ${file.filename.substring(0,6)},`;
 				}
