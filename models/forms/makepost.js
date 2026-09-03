@@ -329,7 +329,7 @@ module.exports = async (req, res) => {
 				processedFile.attachment = true;
 				await saveFull();
 			} else {
-				if (rocessedFile.mimetype === 'image/gif' && 
+				if (processedFile.mimetype === 'image/gif' && 
 					animatedGifThumbnails === true) {
 					processedFile.thumbextension = '.gif';
 				}
