@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
 
 	const { __ } = res.locals;
 	const { checkRealMimeTypes, thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails,
-		dontStoreRawIps, globalLimits } = config.get;
+		dontStoreRawIps, globalLimits, animatedGifThumbnails } = config.get;
 
 	//
 	// Spam/flood check
