@@ -302,7 +302,7 @@ module.exports = async (req, res) => {
 				mimetype: file.mimetype,
 				size: file.size,
 				extension: file.extension,
-				thumbextension: thumbExtension;
+				thumbextension: thumbExtension,
 				approved: false,
 			};
 
