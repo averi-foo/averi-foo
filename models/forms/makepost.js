@@ -2,7 +2,7 @@
 
 const { createHash, randomBytes } = require('crypto')
 	, randomBytesAsync = require('util').promisify(randomBytes)
-	, { remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
+	, { moveSync, remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
 	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
@@ -469,6 +469,11 @@ module.exports = async (req, res) => {
 					console.log("Pre-approved file:", file.filename)
 				}
 			}
+			// Move file from unapproved to approved files folder
+			fs.moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
+						`${uploadDirectory}/file/${file.filename}`)
+			fs.moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
+						`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
 		}
