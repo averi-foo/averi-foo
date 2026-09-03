@@ -420,9 +420,22 @@ module.exports = {
 				{ 'postId': thread },
 			];
 		}
+		
 		const postWithExistingFiles = await db.findOne(query, {
-			'projection': {
-				'files.hash': 1,
+			projection: {
+				_id: 0,
+				files: {
+					$filter: {
+						input: '$files',
+						as: 'file',
+						cond: {
+							$and: [
+								{ $eq: ['$$file.approved', true] },
+								{ $in: ['$$file.hash', hashes] }
+							]
+						}
+					}
+				}
 			}
 		});
 		return postWithExistingFiles;

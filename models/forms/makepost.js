@@ -338,7 +338,6 @@ module.exports = async (req, res) => {
 				try {
 					switch (type) {
 						case 'image': {
-							processedFile.thumbextension = thumbExtension;
 							const imageDimensions = await getDimensions(req.files.file[i].tempFilePath, null, true);
 							if (Math.floor(imageDimensions.width*imageDimensions.height) > globalLimits.postFilesSize.imageResolution) {
 								await deleteTempFiles(req).catch(console.error);
