@@ -83,7 +83,7 @@ const formatNotificationOptions = (postData) => {
 		let notificationImageURL;
 		const spoilerNotification = (postData.spoiler || postData.files.some(f => f.spoiler === true));
 		const notificationFile = postData.files.find(f => (!f.spoiler && (f.hasThumb === true || f.mimetype.startsWith('image/'))));
-		let prefix = IsMange ? `/${postData.board}/manage/unapproved/file` : "/file"
+		let prefix = isManage ? `/${postData.board}/manage/unapproved/file` : "/file"
 		if (spoilerNotification && !notificationFile) {
 			notificationImageURL = '/file/spoiler.png';
 		} else {
