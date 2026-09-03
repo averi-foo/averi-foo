@@ -313,6 +313,7 @@ module.exports = async (req, res) => {
 			let [type, subtype] = processedFile.mimetype.split('/');
 			//check if already exists
 			const existsFull = await pathExists(`${uploadDirectory}/file/${processedFile.filename}`);
+			console.log("existsFull: ", existsFull, " ", `${uploadDirectory}/file/${processedFile.filename}`)
 			processedFile.sizeString = formatSize(processedFile.size);
 			const saveFull = async () => {
 				await Files.increment(processedFile);
@@ -470,6 +471,7 @@ module.exports = async (req, res) => {
 				}
 			}
 			if (!alreadyApproved && bypassFileApproval) {
+				console.log("Bypassed file approval, new file being moved: ", file.filename)
 				// Move file from unapproved to approved files folder
 				moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
 						 `${uploadDirectory}/file/${file.filename}`)
