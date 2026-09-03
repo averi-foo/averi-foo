@@ -469,11 +469,13 @@ module.exports = async (req, res) => {
 					console.log("Pre-approved file:", file.filename)
 				}
 			}
-			// Move file from unapproved to approved files folder
-			fs.moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
-						`${uploadDirectory}/file/${file.filename}`)
-			fs.moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
-						`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+			if (!alreadyApproved && bypassFileApproval) {
+				// Move file from unapproved to approved files folder
+				moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
+						 `${uploadDirectory}/file/${file.filename}`)
+				moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
+						 `${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+			}
 			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
 		}
