@@ -328,7 +328,7 @@ module.exports = async (req, res) => {
 				await saveFull();
 			} else {
 				let existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
-				console.log("existsThumb: ", existsThumb, `${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`)
+				console.log("existsThumb: ", existsThumb, " ", `${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`)
 				try {
 					switch (type) {
 						case 'image': {
@@ -355,6 +355,7 @@ module.exports = async (req, res) => {
 								&& lteThumbSize);
 							await saveFull();
 							existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
+							console.log("existsThumb After: ", existsThumb, " ", `${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`)
 							if (!existsThumb) {
 								await imageThumbnail(processedFile);
 							}
