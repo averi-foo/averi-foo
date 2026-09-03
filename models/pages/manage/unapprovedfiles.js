@@ -28,7 +28,7 @@ module.exports = async (req, res, next) => {
 				next(err);
 			}
 		} else {
-			console.log('Sent:', fileName);
+			console.log('Moderator is viewing:', fileName);
 		}
 	});
 };
