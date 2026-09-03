@@ -88,7 +88,7 @@ module.exports = async (req, res) => {
 					const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
 					
 					// If file exists in the unapproved folder then move them to the approved files folder
-					existsSync(unapproved_file)) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
+					existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
 					existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 					
 					fileCount++;
