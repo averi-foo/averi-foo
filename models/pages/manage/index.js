@@ -19,4 +19,5 @@ module.exports = {
 	manageStaff: require(__dirname+'/staff.js'),
 	manageTrusted: require(__dirname+'/trusted.js'),
 	editStaff: require(__dirname+'/editstaff.js'),
+	unapprovedFiles: require(__dirname+'/unapprovedfiles.js'),
 };

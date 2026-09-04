@@ -80,17 +80,19 @@ const formatNotificationOptions = (postData) => {
 	};
 	if (postData.files.length > 0) {
 		//tries to use a thumb instead of full files, will be lighter on bandwidth and able to show for video and some audio too
-		let notificationImageURL;
+		let notificationImageURL = '/file/media-pending-approval.png';
 		const spoilerNotification = (postData.spoiler || postData.files.some(f => f.spoiler === true));
 		const notificationFile = postData.files.find(f => (!f.spoiler && (f.hasThumb === true || f.mimetype.startsWith('image/'))));
+		let prefix = (!notificationFile.approved && isManage) ? `/${postData.board}/manage/unapproved/file` : "/file"
+		
 		if (spoilerNotification && !notificationFile) {
 			notificationImageURL = '/file/spoiler.png';
 		} else {
-			if (notificationFile) {
+			if (notificationFile && notificationFile.approved) {
 				if (notificationFile.hasThumb) {
-					notificationImageURL = `/file/thumb/${notificationFile.hash}${notificationFile.thumbextension}`;
+					notificationImageURL = `${prefix}/thumb/${notificationFile.hash}${notificationFile.thumbextension}`;
 				} else {
-					notificationImageURL = `/file/${notificationFile.filename}`;
+					notificationImageURL = `${prefix}/${notificationFile.filename}`;
 				}
 			}
 		}

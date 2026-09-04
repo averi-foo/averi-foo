@@ -1,8 +1,10 @@
 'use strict';
 
 const { Posts } = require(__dirname+'/../../db/')
-	, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
-	, Socketio = require(__dirname+'/../../lib/misc/socketio.js');
+, { existsSync, moveSync } = require('fs-extra')
+, actionChecker = require(__dirname+'/../../lib/input/actionchecker.js')
+, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
+, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js');
 
 module.exports = async (req, res) => {
 
@@ -82,6 +84,13 @@ module.exports = async (req, res) => {
 					(req.body.file_moderation_filename && file.filename == req.body.file_moderation_filename)
 					|| !req.body.file_moderation_filename) {
 					file.approved = true;
+					const unapproved_file = `${uploadDirectory}/unapproved/${file.filename}`
+					const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
+					
+					// If file exists in the unapproved folder then move them to the approved files folder
+					existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
+					existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+					
 					fileCount++;
 					log_message += `Approved ${file.filename.substring(0,6)},`;
 				}

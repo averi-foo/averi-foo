@@ -2,7 +2,7 @@
 
 const { createHash, randomBytes } = require('crypto')
 	, randomBytesAsync = require('util').promisify(randomBytes)
-	, { remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
+	, { moveSync, remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
 	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
 
 	const { __ } = res.locals;
 	const { checkRealMimeTypes, thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails,
-		dontStoreRawIps, globalLimits } = config.get;
+		dontStoreRawIps, globalLimits, animatedGifThumbnails } = config.get;
 
 	//
 	// Spam/flood check
@@ -302,6 +302,8 @@ module.exports = async (req, res) => {
 				mimetype: file.mimetype,
 				size: file.size,
 				extension: file.extension,
+				thumbextension: thumbExtension,
+				approved: false,
 			};
 
 			//phash
@@ -318,7 +320,7 @@ module.exports = async (req, res) => {
 				await Files.increment(processedFile);
 				req.files.file[i].inced = true;
 				if (!existsFull) {
-					await moveUpload(file, processedFile.filename, 'file');
+					await moveUpload(file, processedFile.filename, 'unapproved');
 				}
 			};
 			if (mimeTypes.getOther().has(processedFile.mimetype)) {
@@ -327,11 +329,15 @@ module.exports = async (req, res) => {
 				processedFile.attachment = true;
 				await saveFull();
 			} else {
-				const existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
+				if (processedFile.mimetype === 'image/gif' && 
+					animatedGifThumbnails === true) {
+					processedFile.thumbextension = '.gif';
+				}
+				// Should always return false when uploading a new image and always return true when uploading a pre-approved image
+				let existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 				try {
 					switch (type) {
 						case 'image': {
-							processedFile.thumbextension = thumbExtension;
 							const imageDimensions = await getDimensions(req.files.file[i].tempFilePath, null, true);
 							if (Math.floor(imageDimensions.width*imageDimensions.height) > globalLimits.postFilesSize.imageResolution) {
 								await deleteTempFiles(req).catch(console.error);
@@ -344,6 +350,7 @@ module.exports = async (req, res) => {
 							if (thumbExtension === '.jpg' && subtype === 'png') {
 								//avoid transparency issues for jpg thumbnails on pngs (the most common case -- for anything else, use webp thumbExtension)
 								processedFile.thumbextension = '.png';
+								existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 							}
 							processedFile.geometry = imageDimensions;
 							processedFile.geometryString = `${imageDimensions.width}x${imageDimensions.height}`;
@@ -353,6 +360,7 @@ module.exports = async (req, res) => {
 								&& subtype !== 'png'
 								&& lteThumbSize);
 							await saveFull();
+
 							if (!existsThumb) {
 								await imageThumbnail(processedFile);
 							}
@@ -407,6 +415,7 @@ module.exports = async (req, res) => {
 								processedFile.hasThumb = audioThumbnails;
 								processedFile.geometry = { thumbwidth: thumbSize, thumbheight: thumbSize };
 								await saveFull();
+								existsThumb = await pathExists(`${uploadDirectory}/file/thumb/${processedFile.hash}${processedFile.thumbextension}`);
 								if (processedFile.hasThumb && !existsThumb) {
 									await audioThumbnail(processedFile);
 								}
@@ -465,6 +474,14 @@ module.exports = async (req, res) => {
 				if (alreadyApproved) {
 					console.log("Pre-approved file:", file.filename)
 				}
+			}
+			if (!alreadyApproved && bypassFileApproval) {
+				console.log("Bypassed file approval, new file being moved: ", file.filename)
+				// Move file from unapproved to approved files folder
+				moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
+						 `${uploadDirectory}/file/${file.filename}`)
+				moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
+						 `${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 			}
 			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
