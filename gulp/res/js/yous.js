@@ -83,7 +83,9 @@ const formatNotificationOptions = (postData) => {
 		let notificationImageURL = '/file/media-pending-approval.png';
 		const spoilerNotification = (postData.spoiler || postData.files.some(f => f.spoiler === true));
 		const notificationFile = postData.files.find(f => (!f.spoiler && (f.hasThumb === true || f.mimetype.startsWith('image/'))));
-		let prefix = (!notificationFile.approved && isManage) ? `/${postData.board}/manage/unapproved/file` : "/file"
+		// TODO: figure out later.
+		//let prefix = (!notificationFile.approved && isManage) ? `/${postData.board}/manage/unapproved/file` : "/file"
+		let prefix = "/file";
 		
 		if (spoilerNotification && !notificationFile) {
 			notificationImageURL = '/file/spoiler.png';

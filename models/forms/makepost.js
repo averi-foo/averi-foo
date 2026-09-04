@@ -478,10 +478,12 @@ module.exports = async (req, res) => {
 			if (!alreadyApproved && bypassFileApproval) {
 				console.log("Bypassed file approval, new file being moved: ", file.filename)
 				// Move file from unapproved to approved files folder
-				moveSync(`${uploadDirectory}/unapproved/${file.filename}`,
-						 `${uploadDirectory}/file/${file.filename}`)
-				moveSync(`${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`,
-						 `${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
+				const unapproved_file = `${uploadDirectory}/unapproved/${file.filename}`
+				const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
+				
+				// If file exists in the unapproved folder then move them to the approved files folder
+				existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
+				existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/`)
 			}
 			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
