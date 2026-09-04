@@ -544,16 +544,16 @@ const extraLocals = ${JSON.stringify({ meta: config.get.meta, reverseImageLinksU
 
 		//symlink TomSelect
 		await fs.symlink(__dirname+'/node_modules/tom-select/dist/js/tom-select.complete.js', __dirname+'/static/js/tom-select.complete.js', 'file')
-			.catch(e => { console.warn(e); });
+			.catch(e => { e.code === 'EEXIST' && console.log(e.message); e.code !== 'EEXIST' && console.warn(e); });
 		//symlink TomSelect CSS.
 		await fs.symlink(__dirname+'/node_modules/tom-select/dist/css/tom-select.default.css', __dirname+'/static/css/tom-select.default.css', 'file')
-			.catch(e => { console.warn(e); });
+			.catch(e => { e.code === 'EEXIST' && console.log(e.message); e.code !== 'EEXIST' && console.warn(e); });
 		//symlink web3
 		await fs.symlink(__dirname+'/node_modules/web3/dist/web3.min.js', __dirname+'/gulp/res/js/web3.js', 'file')
-			.catch(e => { console.warn(e); });
+			.catch(e => { e.code === 'EEXIST' && console.log(e.message); e.code !== 'EEXIST' && console.warn(e); });
 		//symlink socket.io file
 		await fs.symlink(__dirname+'/node_modules/socket.io/client-dist/socket.io.min.js', __dirname+'/gulp/res/js/socket.io.js', 'file')
-			.catch(e => { console.warn(e); });
+			.catch(e => { e.code === 'EEXIST' && console.log(e.message); e.code !== 'EEXIST' && console.warn(e); });
 
 	} catch (e) {
 		console.log(e);
