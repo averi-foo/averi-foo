@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	let emojiBar = document.getElementById("emoji-bar")
 	let messageBox = document.getElementById("message")
 	
-	if (postActionBar != null) {
+	if (postActionBar != null && emojiBar != null) {
 		activateScrollLeft(emojiBar)
 		emojiButton.addEventListener("click",emojiButtonClicked)
 		emojiBar.childNodes.forEach((node) =>{

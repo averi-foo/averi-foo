@@ -20,6 +20,7 @@ module.exports = async (req, res, next) => {
 	};
 	
 	const fileName = req.params.filename;
+	const fileExtension = fileName.split(".").pop()
 	return res.sendFile(fileName, options, (err) => {
 		if (err) {
 			if (err.code === 'ECONNABORTED' || err.code === 'EPIPE') {
@@ -30,7 +31,7 @@ module.exports = async (req, res, next) => {
 			}
 			return next(err);
 		} else {
-			console.log('Moderator is viewing:', fileName);
+			console.log('Moderator is viewing:', fileName.substring(0,6), "... extension: .", fileExtension);
 		}
 	});
 };

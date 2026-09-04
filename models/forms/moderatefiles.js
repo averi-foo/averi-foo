@@ -91,6 +91,8 @@ module.exports = async (req, res) => {
 					existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
 					existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 					
+					console.log(`Moderator has approved ${file.filename.substring(0,6)}`)
+					
 					fileCount++;
 					log_message += `Approved ${file.filename.substring(0,6)},`;
 				}
