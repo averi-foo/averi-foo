@@ -31,7 +31,7 @@ module.exports = async (req, res, next) => {
 			}
 			return next(err);
 		} else {
-			console.log('Moderator is viewing:', fileName.substring(0,6), "... extension: .", fileExtension);
+			console.log('Moderator is viewing:', fileName.substring(0,6) + "... extension: ." + fileExtension);
 		}
 	});
 };
