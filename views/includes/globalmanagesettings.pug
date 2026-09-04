@@ -664,6 +664,10 @@ ul.tabs.group
 				label.postform-style.ph-5
 					input(type='checkbox', name='frontend_script_default_autowatch', value='true' checked=settings.frontendScriptDefault.autoWatch)
 			.row
+				.label #{__("Set catalog as board home link default")}
+				label.postform-style.ph-5
+					input(type='checkbox', name='frontend_script_default_boardlinkswap', value='true' checked=settings.frontendScriptDefault.boardLinkSwap)
+			.row
 				.label #{__('Default Volume')}
 				label.postform-style.ph-5
 					input(type='range' name='frontend_script_default_volume' min='0' max='100' value=settings.frontendScriptDefault.defaultVolume)

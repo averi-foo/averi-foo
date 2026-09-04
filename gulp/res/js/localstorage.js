@@ -54,6 +54,7 @@ const localStorageDefaults = {
 	'notification-yous-only': settings.notificationsYousOnly,
 	'yous-setting': settings.showYous,
 	'threadwatcher': settings.threadWatcher,
+	'boardlinkswap': settings.boardLinkSwap,
 	'autowatch': settings.autoWatch,
 	'threadwatcher-minimise': false,
 	'disableboardcss': false,
