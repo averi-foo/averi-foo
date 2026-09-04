@@ -483,7 +483,7 @@ module.exports = async (req, res) => {
 				
 				// If file exists in the unapproved folder then move them to the approved files folder
 				existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
-				existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/`)
+				existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
 			}
 			// Auto approve on bypassFileApproval or alreadyApproved
 			file.approved = alreadyApproved || bypassFileApproval;
