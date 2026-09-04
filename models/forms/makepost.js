@@ -2,7 +2,7 @@
 
 const { createHash, randomBytes } = require('crypto')
 	, randomBytesAsync = require('util').promisify(randomBytes)
-	, { moveSync, remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
+	, { moveSync, existsSync, remove, emptyDir, pathExists, stat: fsStat } = require('fs-extra')
 	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
