@@ -374,6 +374,7 @@ module.exports = {
 		smoothScrolling: true, //smooth scrolling. annoying for chrome users on long threads
 		threadWatcher: true, //make threadwatcher visible
 		autoWatch: true, //make threadwatcher automatically watch replied threads
+		boardLinkSwap: false, //makes catalog the default board home link for a user if true
 		defaultVolume: 100, //default video/audio volume
 		loop: true, //looping video/audio
 		imageLoadingBars: true, //show loading bar for images, changes behaviour of right click save/open

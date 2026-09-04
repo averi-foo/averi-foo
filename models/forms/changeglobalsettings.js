@@ -177,6 +177,7 @@ module.exports = async (req, res) => {
 			smoothScrolling: booleanSetting(req.body.frontend_script_default_smooth_scrolling, oldSettings.frontendScriptDefault.smoothScrolling),
 			threadWatcher: booleanSetting(req.body.frontend_script_default_thread_watcher, oldSettings.frontendScriptDefault.threadWatcher),
 			autoWatch: booleanSetting(req.body.frontend_script_default_autowatch, oldSettings.frontendScriptDefault.autoWatch),
+			boardLinkSwap: booleanSetting(req.body.frontend_script_default_boardlinkswap, oldSettings.frontendScriptDefault.boardLinkSwap),
 			defaultVolume: numberSetting(req.body.frontend_script_default_volume, oldSettings.frontendScriptDefault.defaultVolume),
 			loop: booleanSetting(req.body.frontend_script_default_loop, oldSettings.frontendScriptDefault.loop),
 			imageLoadingBars: booleanSetting(req.body.frontend_script_default_image_loading_bars, oldSettings.frontendScriptDefault.imageLoadingBars),
