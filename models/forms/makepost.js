@@ -470,7 +470,7 @@ module.exports = async (req, res) => {
 			const file = files[i];
 			let alreadyApproved = false;
 			if (preApprovedFiles != null) {
-				alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash);
+				alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash && f.extension === file.extension);
 				if (alreadyApproved) {
 					console.log("Pre-approved file:", file.filename)
 				}
