@@ -32,7 +32,10 @@
 	 --greentext-color: #0a0;
 	 --pinktext-color:#E0727F;
  }
-
+ :root {
+	 color-scheme: dark;
+ }
+ 
  .nav-item:hover {
 	 scale: 1.1;
 	 transition: scale 0.2s;
@@ -97,6 +100,9 @@
 	 background: #080c19 !important;
  }
 
+ img[src$="/file/homepage-icon.png"] {
+	 content: url("/css/themes/assets/halloween_icon.png");
+ }
  img[src$="/file/home.png"] {
 	 content: url("/css/themes/assets/halloween_home.png");
  }
@@ -123,4 +129,16 @@
 
  #float {
  background: black;
+ }
+
+ * {
+	 cursor: url("/css/thenes/assets/wolfveri-cursor.png"),default;
+ }
+ 
+ a, a:hover, .file-thumb, .navbar-img, .user-id, .jsonly.postmenu, .jsonly.postform-style.filelabel, input.dummy-link.tegaki-button, input#submitpost, img.catalog-thumb, input[type="submit"], .collapse, input[type="button"] {
+	 cursor: url("/css/thenes/assets/wolfveri-cursor-hover.png"),default
+ }
+ 
+ input.post-check, select, .postform-style.ph-5, input[type="checkbox"], input[type="range"] {
+	 cursor: url("/css/thenes/assets/wolfveri-cursor.png"),default
  }
