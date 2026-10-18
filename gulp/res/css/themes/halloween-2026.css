@@ -139,6 +139,10 @@
 	 cursor: url("/css/themes/assets/wolfveri-cursor-hover.png"),default
  }
  
+ textarea, input, select, .postform-style, .form-post {
+	 cursor: text
+ }
+ 
  input.post-check, select, .postform-style.ph-5, input[type="checkbox"], input[type="range"] {
 	 cursor: url("/css/themes/assets/wolfveri-cursor.png"),default
  }
