@@ -132,13 +132,13 @@
  }
 
  * {
-	 cursor: url("/css/thenes/assets/wolfveri-cursor.png"),default;
+	 cursor: url("/css/themes/assets/wolfveri-cursor.png"),default;
  }
  
  a, a:hover, .file-thumb, .navbar-img, .user-id, .jsonly.postmenu, .jsonly.postform-style.filelabel, input.dummy-link.tegaki-button, input#submitpost, img.catalog-thumb, input[type="submit"], .collapse, input[type="button"] {
-	 cursor: url("/css/thenes/assets/wolfveri-cursor-hover.png"),default
+	 cursor: url("/css/themes/assets/wolfveri-cursor-hover.png"),default
  }
  
  input.post-check, select, .postform-style.ph-5, input[type="checkbox"], input[type="range"] {
-	 cursor: url("/css/thenes/assets/wolfveri-cursor.png"),default
+	 cursor: url("/css/themes/assets/wolfveri-cursor.png"),default
  }
