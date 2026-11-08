@@ -13,12 +13,16 @@ module.exports = async (req, res) => {
 
 	const updatedFlags = res.locals.board.flags;
 
-	//delete file of all selected flags
+	// Flag deletion musn't be done as it uglifies the website with missing images.
+	// Just stop it from being selected, keep the file and remove manually if it is an issue.
+	
+	/*
 	await Promise.all(req.body.checkedflags.map(async flagName => {
 		remove(`${uploadDirectory}/flag/${req.params.board}/${res.locals.board.flags[flagName]}`);
 		delete res.locals.board.flags[flagName];
 	}));
-
+	*/
+	
 	//remove from db
 	await Boards.setFlags(req.params.board, updatedFlags);
 
