@@ -127,7 +127,6 @@ module.exports = {
 		};
 		if (!getSensitive) {
 			projection['ip'] = 0;
-			projection['account'] = 0;
 		}
 		const threadsQuery = {
 			'thread': null,
