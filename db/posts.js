@@ -127,6 +127,7 @@ module.exports = {
 		};
 		if (!getSensitive) {
 			projection['ip'] = 0;
+			projection['account'] = 0;
 		}
 		const threadsQuery = {
 			'thread': null,
@@ -271,6 +272,7 @@ module.exports = {
 		};
 		if (!getSensitive) {
 			projection['ip'] = 0;
+			projection['account'] = 0;
 		}
 		const [thread, replies] = await Promise.all([
 			db.findOne({
@@ -313,6 +315,7 @@ module.exports = {
 				'salt': 0 ,
 				'password': 0,
 				'ip': 0,
+				'account': 0,
 				'reports': 0,
 				'globalreports': 0,
 			}
@@ -348,6 +351,7 @@ module.exports = {
 			'projection': {
 				'salt': 0,
 				'password': 0,
+				'account': 0,
 				'ip': 0,
 				'reports': 0,
 				'globalreports': 0,
@@ -376,6 +380,7 @@ module.exports = {
 			'projection': {
 				'salt': 0,
 				'password': 0,
+				'account': 0,
 				'ip': 0,
 				'reports': 0,
 				'globalreports': 0,
@@ -469,6 +474,7 @@ module.exports = {
 				'salt': 0,
 				'password': 0,
 				'ip': 0,
+				'account': 0,
 				'reports': 0,
 				'globalreports': 0,
 			}
