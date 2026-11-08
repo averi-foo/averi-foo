@@ -764,8 +764,8 @@ module.exports = async (req, res) => {
 	const { raw, cloak, type } = data.ip;
 	const { rawAccount, cloakAccount } = { rawAccount: data.account, cloakAccount: 'Account Holder' };
 	//but emit it to manage pages because they need to get all posts through socket including thread
-	Socketio.emitRoom('globalmanage-recent-hashed', 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: cloakAccount });
-	Socketio.emitRoom(`${res.locals.board._id}-manage-recent-hashed`, 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: cloakAccount });
+	Socketio.emitRoom('globalmanage-recent-hashed', 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: rawAccount });
+	Socketio.emitRoom(`${res.locals.board._id}-manage-recent-hashed`, 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: rawAccount });
 	if (!dontStoreRawIps) {
         //no need to emit to these rooms if raw IPs are not stored
 		Socketio.emitRoom('globalmanage-recent-raw', 'newPost', { ...projectedPost, ip: { cloak, raw, type }, account: rawAccount });
