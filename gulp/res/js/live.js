@@ -83,7 +83,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'move':
-				dataMark = __('Moved');
+				dataMark = `Moved to ${data.destinationString}`;
 				applyToReplies = true;
 				disableReplies = true;
 				changeStatCount(-1, -postFilesCount)
