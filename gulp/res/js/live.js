@@ -101,7 +101,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			markedSpan.className = 'marked';
 			postContainer.classList.add('marked');
 			markedSpan.textContent = dataMark
-			if (markedSpanAlreadyExists) {
+			if (!markedSpanAlreadyExists) {
 				postContainer.appendChild(markedSpan)
 			}
 		}
@@ -114,7 +114,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				markedSpan.className = 'marked';
 				pc.classList.add('marked');
 				markedSpan.textContent = dataMark
-				if (markedSpanAlreadyExists) {
+				if (!markedSpanAlreadyExists) {
 					pc.appendChild(markedSpan)
 				}
 			});
