@@ -124,7 +124,7 @@ module.exports = async (req, res) => {
 		Socketio.emitRoom(moveEmits[i].room, 'markPost', { 
 			postId: moveEmits[i].postId, 
 			type: 'move',
-			destinationString: `>>${crossBoard ? destinationBoard + "/" : ""}${destinationThreadId}`,
+			destinationString: `>>${crossBoard ? "/" + destinationBoard + "/" : ""}${destinationThreadId}`,
 		});
 	}
 

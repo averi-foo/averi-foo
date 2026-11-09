@@ -96,15 +96,27 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		}
 		if (dataMark) {
 			//mark with a red text
+			let markedSpanAlreadyExists = postContainer.querySelector("span.marked");
+			let markedSpan = markedSpanAlreadyExists || document.createElement("span");
+			markedSpan.className = 'marked';
 			postContainer.classList.add('marked');
-			postContainer.setAttribute('data-mark', dataMark);
+			markedSpan.textContent = dataMark
+			if (markedSpanAlreadyExists) {
+				postContainer.appendChild(markedSpan)
+			}
 		}
 		if (isOp && applyToReplies === true) {
 			//moved or delete OPs then apply to whole thread
 			const postContainers = document.getElementsByClassName('post-container');
-			Array.from(postContainers).forEach(e => {
-				e.classList.add('marked');
-				e.setAttribute('data-mark', dataMark);
+			Array.from(postContainers).forEach(pc => {
+				let markedSpanAlreadyExists = pc.querySelector("span.marked");
+				let markedSpan = markedSpanAlreadyExists || document.createElement("span");
+				markedSpan.className = 'marked';
+				pc.classList.add('marked');
+				markedSpan.textContent = dataMark
+				if (markedSpanAlreadyExists) {
+					pc.appendChild(markedSpan)
+				}
 			});
 		}
 		if (isOp && disableReplies === true) {
