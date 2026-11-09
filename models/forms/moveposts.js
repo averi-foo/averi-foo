@@ -125,6 +125,7 @@ module.exports = async (req, res) => {
 			postId: moveEmits[i].postId, 
 			type: 'move',
 			destinationString: `>>${crossBoard ? "/" + destinationBoard + "/" : ""}${destinationThreadId}`,
+			destinationLink: `/${destinationBoard}/thread/${destinationThreadId}.html${crossBoard ? "" : "#" + moveEmits[i].postId.toString()}`
 		});
 	}
 

@@ -83,7 +83,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				changeStatCount(-1, -postFilesCount)
 				break;
 			case 'move':
-				dataMark = `Moved to ${data.destinationString}`;
+				dataMark = __('Moved to ');
 				applyToReplies = true;
 				disableReplies = true;
 				changeStatCount(-1, -postFilesCount)
@@ -94,29 +94,35 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			default:
 				return;
 		}
-		if (dataMark) {
-			//mark with a red text
-			let markedSpanAlreadyExists = postContainer.querySelector("span.marked");
+		
+		function createMarkedSpan(pc) {
+			let markedSpanAlreadyExists = pc.querySelector("span.marked");
 			let markedSpan = markedSpanAlreadyExists || document.createElement("span");
 			markedSpan.className = 'marked';
-			postContainer.classList.add('marked');
+			pc.classList.add('marked');
 			markedSpan.textContent = dataMark
+			
+			if (data.type == 'move') {
+				let moveLink = document.createElement("a");
+				moveLink.href = `${data.destinationLink}`
+				moveLink.textContent = `${data.destinationString}`
+				markedSpan.appendChild(moveLink)
+			}
+			
 			if (!markedSpanAlreadyExists) {
-				postContainer.appendChild(markedSpan)
+				pc.appendChild(markedSpan)
 			}
 		}
+		
+		if (dataMark) {
+			createMarkedSpan(postContainer)
+		}
+		
 		if (isOp && applyToReplies === true) {
 			//moved or delete OPs then apply to whole thread
 			const postContainers = document.getElementsByClassName('post-container');
 			Array.from(postContainers).forEach(pc => {
-				let markedSpanAlreadyExists = pc.querySelector("span.marked");
-				let markedSpan = markedSpanAlreadyExists || document.createElement("span");
-				markedSpan.className = 'marked';
-				pc.classList.add('marked');
-				markedSpan.textContent = dataMark
-				if (!markedSpanAlreadyExists) {
-					pc.appendChild(markedSpan)
-				}
+				createMarkedSpan(pc)
 			});
 		}
 		if (isOp && disableReplies === true) {
