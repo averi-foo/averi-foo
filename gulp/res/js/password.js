@@ -75,11 +75,8 @@ class syncedField {
 }
 
 window.addEventListener('settingsReady', () => {
-
-	new syncedField('input[name="postpassword"]', 'postpassword');
-	new syncedField('input[name="name"]', 'name');
-
 	const boardUri = window.location.pathname.split('/')[1];
+	new syncedField('input[name="postpassword"]', 'postpassword');
+	new syncedField('input[name="name"]', `name-${boardUri}`);
 	new syncedField('select[name="customflag"]', `customflag-${boardUri}`);
-
 });
