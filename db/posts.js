@@ -957,7 +957,7 @@ module.exports = {
 			}
 		});
 		if (!destinationThreadId) {
-			//No destination thread i.e we are maing a new thread from the selected posts, make one the OP
+			//No destination thread i.e we are making a new thread from the selected posts, make one the OP
 			bulkWrites.push({
 				'updateOne': {
 					'filter': {

@@ -116,13 +116,17 @@ module.exports = async (req, res) => {
 	// Board we are moving to.
 	const destinationBoard = res.locals.destinationBoard ? res.locals.destinationBoard._id : req.params.board;
 	const crossBoard = destinationBoard !== req.params.board;
-	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0])
-		, movedPosts = 0, OldToNewPostIds;
+	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0]), movedPosts = 0, OldToNewPostIds;
 	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postIds, postMongoIds, crossBoard, destinationThreadId, destinationBoard));
 
 	//emit markPost moves
 	for (let i = 0; i < moveEmits.length; i++) {
-		Socketio.emitRoom(moveEmits[i].room, 'markPost', { postId: moveEmits[i].postId, type: 'move' });
+		Socketio.emitRoom(moveEmits[i].room, 'markPost', { 
+			postId: moveEmits[i].postId, 
+			type: 'move',
+			destinationString: `>>${crossBoard ? "/" + destinationBoard + "/" : ""}${destinationThreadId}`,
+			destinationLink: `/${destinationBoard}/thread/${destinationThreadId}.html#${crossBoard ? OldToNewPostIds[moveEmits[i].postId].toString() : moveEmits[i].postId.toString()}`
+		});
 	}
 
 	//no destination thread specified (making new thread from posts), need to fetch OP as destinationThread for remarkup/salt

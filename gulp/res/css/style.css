@@ -1218,9 +1218,9 @@ input:invalid, textarea:invalid {
 	border: none;
 	background: none;
 }
-
-.post-container.marked::after {
-	content: attr(data-mark) " ";
+/* The actual text in a marked message */
+.post-container.marked span.marked, 
+.post-container.marked span.marked a{
 	font-weight: bold;
 	color: var(--title-color);
 }
