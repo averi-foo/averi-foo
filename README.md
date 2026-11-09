@@ -1,5 +1,5 @@
 <p align="center">
- <img src="https://averi.foo/file/homepage-icon.png" width=250px>
+ <img width="250px" alt="image" src="https://github.com/user-attachments/assets/c76c6854-9c2f-48a3-994f-83878b9acc9b" />
 </p>
 <p align="center">
  <img src="https://skillicons.dev/icons?i=cloudflare,nodejs" width=180px>
