@@ -106,6 +106,10 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 				let moveLink = document.createElement("a");
 				moveLink.href = `${data.destinationLink}`
 				moveLink.textContent = `${data.destinationString}`
+				// remove anchor if it's moved to a new thread.
+				if (isOp) {
+					moveLink.textContent = moveLink.textContent.split('#')[0];
+				}
 				markedSpan.appendChild(moveLink)
 			}
 			
