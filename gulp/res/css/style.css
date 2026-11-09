@@ -1219,7 +1219,8 @@ input:invalid, textarea:invalid {
 	background: none;
 }
 /* The actual text in a marked message */
-.post-container.marked span.marked {
+.post-container.marked span.marked, 
+.post-container.marked span.marked a{
 	font-weight: bold;
 	color: var(--title-color);
 }
