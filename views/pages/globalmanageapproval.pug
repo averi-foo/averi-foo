@@ -8,13 +8,19 @@ block head
 block content
 	h1.board-title #{__('Approval')}
 	br
-	+globalmanagenav('approvals')
+	.wrapbar
+		+globalmanagenav('approvals')
+		if !ip && !account
+			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`globalmanage-approval-${viewRawIp === true ? 'raw' : 'hashed'}`)
+				.dot#livecolor
+				|  #{__('Connecting...')} 
+				input.postform-style.ml-5.di#updatepostsbutton(type='button' value=__('Update'))
 	form(action=`/forms/global/actions` method='POST' enctype='application/x-www-form-urlencoded')
+		input(type='hidden' name='_csrf' value=csrf)
 		if posts.length === 0
 			hr(size=1)
-			p #{__('No files pending approval.')}
+			p#no-files-pending #{__('No files pending approval.')}
 		else
-			input(type='hidden' name='_csrf' value=csrf)
 			hr(size=1)
 			//- if ip
 			//- 	h4.no-m-p #{__('Reports against or by ip %s', ip)}

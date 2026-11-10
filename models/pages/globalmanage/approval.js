@@ -13,11 +13,15 @@ module.exports = async (req, res, next) => {
 
 	res.set('Cache-Control', 'private, max-age=1');
 
-	res.render('globalmanageapproval', {
-		csrf: req.csrfToken(),
-		permissions: res.locals.permissions,
-		viewRawIp: res.locals.permissions.get(Permissions.VIEW_RAW_IP),
-		viewRawAccount: res.locals.permissions.get(Permissions.VIEW_RAW_ACCOUNT),
-		posts,
-	});
+	if (req.path.endsWith('.json')) {
+		res.json(posts);
+	} else {		
+		res.render('globalmanageapproval', {
+			csrf: req.csrfToken(),
+			permissions: res.locals.permissions,
+			viewRawIp: res.locals.permissions.get(Permissions.VIEW_RAW_IP),
+			viewRawAccount: res.locals.permissions.get(Permissions.VIEW_RAW_ACCOUNT),
+			posts,
+		});
+	} 
 };

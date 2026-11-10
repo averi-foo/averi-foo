@@ -1,4 +1,4 @@
-/* globals __ isRecent banmessage isGlobalRecent isThread post extraLocals isModView io setLocalStorage */
+/* globals __ isRecent isApproval banmessage isGlobalRecent isThread post extraLocals isModView io setLocalStorage */
 let liveEnabled = localStorage.getItem('live') == 'true';
 let scrollEnabled = localStorage.getItem('scroll') == 'true';
 let socket;
@@ -11,7 +11,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 	let supportsWebSockets = 'WebSocket' in window || 'MozWebSocket' in window;
 	const livecolor = document.getElementById('livecolor');
 	const liveElem = document.getElementById('livetext');
-	const livetext = (isThread || isRecent) && liveElem ? liveElem.childNodes[1] : null;
+	const livetext = (isThread || isRecent || isApproval) && liveElem ? liveElem.childNodes[1] : null;
 	let room = liveElem && liveElem.dataset.room;
 	const viewRawIp = liveElem && liveElem.dataset.viewRawIp === 'true';
 	const viewRawAccount = liveElem && liveElem.dataset.viewRawAccount === 'true';
@@ -181,7 +181,8 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			post: postData,
 			modview: isModView,
 			manage: (isRecent && !isGlobalRecent),
-			globalmanage: isGlobalRecent,
+			globalmanage: isGlobalRecent || isApproval,
+			approval: isApproval,
 			upLevel: isThread,
 			...extraLocals,
 		});
@@ -196,6 +197,17 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			insertPoint = threadWrapper;
 			firstHr.insertAdjacentElement('beforebegin', newHr);
 			newHr.insertAdjacentElement('afterend', threadWrapper);
+		} else if (isApproval) {
+			const noApprovals = document.getElementById('no-files-pending'); 
+			noApprovals?.style.setProperty('display', 'none');
+			const hrs = document.querySelectorAll('hr');
+			const lastHr = hrs[hrs.length-1];
+			const newHr = document.createElement('hr');
+			const threadWrapper = document.createElement('div');
+			threadWrapper.classList.add('thread');
+			insertPoint = threadWrapper;
+			lastHr.insertAdjacentElement('afterend', newHr);
+			newHr.insertAdjacentElement('beforebegin', threadWrapper);
 		} else {
 			insertPoint = document.querySelector('.thread');
 		}
@@ -431,7 +443,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 	scrollSetting.checked = scrollEnabled;
 	scrollSetting.addEventListener('change', toggleScroll, false);
 
-	if ((isThread || isRecent) && updateButton) {
+	if ((isThread || isRecent || isApproval) && updateButton) {
 		updateButton.addEventListener('click', forceUpdate);
 		liveEnabled ? enableLive() : disableLive();
 	}
