@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
 	res.set('Cache-Control', 'private, max-age=1');
 
 	if (req.path.endsWith('.json')) {
-		res.json(posts);
+		res.json(posts.reverse());
 	} else {		
 		res.render('globalmanageapproval', {
 			csrf: req.csrfToken(),
