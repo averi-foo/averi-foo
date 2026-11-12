@@ -496,12 +496,15 @@ module.exports = {
 		}).limit(quoteLimit).toArray();
 	},
 
-	getFilesPending: () => {
+	// Used for globalmanage approval page.
+	getFilesPending: (offset=0,limit=20) => {
 		const query = {
 			'files.approved': false,
 		};
-
-		return db.find(query).toArray();
+	
+		return db.find(query).sort({
+			'_id': -1
+		}).skip(offset).limit(limit).toArray();
 	},
 
 	getFilesPendingCount: async () => {
