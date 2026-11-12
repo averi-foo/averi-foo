@@ -1,7 +1,7 @@
 'use strict';
 
 const { Posts } = require(__dirname+'/../../../db/index.js')
-	, { Permissions } = require(__dirname+'/../../../lib/permission/permissions.js');
+	, { Permissions } = require(__dirname+'/../../../lib/permission/permissions.js')
 	, pageQueryConverter = require(__dirname+'/../../../lib/input/pagequeryconverter.js')
 	, limit = 20;
 
