@@ -204,8 +204,8 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		}
 		insertPoint.insertAdjacentHTML(options.insertPosition || 'beforeend', postHtml);
 		// This might be important when I fix pagination for this page.
-		if (isRecent) {
-			//cap the recent pages to 20 posts so they dont grow to infinity
+		if (isRecent || isApproval) {
+			//cap the recent and approval pages to 20 posts so they dont grow to infinity
 			Array.from(document.getElementsByClassName('thread'))
 				.slice(20)
 				.forEach(el => {
