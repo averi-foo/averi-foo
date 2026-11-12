@@ -10,7 +10,7 @@ block content
 	br
 	.wrapbar
 		+globalmanagenav('approvals')
-		if !ip && !account
+		if page === 1 !ip && !account
 			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`globalmanage-approval-${viewRawIp === true ? 'raw' : 'hashed'}`)
 				.dot#livecolor
 				|  #{__('Connecting...')} 
