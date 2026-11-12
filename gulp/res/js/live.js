@@ -189,7 +189,9 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 		let insertPoint;
 		if (options.insertPoint) {
 			insertPoint = options.insertPoint;
-		} else if (isRecent) {
+		} else if (isRecent || isApproval) {
+			const noApprovals = document.getElementById('no-files-pending'); 
+			noApprovals?.style.setProperty('display', 'none');
 			const firstHr = document.querySelector('hr');
 			const newHr = document.createElement('hr');
 			const threadWrapper = document.createElement('div');
@@ -197,21 +199,11 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			insertPoint = threadWrapper;
 			firstHr.insertAdjacentElement('beforebegin', newHr);
 			newHr.insertAdjacentElement('afterend', threadWrapper);
-		} else if (isApproval) {
-			const noApprovals = document.getElementById('no-files-pending'); 
-			noApprovals?.style.setProperty('display', 'none');
-			const hrs = document.querySelectorAll('hr');
-			const lastHr = hrs[hrs.length-1];
-			const newHr = document.createElement('hr');
-			const threadWrapper = document.createElement('div');
-			threadWrapper.classList.add('thread');
-			insertPoint = threadWrapper;
-			lastHr.insertAdjacentElement('afterend', newHr);
-			newHr.insertAdjacentElement('beforebegin', threadWrapper);
 		} else {
 			insertPoint = document.querySelector('.thread');
 		}
 		insertPoint.insertAdjacentHTML(options.insertPosition || 'beforeend', postHtml);
+		// This might be important when I fix pagination for this page.
 		if (isRecent) {
 			//cap the recent pages to 20 posts so they dont grow to infinity
 			Array.from(document.getElementsByClassName('thread'))
