@@ -389,6 +389,9 @@ p {
 	margin-top: 1px;
 	display: none;
 }
+.tall {
+	max-height: 375px;
+}
 /*
 .upload-list::-webkit-scrollbar { 
 	display: none; 
