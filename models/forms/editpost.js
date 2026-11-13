@@ -1,6 +1,6 @@
 'use strict';
 
-const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
+const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
 	, { createHash } = require('crypto')
 	, { func: pruneFiles } = require(__dirname+'/../../schedules/tasks/prune.js')
