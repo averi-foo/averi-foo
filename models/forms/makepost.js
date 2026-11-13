@@ -2,7 +2,7 @@
 
 const { createHash, randomBytes } = require('crypto')
 	, randomBytesAsync = require('util').promisify(randomBytes)
-	, { moveSync, existsSync, emptyDir } = require('fs-extra')
+	, { emptyDir } = require('fs-extra')
 	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, Socketio = require(__dirname+'/../../lib/misc/socketio.js')
@@ -212,47 +212,12 @@ module.exports = async (req, res) => {
 			}
 		}
 	}
-	// ---------------
-	// File processing
-	// ---------------
+	// -----------------------------
+	// File processing and approval
+	// ----------------------------
 	let files = await processFiles(req, res, redirect);
 
-	// -------------
-	// File approval
-	// -------------
-	const bypassFileApproval = res.locals.permissions.hasAny(Permissions.BYPASS_FILE_APPROVAL);
-
-	if (files.length > 0) {
-		const filesHashes = req.files.file.map(f => f.sha256);
-		// Checks for already approved files and automatically approves them if they've been approved before
-		const preApprovedFiles = await Posts.checkExistingFiles(res.locals.board._id, null, filesHashes);
-		for (let i = 0; i < files.length; i++) {
-			const file = files[i];
-			let alreadyApproved = false;
-			if (preApprovedFiles != null) {
-				alreadyApproved = preApprovedFiles.files.some(f => f.hash === file.hash && f.extension === file.extension);
-				if (alreadyApproved) {
-					console.log("Pre-approved file:", file.filename)
-				}
-			}
-			if (!alreadyApproved && bypassFileApproval) {
-				console.log("Bypassed file approval, new file being moved: ", file.filename)
-				// Move file from unapproved to approved files folder
-				const unapproved_file = `${uploadDirectory}/unapproved/${file.filename}`
-				const unapproved_file_thumb = `${uploadDirectory}/unapproved/thumb/${file.hash}${file.thumbextension}`
-				
-				// If file exists in the unapproved folder then move them to the approved files folder
-				existsSync(unapproved_file) && moveSync(unapproved_file,`${uploadDirectory}/file/${file.filename}`)
-				existsSync(unapproved_file_thumb) && moveSync(unapproved_file_thumb,`${uploadDirectory}/file/thumb/${file.hash}${file.thumbextension}`)
-			}
-			// Auto approve on bypassFileApproval or alreadyApproved
-			file.approved = alreadyApproved || bypassFileApproval;
-		}
-	}
-
-	//
 	// User ID, flag, and password
-	//
 
 	if (!salt) {
 		//thread salt for IDs
