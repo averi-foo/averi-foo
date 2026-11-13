@@ -565,6 +565,40 @@ class postFormHandler {
 	updateMessageBox() {
 		this.messageBox && this.messageBox.dispatchEvent(new Event('input'));
 	}
+	
+	moveFile(fileElem, name, size, shiftAmount) {
+		let fileIndex;
+		const deleteCount = 1;
+		
+		this.files.find((f, index) => {
+			if (f.name === name && f.size === size) {
+				fileIndex = index;
+			}
+		});
+		
+		// remove `from` item and store it
+		var f = this.files.splice(fileIndex, deleteCount)[0];
+		// insert stored item into position `to`
+		var to = fileIndex + shiftAmount;
+		if (to < 0) {
+			this.files.splice(this.files.length + (to + 1), 0, f);
+		} else {
+			this.files.splice(to, 0, f);
+		}
+		
+		// move in fileUploadList
+		var newElem = fileElem;
+		this.fileUploadList.removeChild(fileElem);
+		const remaining = Array.from(this.fileUploadList.children);
+		
+		if (to >= remaining.length) {
+			this.fileUploadList.appendChild(newElem);
+		} else {
+			this.fileUploadList.insertBefore(newElem, remaining[to]);
+		}
+		
+		this.updateFilesText();
+	}
 
 	removeFile(fileElem, name, size) {
 		fileElem.remove();
@@ -640,6 +674,14 @@ class postFormHandler {
 		const lastClose = fileElem.querySelector('.close');
 		lastClose.addEventListener('click', () => {
 			this.removeFile(fileElem, file.name, file.size);
+		});
+		const lastMoveUp = fileElem.querySelector('.move-up');
+		lastMoveUp.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, -1);
+		});
+		const lastMoveDown = fileElem.querySelector('.move-down');
+		lastMoveDown.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, 1);
 		});
 		this.fileUploadList.style.display = 'unset';
 	}
