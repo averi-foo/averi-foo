@@ -191,11 +191,13 @@ pre {
 .edit {
 	background: transparent!important;
 	border-color: transparent!important;
-	width: 80px;
-}
-.edit textarea {
-	resize: none;
-	width: 100%;
+	textarea {
+		resize: none;
+		width: 100%;
+	}
+	input {
+		width: 80px;
+	}
 }
 .fw, #filter-form {
 	width: 100%;
