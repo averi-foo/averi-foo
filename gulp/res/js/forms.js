@@ -173,7 +173,12 @@ class postFormHandler {
 	}
 	
 	async addFileForEditPage(file) {
-		const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
+		let prefix = "/file"
+		if (file.dataset.approved == "false") {
+			let board = document.querySelector(".post-container")?.dataset.board
+			prefix = `/${board}/manage/unapproved`
+		}
+		const blob = await fetch (`${prefix}/${encodeURIComponent(file.dataset.filename)}`)
 		.then(res => res.blob());
 		
 		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
