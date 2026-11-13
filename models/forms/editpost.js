@@ -3,6 +3,7 @@
 const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
 	, { createHash } = require('crypto')
+	, { func: pruneFiles } = require(__dirname+'/../../schedules/tasks/prune.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
@@ -29,7 +30,7 @@ todo: handle some more situations
 */
 
 	const { __ } = res.locals;
-	const { globalLimits, previewReplies } = config.get;
+	const { globalLimits, previewReplies, pruneImmediately } = config.get; 
 	const { board, post } = res.locals;
 	const { emojiLimit, customEmojis } = res.locals.board.settings;
 
@@ -77,6 +78,15 @@ todo: handle some more situations
 	// File processing
 	// ---------------
 	let files = await processFiles(req, res, null);
+	
+	// Decrement file counts
+	if (post.files.length > 0) {
+		const fileNames = post.files.map(x => x.filename);
+		await Files.decrement(fileNames);
+		if (pruneImmediately) {
+			await pruneFiles(fileNames);
+		}
+	}
 	
 	//new name, trip and cap
 	const { name, tripcode, capcode } = await nameHandler(
