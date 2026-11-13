@@ -1,13 +1,15 @@
 'use strict';
 
-const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
+const { Posts, Modlogs, Filters, Files } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
 	, { createHash } = require('crypto')
+	, { func: pruneFiles } = require(__dirname+'/../../schedules/tasks/prune.js')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, { prepareMarkdown } = require(__dirname+'/../../lib/post/markdown/markdown.js')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, nameHandler = require(__dirname+'/../../lib/post/name.js')
 	, emojiHandler = require(__dirname+'/../../lib/post/emojis.js')
+	, processFiles = require(__dirname+'/../../lib/file/processfiles.js')
 	, getFilterStrings = require(__dirname+'/../../lib/post/getfilterstrings.js')
 	, checkFilters = require(__dirname+'/../../lib/post/checkfilters.js')
 	, filterActions = require(__dirname+'/../../lib/post/filteractions.js')
@@ -28,7 +30,7 @@ todo: handle some more situations
 */
 
 	const { __ } = res.locals;
-	const { globalLimits, previewReplies } = config.get;
+	const { globalLimits, previewReplies, pruneImmediately } = config.get; 
 	const { board, post } = res.locals;
 	const { emojiLimit, customEmojis } = res.locals.board.settings;
 
@@ -71,6 +73,21 @@ todo: handle some more situations
 		const noQuoteMessage = req.body.message.replace(/>>\d+/g, '').replace(/>>>\/\w+(\/\d*)?/gm, '').trim();
 		messageHash = createHash('sha256').update(noQuoteMessage).digest('base64');
 	}
+	
+	// ---------------
+	// File processing
+	// ---------------
+	let files = await processFiles(req, res, null);
+	
+	// Decrement file counts
+	if (post.files.length > 0) {
+		const fileNames = post.files.map(x => x.filename);
+		await Files.decrement(fileNames);
+		if (pruneImmediately) {
+			await pruneFiles(fileNames);
+		}
+	}
+	
 	//new name, trip and cap
 	const { name, tripcode, capcode } = await nameHandler(
 		req.body.name,
@@ -156,6 +173,7 @@ todo: handle some more situations
 			capcode,
 			email: req.body.email,
 			subject: req.body.subject,
+			files: files,
 		}
 	});
 
@@ -180,7 +198,7 @@ todo: handle some more situations
 		spoiler: post.spoiler,
 		banmessage: post.banmessage,
 		userId: post.userId,
-		files: post.files,
+		files: files,
 		quotes: post.quotes,
 		backlinks: post.backlinks,
 		replyposts: post.replyposts,

@@ -107,7 +107,7 @@ class postFormHandler {
 			this.originalSubmitText = this.submit.value;
 		}
 
-		//get different element for diffeent captcha types
+		//get different element for different captcha types
 		this.captchaField = form.querySelector('.captchafield')
 			|| form.querySelector('.g-recaptcha')
 			|| form.querySelector('.h-captcha');
@@ -157,11 +157,36 @@ class postFormHandler {
 		if (this.messageBox) {
 			this.messageBox.addEventListener('keydown', e => this.controlEnterSubmit(e));
 		}
-
+		
+		// Add files back to edit post
+		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
+		if (this.isEditForm) {
+			(async () => {
+				for (const file of this.form.querySelectorAll(".post-file-src")) {
+					await this.addFileForEditPage(file)
+				}
+			})();
+		}
+		
 		form.addEventListener('submit', e => this.formSubmit(e));
 		form.addEventListener('messageBoxChange', () => this.handleMessageChange());
 	}
-
+	
+	async addFileForEditPage(file) {
+		let prefix = "/file"
+		if (file.dataset.approved == "false") {
+			let board = document.querySelector(".post-container")?.dataset.board
+			prefix = `/${board}/manage/unapproved`
+		}
+		const blob = await fetch (`${prefix}/${encodeURIComponent(file.dataset.filename)}`)
+		.then(res => res.blob());
+		
+		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
+		console.log("original filename: ", file.dataset.originalfilename)
+		this.addFile(postFile, { stripFilenames: false });
+		this.updateFilesText()
+	}
+	
 	reset() {
 		this.form.reset();
 		this.updateFlagField();
@@ -540,6 +565,40 @@ class postFormHandler {
 	updateMessageBox() {
 		this.messageBox && this.messageBox.dispatchEvent(new Event('input'));
 	}
+	
+	moveFile(fileElem, name, size, shiftAmount) {
+		let fileIndex;
+		const deleteCount = 1;
+		
+		this.files.find((f, index) => {
+			if (f.name === name && f.size === size) {
+				fileIndex = index;
+			}
+		});
+		
+		// remove `from` item and store it
+		var f = this.files.splice(fileIndex, deleteCount)[0];
+		// insert stored item into position `to`
+		var to = fileIndex + shiftAmount;
+		if (to < 0) {
+			this.files.splice(this.files.length + (to + 1), 0, f);
+		} else {
+			this.files.splice(to, 0, f);
+		}
+		
+		// move in fileUploadList
+		var newElem = fileElem;
+		this.fileUploadList.removeChild(fileElem);
+		const remaining = Array.from(this.fileUploadList.children);
+		
+		if (to >= remaining.length) {
+			this.fileUploadList.appendChild(newElem);
+		} else {
+			this.fileUploadList.insertBefore(newElem, remaining[to]);
+		}
+		
+		this.updateFilesText();
+	}
 
 	removeFile(fileElem, name, size) {
 		fileElem.remove();
@@ -562,7 +621,8 @@ class postFormHandler {
 		let fileHash;
 		if (window.crypto.subtle) {
 			let fileBuffer;
-			if (file.arryaBuffer) {
+			// Was that a fucking typo? arryaBuffer.
+			if (file.arrayBuffer) {
 				fileBuffer = await file.arrayBuffer();
 			} else {
 				//can old browsers just fuck off please?
@@ -614,6 +674,14 @@ class postFormHandler {
 		const lastClose = fileElem.querySelector('.close');
 		lastClose.addEventListener('click', () => {
 			this.removeFile(fileElem, file.name, file.size);
+		});
+		const lastMoveUp = fileElem.querySelector('.move-up');
+		lastMoveUp.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, -1);
+		});
+		const lastMoveDown = fileElem.querySelector('.move-down');
+		lastMoveDown.addEventListener('click', () => {
+			this.moveFile(fileElem, file.name, file.size, 1);
 		});
 		this.fileUploadList.style.display = 'unset';
 	}
