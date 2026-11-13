@@ -213,7 +213,7 @@ module.exports = async (req, res) => {
 	// ---------------
 	// File processing
 	// ---------------
-	let files = await processFiles(res, req);
+	let files = await processFiles(req, res);
 
 	// -------------
 	// File approval
