@@ -2,6 +2,7 @@
 
 const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
 	, { Permissions } = require(__dirname+'/../../lib/permission/permissions.js')
+	, { moveSync, existsSync } = require('fs-extra')
 	, { createHash } = require('crypto')
 	, Mongo = require(__dirname+'/../../db/db.js')
 	, uploadDirectory = require(__dirname+'/../../lib/file/uploaddirectory.js')
