@@ -76,7 +76,7 @@ todo: handle some more situations
 	// ---------------
 	// File processing
 	// ---------------
-	let files = await processFiles(req, res, redirect);
+	let files = await processFiles(req, res, null);
 	
 	//new name, trip and cap
 	const { name, tripcode, capcode } = await nameHandler(
