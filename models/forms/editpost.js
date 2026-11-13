@@ -224,7 +224,7 @@ todo: handle some more situations
 		spoiler: post.spoiler,
 		banmessage: post.banmessage,
 		userId: post.userId,
-		files: post.files,
+		files: files,
 		quotes: post.quotes,
 		backlinks: post.backlinks,
 		replyposts: post.replyposts,
