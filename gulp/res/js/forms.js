@@ -107,7 +107,7 @@ class postFormHandler {
 			this.originalSubmitText = this.submit.value;
 		}
 
-		//get different element for diffeent captcha types
+		//get different element for different captcha types
 		this.captchaField = form.querySelector('.captchafield')
 			|| form.querySelector('.g-recaptcha')
 			|| form.querySelector('.h-captcha');
@@ -157,11 +157,27 @@ class postFormHandler {
 		if (this.messageBox) {
 			this.messageBox.addEventListener('keydown', e => this.controlEnterSubmit(e));
 		}
-
+		
+		// Add files back to edit post
+		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
+		if (this.isEditForm) {
+			this.form.querySelectorAll(".post-file-src").forEach(file => this.addFileForEditPage(file))
+		}
+		
 		form.addEventListener('submit', e => this.formSubmit(e));
 		form.addEventListener('messageBoxChange', () => this.handleMessageChange());
 	}
-
+	
+	async addFileForEditPage(file) {
+		const blob = await fetch (`/file/${encodeURIComponent(file.dataset.filename)}`)
+		.then(res => res.blob());
+		
+		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
+		console.log("original filename: ", file.dataset.originalfilename)
+		this.addFile(postFile, { stripFilenames: false });
+		this.updateFilesText()
+	}
+	
 	reset() {
 		this.form.reset();
 		this.updateFlagField();
@@ -562,7 +578,8 @@ class postFormHandler {
 		let fileHash;
 		if (window.crypto.subtle) {
 			let fileBuffer;
-			if (file.arryaBuffer) {
+			// Was that a fucking typo? arryaBuffer.
+			if (file.arrayBuffer) {
 				fileBuffer = await file.arrayBuffer();
 			} else {
 				//can old browsers just fuck off please?

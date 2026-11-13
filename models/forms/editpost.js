@@ -8,6 +8,7 @@ const { Posts, Modlogs, Filters } = require(__dirname+'/../../db/')
 	, messageHandler = require(__dirname+'/../../lib/post/message.js')
 	, nameHandler = require(__dirname+'/../../lib/post/name.js')
 	, emojiHandler = require(__dirname+'/../../lib/post/emojis.js')
+	, processFiles = require(__dirname+'/../../lib/file/processfiles.js')
 	, getFilterStrings = require(__dirname+'/../../lib/post/getfilterstrings.js')
 	, checkFilters = require(__dirname+'/../../lib/post/checkfilters.js')
 	, filterActions = require(__dirname+'/../../lib/post/filteractions.js')
@@ -71,6 +72,12 @@ todo: handle some more situations
 		const noQuoteMessage = req.body.message.replace(/>>\d+/g, '').replace(/>>>\/\w+(\/\d*)?/gm, '').trim();
 		messageHash = createHash('sha256').update(noQuoteMessage).digest('base64');
 	}
+	
+	// ---------------
+	// File processing
+	// ---------------
+	let files = await processFiles(req, res, redirect);
+	
 	//new name, trip and cap
 	const { name, tripcode, capcode } = await nameHandler(
 		req.body.name,
@@ -156,6 +163,7 @@ todo: handle some more situations
 			capcode,
 			email: req.body.email,
 			subject: req.body.subject,
+			files: files,
 		}
 	});
 

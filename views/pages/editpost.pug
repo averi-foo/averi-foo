@@ -4,9 +4,10 @@ block head
 	title #{__('Edit Post')}
 
 block content
+	- const fileRequired = (!managerecentposts && !isThread && board.settings.forceThreadFile) || (isThread && board.settings.forceReplyFile);
 	h1.board-title #{__('Edit Post')}
 	.form-wrapper.flex-center.mv-10
-		form.form-post(action='/forms/editpost' method='POST')
+		form.form-post(action='/forms/editpost', enctype='multipart/form-data', method='POST')
 			input(type='hidden' name='_csrf' value=csrf)
 			input(type='hidden' name='referer' value=referer)
 			input(type='hidden' name='board' value=post.board)
@@ -41,13 +42,43 @@ block content
 						span.post-quote-num
 							a.no-decoration(href=`${postURL}#postform`) #{post.postId}
 				.post-data
+					if post.files.length > 0
+						.post-files(class=(post.files.length > 1 ? 'fn' : ''))
+							each file, fileindex in post.files
+								if file.mimetype === 'tegaki/replay' && post.files.some(f => f.originalFilename.slice(0, -3) === file.originalFilename.slice(0,-4))
+									- continue; //Skip showing tegaki replay alone if is includes the image
+								.post-file
+									- const type = file.mimetype.split('/')[0]
+									if !file.approved
+										.overlay-text File pending approval
+									.post-file-src(data-type=type data-mimetype=file.mimetype data-originalfilename=file.originalFilename data-filename=file.filename data-hash=file.hash data-attachment=(file.attachment ? "true" : "false"))
+										a(target='_blank' href=`/file/${file.filename}`)
+											if post.spoiler || file.spoiler
+												div.spoilerimg.file-thumb
+											else if file.hasThumb
+												img.file-thumb(src=`/file/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
+											else if file.attachment
+												div.attachmentimg.file-thumb(data-mimetype=file.mimetype)
+											else if type === 'audio'
+												div.audioimg.file-thumb
+											else
+												img.file-thumb(src=`/file/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')
 					pre.post-message
-						textarea.edit.fw(name='message' rows='15' placeholder=__('Message')) #{post.nomarkup}
+						textarea.edit(name='message' rows='15' placeholder=__('Message')) #{post.nomarkup}
 					if post.banmessage
 						p.ban
 							span.message #{__('USER WAS BANNED FOR THIS POST')}
 							|  
 							span.reason(data-reason=post.banmessage) #{post.banmessage}
+			if board.settings.maxFiles > 0 && Object.values(board.settings.allowedFileTypes).some(x => x === true)
+				- const maxFiles = board.settings.maxFiles;
+				section.row
+					.label.edit-hidden
+						span #{__n('Files', maxFiles)}
+					span.col
+						+filelabel('file', maxFiles)
+						input#file(type='file', name='file' multiple required=fileRequired )
+						.upload-list(data-spoilers=(board.settings.userPostSpoiler ? 'true' : 'false') data-strip-filenames='true')
 			label.mt-5
 				input.post-check(type='checkbox', name='hide_name' value='1')
 				| #{__('Hide Username')}
