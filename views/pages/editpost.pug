@@ -54,7 +54,7 @@ block content
 									if !file.approved
 										.overlay-text File pending approval
 										- prefix = `/${post.board}/manage/unapproved`
-									.post-file-src(data-type=type data-mimetype=file.mimetype data-originalfilename=file.originalFilename data-filename=file.filename data-hash=file.hash data-attachment=(file.attachment ? "true" : "false"))
+									.post-file-src(data-type=type data-mimetype=file.mimetype data-originalfilename=file.originalFilename data-filename=file.filename data-hash=file.hash data-attachment=(file.attachment ? "true" : "false") data-approved=(file.approved ? "true" : "false"))
 										a(target='_blank' href=`${prefix}/${file.filename}`)
 											if post.spoiler || file.spoiler
 												div.spoilerimg.file-thumb
