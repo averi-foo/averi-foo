@@ -162,10 +162,10 @@ class postFormHandler {
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
 			(async () => {
-				await Promise.all(
-					Array.from(this.form.querySelectorAll(".post-file-src"), this.addFileForEditPage)
-				);
-			})()
+				for (const file of this.form.querySelectorAll(".post-file-src")) {
+					await this.addFileForEditPage(file)
+				}
+			})();
 		}
 		
 		form.addEventListener('submit', e => this.formSubmit(e));
