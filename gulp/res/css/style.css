@@ -193,6 +193,10 @@ pre {
 	border-color: transparent!important;
 	width: 80px;
 }
+.edit textarea {
+	resize: none;
+	width: 100%;
+}
 .fw, #filter-form {
 	width: 100%;
 }
