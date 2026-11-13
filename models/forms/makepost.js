@@ -33,6 +33,11 @@ module.exports = async (req, res) => {
 	const { __ } = res.locals;
 	const { dontStoreRawIps, globalLimits } = config.get;
 
+	const { blockedCountries, threadLimit, ids, userPostSpoiler,
+		pphTrigger, tphTrigger, tphTriggerAction, pphTriggerAction,
+		sageOnlyEmail, forceAnon, replyLimit, emojiLimit, disableReplySubject,
+		captchaMode, lockMode, customFlags, customEmojis, geoFlags, messageR9KMode } = res.locals.board.settings;
+	
 	//
 	// Spam/flood check
 	//
@@ -50,14 +55,12 @@ module.exports = async (req, res) => {
 	let redirect = `/${req.params.board}/`;
 	let salt = null;
 	let thread = null;
+	
 	const isStaffOrGlobal = res.locals.permissions.hasAny(Permissions.MANAGE_GLOBAL_GENERAL, Permissions.MANAGE_BOARD_GENERAL);
+	
 	const isAdmin = res.locals.permissions.hasAny(Permissions.VIEW_RAW_IP);
 	// TODO: Make bypass thread lock it's own permission
 	const isTrusted = res.locals.permissions.hasAny(Permissions.BYPASS_FILE_APPROVAL);
-	const { blockedCountries, threadLimit, ids, userPostSpoiler,
-		pphTrigger, tphTrigger, tphTriggerAction, pphTriggerAction,
-		sageOnlyEmail, forceAnon, replyLimit, emojiLimit, disableReplySubject,
-		captchaMode, lockMode, allowedFileTypes, customFlags, customEmojis, geoFlags, fileR9KMode, messageR9KMode } = res.locals.board.settings;
 
 	//
 	// Check if country is blocked
