@@ -1,4 +1,4 @@
-/* globals __ isRecent isApproval banmessage isGlobalRecent isThread post extraLocals isModView io setLocalStorage */
+/* globals __ isRecent isApproval banmessage isGlobalRecent isGlobalApproval isManageRecent isManageApproval isThread post extraLocals isModView io setLocalStorage */
 let liveEnabled = localStorage.getItem('live') == 'true';
 let scrollEnabled = localStorage.getItem('scroll') == 'true';
 let socket;
@@ -180,8 +180,8 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			viewRawAccount,
 			post: postData,
 			modview: isModView,
-			manage: (isRecent && !isGlobalRecent),
-			globalmanage: isGlobalRecent || isApproval,
+			manage: isManageRecent || isManageApproval,
+			globalmanage: isGlobalRecent || isGlobalApproval,
 			approval: isApproval,
 			upLevel: isThread,
 			...extraLocals,

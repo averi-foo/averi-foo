@@ -494,6 +494,7 @@ module.exports = async (req, res) => {
 	Socketio.emitRoom(`${res.locals.board._id}-manage-recent-hashed`, 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: rawAccount });
 	if (data.files.some(notApproved)) {
 		Socketio.emitRoom('globalmanage-approval-hashed', 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: rawAccount });
+		Socketio.emitRoom(`${res.locals.board._id}-manage-approval-hashed`, 'newPost', { ...projectedPost, ip: { cloak, raw: null, type }, account: rawAccount });
 	}
 	if (!dontStoreRawIps) {
         //no need to emit to these rooms if raw IPs are not stored
@@ -501,6 +502,7 @@ module.exports = async (req, res) => {
 		Socketio.emitRoom(`${res.locals.board._id}-manage-recent-raw`, 'newPost', { ...projectedPost, ip: { cloak, raw, type }, account: rawAccount });
 		if (data.files.some(notApproved)) {
 			Socketio.emitRoom('globalmanage-approval-raw', 'newPost', { ...projectedPost, ip: { cloak, raw, type }, account: rawAccount });
+			Socketio.emitRoom(`${res.locals.board._id}-manage-approval-raw`, 'newPost', { ...projectedPost, ip: { cloak, raw, type }, account: rawAccount });
 		}
 	}
 

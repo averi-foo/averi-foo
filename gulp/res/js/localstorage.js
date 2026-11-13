@@ -7,7 +7,9 @@ const isManage = /\/(\w+\/manage|globalmanage)\/(recent|reports|bans|boards|(glo
 const isGlobalRecent = window.location.pathname === '/globalmanage/recent.html';
 const isManageRecent = window.location.pathname.endsWith('/manage/recent.html');
 const isRecent = isGlobalRecent || isManageRecent;
-const isApproval = window.location.pathname.endsWith('/globalmanage/approval.html');
+const isGlobalApproval = window.location.pathname === '/globalmanage/approval.html';
+const isManageApproval = window.location.pathname.endsWith('/manage/approval.html');
+const isApproval = isGlobalApproval || isManageApproval;
 
 function setLocalStorage(key, value) {
 	try {

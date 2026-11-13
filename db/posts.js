@@ -494,18 +494,34 @@ module.exports = {
 		}).limit(quoteLimit).toArray();
 	},
 
-	// Used for globalmanage approval page.
-	getFilesPending: (offset=0,limit=20) => {
+	// Used for the approval pages.
+	getFilesPending: (offset=0, limit=20, board, permissions) => {
 		const query = {
 			'files.approved': false,
 		};
+
+		const projection = {
+			'salt': 0,
+			'password': 0,
+		};
+		if (!permissions.get(Permissions.VIEW_RAW_IP)) {
+			projection['ip.raw'] = 0;
+		}
 	
-		return db.find(query).sort({
+		if (!permissions.get(Permissions.VIEW_RAW_ACCOUNT)) {
+			projection['account'] = 0;
+		}
+		
+		if (board) {
+			query['board'] = board;
+		}
+	
+		return db.find(query, { projection }).sort({
 			'_id': -1
 		}).skip(offset).limit(limit).toArray();
 	},
 
-	getFilesPendingCount: async () => {
+	getGlobalFilesPendingCount: async () => {
 		const result = await db.aggregate([
 			{ $unwind: '$files' },
 			{ $match: { 'files.approved': false } },
@@ -513,6 +529,15 @@ module.exports = {
 		]).toArray();
 
 		return result[0]?.total_unapproved_files || 0;
+	},
+
+	getBoardFilesPendingCounts: (boards) => {
+		return db.aggregate([
+			{ $match: { 'board': {'$in': boards} } },
+			{ $unwind: '$files' },
+			{ $match: { 'files.approved': false } },
+			{ $group: {'_id': '$board', 'count': {'$sum': 1} } }
+		]).toArray();
 	},
 
 	approveFiles: async (posts) => {
