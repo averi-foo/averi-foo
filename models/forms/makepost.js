@@ -31,8 +31,7 @@ const { createHash, randomBytes } = require('crypto')
 module.exports = async (req, res) => {
 
 	const { __ } = res.locals;
-	const { checkRealMimeTypes, thumbSize, thumbExtension, videoThumbPercentage, audioThumbnails,
-		dontStoreRawIps, globalLimits, animatedGifThumbnails } = config.get;
+	const { dontStoreRawIps, globalLimits } = config.get;
 
 	//
 	// Spam/flood check
