@@ -1,4 +1,4 @@
-/* globals __ isRecent banmessage isGlobalRecent isThread post extraLocals isModView io setLocalStorage */
+/* globals __ isRecent isApproval banmessage isGlobalRecent isThread post extraLocals isModView io setLocalStorage */
 let liveEnabled = localStorage.getItem('live') == 'true';
 let scrollEnabled = localStorage.getItem('scroll') == 'true';
 let socket;
@@ -11,7 +11,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 	let supportsWebSockets = 'WebSocket' in window || 'MozWebSocket' in window;
 	const livecolor = document.getElementById('livecolor');
 	const liveElem = document.getElementById('livetext');
-	const livetext = (isThread || isRecent) && liveElem ? liveElem.childNodes[1] : null;
+	const livetext = (isThread || isRecent || isApproval) && liveElem ? liveElem.childNodes[1] : null;
 	let room = liveElem && liveElem.dataset.room;
 	const viewRawIp = liveElem && liveElem.dataset.viewRawIp === 'true';
 	const viewRawAccount = liveElem && liveElem.dataset.viewRawAccount === 'true';
@@ -181,14 +181,17 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			post: postData,
 			modview: isModView,
 			manage: (isRecent && !isGlobalRecent),
-			globalmanage: isGlobalRecent,
+			globalmanage: isGlobalRecent || isApproval,
+			approval: isApproval,
 			upLevel: isThread,
 			...extraLocals,
 		});
 		let insertPoint;
 		if (options.insertPoint) {
 			insertPoint = options.insertPoint;
-		} else if (isRecent) {
+		} else if (isRecent || isApproval) {
+			const noApprovals = document.getElementById('no-files-pending'); 
+			noApprovals?.style.setProperty('display', 'none');
 			const firstHr = document.querySelector('hr');
 			const newHr = document.createElement('hr');
 			const threadWrapper = document.createElement('div');
@@ -200,8 +203,9 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 			insertPoint = document.querySelector('.thread');
 		}
 		insertPoint.insertAdjacentHTML(options.insertPosition || 'beforeend', postHtml);
-		if (isRecent) {
-			//cap the recent pages to 20 posts so they dont grow to infinity
+		// This might be important when I fix pagination for this page.
+		if (isRecent || isApproval) {
+			//cap the recent and approval pages to 20 posts so they dont grow to infinity
 			Array.from(document.getElementsByClassName('thread'))
 				.slice(20)
 				.forEach(el => {
@@ -431,7 +435,7 @@ window.addEventListener('settingsReady', function() { //after domcontentloaded
 	scrollSetting.checked = scrollEnabled;
 	scrollSetting.addEventListener('change', toggleScroll, false);
 
-	if ((isThread || isRecent) && updateButton) {
+	if ((isThread || isRecent || isApproval) && updateButton) {
 		updateButton.addEventListener('click', forceUpdate);
 		liveEnabled ? enableLive() : disableLive();
 	}

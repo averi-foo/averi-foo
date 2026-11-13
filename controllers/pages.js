@@ -103,7 +103,7 @@ router.get('/:board/manage/unapproved/thumb/:filename', useSession, sessionRefre
 	hasPerms.one(Permissions.MANAGE_BOARD_GENERAL), csrf, unapprovedFiles);
 
 //global manage pages
-router.get('/globalmanage/approval.html', useSession, sessionRefresh, isLoggedIn, calcPerms,
+router.get('/globalmanage/approval.(html|json)', useSession, sessionRefresh, isLoggedIn, calcPerms,
 	hasPerms.one(Permissions.MANAGE_GLOBAL_GENERAL), csrf, globalManageApproval);
 router.get('/globalmanage/reports.(html|json)', useSession, sessionRefresh, isLoggedIn, calcPerms,
 	hasPerms.one(Permissions.MANAGE_GLOBAL_GENERAL), csrf, globalManageReports);

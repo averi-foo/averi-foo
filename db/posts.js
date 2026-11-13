@@ -4,8 +4,6 @@ const Mongo = require(__dirname+'/db.js')
 	, { isIP } = require('net')
 	, { DAY } = require(__dirname+'/../lib/converter/timeutils.js')
 	, Boards = require(__dirname+'/boards.js')
-	// , Files = require(__dirname+'/files.js')
-	// , approvalTypes = require(__dirname+'/../lib/approval/approvaltypes.js')
 	, Stats = require(__dirname+'/stats.js')
 	, { Permissions } = require(__dirname+'/../lib/permission/permissions.js')
 	, { randomBytes } = require('crypto')
@@ -496,12 +494,15 @@ module.exports = {
 		}).limit(quoteLimit).toArray();
 	},
 
-	getFilesPending: () => {
+	// Used for globalmanage approval page.
+	getFilesPending: (offset=0,limit=20) => {
 		const query = {
 			'files.approved': false,
 		};
-
-		return db.find(query).toArray();
+	
+		return db.find(query).sort({
+			'_id': -1
+		}).skip(offset).limit(limit).toArray();
 	},
 
 	getFilesPendingCount: async () => {
