@@ -162,12 +162,14 @@ class postFormHandler {
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
 			(async () => {
+				this.submit.value = "Please wait for files to load..."
+				this.submit.disabled = true
 				for (const file of this.form.querySelectorAll(".post-file-src")) {
 					await this.addFileForEditPage(file)
 				}
 				// Disable submit when done
 				this.submit.disabled = false
-				this.submit.value = "Save"
+				this.submit.value = this.originalSubmitText
 			})();
 		}
 		
