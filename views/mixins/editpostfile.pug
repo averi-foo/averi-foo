@@ -6,7 +6,6 @@ mixin editpostfile(file)
 		.post-file-info
 			//- An empty stub for now as it is only hear to appease expand.js for videos.
 		if !file.approved
-			.overlay-text File pending approval
 			- prefix = `/${post.board}/manage/unapproved`
 		.post-file-src(data-type=type 
 		data-mimetype=file.mimetype 
