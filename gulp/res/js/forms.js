@@ -610,9 +610,9 @@ class postFormHandler {
 			const remaining = Array.from(this.postFiles.children);
 			
 			if (to >= remaining.length) {
-				postFiles.appendChild(newElem);
+				this.postFiles.appendChild(newElem);
 			} else {
-				postFiles.insertBefore(newElem, remaining[to]);
+				this.postFiles.insertBefore(newElem, remaining[to]);
 			}
 		}
 		
