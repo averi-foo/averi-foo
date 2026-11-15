@@ -1,5 +1,5 @@
 //- Currently only for the edit page, to update files.
-mixin editpostfile(file, preview=false)
+mixin editpostfile(file)
 	.post-file
 		- const type = file.mimetype.split('/')[0]
 		- let prefix = '/file'
@@ -15,8 +15,8 @@ mixin editpostfile(file, preview=false)
 		data-hash=file.hash 
 		data-attachment=(file.attachment ? "true" : "false") 
 		data-approved=(file.approved ? "true" : "false"))
-			a(target='_blank' href=preview ? file.url : `${prefix}/${file.filename}`)
-				if preview
+			a(target='_blank' href=file.url ? file.url : `${prefix}/${file.filename}`)
+				if file.url
 					img.file-thumb(src=file.url)
 				else if post.spoiler || file.spoiler
 					div.spoilerimg.file-thumb

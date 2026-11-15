@@ -600,8 +600,9 @@ class postFormHandler {
 		// If edit form, move the post files around
 		if (this.isEditForm) {
 			const postFiles = this.form.querySelector(".post-files");
+			const remaining = Array.from(this.postFiles.children);
 			var newElem = postFiles.childNodes[fileIndex];
-			console.log(newElem)
+			postFiles.removeChild(newElem);
 			if (to >= remaining.length) {
 				postFiles.appendChild(newElem);
 			} else {
@@ -687,16 +688,21 @@ class postFormHandler {
 		}
 		const uploadItemHtml = uploaditem({ uploaditem: item });
 		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
-			let editfile = file 
-			editfile.mimetype = file.type
-			editfile.geometry = {
-				width: file.width, 
-				height: file.height, 
-				thumbwidth: file.width, 
-				thumbheight: file.height,
-			}
-			const preview = true;
-			const editPostfileHtml = editpostfile({ file: editfile, preview })
+			const editPostfileHtml = editpostfile({ 
+				file: {
+					hasThumb: false,
+					mimetype: file.type,
+					url: file.url,
+					approved: true,
+					geometry: {
+						width: file.width, 
+						height: file.height, 
+						thumbwidth: file.width, 
+						thumbheight: file.height,
+					},
+					...file 
+				}
+			})
 			this.form.querySelector(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
