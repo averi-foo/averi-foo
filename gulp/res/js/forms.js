@@ -601,8 +601,8 @@ class postFormHandler {
 		if (this.isEditForm) {
 			const postFiles = this.form.querySelector(".post-files");
 			var newElem = postFiles.childNodes[fileIndex];
+			console.log(newElem)
 			if (to >= remaining.length) {
-				postFiles.removeChild(newElem)
 				postFiles.appendChild(newElem);
 			} else {
 				postFiles.insertBefore(newElem, remaining[to]);
