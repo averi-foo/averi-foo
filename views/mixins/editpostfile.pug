@@ -1,0 +1,29 @@
+//- Currently only for the edit page, to update files.
+mixin editpostfile(file)
+	.post-file
+		- const type = file.mimetype.split('/')[0]
+		- let prefix = '/file'
+		.post-file-info
+			//- An empty stub for now as it is only here to appease expand.js for videos.
+		if !file.approved
+			- prefix = `/${post.board}/manage/unapproved`
+		.post-file-src(data-type=type 
+		data-mimetype=file.mimetype 
+		data-originalfilename=file.originalFilename 
+		data-filename=file.filename
+		data-hash=file.hash 
+		data-attachment=(file.attachment ? "true" : "false") 
+		data-approved=(file.approved ? "true" : "false"))
+			a(target='_blank' href=file.url ? file.url : `${prefix}/${file.filename}`)
+				if file.url
+					img.file-thumb(src=file.url)
+				else if post.spoiler || file.spoiler
+					div.spoilerimg.file-thumb
+				else if file.hasThumb
+					img.file-thumb(src=`${prefix}/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
+				else if file.attachment
+					div.attachmentimg.file-thumb(data-mimetype=file.mimetype)
+				else if type === 'audio'
+					div.audioimg.file-thumb
+				else
+					img.file-thumb(src=`${prefix}/${file.filename}` height=file.geometry.height width=file.geometry.width loading='lazy')

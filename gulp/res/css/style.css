@@ -191,8 +191,16 @@ pre {
 .edit {
 	background: transparent!important;
 	border-color: transparent!important;
+}
+
+textarea.edit  {
+	resize: none;
+	width: 100%;
+}
+input.edit {
 	width: 80px;
 }
+
 .fw, #filter-form {
 	width: 100%;
 }
@@ -389,11 +397,16 @@ p {
 	margin-top: 1px;
 	display: none;
 }
+.tall {
+	max-height: 375px;
+}
 /*
 .upload-list::-webkit-scrollbar { 
 	display: none; 
 }
 */
+
+/* Changes made here in the edit update 13 Nov 2026.*/
 .upload-item {
 	display: flex;
 	align-items: center;
@@ -401,13 +414,31 @@ p {
 }
 
 .upload-item p {
-	max-width: calc(100% - 85px);
+	max-width: calc(100% - 130px);
 	max-height: 1.5em;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	position: absolute;
 	margin-left: 60px;
 }
+
+.upload-item .close {
+	margin-left: 0px;
+}
+
+.move {
+	width: 25px;
+	font-weight: bolder;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: initial;
+	justify-content: center;
+}
+
+.edit-hidden {
+	display: none;
+}
+
 
 .upload-item a {
 	height: 50px;
