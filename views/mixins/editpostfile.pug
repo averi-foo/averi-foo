@@ -1,9 +1,9 @@
-//- Currently only for the edit page, to update files.
-mixin editpostfile(file)
+// Currently only for the edit page, to update files.
+mixin editpostfile(file, preview=false)
 	.post-file
 		- const type = file.mimetype.split('/')[0]
 		- let prefix = '/file'
-		.post-file-info //- Stub for now
+		.post-file-info // Stub for now
 		if !file.approved
 			.overlay-text File pending approval
 			- prefix = `/${post.board}/manage/unapproved`
@@ -14,8 +14,10 @@ mixin editpostfile(file)
 		data-hash=file.hash 
 		data-attachment=(file.attachment ? "true" : "false") 
 		data-approved=(file.approved ? "true" : "false"))
-			a(target='_blank' href=`${prefix}/${file.filename}`)
-				if post.spoiler || file.spoiler
+			a(target='_blank' href=preview ? file.url : `${prefix}/${file.filename}`)
+				if preview
+					img.file-thumb(src=file.url)
+				else if post.spoiler || file.spoiler
 					div.spoilerimg.file-thumb
 				else if file.hasThumb
 					img.file-thumb(src=`${prefix}/thumb/${file.hash}${file.thumbextension}` height=file.geometry.thumbheight width=file.geometry.thumbwidth loading='lazy')
