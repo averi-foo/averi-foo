@@ -161,6 +161,8 @@ class postFormHandler {
 		// Add files back to edit post
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
 		if (this.isEditForm) {
+			this.postFiles = this.form.querySelector(".post-files")
+			
 			(async () => {
 				this.submit.value = "Please wait for files to load..."
 				this.submit.disabled = true
@@ -604,10 +606,9 @@ class postFormHandler {
 		
 		// If edit form, move the post files around
 		if (this.isEditForm) {
-			const postFiles = this.form.querySelector(".post-files");
-			var newElem = postFiles.childNodes[fileIndex];
-			postFiles.removeChild(newElem);
-			const remaining = Array.from(postFiles.children);
+			var newElem = this.postFiles.childNodes[fileIndex];
+			this.postFiles.removeChild(newElem);
+			const remaining = Array.from(this.postFiles.children);
 			
 			if (to >= remaining.length) {
 				postFiles.appendChild(newElem);
@@ -630,7 +631,7 @@ class postFormHandler {
 		
 		// Using the index, remove the file from the page too as a form of preview.
 		if (this.isEditForm) {
-			this.form.querySelector(".post-files").childNodes[fileIndex].remove()
+			this.postFiles.childNodes[fileIndex].remove()
 		}
 		this.files.splice(fileIndex, 1);
 		this.updateFilesText();
@@ -696,9 +697,9 @@ class postFormHandler {
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
 		
 		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
-			const editPostFile = {mimetype: file.type, url: item.url, approved: true}
+			const editPostFile = {mimetype: file.type, url: item.url}
 			const editPostfileHtml = editpostfile({file: editPostFile})
-			this.form.querySelector(".post-files")?.insertAdjacentHTML('beforeend', editPostfileHtml);
+			this.postFiles.insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
 		
 		const fileElem = this.fileUploadList.lastChild;
