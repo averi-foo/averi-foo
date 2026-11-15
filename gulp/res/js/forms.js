@@ -183,7 +183,7 @@ class postFormHandler {
 		
 		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
 		console.log("original filename: ", file.dataset.originalfilename)
-		this.addFile(postFile, { stripFilenames: false });
+		this.addFile(postFile, { stripFilenames: false, doNotAppendTwice: true});
 		this.updateFilesText()
 	}
 	
@@ -599,7 +599,7 @@ class postFormHandler {
 		
 		// If edit form, move the post files around
 		if (this.isEditForm) {
-			const postFiles = this.form.querySelectorAll(".post-files");
+			const postFiles = this.form.querySelector(".post-files");
 			var newElem = postFiles.childNodes[fileIndex];
 			postFiles.childNodes[fileIndex].remove()
 			if (to >= remaining.length) {
@@ -623,7 +623,7 @@ class postFormHandler {
 		
 		// Using the index, remove the file from the page too as a form of preview.
 		if (this.isEditForm) {
-			this.form.querySelectorAll(".post-files").childNodes[fileIndex].remove()
+			this.form.querySelector(".post-files").childNodes[fileIndex].remove()
 		}
 		this.files.splice(fileIndex, 1);
 		this.updateFilesText();
@@ -686,16 +686,17 @@ class postFormHandler {
 				break;
 		}
 		const uploadItemHtml = uploaditem({ uploaditem: item });
-		if (this.isEditForm) {
+		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
 			let editfile = file 
 			editfile.mimetype = file.type
 			editfile.geometry = {
 				width: file.width, 
 				height: file.height, 
 				thumbwidth: file.width, 
-				thumbheight: file.height}
+				thumbheight: file.height,
+			}
 			const editPostfileHtml = editpostfile({ file: editfile })
-			this.form.querySelectorAll(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
+			this.form.querySelector(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
 		const fileElem = this.fileUploadList.lastChild;
