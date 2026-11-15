@@ -600,7 +600,7 @@ class postFormHandler {
 		// If edit form, move the post files around
 		if (this.isEditForm) {
 			const postFiles = this.form.querySelector(".post-files");
-			const remaining = Array.from(this.postFiles.children);
+			const remaining = Array.from(postFiles.children);
 			var newElem = postFiles.childNodes[fileIndex];
 			postFiles.removeChild(newElem);
 			if (to >= remaining.length) {
