@@ -689,6 +689,11 @@ class postFormHandler {
 		if (this.isEditForm) {
 			let editfile = file 
 			editfile.mimetype = file.type
+			editfile.geometry = {
+				width: file.width, 
+				height: file.height, 
+				thumbwidth: file.width, 
+				thumbheight: file.height}
 			const editPostfileHtml = editpostfile({ file: editfile })
 			this.form.querySelectorAll(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
