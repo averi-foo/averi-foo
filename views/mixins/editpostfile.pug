@@ -3,7 +3,8 @@ mixin editpostfile(file, preview=false)
 	.post-file
 		- const type = file.mimetype.split('/')[0]
 		- let prefix = '/file'
-		.post-file-info // Stub for now
+		.post-file-info
+			//- Stub for now
 		if !file.approved
 			.overlay-text File pending approval
 			- prefix = `/${post.board}/manage/unapproved`
