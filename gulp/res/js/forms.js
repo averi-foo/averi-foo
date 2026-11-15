@@ -160,9 +160,8 @@ class postFormHandler {
 		
 		// Add files back to edit post
 		this.isEditForm = new URL(this.form.action).pathname === "/forms/editpost";
+		this.isEditForm && (this.postFiles = form.querySelector(".post-files"))
 		if (this.isEditForm) {
-			this.postFiles = this.form.querySelector(".post-files")
-			
 			(async () => {
 				this.submit.value = "Please wait for files to load..."
 				this.submit.disabled = true
