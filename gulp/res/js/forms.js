@@ -688,7 +688,7 @@ class postFormHandler {
 		const uploadItemHtml = uploaditem({ uploaditem: item });
 		if (this.isEditForm) {
 			let editfile = file 
-			editfile.mimetype = file.dataset.mimetype
+			editfile.mimetype = file.type
 			const editPostfileHtml = editpostfile({ file: editfile })
 			this.form.querySelectorAll(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
