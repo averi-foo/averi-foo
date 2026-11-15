@@ -691,7 +691,7 @@ class postFormHandler {
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
 		
 		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
-			const editPostFile = {mimetype: file.type, url: item.url}
+			const editPostFile = {mimetype: file.type, url: item.url, approved: true}
 			const editPostfileHtml = editpostfile({file: editPostFile})
 			this.form.querySelector(".post-files")?.insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
