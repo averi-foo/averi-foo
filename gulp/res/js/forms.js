@@ -597,6 +597,18 @@ class postFormHandler {
 			this.fileUploadList.insertBefore(newElem, remaining[to]);
 		}
 		
+		// If edit form, move the post files around
+		if (this.isEditForm) {
+			const postFiles = this.form.querySelectorAll(".post-files");
+			var newElem = postFiles.childNodes[fileIndex];
+			postFiles.childNodes[fileIndex].remove()
+			if (to >= remaining.length) {
+				postFiles.appendChild(newElem);
+			} else {
+				postFiles.insertBefore(newElem, remaining[to]);
+			}
+		}
+		
 		this.updateFilesText();
 	}
 
@@ -608,6 +620,11 @@ class postFormHandler {
 				fileIndex = index;
 			}
 		});
+		
+		// Using the index, remove the file from the page too as a form of preview.
+		if (this.isEditForm) {
+			this.form.querySelectorAll(".post-files").childNodes[fileIndex].remove()
+		}
 		this.files.splice(fileIndex, 1);
 		this.updateFilesText();
 	}
@@ -669,6 +686,10 @@ class postFormHandler {
 				break;
 		}
 		const uploadItemHtml = uploaditem({ uploaditem: item });
+		if (this.isEditForm) {
+			const editPostfileHtml = editpostfile({ file: file })
+			this.form.querySelectorAll(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
+		}
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
 		const fileElem = this.fileUploadList.lastChild;
 		const lastClose = fileElem.querySelector('.close');
