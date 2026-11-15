@@ -165,6 +165,9 @@ class postFormHandler {
 				for (const file of this.form.querySelectorAll(".post-file-src")) {
 					await this.addFileForEditPage(file)
 				}
+				// Disable submit when done
+				this.submit.disabled = false
+				this.submit.value = "Save"
 			})();
 		}
 		
@@ -695,6 +698,7 @@ class postFormHandler {
 			const editPostfileHtml = editpostfile({file: editPostFile})
 			this.form.querySelector(".post-files")?.insertAdjacentHTML('beforeend', editPostfileHtml);
 		}
+		
 		const fileElem = this.fileUploadList.lastChild;
 		const lastClose = fileElem.querySelector('.close');
 		lastClose.addEventListener('click', () => {

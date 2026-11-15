@@ -4,7 +4,7 @@ mixin editpostfile(file)
 		- const type = file.mimetype.split('/')[0]
 		- let prefix = '/file'
 		.post-file-info
-			//- Stub for now
+			//- An empty stub for now as it is only hear to appease expand.js for videos.
 		if !file.approved
 			.overlay-text File pending approval
 			- prefix = `/${post.board}/manage/unapproved`
