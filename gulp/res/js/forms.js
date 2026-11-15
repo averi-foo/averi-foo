@@ -600,9 +600,10 @@ class postFormHandler {
 		// If edit form, move the post files around
 		if (this.isEditForm) {
 			const postFiles = this.form.querySelector(".post-files");
-			const remaining = Array.from(postFiles.children);
 			var newElem = postFiles.childNodes[fileIndex];
 			postFiles.removeChild(newElem);
+			const remaining = Array.from(postFiles.children);
+			
 			if (to >= remaining.length) {
 				postFiles.appendChild(newElem);
 			} else {
@@ -692,7 +693,7 @@ class postFormHandler {
 				file: {
 					hasThumb: false,
 					mimetype: file.type,
-					url: file.url,
+					url: item.url,
 					approved: true,
 					geometry: {
 						width: file.width, 
