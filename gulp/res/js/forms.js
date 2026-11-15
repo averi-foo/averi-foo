@@ -182,7 +182,7 @@ class postFormHandler {
 		.then(res => res.blob());
 		
 		const postFile = new File([blob], file.dataset.originalfilename, {type: file.dataset.mimetype});
-		console.log("original filename: ", file.dataset.originalfilename)
+
 		this.addFile(postFile, { stripFilenames: false, doNotAppendTwice: true});
 		this.updateFilesText()
 	}
@@ -688,25 +688,13 @@ class postFormHandler {
 				break;
 		}
 		const uploadItemHtml = uploaditem({ uploaditem: item });
-		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
-			const editPostfileHtml = editpostfile({ 
-				file: {
-					hasThumb: false,
-					mimetype: file.type,
-					url: item.url,
-					approved: true,
-					geometry: {
-						width: file.width, 
-						height: file.height, 
-						thumbwidth: file.width, 
-						thumbheight: file.height,
-					},
-					...file 
-				}
-			})
-			this.form.querySelector(".post-files").insertAdjacentHTML('beforeend', editPostfileHtml);
-		}
 		this.fileUploadList.insertAdjacentHTML('beforeend', uploadItemHtml);
+		
+		if (this.isEditForm && !fileOptions.doNotAppendTwice) {
+			const editPostFile = {mimetype: file.type, url: item.url}
+			const editPostfileHtml = editpostfile({file: editPostFile})
+			this.form.querySelector(".post-files")?.insertAdjacentHTML('beforeend', editPostfileHtml);
+		}
 		const fileElem = this.fileUploadList.lastChild;
 		const lastClose = fileElem.querySelector('.close');
 		lastClose.addEventListener('click', () => {
