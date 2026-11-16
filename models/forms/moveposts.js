@@ -148,7 +148,7 @@ module.exports = async (req, res) => {
 			if (post.nomarkup && post.nomarkup.length > 0) {
 				let nomarkup = prepareMarkdown(post.nomarkup, false);
 				// replace old >>postId with new >>postId
-				nomarkup = await quoteHandler.replace(nomarkup, sourceBoard, OldToNewPostIds);
+				nomarkup = await quoteHandler.replace(nomarkup, sourceBoard, crossBoard, OldToNewPostIds);
 				const { message, quotes, crossquotes } = await messageHandler(nomarkup, post.board, post.thread, null);
 				bulkWrites.push({
 					'updateMany': {
