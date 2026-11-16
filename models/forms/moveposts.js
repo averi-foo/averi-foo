@@ -113,13 +113,9 @@ module.exports = async (req, res) => {
 	}
 	// Current board we're moving from
 	const sourceBoard = res.locals.board._id;
-	console.log("Source board: ",sourceBoard)
 	// Board we are moving to.
 	const destinationBoard = res.locals.destinationBoard ? res.locals.destinationBoard._id : req.params.board;
-	console.log("Destination board: ",destinationBoard)
 	const crossBoard = destinationBoard !== req.params.board;
-	console.log("Req params board: ",req.params.board)
-	console.log("Crossboard: ",crossBoard)
 	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0]), movedPosts = 0, OldToNewPostIds;
 	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postIds, postMongoIds, crossBoard, destinationThreadId, destinationBoard));
 
@@ -152,7 +148,7 @@ module.exports = async (req, res) => {
 			if (post.nomarkup && post.nomarkup.length > 0) {
 				let nomarkup = prepareMarkdown(post.nomarkup, false);
 				// replace old >>postId with new >>postId
-				nomarkup = await quoteHandler.replace(nomarkup, sourceBoard, OldToNewPostIds);
+				nomarkup = await quoteHandler.replace(nomarkup, sourceBoard, crossBoard, OldToNewPostIds);
 				const { message, quotes, crossquotes } = await messageHandler(nomarkup, post.board, post.thread, null);
 				bulkWrites.push({
 					'updateMany': {
