@@ -113,9 +113,13 @@ module.exports = async (req, res) => {
 	}
 	// Current board we're moving from
 	const sourceBoard = res.locals.board._id;
+	console.log("Source board: ",sourceBoard)
 	// Board we are moving to.
 	const destinationBoard = res.locals.destinationBoard ? res.locals.destinationBoard._id : req.params.board;
+	console.log("Destination board: ",destinationBoard)
 	const crossBoard = destinationBoard !== req.params.board;
+	console.log("Req params board: ",req.params.board)
+	console.log("Crossboard: ",crossBoard)
 	let destinationThreadId = res.locals.destinationThread ? res.locals.destinationThread.postId : (crossBoard ? null : postIds[0]), movedPosts = 0, OldToNewPostIds;
 	({ destinationThreadId, movedPosts, OldToNewPostIds: OldToNewPostIds } = await Posts.move(postIds, postMongoIds, crossBoard, destinationThreadId, destinationBoard));
 
