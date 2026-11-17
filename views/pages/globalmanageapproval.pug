@@ -24,9 +24,6 @@ block content
 			p#no-files-pending #{__('No files pending approval.')}
 		else
 			hr(size=1)
-			//- if ip
-			//- 	h4.no-m-p #{__('Reports against or by ip %s', ip)}
-			//- 	hr(size=1)
 			for post in posts
 				.thread
 					+post(post, false, false, true, false, false, true)
