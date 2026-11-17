@@ -1,0 +1,34 @@
+extends ../layout.pug
+include ../mixins/managenav.pug
+include ../mixins/boardheader.pug
+include ../mixins/post.pug
+
+block head
+	title /#{board._id}/ - #{__('Approval')}
+
+block content
+	+boardheader(__('Approval'))
+	br
+	.wrapbar
+		+managenav('approval')
+		if page === 1 && !postId && !queryIp && !account
+			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`${board._id}-manage-approval-${viewRawIp === true ? 'raw' : 'hashed'}`)
+				.dot#livecolor
+				|  #{__('Connecting...')} 
+				input.postform-style.ml-5.di#updatepostsbutton(type='button' value=__('Update'))
+	form(action=`/forms/board/${board._id}/modactions` method='POST' enctype='application/x-www-form-urlencoded')
+		input(type='hidden' name='_csrf' value=csrf)
+		.pages.mv-5
+			include ../includes/pages.pug
+		if posts.length === 0
+			hr(size=1)
+			p#no-files-pending #{__('No files pending approval.')}
+		else
+			hr(size=1)
+			for p in posts
+				.thread
+					+post(p, false, true, false, false, false, true)
+				hr(size=1)
+			.pages.mv-5
+				include ../includes/pages.pug
+			include ../includes/actionfooter_manage.pug

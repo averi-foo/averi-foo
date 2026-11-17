@@ -6,10 +6,10 @@ block head
 	title #{__('Approval')}
 
 block content
-	h1.board-title #{__('Approval')}
+	h1.board-title #{__('Global Management')}
 	br
 	.wrapbar
-		+globalmanagenav('approvals')
+		+globalmanagenav('approval')
 		if page === 1 && !ip && !account
 			.jsonly#livetext(data-view-raw-ip=(viewRawIp?'true':'false') data-view-raw-account=(viewRawAccount?'true':'false') data-room=`globalmanage-approval-${viewRawIp === true ? 'raw' : 'hashed'}`)
 				.dot#livecolor

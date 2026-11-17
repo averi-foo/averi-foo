@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 	
 	let posts = null;
 	try {
-		posts = await Posts.getFilesPending(offset, limit);
+		posts = await Posts.getFilesPending(offset, limit, null, res.locals.permissions);
 	} catch (err) {
 		return next(err);
 	}

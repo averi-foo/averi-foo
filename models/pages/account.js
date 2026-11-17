@@ -10,16 +10,19 @@ module.exports = async (req, res, next) => {
 
 	const { forceActionTwofactor } = config.get;
 	let boardReportCountMap = {}; //map of board to open report count
+	let boardApprovalCountMap = {}; //map of board to files pending count
 	let globalReportCount = 0; //number of open global reports
 	let globalApprovalCount = 0; // number of files pending approval
 	let boardPermissions; //map of board perms
 	let userBoards = [];
 
 	let boardReportCounts;
+	let boardApprovalCounts;
 	try {
 		userBoards = res.locals.user.ownedBoards.concat(res.locals.user.staffBoards);
-		([boardReportCounts, boardPermissions, globalReportCount] = await Promise.all([
+		([boardReportCounts, boardApprovalCounts, boardPermissions, globalReportCount] = await Promise.all([
 			userBoards.length > 0 ? Posts.getBoardReportCounts(userBoards) : [],
+			userBoards.length > 0 ? Posts.getBoardFilesPendingCounts(userBoards) : [],
 			res.locals.user.staffBoards.length > 0 ? Boards.getStaffPerms(res.locals.user.staffBoards, res.locals.user.username) : null,
 			res.locals.permissions.get(Permissions.MANAGE_GLOBAL_GENERAL) ? Posts.getGlobalReportsCount() : 0,
 		]));
@@ -28,7 +31,7 @@ module.exports = async (req, res, next) => {
 	}
 
 	try {
-		globalApprovalCount = await Posts.getFilesPendingCount();
+		globalApprovalCount = await Posts.getGlobalFilesPendingCount();
 	} catch (err) {
 		return next(err);
 	}
@@ -39,6 +42,14 @@ module.exports = async (req, res, next) => {
 			acc[val._id] = val.count;
 			return acc;
 		}, boardReportCountMap);
+	}
+
+	if (boardApprovalCounts && boardApprovalCounts.length > 0) {
+		//make the aggregate array from mongodb to a map
+		boardApprovalCountMap = boardApprovalCounts.reduce((acc, val) => {
+			acc[val._id] = val.count;
+			return acc;
+		}, boardApprovalCountMap);
 	}
 
 	if (boardPermissions) {
@@ -66,6 +77,7 @@ module.exports = async (req, res, next) => {
 			permissions: res.locals.permissions,
 			boardPermissions,
 			boardReportCountMap,
+			boardApprovalCountMap,
 			globalReportCount,
 			globalApprovalCount,
 			forceActionTwofactor,

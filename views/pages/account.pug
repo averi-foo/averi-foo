@@ -35,7 +35,7 @@ block content
 							b  (#{globalReportCount})
 					|
 					|
-					a(href=`/globalmanage/approval.html`) #{__('Approvals')}
+					a(href=`/globalmanage/approval.html`) #{__('Approval')}
 						if globalApprovalCount > 0
 							b  (#{globalApprovalCount})
 				if permissions.get(Permissions.MANAGE_GLOBAL_BANS)
@@ -82,6 +82,11 @@ block content
 						if boardReportCountMap[b]
 							b  (#{boardReportCountMap[b]})
 					|   
+					a(href=`/${b}/manage/approval.html`) #{__('Approval')}
+						if boardApprovalCountMap[b] > 0
+							b  (#{boardApprovalCountMap[b]})
+					|
+					|
 					a(href=`/${b}/manage/bans.html`) #{__('Bans')}
 					|   
 					a(href=`/${b}/manage/logs.html`) #{__('Logs')}
@@ -118,6 +123,12 @@ block content
 						a(href=`/${b}/manage/reports.html`) #{__('Reports')}
 							if boardReportCountMap[b]
 								b  (#{boardReportCountMap[b]})
+						|
+						|
+						a(href=`/${b}/manage/approval.html`) #{__('Approval')}
+							if boardApprovalCountMap[b] > 0
+								b  (#{boardApprovalCountMap[b]})
+						|
 					if permissions.get(Permissions.MANAGE_BOARD_BANS) || boardPermissions[b].get(Permissions.MANAGE_BOARD_BANS)
 						|   
 						a(href=`/${b}/manage/bans.html`) #{__('Bans')}
